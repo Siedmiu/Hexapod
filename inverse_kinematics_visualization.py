@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 L1 = 1
 L2 = 4
-L3 = 6
+L3 = 3
 
 print('Podaj po kolei wspolrzedne punktu docelowego P(x, y, z)')
 x = int(input())
@@ -43,7 +43,13 @@ points = np.array([
     [P3_X, P3_Y, P3_Z],
 ])
 
-# Tworzenie wykresów 2D
+x_min, x_max = points[:, 0].min(), points[:, 0].max()
+y_min, y_max = points[:, 1].min(), points[:, 1].max()
+z_min, z_max = points[:, 2].min(), points[:, 2].max()
+
+axis_min = min(x_min, y_min, z_min) - 1
+axis_max = max(x_max, y_max, z_max) + 1
+
 fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
 # XY
@@ -54,8 +60,10 @@ axes[0].scatter(points[:, 0], points[:, 1], color='black', s=50)
 axes[0].set_xlabel('X')
 axes[0].set_ylabel('Y')
 axes[0].set_title('Rzut na płaszczyznę XY')
+axes[0].set_xlim(axis_min, axis_max)
+axes[0].set_ylim(axis_min, axis_max)
 
-# ZX
+# XZ
 axes[1].plot(points[:2, 0], points[:2, 2], color='red', linewidth=2)
 axes[1].plot(points[1:3, 0], points[1:3, 2], color='blue', linewidth=2)
 axes[1].plot(points[2:, 0], points[2:, 2], color='green', linewidth=2)
@@ -63,8 +71,10 @@ axes[1].scatter(points[:, 0], points[:, 2], color='black', s=50)
 axes[1].set_xlabel('X')
 axes[1].set_ylabel('Z')
 axes[1].set_title('Rzut na płaszczyznę XZ')
+axes[1].set_xlim(axis_min, axis_max)
+axes[1].set_ylim(axis_min, axis_max)
 
-# ZY
+# YZ
 axes[2].plot(points[:2, 1], points[:2, 2], color='red', linewidth=2)
 axes[2].plot(points[1:3, 1], points[1:3, 2], color='blue', linewidth=2)
 axes[2].plot(points[2:, 1], points[2:, 2], color='green', linewidth=2)
@@ -72,6 +82,8 @@ axes[2].scatter(points[:, 1], points[:, 2], color='black', s=50)
 axes[2].set_xlabel('Y')
 axes[2].set_ylabel('Z')
 axes[2].set_title('Rzut na płaszczyznę YZ')
+axes[2].set_xlim(axis_min, axis_max)
+axes[2].set_ylim(axis_min, axis_max)
 
 plt.tight_layout()
 plt.show()
