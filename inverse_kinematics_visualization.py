@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# dlugosci elementow nogi
 L1 = 1
 L2 = 4
 L3 = 3
@@ -13,24 +14,27 @@ z = int(input())
 r = np.sqrt(x**2 + y**2)
 d = np.sqrt(z**2 + (r - L1) ** 2)
 
+# wyznaczenie katow potrzebnych do osiagniecia przez stope punktu docelowego
 alfa_1 = np.arctan2(y, x)
 alfa_2 = np.arccos((L2 ** 2 + d ** 2 - L3 ** 2) / (2 * L2 * d)) + np.arctan2(z, (r - L1))
 alfa_3 = np.arccos((L2**2+ L3**2 - d**2)/(2*L2*L3))
 
-print(np.arctan2(z, (r - L1)) * 180 / np.pi)
-
+# Punkt konca pierwszego fragmetnu nogi
 P1_X = L1 * np.cos(alfa_1)
 P1_Y = L1 * np.sin(alfa_1)
 P1_Z = 0
 
+# Punkt konca drugiego fragmentu nogi
 P2_X = P1_X + L2 * np.cos(alfa_1) * np.cos(alfa_2)
 P2_Y = P1_Y + L2 * np.sin(alfa_1) * np.cos(alfa_2)
 P2_Z = L2 * np.sin(alfa_2)
 
+# Polozenie stopy
 P3_X = P2_X + L3 * np.cos(alfa_1) * np.sin(alfa_3 - (np.pi / 2 - alfa_2))
 P3_Y = P2_Y + L3 * np.sin(alfa_1) * np.sin(alfa_3 - (np.pi / 2 - alfa_2))
 P3_Z = P2_Z - L3 * np.cos(alfa_3 - (np.pi / 2 - alfa_2))
 
+# Wartosci katow w stopniach oraz wyznaczone punkty nogi
 print(alfa_1 * 180 / np.pi , alfa_2 * 180 / np.pi, alfa_3 * 180 / np.pi)
 print(P1_X, P1_Y, P1_Z)
 print(P2_X, P2_Y, P2_Z)
@@ -43,6 +47,7 @@ points = np.array([
     [P3_X, P3_Y, P3_Z],
 ])
 
+# skalowanie wykresów
 x_min, x_max = points[:, 0].min(), points[:, 0].max()
 y_min, y_max = points[:, 1].min(), points[:, 1].max()
 z_min, z_max = points[:, 2].min(), points[:, 2].max()
