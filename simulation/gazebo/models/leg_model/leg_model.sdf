@@ -1,0 +1,16 @@
+<sdf version="1.6">
+  <model name="leg_model">
+    <static>false</static>
+    <link name="link">
+      <visual name="visual">
+        <geometry>
+          <mesh>
+          <!-- jeżeli będzie potrzeba użycia siatki w formacie dae, należy ją rozpakować 
+          z zipa i zmienić rozszerzenie z stl na dae -->
+            <uri>meshes/leg_model.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
