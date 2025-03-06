@@ -1,16 +1,124 @@
 <sdf version="1.6">
-  <model name="leg_model">
-    <static>false</static>
-    <link name="link">
-      <visual name="visual">
-        <geometry>
-          <mesh>
-          <!-- jeżeli będzie potrzeba użycia siatki w formacie dae, należy ją rozpakować 
-          z zipa i zmienić rozszerzenie z stl na dae -->
-            <uri>meshes/leg_model.stl</uri>
-          </mesh>
-        </geometry>
-      </visual>
-    </link>
+  <world name="default">
+    <model name="servo">
+      <static>false</static>
+      <link name="link">
+      <collision name="collision">
+          <geometry>
+            <mesh>
+              <uri>meshes/servo.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>meshes/servo.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+            <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+          </material>
+        </visual>
+      </link>
   </model>
+  <model name="leg1">
+      <static>false</static>
+      <link name="link">
+      <collision name="collision">
+          <geometry>
+            <mesh>
+              <uri>meshes/leg1.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>meshes/leg1.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+            <diffuse>1 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+          </material>
+        </visual>
+      </link>
+  </model>
+  <model name="leg2">
+      <static>false</static>
+      <link name="link">
+      <collision name="collision">
+          <geometry>
+            <mesh>
+              <uri>meshes/leg2.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>meshes/leg2.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0 0 1 1</ambient> <!-- Kolor ambientny (czerwony) -->
+            <diffuse>0 0 1 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+          </material>
+        </visual>
+      </link>
+  </model>
+  <model name="leg3">
+      <static>false</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <uri>meshes/leg3.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>meshes/leg3.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+            <diffuse>1 0 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+          </material>
+        </visual>
+      </link>
+  </model>
+  </world>
 </sdf>
