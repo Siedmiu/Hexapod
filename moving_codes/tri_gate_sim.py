@@ -211,5 +211,4 @@ ax.set_ylim(y_mid - max_range, y_mid + max_range)
 ax.set_zlim(z_mid - max_range, z_mid + max_range)
 
 plt.show()
-#todo znalezc punkty w ktore noga ma trafiac aby robot poruszal sie do przodu
 #todo podawac na bierzaco obrot kazdego z serw podczas chodzenia
