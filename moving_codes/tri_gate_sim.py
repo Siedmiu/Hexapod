@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib
 from matplotlib.animation import FuncAnimation
+from numpy.ma.core import zeros_like
 
 matplotlib.use('TkAgg')
 
@@ -14,6 +15,35 @@ def polozenie_przegub_2(l1, l2, alfa1, alfa2, przyczep):
     return polozenie_przegub_1(l1, alfa1, przyczep) + np.array(
         [l2 * np.cos(alfa1) * np.cos(alfa2), l2 * np.sin(alfa1) * np.cos(alfa2), l2 * np.sin(alfa2)])
 
+def funkcja_ruchu_nogi(r, h, y_punktu): #y_punktu jest w ukladzie wspolrzednych srodka robota
+    return (-4 * h * (y_punktu ** 2)) / (r ** 2) + (4 * h * y_punktu) / r
+
+def dlugosc_funkcji_ruchu_nogi(r, h, ilosc_probek): #funkcja liczy długosc funkcji na przedziale miedzy miescami zerowymi
+    suma = 0
+    for i in range(1,ilosc_probek):
+        y_0 = funkcja_ruchu_nogi(r, h, (i-1)/ilosc_probek * r)
+        y_1 = funkcja_ruchu_nogi(r, h, i/ilosc_probek * r)
+        dlugosc = np.sqrt((y_1 - y_0) ** 2 + (r/ilosc_probek) ** 2)
+        suma += dlugosc
+    return suma
+
+def znajdz_punkty_rowno_odlegle(r, h, ilosc_punktow_na_krzywej, ilosc_probek):
+    L = dlugosc_funkcji_ruchu_nogi(r, h, ilosc_probek)
+    dlugosc_kroku = L/ilosc_punktow_na_krzywej
+    suma = 0
+    punkty = []
+    for i in range(1,ilosc_probek):
+        z_0 = funkcja_ruchu_nogi(r, h, (i-1)/ilosc_probek * r)
+        z_1 = funkcja_ruchu_nogi(r, h, i/ilosc_probek * r)
+        dlugosc = np.sqrt((z_1 - z_0) ** 2 + (r/ilosc_probek) ** 2)
+        suma += dlugosc
+        if(suma > dlugosc_kroku):
+            suma = suma - dlugosc_kroku
+            punkty.append([0, i/ilosc_probek * r, z_1])
+        if(len(punkty) == ilosc_punktow_na_krzywej - 1):
+            break
+    punkty.append([0, r, 0])
+    return punkty
 
 # Długosci segmentow nog
 L1 = 3
@@ -91,6 +121,18 @@ polozenie_nog = [
         polozenie_spoczynkowe_stop[i]
     ] for i in range(6)
 ]
+
+# tor pokonywany przez nogi w ukladzie wspolrzednych srodka robota
+h = 4
+r = 5
+ilosc_punktow_na_krzywych = 20
+punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle(r, h, ilosc_punktow_na_krzywych, 10000)
+punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
+punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
+cykl_ogolny = punkty_etap1_ruchu + punkty_etap2_ruchu
+print(cykl_ogolny)
+
+#todo cykl ogolny dostosowac do kazdej z nog
 
 # Wizualizacja w 3D
 fig = plt.figure()
