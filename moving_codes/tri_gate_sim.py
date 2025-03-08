@@ -93,20 +93,18 @@ przyczepy_nog_do_tulowia = np.array([
     (tulow[i] + tulow[(i + 1) % 8]) / 2 for i in [0, 1, 2, 4, 5, 6]
 ])
 
-# Nachylenia bokow platformy w widoku od gory na os XY
-nachylenia_bokow_platformy_pajaka = np.array([
+nachylenia_nog_do_bokow_platformy_pajaka = np.array([
     np.atan2(tulow[i + 1][1] - tulow[i][1], tulow[i + 1][0] - tulow[i][0]) + np.pi / 2
     for i in [0, 1, 2, 4, 5, 6]
 ])
-
 # Polozenie spoczynkowe stop
 polozenie_spoczynkowe_stop = np.array([
     przyczepy_nog_do_tulowia[i] + np.array([
-        stopa_spoczynkowa[0] * np.cos(nachylenia_bokow_platformy_pajaka[i]) -
-        stopa_spoczynkowa[1] * np.sin(nachylenia_bokow_platformy_pajaka[i]),
+        stopa_spoczynkowa[0] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[i]) -
+        stopa_spoczynkowa[1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[i]),
 
-        stopa_spoczynkowa[0] * np.sin(nachylenia_bokow_platformy_pajaka[i]) +
-        stopa_spoczynkowa[1] * np.cos(nachylenia_bokow_platformy_pajaka[i]),
+        stopa_spoczynkowa[0] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[i]) +
+        stopa_spoczynkowa[1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[i]),
 
         stopa_spoczynkowa[2]
     ]) for i in range(6)
@@ -116,8 +114,8 @@ polozenie_spoczynkowe_stop = np.array([
 polozenie_nog = [
     [
         przyczepy_nog_do_tulowia[i],
-        polozenie_przegub_1(L1, alfa_1 + nachylenia_bokow_platformy_pajaka[i], przyczepy_nog_do_tulowia[i]),
-        polozenie_przegub_2(L1, L2, alfa_1 + nachylenia_bokow_platformy_pajaka[i], alfa_2, przyczepy_nog_do_tulowia[i]),
+        polozenie_przegub_1(L1, alfa_1 + nachylenia_nog_do_bokow_platformy_pajaka[i], przyczepy_nog_do_tulowia[i]),
+        polozenie_przegub_2(L1, L2, alfa_1 + nachylenia_nog_do_bokow_platformy_pajaka[i], alfa_2, przyczepy_nog_do_tulowia[i]),
         polozenie_spoczynkowe_stop[i]
     ] for i in range(6)
 ]
@@ -130,10 +128,38 @@ punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle(r, h, ilosc_punktow_na_krzywych
 punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
 punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
 cykl_ogolny = punkty_etap1_ruchu + punkty_etap2_ruchu
-print(cykl_ogolny)
+cykl_ogolny = np.array(cykl_ogolny)
 
-#todo cykl ogolny dostosowac do kazdej z nog
+# tablica cykli, gdzie jest zapisana kazda z nog, kazdy punkt w cylku i jego wspolrzedne, kazda z nog musi miec swoj wlasny
+# cykl poruszania ze wzgledu na katy pod jakimi sa ustawione wzgledem srodka robota
 
+cykle_nog = np.array([
+    [[cykl_ogolny[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+      cykl_ogolny[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+      cykl_ogolny[i][2]]
+     for i in range(len(cykl_ogolny))]
+    for j in range(6)
+])
+# Tworzenie figury 3D
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Rysowanie cyklu nogi 1
+ax.plot(cykle_nog[0,:, 0], cykle_nog[0, :, 1], cykle_nog[0, :, 2], label='Leg 1', color='r', marker='x')
+ax.plot(cykle_nog[1,:, 0], cykle_nog[1, :, 1], cykle_nog[1, :, 2], label='Leg 2', color='g', marker='x')
+ax.plot(cykle_nog[2,:, 0], cykle_nog[2, :, 1], cykle_nog[2, :, 2], label='Leg 3', color='b', marker='x')
+ax.plot(cykle_nog[3,:, 0], cykle_nog[3, :, 1], cykle_nog[3, :, 2], label='Leg 4', color='y', marker='x')
+ax.plot(cykle_nog[4,:, 0], cykle_nog[4, :, 1], cykle_nog[4, :, 2], label='Leg 5', color='orange', marker='x')
+ax.plot(cykle_nog[5,:, 0], cykle_nog[5, :, 1], cykle_nog[5, :, 2], label='Leg 6', color='black', marker='x')
+
+# Etykiety osi
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+ax.set_title('Points that each leg has to step on to move hexapod forward')
+ax.legend()
+
+plt.show()
 # Wizualizacja w 3D
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
