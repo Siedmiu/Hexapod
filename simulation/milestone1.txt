@@ -1,8 +1,0 @@
-Jaki jest cel postępu prac do pierwszego milestone'a.
-1. Podzielić model hexapoda na mniejsze elementy.
-2. Podjąć decyzję odnośnie wyzerowania współżędnych podzielonych elementów.
-3. Wyświetlić model w Gazebo, z odpowiednio ustawionymi elementami.
-4. Dodać podstawową fizykę świata do pliku sdf.
-5. Połączyć jointami odpowiernie elementy(silniki servo) i umożliwić im odpowiedni zakres ruch.
-6. Zapoznanie się z integracją ROS2 z Gazebo.
-7. Zapewnienie ruchu jedną nogą robota.
