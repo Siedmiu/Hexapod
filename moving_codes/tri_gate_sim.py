@@ -6,10 +6,18 @@ from numpy.ma.core import zeros_like
 
 matplotlib.use('TkAgg')
 
+def katy_serw(x_docelowy, y_docelowy, z_docelowy, L1, L2, L3):
+    r = np.sqrt(x_docelowy ** 2 + y_docelowy ** 2)
+    d = np.sqrt(z_docelowy ** 2 + (r - L1) ** 2)
+
+    # wyznaczenie katow potrzebnych do osiagniecia przez stope punktu docelowego
+    alfa_1 = np.arctan2(y_docelowy, x_docelowy)
+    alfa_2 = np.arccos((L2 ** 2 + d ** 2 - L3 ** 2) / (2 * L2 * d)) + np.arctan2(z_docelowy, (r - L1))
+    alfa_3 = np.arccos((L2 ** 2 + L3 ** 2 - d ** 2) / (2 * L2 * L3))
+    return [alfa_1, alfa_2, alfa_3]
 
 def polozenie_przegub_1(l1, alfa1, przyczep):
     return np.array([l1 * np.cos(alfa1) + przyczep[0], l1 * np.sin(alfa1) + przyczep[1], przyczep[2]])
-
 
 def polozenie_przegub_2(l1, l2, alfa1, alfa2, przyczep):
     return polozenie_przegub_1(l1, alfa1, przyczep) + np.array(
@@ -27,7 +35,7 @@ def dlugosc_funkcji_ruchu_nogi(r, h, ilosc_probek): #funkcja liczy długosc funk
         suma += dlugosc
     return suma
 
-def znajdz_punkty_rowno_odlegle(r, h, ilosc_punktow_na_krzywej, ilosc_probek):
+def znajdz_punkty_rowno_odlegle(r, h, ilosc_punktow_na_krzywej, ilosc_probek, bufor_y):
     L = dlugosc_funkcji_ruchu_nogi(r, h, ilosc_probek)
     dlugosc_kroku = L/ilosc_punktow_na_krzywej
     suma = 0
@@ -39,10 +47,10 @@ def znajdz_punkty_rowno_odlegle(r, h, ilosc_punktow_na_krzywej, ilosc_probek):
         suma += dlugosc
         if(suma > dlugosc_kroku):
             suma = suma - dlugosc_kroku
-            punkty.append([0, i/ilosc_probek * r, z_1])
+            punkty.append([0, i/ilosc_probek * r + bufor_y, z_1])
         if(len(punkty) == ilosc_punktow_na_krzywej - 1):
             break
-    punkty.append([0, r, 0])
+    punkty.append([0, r, 0]) #todo trzeba tu coś zmienić z buforem y
     return punkty
 
 # Długosci segmentow nog
@@ -58,7 +66,7 @@ L3 = 6
 
 # zalozone katy spoczynkowe przegubow
 alfa_1 = 0
-alfa_2 = np.radians(30)
+alfa_2 = np.radians(15)
 alfa_3 = np.radians(90)
 
 P1 = np.array([L1 * np.cos(alfa_1), L1 * np.sin(alfa_1), 0])
@@ -124,9 +132,13 @@ polozenie_nog = [
 h = 4
 r = 5
 ilosc_punktow_na_krzywych = 20
-punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle(r, h, ilosc_punktow_na_krzywych, 10000)
+punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle(r, h/2, ilosc_punktow_na_krzywych, 10000, 0)
 punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
 punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
+punkty_etap3_ruchu = [[0, -punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
+punkty_etap3_ruchu = punkty_etap3_ruchu[::-1]
+punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle(2 * r, h, 2 * ilosc_punktow_na_krzywych, 10000, -r)
+punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle(r, h/2, ilosc_punktow_na_krzywych, 10000, -r)
 cykl_ogolny = punkty_etap1_ruchu + punkty_etap2_ruchu
 cykl_ogolny = np.array(cykl_ogolny)
 
@@ -140,6 +152,23 @@ cykle_nog = np.array([
      for i in range(len(cykl_ogolny))]
     for j in range(6)
 ])
+
+polozenia_stop_podczas_cyklu = np.array([ # polozenie_stop jest wzgledem ukladu nogi, gdzie przyczep do tulowia to punkt 0,0,0
+    [[
+        stopa_spoczynkowa[0] + cykle_nog[j][i][0],
+        stopa_spoczynkowa[1] + cykle_nog[j][i][1],
+        stopa_spoczynkowa[2] + cykle_nog[j][i][2]
+    ]
+    for i in range(len(cykl_ogolny))]
+    for j in range(6)
+])
+
+wychyly_serw_podczas_ruchu = np.array([
+[katy_serw(polozenia_stop_podczas_cyklu[j][i][0], polozenia_stop_podczas_cyklu[j][i][1], polozenia_stop_podczas_cyklu[j][i][2], L1, L2, L3)
+    for i in range(len(cykl_ogolny))]
+    for j in range(6)
+])
+print(wychyly_serw_podczas_ruchu)
 # Tworzenie figury 3D
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
