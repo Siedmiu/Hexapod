@@ -35,7 +35,7 @@ def dlugosc_funkcji_ruchu_nogi(r, h, ilosc_probek): #funkcja liczy długosc funk
         suma += dlugosc
     return suma
 
-def znajdz_punkty_rowno_odlegle(r, h, ilosc_punktow_na_krzywej, ilosc_probek, bufor_y):
+def znajdz_punkty_rowno_odlegle_na_paraboli(r, h, ilosc_punktow_na_krzywej, ilosc_probek, bufor_y):
     L = dlugosc_funkcji_ruchu_nogi(r, h, ilosc_probek)
     dlugosc_kroku = L/ilosc_punktow_na_krzywej
     suma = 0
@@ -50,7 +50,7 @@ def znajdz_punkty_rowno_odlegle(r, h, ilosc_punktow_na_krzywej, ilosc_probek, bu
             punkty.append([0, i/ilosc_probek * r + bufor_y, z_1])
         if(len(punkty) == ilosc_punktow_na_krzywej - 1):
             break
-    punkty.append([0, r, 0]) #todo trzeba tu coś zmienić z buforem y
+    punkty.append([0, bufor_y + r, 0]) #todo trzeba tu coś zmienić z buforem y
     return punkty
 
 # Długosci segmentow nog
@@ -132,24 +132,34 @@ polozenie_nog = [
 h = 4
 r = 5
 ilosc_punktow_na_krzywych = 20
-punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle(r, h/2, ilosc_punktow_na_krzywych, 10000, 0)
+punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
 punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
 punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
-punkty_etap3_ruchu = [[0, -punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
-punkty_etap3_ruchu = punkty_etap3_ruchu[::-1]
-punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle(2 * r, h, 2 * ilosc_punktow_na_krzywych, 10000, -r)
-punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle(r, h/2, ilosc_punktow_na_krzywych, 10000, -r)
-cykl_ogolny = punkty_etap1_ruchu + punkty_etap2_ruchu
-cykl_ogolny = np.array(cykl_ogolny)
+punkty_etap3_ruchu_y = np.linspace(-r / ilosc_punktow_na_krzywych, -r, ilosc_punktow_na_krzywych)
+punkty_etap3_ruchu = [[0, punkty_etap3_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
+punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r, h, 2 * ilosc_punktow_na_krzywych, 20000, -r)
+punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, -r)
+cykl_ogolny_nog_1_3_5 = punkty_etap1_ruchu
+cykl_ogolny_nog_2_4_6 = punkty_etap3_ruchu
+ilosc_cykli = 1
+
+for i in range(ilosc_cykli):
+    cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap4_ruchu
+    cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu + punkty_etap3_ruchu
+
+cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap5_ruchu
+cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu
+
+cykl_ogolny_nog_1_3_5 = np.array(cykl_ogolny_nog_1_3_5)
 
 # tablica cykli, gdzie jest zapisana kazda z nog, kazdy punkt w cylku i jego wspolrzedne, kazda z nog musi miec swoj wlasny
 # cykl poruszania ze wzgledu na katy pod jakimi sa ustawione wzgledem srodka robota
 
 cykle_nog = np.array([
-    [[cykl_ogolny[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-      cykl_ogolny[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-      cykl_ogolny[i][2]]
-     for i in range(len(cykl_ogolny))]
+    [[cykl_ogolny_nog_1_3_5[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+      cykl_ogolny_nog_1_3_5[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+      cykl_ogolny_nog_1_3_5[i][2]]
+     for i in range(len(cykl_ogolny_nog_1_3_5))]
     for j in range(6)
 ])
 
@@ -159,13 +169,13 @@ polozenia_stop_podczas_cyklu = np.array([ # polozenie_stop jest wzgledem ukladu 
         stopa_spoczynkowa[1] + cykle_nog[j][i][1],
         stopa_spoczynkowa[2] + cykle_nog[j][i][2]
     ]
-    for i in range(len(cykl_ogolny))]
+    for i in range(len(cykl_ogolny_nog_1_3_5))]
     for j in range(6)
 ])
 
 wychyly_serw_podczas_ruchu = np.array([
 [katy_serw(polozenia_stop_podczas_cyklu[j][i][0], polozenia_stop_podczas_cyklu[j][i][1], polozenia_stop_podczas_cyklu[j][i][2], L1, L2, L3)
-    for i in range(len(cykl_ogolny))]
+    for i in range(len(cykl_ogolny_nog_1_3_5))]
     for j in range(6)
 ])
 print(wychyly_serw_podczas_ruchu)
