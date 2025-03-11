@@ -139,28 +139,39 @@ punkty_etap3_ruchu_y = np.linspace(-r / ilosc_punktow_na_krzywych, -r, ilosc_pun
 punkty_etap3_ruchu = [[0, punkty_etap3_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
 punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r, h, 2 * ilosc_punktow_na_krzywych, 20000, -r)
 punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, -r)
-cykl_ogolny_nog_1_3_5 = punkty_etap1_ruchu
-cykl_ogolny_nog_2_4_6 = punkty_etap3_ruchu
+cykl_ogolny_nog_1_3_5 = punkty_etap1_ruchu.copy()
+cykl_ogolny_nog_2_4_6 = punkty_etap3_ruchu.copy()
+
 ilosc_cykli = 1
 
-for i in range(ilosc_cykli):
+for _ in range(ilosc_cykli):
     cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap4_ruchu
     cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu + punkty_etap3_ruchu
 
 cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap5_ruchu
 cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu
-
 cykl_ogolny_nog_1_3_5 = np.array(cykl_ogolny_nog_1_3_5)
+cykl_ogolny_nog_2_4_6 = np.array(cykl_ogolny_nog_2_4_6)
 
 # tablica cykli, gdzie jest zapisana kazda z nog, kazdy punkt w cylku i jego wspolrzedne, kazda z nog musi miec swoj wlasny
 # cykl poruszania ze wzgledu na katy pod jakimi sa ustawione wzgledem srodka robota
-
+# cykle nog 1 3 5 ida tak 1, pętla(2, 3, 4), 2, 3, 5
+# cykle nog 2 4 6 wygladaja tak 3, pętla(4, 2, 3), 4, 2
+# cykle tak wygladaja aby po zakonczeniu ruchu pajak byl w pozycji spoczynkowej
 cykle_nog = np.array([
-    [[cykl_ogolny_nog_1_3_5[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-      cykl_ogolny_nog_1_3_5[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-      cykl_ogolny_nog_1_3_5[i][2]]
-     for i in range(len(cykl_ogolny_nog_1_3_5))]
-    for j in range(6)
+    [
+        [cykl_ogolny_nog_1_3_5[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+         cykl_ogolny_nog_1_3_5[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+         cykl_ogolny_nog_1_3_5[i][2]]
+        for i in range(len(cykl_ogolny_nog_1_3_5))
+    ] if j in (0, 2, 4) else
+    [
+        [cykl_ogolny_nog_2_4_6[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+         cykl_ogolny_nog_2_4_6[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+         cykl_ogolny_nog_2_4_6[i][2]]
+        for i in range(len(cykl_ogolny_nog_2_4_6))
+    ]
+    for j in range(6)  # Teraz iterujemy po j = 0, 1, 2, 3, 4, 5 w odpowiedniej kolejności
 ])
 
 polozenia_stop_podczas_cyklu = np.array([ # polozenie_stop jest wzgledem ukladu nogi, gdzie przyczep do tulowia to punkt 0,0,0
@@ -184,12 +195,12 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
 # Rysowanie cyklu nogi 1
-ax.plot(cykle_nog[0,:, 0], cykle_nog[0, :, 1], cykle_nog[0, :, 2], label='Leg 1', color='r', marker='x')
-ax.plot(cykle_nog[1,:, 0], cykle_nog[1, :, 1], cykle_nog[1, :, 2], label='Leg 2', color='g', marker='x')
-ax.plot(cykle_nog[2,:, 0], cykle_nog[2, :, 1], cykle_nog[2, :, 2], label='Leg 3', color='b', marker='x')
-ax.plot(cykle_nog[3,:, 0], cykle_nog[3, :, 1], cykle_nog[3, :, 2], label='Leg 4', color='y', marker='x')
-ax.plot(cykle_nog[4,:, 0], cykle_nog[4, :, 1], cykle_nog[4, :, 2], label='Leg 5', color='orange', marker='x')
-ax.plot(cykle_nog[5,:, 0], cykle_nog[5, :, 1], cykle_nog[5, :, 2], label='Leg 6', color='black', marker='x')
+ax.plot(cykl_ogolny_nog_1_3_5[:, 0], cykl_ogolny_nog_1_3_5[:, 1], cykl_ogolny_nog_1_3_5[:, 2], label='Cycle 1 3 5', color='r', marker='x')
+#ax.plot(cykle_nog[1,:, 0], cykle_nog[1, :, 1], cykle_nog[1, :, 2], label='Leg 2', color='g', marker='x')
+#ax.plot(cykle_nog[2,:, 0], cykle_nog[2, :, 1], cykle_nog[2, :, 2], label='Leg 3', color='b', marker='x')
+#ax.plot(cykle_nog[3,:, 0], cykle_nog[3, :, 1], cykle_nog[3, :, 2], label='Leg 4', color='y', marker='x')
+#ax.plot(cykle_nog[4,:, 0], cykle_nog[4, :, 1], cykle_nog[4, :, 2], label='Leg 5', color='orange', marker='x')
+#ax.plot(cykle_nog[5,:, 0], cykle_nog[5, :, 1], cykle_nog[5, :, 2], label='Leg 6', color='black', marker='x')
 
 # Etykiety osi
 ax.set_xlabel('X')
