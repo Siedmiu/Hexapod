@@ -1,124 +1,348 @@
-<sdf version="1.6">
-  <world name="default">
-    <model name="servo">
-      <static>false</static>
-      <link name="link">
-      <collision name="collision">
-          <geometry>
-            <mesh>
-              <uri>meshes/servo.stl</uri>
-            </mesh>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>0.5</mu> <!-- Współczynnik tarcia -->
-              </ode>
-            </friction>
-          </surface>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <mesh>
-              <uri>meshes/servo.stl</uri>
-            </mesh>
-          </geometry>
-          <material>
-            <ambient>0 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
-            <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
-          </material>
-        </visual>
-      </link>
-  </model>
-  <model name="leg1">
-      <static>false</static>
-      <link name="link">
-      <collision name="collision">
-          <geometry>
-            <mesh>
-              <uri>meshes/leg1.stl</uri>
-            </mesh>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>0.5</mu> <!-- Współczynnik tarcia -->
-              </ode>
-            </friction>
-          </surface>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <mesh>
-              <uri>meshes/leg1.stl</uri>
-            </mesh>
-          </geometry>
-          <material>
-            <ambient>1 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
-            <diffuse>1 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
-          </material>
-        </visual>
-      </link>
-  </model>
-  <model name="leg2">
-      <static>false</static>
-      <link name="link">
-      <collision name="collision">
-          <geometry>
-            <mesh>
-              <uri>meshes/leg2.stl</uri>
-            </mesh>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>0.5</mu> <!-- Współczynnik tarcia -->
-              </ode>
-            </friction>
-          </surface>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <mesh>
-              <uri>meshes/leg2.stl</uri>
-            </mesh>
-          </geometry>
-          <material>
-            <ambient>0 0 1 1</ambient> <!-- Kolor ambientny (czerwony) -->
-            <diffuse>0 0 1 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
-          </material>
-        </visual>
-      </link>
-  </model>
-  <model name="leg3">
-      <static>false</static>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <mesh>
-              <uri>meshes/leg3.stl</uri>
-            </mesh>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>0.5</mu> <!-- Współczynnik tarcia -->
-              </ode>
-            </friction>
-          </surface>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <mesh>
-              <uri>meshes/leg3.stl</uri>
-            </mesh>
-          </geometry>
-          <material>
-            <ambient>1 0 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
-            <diffuse>1 0 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
-          </material>
-        </visual>
-      </link>
-  </model>
-  </world>
+<?xml version="1.0" ?>
+<sdf version="1.10">
+    <world name="hexapod_world">
+        
+        <!-- PODSTAWOWA FIZYKA I ŚWIATŁO ZACIĄGNIĘTE Z TUTORIALA GAZEBO -->
+        
+        <physics name="1ms" type="ignored">
+            <max_step_size>0.001</max_step_size>
+            <real_time_factor>1.0</real_time_factor>
+        </physics>
+        <plugin
+            filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics">
+        </plugin>
+        <plugin
+            filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands">
+        </plugin>
+        <plugin
+            filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster">
+        </plugin>
+
+        <light type="directional" name="sun">
+            <cast_shadows>true</cast_shadows>
+            <pose>0 0 10 0 0 0</pose>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>-0.5 0.1 -0.9</direction>
+        </light>
+
+        <model name="ground_plane">
+            <static>true</static>
+            <link name="link">
+                <collision name="collision">
+                <geometry>
+                    <plane>
+                    <normal>0 0 1</normal>
+                    </plane>
+                </geometry>
+                </collision>
+                <visual name="visual">
+                <geometry>
+                    <plane>
+                    <normal>0 0 1</normal>
+                    <size>100 100</size>
+                    </plane>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.8 0.8 1</ambient>
+                    <diffuse>0.8 0.8 0.8 1</diffuse>
+                    <specular>0.8 0.8 0.8 1</specular>
+                </material>
+                </visual>
+            </link>
+        </model>
+
+        <!-- HEXAPOD MODEL-->
+        <model name='hexapod' canonical_link='platform'>
+            <pose relative_to='world'>0 0 0.5 0 0 0</pose>
+            
+
+            <!-- LINKS -->
+
+
+            <!-- PLATFORM -->
+            <link name='platform'>
+                <collision name="collision">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/platform.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+                            </ode>
+                        </friction>
+                    </surface>
+                </collision>
+                <visual name="visual">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/platform.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <material>
+                        <ambient>0 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+                        <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+                    </material>
+                </visual>
+            </link>
+            
+            <!-- PLATFORM GEAR -->
+            <link name='platform_nominal'>
+                <pose relative_to='__model__'>-0.0052968 0.068862 0.0040782 0 0 0</pose>
+                <visual name="visual1">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/platform_gear.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <material>
+                        <ambient>0 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+                        <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+                    </material>
+                </visual>
+                
+                <collision name="collision1">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/platform_gear.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+                            </ode>
+                        </friction>
+                    </surface>
+                </collision>
+            </link>
+
+            <!-- UPPER SECTION OF THE LEG-->
+            <link name='up_section'>
+                <pose relative_to='__model__'>-0.0051402 0.099481 0.00082632 0 0 0</pose>
+                <visual name="visual1">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_up.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <material>
+                        <ambient>0 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+                        <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+                    </material>
+                </visual>
+                <collision name="collision1">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_up.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+                            </ode>
+                        </friction>
+                    </surface>
+                </collision>
+            </link>
+
+            <!-- UPPER SECTION GEAR -->
+            <link name='up_section_gear'>
+                <pose relative_to='__model__'>-0.0052595 0.1291 -0.0031799 0 0 0</pose>
+                <visual name="visual1">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_up_gear.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <material>
+                        <ambient>0 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+                        <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+                    </material>
+                </visual>
+                <collision name="collision">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_up_gear.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+                            </ode>
+                        </friction>
+                    </surface>
+                </collision>
+            </link>
+
+            <!-- MIDDLE SECTION -->
+            <link name='mid_section'>
+                <pose relative_to='__model__'>-0.0042532 0.16789 -0.013423 0 0 0</pose>
+                <visual name="visual1">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_mid.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <material>
+                        <ambient>0 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+                        <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+                    </material>
+                </visual>
+                <collision name="collision">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_mid.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+                            </ode>
+                        </friction>
+                    </surface>
+                </collision>
+            </link>
+
+            <!-- MIDDLE SECTION GEAR -->
+            <link name='mid_section_gear'>
+                <pose relative_to='__model__'>-0.0055445 0.20583 -0.010755 0 0 0</pose>
+                <visual name="visual1">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_mid_gear.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <material>
+                        <ambient>0 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+                        <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+                    </material>
+                </visual>
+                <collision name="collision">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_mid_gear.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+                            </ode>
+                        </friction>
+                    </surface>
+                </collision>
+            </link>
+
+            <!-- DOWN SECTION -->
+            <link name='down_section'>
+                <pose relative_to='__model__'>-0.0051286 0.27612 -0.068459 0 0 0</pose>
+                <visual name="visual1">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_down.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <material>
+                        <ambient>0 1 0 1</ambient> <!-- Kolor ambientny (czerwony) -->
+                        <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
+                    </material>
+                </visual>
+                <collision name="collision">
+                    <geometry>
+                        <mesh>
+                            <uri>meshes_corrected/leg_down.stl</uri>
+                        </mesh>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>0.5</mu> <!-- Współczynnik tarcia -->
+                            </ode>
+                        </friction>
+                    </surface>
+                </collision>
+            </link>
+            
+
+            <!-- JOINTS-->
+
+
+            <!-- PLATFORM - PLATFORM_GEAR JOINT -->
+            <joint name='platform_gear_joint' type='revolute'>
+                <pose relative_to='platform_nominal'>0 0 0 0 0 0</pose>
+                <parent>platform</parent>
+                <child>platform_nominal</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 0 1</xyz> <!--can be defined as any frame or even arbitrary frames-->
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+            
+            <!-- PLATFORM - UPPER_LEG JOINT -->
+            <joint name='up_section_joint' type='revolute'>
+                <pose relative_to='platform'>-0.0052386 0.097578 0.019836 0 0 0</pose>
+                <parent>platform</parent>
+                <child>up_section</child>
+                <axis>
+                    <xyz expressed_in='platform'>0 0 1</xyz> <!--can be defined as any frame or even arbitrary frames-->
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- UPPER SECTION - UPPER SECTION GEAR JOINT -->
+            <joint name='up_section_gear_joint' type='revolute'>
+                <pose relative_to='up_section_gear'>0 0 0 0 0 0</pose>
+                <parent>up_section</parent>
+                <child>up_section_gear</child>
+                <axis>
+                    <xyz expressed_in='up_section_gear'>0 0 1</xyz>
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+
+            <!-- nie jestem pewien względem czego powinien być ten joint relative, bo
+            jak będzie się noga obracać to ten joint też powinien, do przetestowania -->
+            <!-- UPPER SECTION - UPPER SECTION GEAR JOINT -->
+            <joint name='mid_section_joint' type='revolute'>
+                <pose relative_to='mid_section'>0 0.0391 0.001599 0 0 0</pose>
+                <parent>up_section_gear</parent>
+                <child>mid_section</child>
+                <axis>
+                    <xyz expressed_in='mid_section'>1 0 0</xyz>
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+        </model>
+
+    </world>
 </sdf>
