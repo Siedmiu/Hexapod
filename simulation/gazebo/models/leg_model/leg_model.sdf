@@ -63,7 +63,7 @@
 
         <!-- HEXAPOD MODEL-->
         <model name='hexapod' canonical_link='platform'>
-            <pose relative_to='world'>0 0 0.5 0 0 0</pose>
+            <pose relative_to='world'>0 0 0.15 0 0 0</pose>
             
 
             <!-- LINKS -->
@@ -96,6 +96,18 @@
                         <diffuse>0 1 0 1</diffuse> <!-- Kolor rozproszenia (czerwony) -->
                     </material>
                 </visual>
+                <!-- Próbna inercja modelu -->
+                <inertial>
+                    <mass>1.0</mass>  <!-- masa linku w kg -->
+                    <inertia>
+                    <ixx>0.01</ixx>  <!-- moment bezwładności wzdłuż osi X -->
+                    <iyy>0.01</iyy>  <!-- moment bezwładności wzdłuż osi Y -->
+                    <izz>0.01</izz>  <!-- moment bezwładności wzdłuż osi Z -->
+                    <ixy>0.0</ixy>   <!-- produkt inercji (w przypadku symetrii to zero) -->
+                    <ixz>0.0</ixz>
+                    <iyz>0.0</iyz>
+                    </inertia>
+                </inertial>
             </link>
             
             <!-- PLATFORM GEAR -->
@@ -127,6 +139,18 @@
                         </friction>
                     </surface>
                 </collision>
+                <!-- Próbna inercja modelu -->
+                <inertial>
+                    <mass>1.0</mass>  <!-- masa linku w kg -->
+                    <inertia>
+                    <ixx>0.01</ixx>  <!-- moment bezwładności wzdłuż osi X -->
+                    <iyy>0.01</iyy>  <!-- moment bezwładności wzdłuż osi Y -->
+                    <izz>0.01</izz>  <!-- moment bezwładności wzdłuż osi Z -->
+                    <ixy>0.0</ixy>   <!-- produkt inercji (w przypadku symetrii to zero) -->
+                    <ixz>0.0</ixz>
+                    <iyz>0.0</iyz>
+                    </inertia>
+                </inertial>
             </link>
 
             <!-- UPPER SECTION OF THE LEG-->
@@ -157,6 +181,18 @@
                         </friction>
                     </surface>
                 </collision>
+                <!-- Próbna inercja modelu -->
+                <inertial>
+                    <mass>1.0</mass>  <!-- masa linku w kg -->
+                    <inertia>
+                    <ixx>0.01</ixx>  <!-- moment bezwładności wzdłuż osi X -->
+                    <iyy>0.01</iyy>  <!-- moment bezwładności wzdłuż osi Y -->
+                    <izz>0.01</izz>  <!-- moment bezwładności wzdłuż osi Z -->
+                    <ixy>0.0</ixy>   <!-- produkt inercji (w przypadku symetrii to zero) -->
+                    <ixz>0.0</ixz>
+                    <iyz>0.0</iyz>
+                    </inertia>
+                </inertial>
             </link>
 
             <!-- UPPER SECTION GEAR -->
@@ -187,6 +223,18 @@
                         </friction>
                     </surface>
                 </collision>
+                <!-- Próbna inercja modelu -->
+                <inertial>
+                    <mass>1.0</mass>  <!-- masa linku w kg -->
+                    <inertia>
+                    <ixx>0.01</ixx>  <!-- moment bezwładności wzdłuż osi X -->
+                    <iyy>0.01</iyy>  <!-- moment bezwładności wzdłuż osi Y -->
+                    <izz>0.01</izz>  <!-- moment bezwładności wzdłuż osi Z -->
+                    <ixy>0.0</ixy>   <!-- produkt inercji (w przypadku symetrii to zero) -->
+                    <ixz>0.0</ixz>
+                    <iyz>0.0</iyz>
+                    </inertia>
+                </inertial>
             </link>
 
             <!-- MIDDLE SECTION -->
@@ -217,6 +265,18 @@
                         </friction>
                     </surface>
                 </collision>
+                <!-- Próbna inercja modelu -->
+                <inertial>
+                    <mass>1.0</mass>  <!-- masa linku w kg -->
+                    <inertia>
+                    <ixx>0.01</ixx>  <!-- moment bezwładności wzdłuż osi X -->
+                    <iyy>0.01</iyy>  <!-- moment bezwładności wzdłuż osi Y -->
+                    <izz>0.01</izz>  <!-- moment bezwładności wzdłuż osi Z -->
+                    <ixy>0.0</ixy>   <!-- produkt inercji (w przypadku symetrii to zero) -->
+                    <ixz>0.0</ixz>
+                    <iyz>0.0</iyz>
+                    </inertia>
+                </inertial>
             </link>
 
             <!-- MIDDLE SECTION GEAR -->
@@ -247,6 +307,18 @@
                         </friction>
                     </surface>
                 </collision>
+                <!-- Próbna inercja modelu -->
+                <inertial>
+                    <mass>1.0</mass>  <!-- masa linku w kg -->
+                    <inertia>
+                    <ixx>0.01</ixx>  <!-- moment bezwładności wzdłuż osi X -->
+                    <iyy>0.01</iyy>  <!-- moment bezwładności wzdłuż osi Y -->
+                    <izz>0.01</izz>  <!-- moment bezwładności wzdłuż osi Z -->
+                    <ixy>0.0</ixy>   <!-- produkt inercji (w przypadku symetrii to zero) -->
+                    <ixz>0.0</ixz>
+                    <iyz>0.0</iyz>
+                    </inertia>
+                </inertial>
             </link>
 
             <!-- DOWN SECTION -->
@@ -277,6 +349,18 @@
                         </friction>
                     </surface>
                 </collision>
+                <!-- Próbna inercja modelu -->
+                <inertial>
+                    <mass>1.0</mass>  <!-- masa linku w kg -->
+                    <inertia>
+                    <ixx>0.01</ixx>  <!-- moment bezwładności wzdłuż osi X -->
+                    <iyy>0.01</iyy>  <!-- moment bezwładności wzdłuż osi Y -->
+                    <izz>0.01</izz>  <!-- moment bezwładności wzdłuż osi Z -->
+                    <ixy>0.0</ixy>   <!-- produkt inercji (w przypadku symetrii to zero) -->
+                    <ixz>0.0</ixz>
+                    <iyz>0.0</iyz>
+                    </inertia>
+                </inertial>
             </link>
             
 
@@ -325,14 +409,39 @@
                 </axis>
             </joint>
 
-
-            <!-- nie jestem pewien względem czego powinien być ten joint relative, bo
-            jak będzie się noga obracać to ten joint też powinien, do przetestowania -->
-            <!-- UPPER SECTION - UPPER SECTION GEAR JOINT -->
+            <!-- UP SECTION - MID SECTION JOINT -->
             <joint name='mid_section_joint' type='revolute'>
-                <pose relative_to='mid_section'>0 0.0391 0.001599 0 0 0</pose>
-                <parent>up_section_gear</parent>
+                <pose relative_to='up_section'>-0.0012512 0.029309 -0.01639132 0 0 0</pose>
+                <parent>up_section</parent>
                 <child>mid_section</child>
+                <axis>
+                    <xyz expressed_in='mid_section'>1 0 0</xyz>
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- MID SECTION - MID SECTION GEAR -->
+            <joint name='mid_section_gear_joint' type='revolute'>
+                <pose relative_to='mid_section'>-0.0012913 0.03794 0.002668 0 0 0</pose>
+                <parent>mid_section</parent>
+                <child>mid_section_gear</child>
+                <axis>
+                    <xyz expressed_in='mid_section'>0 1 0</xyz>
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- MID SECTION - DOWN SECTION -->
+            <joint name='down_section_joint' type='revolute'>
+                <pose relative_to='mid_section'>-0.001942 0.05048 0.003226 0 0 0</pose>
+                <parent>mid_section</parent>
+                <child>down_section</child>
                 <axis>
                     <xyz expressed_in='mid_section'>1 0 0</xyz>
                     <limit>
