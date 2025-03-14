@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib
 import matplotlib.animation as animation
 
+
 matplotlib.use('TkAgg')
 
 def katy_serw(x_docelowy, y_docelowy, z_docelowy, L1, L2, L3):
@@ -121,12 +122,12 @@ polozenie_spoczynkowe_stop = np.array([
 # tor pokonywany przez nogi w ukladzie wspolrzednych srodka robota
 h = 4
 r = 3
-ilosc_punktow_na_krzywych = 10
+ilosc_punktow_na_krzywych = 20
 punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
-punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, int(ilosc_punktow_na_krzywych*2.5))
-punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(int(ilosc_punktow_na_krzywych*2.5))]
-punkty_etap3_ruchu_y = np.linspace(-r / ilosc_punktow_na_krzywych, -r, int(ilosc_punktow_na_krzywych*2.5))
-punkty_etap3_ruchu = [[0, punkty_etap3_ruchu_y[i], 0] for i in range(int(ilosc_punktow_na_krzywych*2.5))]
+punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
+punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
+punkty_etap3_ruchu_y = np.linspace(-r / ilosc_punktow_na_krzywych, -r, ilosc_punktow_na_krzywych)
+punkty_etap3_ruchu = [[0, punkty_etap3_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
 punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r, h, ilosc_punktow_na_krzywych, 20000, -r)
 punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, -r)
 
@@ -135,118 +136,80 @@ cykl_ogolny_nog = punkty_etap1_ruchu.copy()
 
 cały_cykl = np.concatenate([punkty_etap2_ruchu, punkty_etap3_ruchu, punkty_etap4_ruchu])
 
-fragmenty = np.array_split(cały_cykl, 6)
+fragmenty = np.array_split(cały_cykl, 3)
 print(len(fragmenty[0]))
+print(len(punkty_etap4_ruchu))
 
 tył_1 = fragmenty[0]
 tył_2 = fragmenty[1]
-tył_3 = fragmenty[2]
-tył_4 = fragmenty[3]
-tył_5 = fragmenty[4]
-czesc_z_parabola = fragmenty[5]
+ruch_paraboliczny = fragmenty[2]
 
 
-pierwszy_krok_1_nogi = punkty_etap1_ruchu
-pierwszy_krok_2_nogi = np.linspace(punkty_etap1_ruchu[0], tył_4[int(ilosc_punktow_na_krzywych/2)], ilosc_punktow_na_krzywych)
-pierwszy_krok_3_nogi = np.linspace(punkty_etap1_ruchu[0], tył_4[int(ilosc_punktow_na_krzywych/2)], ilosc_punktow_na_krzywych)
-pierwszy_krok_4_nogi = np.linspace(punkty_etap1_ruchu[0], tył_3[-1], ilosc_punktow_na_krzywych)
-pierwszy_krok_5_nogi = np.linspace(punkty_etap1_ruchu[0], tył_3[int(ilosc_punktow_na_krzywych/2)+1], ilosc_punktow_na_krzywych) #minimalna zmiana, żeby się rozmiar ablicy zgadzał
-pierwszy_krok_6_nogi = np.linspace(punkty_etap1_ruchu[0], tył_3[int(ilosc_punktow_na_krzywych/2)+1], ilosc_punktow_na_krzywych) #minimalna zmiana, żeby się rozmiar ablicy zgadzał
+pierwszy_krok_nóg_1_4 = punkty_etap1_ruchu
+pierwszy_krok_nóg_2_5 = np.linspace(punkty_etap1_ruchu[0], tył_2[int(ilosc_punktow_na_krzywych/2)], ilosc_punktow_na_krzywych)
+pierwszy_krok_nóg_3_6 = np.linspace(punkty_etap1_ruchu[0], tył_2[int(ilosc_punktow_na_krzywych/2)], ilosc_punktow_na_krzywych)
 
-#ustawianie nóg w odpowiednich miejscach na pierwszy ruch
+drugi_krok_nóg_1_4 = tył_1
+drugi_krok_nóg_2_5 = np.linspace(tył_2[int(ilosc_punktow_na_krzywych/2)], punkty_etap1_ruchu[-1], ilosc_punktow_na_krzywych)
+drugi_krok_nóg_3_6 = np.linspace(tył_2[int(ilosc_punktow_na_krzywych/2)], tył_2[-1], ilosc_punktow_na_krzywych)
 
-drugi_krok_1_nogi = tył_1.copy()
+# Punkty startowy i końcowy z oryginalnej tablicy drugi_krok_nóg_2_5
+start_point = drugi_krok_nóg_2_5[0]
+end_point = drugi_krok_nóg_2_5[-1]
 
-drugi_krok_2_nogi = np.linspace(tył_4[int(ilosc_punktow_na_krzywych/2)], tył_1[0], ilosc_punktow_na_krzywych)
+# Wysokość paraboli
+h_parabola = h / 2
 
-# Obliczanie długości kroku
-r_krok = np.linalg.norm(tył_1[0] - tył_4[int(ilosc_punktow_na_krzywych/2)])  # Długość kroku
-y_krok = np.linspace(0, r_krok, ilosc_punktow_na_krzywych)  # Punkty na osi Y
+# Generowanie punktów na paraboli
+punkty_paraboli = znajdz_punkty_rowno_odlegle_na_paraboli(r, h_parabola, ilosc_punktow_na_krzywych, 10000, 0)
 
-# Obliczanie współrzędnych Z na podstawie paraboli
-z_krok = funkcja_ruchu_nogi(r_krok, h/2, y_krok)
+# Przeskalowanie punktów paraboli, aby pasowały do zakresu y między start_point a end_point
+y_start = start_point[1]
+y_end = end_point[1]
+y_range = y_end - y_start
 
-# Tworzenie nowej tablicy z parabolicznym ruchem
-drugi_krok_2_nogi_parabola = np.array([
-    [0, y_krok[i] + tył_4[int(ilosc_punktow_na_krzywych/2)][1], z_krok[i] + tył_4[int(ilosc_punktow_na_krzywych/2)][2]] for i in range(ilosc_punktow_na_krzywych)
-])
+# Przeskalowanie punktów paraboli
+przeskalowane_punkty_paraboli = [
+    [0, y_start + (punkt[1] / r) * y_range, punkt[2]]
+    for punkt in punkty_paraboli
+]
 
-# Upewnij się, że pierwszy i ostatni element są takie same jak w oryginalnej tablicy
-drugi_krok_2_nogi_parabola[0] = drugi_krok_2_nogi[0]
-drugi_krok_2_nogi_parabola[-1] = drugi_krok_2_nogi[-1]
+# Tworzenie nowej tablicy drugi_krok_nóg_2_5
+drugi_krok_nóg_2_5 = przeskalowane_punkty_paraboli
 
-# Zastąp oryginalną tablicę nową tablicą z parabolicznym ruchem
-drugi_krok_2_nogi = drugi_krok_2_nogi_parabola
+cykl_nog_1_4 = np.concatenate([pierwszy_krok_nóg_1_4, drugi_krok_nóg_1_4])
+cykl_nog_2_5 = np.concatenate([pierwszy_krok_nóg_2_5, drugi_krok_nóg_2_5])
+cykl_nog_3_6 = np.concatenate([pierwszy_krok_nóg_3_6, drugi_krok_nóg_3_6])
 
-drugi_krok_3_nogi = np.linspace(tył_4[int(ilosc_punktow_na_krzywych/2)], tył_5[-1], ilosc_punktow_na_krzywych)
-drugi_krok_4_nogi = tył_4.copy()
-drugi_krok_5_nogi = np.linspace(punkty_etap1_ruchu[0], tył_3[-1], ilosc_punktow_na_krzywych)
-drugi_krok_6_nogi = np.linspace(tył_3[int(ilosc_punktow_na_krzywych/2)+1], punkty_etap1_ruchu[0], ilosc_punktow_na_krzywych) #minimalna zmiana, żeby się rozmiar ablicy zgadzał
-
-trzeci_krok_1_nogi = tył_2.copy()
-trzeci_krok_2_nogi = tył_1.copy()
-trzeci_krok_3_nogi = czesc_z_parabola.copy()
-trzeci_krok_4_nogi = tył_5.copy()
-trzeci_krok_5_nogi = tył_4.copy()
-trzeci_krok_6_nogi = np.linspace(punkty_etap1_ruchu[0], tył_3[-1], ilosc_punktow_na_krzywych)
-
-
-
-
-cykl_nogi_1 = np.concatenate([pierwszy_krok_1_nogi, drugi_krok_1_nogi, trzeci_krok_1_nogi])
-cykl_nogi_2 = np.concatenate([pierwszy_krok_2_nogi, drugi_krok_2_nogi, trzeci_krok_2_nogi])
-cykl_nogi_3 = np.concatenate([pierwszy_krok_3_nogi, drugi_krok_3_nogi, trzeci_krok_3_nogi])
-cykl_nogi_4 = np.concatenate([pierwszy_krok_4_nogi, drugi_krok_4_nogi, trzeci_krok_4_nogi])
-cykl_nogi_5 = np.concatenate([pierwszy_krok_5_nogi, drugi_krok_5_nogi, trzeci_krok_5_nogi])
-cykl_nogi_6 = np.concatenate([pierwszy_krok_6_nogi, drugi_krok_6_nogi, trzeci_krok_6_nogi])
 
 
 ilosc_cykli = 10 # jak dlugo pajak idzie
 
 for _ in range(ilosc_cykli):
-    cykl_nogi_1 = np.concatenate([cykl_nogi_1, tył_3, tył_4, tył_5, czesc_z_parabola, tył_1, tył_2])
-    cykl_nogi_2 = np.concatenate([cykl_nogi_2, tył_2, tył_3, tył_4, tył_5, czesc_z_parabola, tył_1])
-    cykl_nogi_3 = np.concatenate([cykl_nogi_3, tył_1, tył_2, tył_3, tył_4, tył_5, czesc_z_parabola])
-    cykl_nogi_4 = np.concatenate([cykl_nogi_4, czesc_z_parabola, tył_1, tył_2, tył_3, tył_4, tył_5])
-    cykl_nogi_5 = np.concatenate([cykl_nogi_5, tył_5, czesc_z_parabola, tył_1, tył_2, tył_3, tył_4])
-    cykl_nogi_6 = np.concatenate([cykl_nogi_6, tył_4, tył_5, czesc_z_parabola, tył_1, tył_2, tył_3])
+    cykl_nog_1_4 = np.concatenate([cykl_nog_1_4, tył_2, ruch_paraboliczny, tył_1]) 
+    cykl_nog_2_5 = np.concatenate([cykl_nog_2_5, tył_1, tył_2, ruch_paraboliczny]) 
+    cykl_nog_3_6 = np.concatenate([cykl_nog_3_6, ruch_paraboliczny, tył_1, tył_2])
+
 
 # Update the cycle array to use the new unified cycle
 cykle_nog = np.array([
     [
-        [cykl_nogi_1[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_1[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_1[i][2]]
-        for i in range(len(cykl_nogi_1))
-    ] if j == 0 else
+        [ cykl_nog_1_4[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+          cykl_nog_1_4[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+          cykl_nog_1_4[i][2]]
+        for i in range(len(cykl_nog_1_4))
+    ] if j in (0,3) else
     [
-        [cykl_nogi_2[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_2[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_2[i][2]]
-        for i in range(len(cykl_nogi_2))
-    ] if j == 1 else
+        [cykl_nog_2_5[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+         cykl_nog_2_5[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+         cykl_nog_2_5[i][2]]
+        for i in range(len(cykl_nog_2_5))
+    ] if j in (1,4) else
     [
-        [cykl_nogi_3[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_3[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_3[i][2]]
-        for i in range(len(cykl_nogi_3))
-    ] if j == 2 else
-    [
-        [cykl_nogi_4[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_4[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_4[i][2]]
-        for i in range(len(cykl_nogi_4))
-    ] if j == 5 else
-    [
-        [cykl_nogi_5[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_5[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-         cykl_nogi_5[i][2]]
-        for i in range(len(cykl_nogi_5))
-    ] if j == 4 else [
-        [cykl_nogi_6[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-        cykl_nogi_6[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
-        cykl_nogi_6[i][2]]
-        for i in range(len(cykl_nogi_6))
+        [cykl_nog_3_6[i][1] * np.sin(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+         cykl_nog_3_6[i][1] * np.cos(nachylenia_nog_do_bokow_platformy_pajaka[j]),
+         cykl_nog_3_6[i][2]]
+        for i in range(len(cykl_nog_3_6))
     ]
     for j in range(6)
 ])
@@ -257,18 +220,18 @@ polozenia_stop_podczas_cyklu = np.array([ # polozenie_stop jest wzgledem ukladu 
         stopa_spoczynkowa[1] + cykle_nog[j][i][1],
         stopa_spoczynkowa[2] + cykle_nog[j][i][2]
     ]
-    for i in range(len(cykl_nogi_1))]
+    for i in range(len(cykl_nog_1_4))]
     for j in range(6)
 ])
 
 #wychyly podawane odpowiednio dla 1 2 i 3 przegubu w radianach
 wychyly_serw_podczas_ruchu = np.array([
-    [katy_serw(polozenia_stop_podczas_cyklu[j][i][0], polozenia_stop_podczas_cyklu[j][i][1], polozenia_stop_podczas_cyklu[j][i][2], L1, L2, L3)
-     for i in range(len(cykl_nogi_1))]
+[katy_serw(polozenia_stop_podczas_cyklu[j][i][0], polozenia_stop_podczas_cyklu[j][i][1], polozenia_stop_podczas_cyklu[j][i][2], L1, L2, L3)
+    for i in range(len(cykl_nog_1_4))]
     for j in range(6)
 ])
-
 #obliczanie polozenia przegubow i stop z wyliczonymi wychyleniami serw
+
 def calculate_positions():
     #rownania zastosowane z kinematyki odwrotnej, nachylenia nog do bokow platformy pajaka sa dodana TYLKO DO SYMULACJI!!!
     #w rzeczywistości nie trzeba tego uwzgledniać gdyż noga bedzie fizycznie obrocona
@@ -279,7 +242,7 @@ def calculate_positions():
         przyczepy_nog_do_tulowia[j][1] + L1 * np.sin(wychyly_serw_podczas_ruchu[j][i][0] + nachylenia_nog_do_bokow_platformy_pajaka[j]),
         przyczepy_nog_do_tulowia[j][2]
     ]
-        for i in range(len(cykl_nogi_1))]
+        for i in range(len(cykl_nog_1_4))]
         for j in range(6)
     ])
 
@@ -290,7 +253,7 @@ def calculate_positions():
         L2 * np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.cos(wychyly_serw_podczas_ruchu[j][i][1]),
         L2 * np.sin(wychyly_serw_podczas_ruchu[j][i][1])
     ]
-        for i in range(len(cykl_nogi_1))]
+        for i in range(len(cykl_nog_1_4))]
         for j in range(6)
     ])
 
@@ -300,7 +263,7 @@ def calculate_positions():
         L3 * np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.sin(wychyly_serw_podczas_ruchu[j][i][2] - (np.pi / 2 - wychyly_serw_podczas_ruchu[j][i][1])),
         -L3 * np.cos(wychyly_serw_podczas_ruchu[j][i][2] - (np.pi / 2 - wychyly_serw_podczas_ruchu[j][i][1]))
     ]
-        for i in range(len(cykl_nogi_1))]
+        for i in range(len(cykl_nog_1_4))]
         for j in range(6)
     ])
     return polozenie_punktow_pierwszych_przegubow_nog, polozenie_punktow_drugich_przegubow_nog, obliczone_z_serw_polozenie_stop
@@ -322,18 +285,18 @@ def update(frame, lines, positions):
         lines[j][2].set_3d_properties([second_joints[j][frame][2], feet[j][frame][2]])
     return lines
 
+
 positions = calculate_positions()
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.set_xlim([-15, 15])
 ax.set_ylim([-15, 15])
 ax.set_zlim([-15, 15])
+
 #ax.view_init(elev=90, azim=270)
 
-lines = [[ax.plot([], [], [], 'ro-')[0], ax.plot([], [], [], 'go-')[0], ax.plot([], [], [], 'bo-')[0]] for _ in range(6)]
-ani = animation.FuncAnimation(fig, update, frames=len(cykl_nogi_1), fargs=(lines, positions), interval=20, blit=False)
+lines = [[ax.plot([], [], [], 'ro-')[0], ax.plot([], [], [], 'go-')[0], ax.plot([], [], [], 'bo-')[0]] for _ in
+         range(6)]
+ani = animation.FuncAnimation(fig, update, frames=1000, fargs=(lines, positions), interval=50, blit=False)
 plt.show()
 
-#todo: poprawić początek ruchu, bo się nieprawidłowo rozpoczyna
-
-ani.save('hexapod.gif', writer='imagemagick', fps=30)
