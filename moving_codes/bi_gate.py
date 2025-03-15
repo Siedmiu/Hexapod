@@ -4,9 +4,11 @@ import matplotlib.animation as animation
 
 """
 Bi-gate explanation:
-The Hexapod moves pairs of legs simultaneously.
-Leg pairs: (0,5), (1,4), (2,3)
-They move in sequence.
+The Hexapod moves in pairs:
+    - Pair 1: (front right & back left)
+    - Pair 2: (middle right & middle left)
+    - Pair 3: (back right & front left)
+Each pair moves one after another.
 """
 
 # Parameters
@@ -26,9 +28,9 @@ foot_positions = np.array([
     (leg_length * np.cos(angle), leg_length * np.sin(angle)) for angle in angles
 ])
 
-# Define leg pairs for bi-gate
-leg_pairs = [(0, 5), (1, 4), (2, 3)]
-current_pair = 0  # Index of the moving pair
+# Define leg pairs for bi-gate cycle
+leg_pairs = [(0, 5), (1, 4), (2, 3), (2, 3), (1, 4), (0, 5)]
+current_pair_index = 0  # Index of the moving pair
 step = 0  # Step counter for the current movement
 
 # Compute center of mass
@@ -52,17 +54,17 @@ body = ax.add_patch(plt.Circle((0, 0), 0.5, color='green', fill=True, zorder=10)
 
 def update(frame):
     """Update function for animation."""
-    global foot_positions, current_pair, step
+    global foot_positions, current_pair_index, step
     
     # Move the current leg pair progressively
     if step < num_steps:
         t = step / num_steps  # Normalized progress of the step
-        for leg in leg_pairs[current_pair]:
+        for leg in leg_pairs[current_pair_index]:
             foot_positions[leg, 1] += (r / num_steps)  # Increment leg position gradually
         step += 1
     else:
         # Switch to the next leg pair after completing the movement
-        current_pair = (current_pair + 1) % len(leg_pairs)
+        current_pair_index = (current_pair_index + 1) % len(leg_pairs)
         step = 0
     
     # Compute center of mass of legs
