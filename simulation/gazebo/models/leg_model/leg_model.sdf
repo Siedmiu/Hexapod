@@ -389,8 +389,8 @@
                 <axis>
                     <xyz expressed_in='platform'>0 0 1</xyz> <!--can be defined as any frame or even arbitrary frames-->
                     <limit>
-                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                        <lower>-0.5236</lower>    <!-- -30 degrees -->
+                        <upper>0.5236</upper>     <!-- 30 degrees -->
                     </limit>
                 </axis>
             </joint>
@@ -417,8 +417,8 @@
                 <axis>
                     <xyz expressed_in='mid_section'>1 0 0</xyz>
                     <limit>
-                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                        <lower>-1.309</lower>       <!-- -75 degrees -->
+                        <upper>0.2618</upper>       <!-- 15 degrees -->
                     </limit>
                 </axis>
             </joint>
@@ -431,8 +431,8 @@
                 <axis>
                     <xyz expressed_in='mid_section'>0 1 0</xyz>
                     <limit>
-                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                        <lower>-1.79769e+308</lower>
+                        <upper>1.79769e+308</upper>
                     </limit>
                 </axis>
             </joint>
@@ -445,8 +445,8 @@
                 <axis>
                     <xyz expressed_in='mid_section'>1 0 0</xyz>
                     <limit>
-                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                        <lower>0</lower>    <!-- 0 degrees -->
+                        <upper>1.5708</upper>     <!-- 90 degrees -->
                     </limit>
                 </axis>
             </joint>
