@@ -11,7 +11,7 @@
   <xacro:property name="margin" value="0.02"/> 
 
   <!-- MACRO: Defines a cylindrical link -->
-  <xacro:macro name="cylinder_link" params="name length radius">
+  <xacro:macro name="cylinder_link" params="name length radius mass_value">
     <link name="${name}">
       <visual>
         <geometry>
@@ -24,8 +24,11 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.1"/>  <!-- Mass of each part -->
-        <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+        <mass value="${mass_value}"/>
+        <inertia ixx="${(1/12) * mass_value * (3*radius*radius + length*length)}"
+                iyy="${(1/12) * mass_value * (3*radius*radius + length*length)}"
+                izz="${0.5 * mass_value * radius * radius}"
+                ixy="0.0" ixz="0.0" iyz="0.0"/>
       </inertial>
     </link>
   </xacro:macro>
@@ -48,6 +51,18 @@
         <cylinder radius="${base_radius}" length="${base_height}"/>
       </geometry>
     </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="${base_radius}" length="${base_height}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.0"/> <!-- Masa korpusu -->
+      <inertia ixx="${(1/12) * 2.0 * (3*base_radius*base_radius + base_height*base_height)}"
+              iyy="${(1/12) * 2.0 * (3*base_radius*base_radius + base_height*base_height)}"
+              izz="${0.5 * 2.0 * base_radius * base_radius}"
+              ixy="0.0" ixz="0.0" iyz="0.0"/>
+    </inertial>
   </link>
 
   <!-- Define six legs -->
