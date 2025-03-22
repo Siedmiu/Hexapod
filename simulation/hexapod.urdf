@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<!-- HEXAPOD MODEL-->
+<robot name="hexapod">
+  <!-- LINKS -->
+  <!-- PLATFORM -->
+  <link name="platform">
+    <collision>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/platform.stl"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/platform.stl"/>
+      </geometry>
+    </visual>
+    <!-- Próbna inercja modelu -->
+    <inertial>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <!-- masa linku w kg -->
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+  <!-- PLATFORM GEAR -->
+  <link name="platform_nominal">
+    <visual name="visual1">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/platform_gear.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/platform_gear.stl"/>
+      </geometry>
+    </collision>
+    <!-- Próbna inercja modelu -->
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <!-- masa linku w kg -->
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+  <!-- UPPER SECTION OF THE LEG-->
+  <link name="up_section">
+    <visual>
+      <origin xyz="0.0000984 0.001903 -0.01900968" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_up.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0000984 0.001903 -0.01900968" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_up.stl"/>
+      </geometry>
+    </collision>
+    <!-- Próbna inercja modelu -->
+    <inertial>
+      <origin xyz="0.0000984 0.001903 -0.01900968" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <!-- masa linku w kg -->
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+  <!-- UPPER SECTION GEAR -->
+  <link name="up_section_gear">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_up_gear.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_up_gear.stl"/>
+      </geometry>
+    </collision>
+    <!-- Próbna inercja modelu -->
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <!-- masa linku w kg -->
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+  <!-- MIDDLE SECTION -->
+  <link name="mid_section">
+    <visual>
+      <origin xyz="0.0021382 0.0391 0.002142" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_mid.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0021382 0.0391 0.002142" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_mid.stl"/>
+      </geometry>
+    </collision>
+    <!-- Próbna inercja modelu -->
+    <inertial>
+      <origin xyz="0.0021382 0.0391 0.002142" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <!-- masa linku w kg -->
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+  <!-- MIDDLE SECTION GEAR -->
+  <link name="mid_section_gear">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_mid_gear.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_mid_gear.stl"/>
+      </geometry>
+    </collision>
+    <!-- Próbna inercja modelu -->
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <!-- masa linku w kg -->
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+  <!-- DOWN SECTION -->
+  <link name="down_section">
+    <visual>
+      <origin xyz="0.0010666 0.05775 -0.058262" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_down.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0010666 0.05775 -0.058262" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes_corrected/leg_down.stl"/>
+      </geometry>
+    </collision>
+    <!-- Próbna inercja modelu -->
+    <inertial>
+      <origin xyz="0.0010666 0.05775 -0.058262" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <!-- masa linku w kg -->
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.0"/>
+    </inertial>
+  </link>
+
+  <!-- JOINTS-->
+  <!-- PLATFORM - PLATFORM_GEAR JOINT -->
+  <joint name="platform_gear_joint" type="revolute">
+    <origin xyz="-0.0052968 0.068862 0.1540782" rpy="0 0 0"/>
+    <parent link="platform"/>
+    <child link="platform_nominal"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="100" velocity="1.0"/>
+  </joint>
+  <!-- PLATFORM - UPPER_LEG JOINT -->
+  <joint name="up_section_joint" type="revolute">
+    <origin xyz="-0.0052386 0.097578 0.169836" rpy="0 0 0"/>
+    <parent link="platform"/>
+    <child link="up_section"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="100" velocity="1.0"/>
+  </joint>
+  <!-- UPPER SECTION - UPPER SECTION GEAR JOINT -->
+  <joint name="up_section_gear_joint" type="revolute">
+    <origin xyz="0.000285 -0.07673 0.0075751" rpy="0 0 0"/>
+    <parent link="up_section"/>
+    <child link="up_section_gear"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="100" velocity="1.0"/>
+  </joint>
+  <!-- UP SECTION - MID SECTION JOINT -->
+  <joint name="mid_section_joint" type="revolute">
+    <origin xyz="-0.0011528 0.031212 -0.035401" rpy="0 0 0"/>
+    <parent link="up_section"/>
+    <child link="mid_section"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-3.14" upper="3.14" effort="100" velocity="1.0"/>
+  </joint>
+  <!-- MID SECTION - MID SECTION GEAR -->
+  <joint name="mid_section_gear_joint" type="revolute">
+    <origin xyz="0.0006507 -0.01254 -0.000558" rpy="0 0 0"/>
+    <parent link="mid_section"/>
+    <child link="mid_section_gear"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14" upper="3.14" effort="100" velocity="1.0"/>
+  </joint>
+  <!-- MID SECTION - DOWN SECTION -->
+  <joint name="down_section_joint" type="revolute">
+    <origin xyz="0.0001962 0.08958 0.005368" rpy="0 0 0"/>
+    <parent link="mid_section"/>
+    <child link="down_section"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-3.14" upper="3.14" effort="100" velocity="1.0"/>
+  </joint>
+</robot>
