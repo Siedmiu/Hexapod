@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hexapod">
+
+  <!-- Define global properties -->
+  <xacro:property name="base_radius" value="0.15"/>  <!-- Radius of hexapod base -->
+  <xacro:property name="base_height" value="0.02"/>  <!-- Height of hexapod base -->
+  <xacro:property name="leg_length_upper" value="0.03"/>  <!-- Upper leg segment length -->
+  <xacro:property name="leg_length_middle" value="0.089"/>  <!-- Middle leg segment length -->
+  <xacro:property name="leg_length_lower" value="0.164"/>  <!-- Lower leg segment length -->
+  <xacro:property name="leg_radius" value="0.02"/>  <!-- Radius of cylindrical leg segments -->
+  <xacro:property name="margin" value="0.02"/> 
+
+  <!-- MACRO: Defines a cylindrical link -->
+  <xacro:macro name="cylinder_link" params="name length radius">
+    <link name="${name}">
+      <visual>
+        <geometry>
+          <cylinder radius="${radius}" length="${length}"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder radius="${radius}" length="${length}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.1"/>  <!-- Mass of each part -->
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <!-- MACRO: Creates a revolute joint -->
+  <xacro:macro name="revolute_joint" params="name parent child xyz rpy axis">
+    <joint name="${name}" type="revolute">
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+      <axis xyz="${axis}"/>
+      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- BASE: The central body of the hexapod -->
+  <link name="base">
+    <visual>
+      <geometry>
+        <cylinder radius="${base_radius}" length="${base_height}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Define six legs -->
+  <xacro:macro name="leg" params="leg_name angle">
+    <!-- Upper leg -->
+    <xacro:cylinder_link name="${leg_name}_upper" length="${leg_length_upper}" radius="${leg_radius}"/>
+    <xacro:revolute_joint name="${leg_name}_joint1" parent="base" child="${leg_name}_upper"
+                          xyz="${base_radius * cos(angle)} ${base_radius * sin(angle)} -${base_height/2}"
+                          rpy="0 0 ${angle}" axis="0 0 1"/>
+    
+    <!-- Middle leg -->
+    <xacro:cylinder_link name="${leg_name}_middle" length="${leg_length_middle}" radius="${leg_radius}"/>
+    <xacro:revolute_joint name="${leg_name}_joint2" parent="${leg_name}_upper" child="${leg_name}_middle"
+                          xyz="0 0 -${leg_length_upper}" rpy="-0.0042532 0.16789 -0.013423" axis="1 0 0"/>
+    
+    <!-- Lower leg -->
+    <xacro:cylinder_link name="${leg_name}_lower" length="${leg_length_lower}" radius="${leg_radius}"/>
+    <xacro:revolute_joint name="${leg_name}_joint3" parent="${leg_name}_middle" child="${leg_name}_lower"
+                          xyz="0 0 -${leg_length_middle}" rpy="-0.0051286 0.27612 -0.068459" axis="0 1 0"/>
+  </xacro:macro>
+
+  <!-- 6 legs -->
+  <xacro:leg leg_name="leg1" angle="0"/>
+  <xacro:leg leg_name="leg2" angle="1.0472"/>
+  <xacro:leg leg_name="leg3" angle="2.0944"/>
+  <xacro:leg leg_name="leg4" angle="3.1416"/>
+  <xacro:leg leg_name="leg5" angle="4.1888"/>
+  <xacro:leg leg_name="leg6" angle="5.2360"/>
+
+</robot>
