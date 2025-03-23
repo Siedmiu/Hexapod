@@ -9,7 +9,7 @@ ros2 launch urdf_tutorial display.launch.py model:=pełna ścieżka do pliku hex
 
 po pierwszym zbudowaniu (colcon build), należy wpisać również: 
 cd ~/ros2_ws
-source ~/.bashrc
+source ~/.bashrc (<- ta komenda nie koniecznie będzie działać, lepiej dać source install/setup.bash)
 
 Należy dodać pozostałe linki i jointy. W każdym xacro następnych linków, o poprawnym położeniu danego linka decyduje pozycja jego jointa (tag origin). Nie należy zmieniać wartości w tagu origin dla linków samych w sobie. Możliwe że będzie konieczne dokładne położenie dla plików stl origin dokładnie w środku jointa.
 Należy również zintegrować z wtyczką MoveIt.
