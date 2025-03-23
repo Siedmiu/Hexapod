@@ -32,6 +32,13 @@
           izz="${izz}"/>
       </inertial>
     </link>
+
+    <!-- <joint name="base_to_world" type="fixed">
+      <parent link="world"/>
+      <child link="base_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint> -->
+
     <gazebo reference="base_link">
       <visual>
         <material>
