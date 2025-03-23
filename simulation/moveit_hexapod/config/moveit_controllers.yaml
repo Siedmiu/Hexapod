@@ -1,0 +1,71 @@
+# MoveIt uses this configuration for controller management
+
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+
+moveit_simple_controller_manager:
+  controller_names:
+    - leg1_controller
+    - leg2_controller
+    - leg3_controller
+    - leg4_controller
+    - leg5_controller
+    - leg6_controller
+    - whole_body_controller
+
+  leg1_controller:
+    type: FollowJointTrajectory
+    joints:
+      - leg1_joint1
+      - leg1_joint2
+      - leg1_joint3
+  leg2_controller:
+    type: FollowJointTrajectory
+    joints:
+      - leg2_joint1
+      - leg2_joint2
+      - leg2_joint3
+  leg3_controller:
+    type: FollowJointTrajectory
+    joints:
+      - leg3_joint1
+      - leg3_joint2
+      - leg3_joint3
+  leg4_controller:
+    type: FollowJointTrajectory
+    joints:
+      - leg4_joint1
+      - leg4_joint2
+      - leg4_joint3
+  leg5_controller:
+    type: FollowJointTrajectory
+    joints:
+      - leg5_joint1
+      - leg5_joint2
+      - leg5_joint3
+  leg6_controller:
+    type: FollowJointTrajectory
+    joints:
+      - leg6_joint1
+      - leg6_joint2
+      - leg6_joint3
+  whole_body_controller:
+    type: FollowJointTrajectory
+    joints:
+      - leg1_joint1
+      - leg1_joint2
+      - leg1_joint3
+      - leg2_joint1
+      - leg2_joint2
+      - leg2_joint3
+      - leg3_joint1
+      - leg3_joint2
+      - leg3_joint3
+      - leg4_joint1
+      - leg4_joint2
+      - leg4_joint3
+      - leg5_joint1
+      - leg5_joint2
+      - leg5_joint3
+      - leg6_joint1
+      - leg6_joint2
+      - leg6_joint3

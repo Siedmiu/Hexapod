@@ -1,0 +1,21 @@
+# Default initial positions for hexapod's ros2_control fake system
+
+initial_positions:
+  leg1_joint1: 0
+  leg1_joint2: 0
+  leg1_joint3: 0
+  leg2_joint1: 0
+  leg2_joint2: 0
+  leg2_joint3: 0
+  leg3_joint1: 0
+  leg3_joint2: 0
+  leg3_joint3: 0
+  leg4_joint1: 0
+  leg4_joint2: 0
+  leg4_joint3: 0
+  leg5_joint1: 0
+  leg5_joint2: 0
+  leg5_joint3: 0
+  leg6_joint1: 0
+  leg6_joint2: 0
+  leg6_joint3: 0
