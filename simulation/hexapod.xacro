@@ -8,39 +8,48 @@
   <xacro:property name="leg_length_middle" value="0.089"/>  <!-- Middle leg segment length -->
   <xacro:property name="leg_length_lower" value="0.164"/>  <!-- Lower leg segment length -->
   <xacro:property name="leg_radius" value="0.02"/>  <!-- Radius of cylindrical leg segments -->
-  <xacro:property name="margin" value="0.02"/> 
+  <xacro:property name="PI_const" value="3.1415926"/> 
+
+  <!-- Limits for legs angles-->
+  <xacro:property name="lim1_lower" value="-${PI_const / 6}"/> 
+  <xacro:property name="lim1_upper" value="${PI_const / 6}"/> 
+  <xacro:property name="lim2_lower" value="-${PI_const / 12}"/> 
+  <xacro:property name="lim2_upper" value="${PI_const / 4}"/> 
+  <xacro:property name="lim3_lower" value="-${PI_const / 6}"/> 
+  <xacro:property name="lim3_upper" value="${PI_const / 6}"/> 
 
   <!-- MACRO: Defines a cylindrical link -->
-  <xacro:macro name="cylinder_link" params="name length radius mass_value">
-    <link name="${name}">
-      <visual>
-        <geometry>
-          <cylinder radius="${radius}" length="${length}"/>
-        </geometry>
-      </visual>
-      <collision>
-        <geometry>
-          <cylinder radius="${radius}" length="${length}"/>
-        </geometry>
-      </collision>
-      <inertial>
-        <mass value="${mass_value}"/>
-        <inertia ixx="${(1/12) * mass_value * (3*radius*radius + length*length)}"
-                iyy="${(1/12) * mass_value * (3*radius*radius + length*length)}"
-                izz="${0.5 * mass_value * radius * radius}"
-                ixy="0.0" ixz="0.0" iyz="0.0"/>
-      </inertial>
-    </link>
-  </xacro:macro>
+<xacro:macro name="cylinder_link" params="name length radius">
+  <link name="${name}">
+    <visual>
+      <origin xyz="0 0 -${length / 2}"/>  <!-- Moves the cylinder down so upper end is at the origin -->
+      <geometry>
+        <cylinder radius="${radius}" length="${length}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -${length / 2}"/>  <!-- Ensures collision shape also shifts -->
+      <geometry>
+        <cylinder radius="${radius}" length="${length}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 -${length / 2}"/>  <!-- Adjusts inertia reference -->
+      <mass value="0.1"/>  
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+</xacro:macro>
 
-  <!-- MACRO: Creates a revolute joint -->
-  <xacro:macro name="revolute_joint" params="name parent child xyz rpy axis">
+
+  <!-- MACRO: Creates a revolute joint with customizable limits -->
+  <xacro:macro name="revolute_joint" params="name parent child xyz rpy axis lower_limit upper_limit">
     <joint name="${name}" type="revolute">
       <origin xyz="${xyz}" rpy="${rpy}"/>
       <parent link="${parent}"/>
       <child link="${child}"/>
       <axis xyz="${axis}"/>
-      <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+      <limit lower="${lower_limit}" upper="${upper_limit}" effort="10" velocity="1.0"/>
     </joint>
   </xacro:macro>
 
@@ -51,45 +60,35 @@
         <cylinder radius="${base_radius}" length="${base_height}"/>
       </geometry>
     </visual>
-    <collision>
-      <geometry>
-        <cylinder radius="${base_radius}" length="${base_height}"/>
-      </geometry>
-    </collision>
-    <inertial>
-      <mass value="2.0"/> <!-- Masa korpusu -->
-      <inertia ixx="${(1/12) * 2.0 * (3*base_radius*base_radius + base_height*base_height)}"
-              iyy="${(1/12) * 2.0 * (3*base_radius*base_radius + base_height*base_height)}"
-              izz="${0.5 * 2.0 * base_radius * base_radius}"
-              ixy="0.0" ixz="0.0" iyz="0.0"/>
-    </inertial>
   </link>
 
-  <!-- Define six legs -->
+  <!-- Leg parts -->
   <xacro:macro name="leg" params="leg_name angle">
     <!-- Upper leg -->
     <xacro:cylinder_link name="${leg_name}_upper" length="${leg_length_upper}" radius="${leg_radius}"/>
     <xacro:revolute_joint name="${leg_name}_joint1" parent="base" child="${leg_name}_upper"
                           xyz="${base_radius * cos(angle)} ${base_radius * sin(angle)} -${base_height/2}"
-                          rpy="0 0 ${angle}" axis="0 0 1"/>
-    
+                          rpy="0 -1.57 ${angle}" axis="1 0 0"
+                          lower_limit="${lim1_lower}" upper_limit="${lim1_upper}"/>
+
     <!-- Middle leg -->
     <xacro:cylinder_link name="${leg_name}_middle" length="${leg_length_middle}" radius="${leg_radius}"/>
     <xacro:revolute_joint name="${leg_name}_joint2" parent="${leg_name}_upper" child="${leg_name}_middle"
-                          xyz="0 0 -${leg_length_upper}" rpy="-0.0042532 0.16789 -0.013423" axis="1 0 0"/>
-    
+                          xyz="0 0 -${leg_length_upper}" rpy="-0.0042532 0.16789 -0.013423" axis="0 1 0"
+                          lower_limit="${lim2_lower}" upper_limit="${lim2_upper}"/>
+
     <!-- Lower leg -->
     <xacro:cylinder_link name="${leg_name}_lower" length="${leg_length_lower}" radius="${leg_radius}"/>
     <xacro:revolute_joint name="${leg_name}_joint3" parent="${leg_name}_middle" child="${leg_name}_lower"
-                          xyz="0 0 -${leg_length_middle}" rpy="-0.0051286 0.27612 -0.068459" axis="0 1 0"/>
+                          xyz="0 0 -${leg_length_middle}" rpy="-0.0051286 0.27612 -0.068459" axis="0 1 0"
+                          lower_limit="${lim3_lower}" upper_limit="${lim3_upper}"/>
   </xacro:macro>
 
-  <!-- 6 legs -->
+  <!-- 6 legs with customizable limits -->
   <xacro:leg leg_name="leg1" angle="0"/>
   <xacro:leg leg_name="leg2" angle="1.0472"/>
   <xacro:leg leg_name="leg3" angle="2.0944"/>
   <xacro:leg leg_name="leg4" angle="3.1416"/>
   <xacro:leg leg_name="leg5" angle="4.1888"/>
   <xacro:leg leg_name="leg6" angle="5.2360"/>
-
 </robot>
