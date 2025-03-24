@@ -1,0 +1,4 @@
+# Default initial positions for hexapod's ros2_control fake system
+
+initial_positions:
+  up_section_joint: 0
