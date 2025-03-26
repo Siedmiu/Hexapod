@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot>
+
+<gazebo reference="body_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Red</material>
+</gazebo>
+
+<gazebo reference="wheel1_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Yellow</material>
+</gazebo>
+
+<gazebo reference="wheel2_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Yellow</material>
+</gazebo>
+
+<gazebo reference="caster_link">
+    <mu1>0.000002</mu1>
+    <mu2>0.000002</mu2>
+    <material>Gazebo/Blue</material>
+</gazebo>
+
+<gazebo>
+<plugin filename="gz_sim_diff_drive_system" name="gz::sim::systems::DiffDrive">
+    <!-- wheels-->
+    <right_joint>wheel1_joint</right_joint>
+    <left_joint>wheel2_joint</left_joint>
+
+    <!-- kinematics-->
+    <wheel_separation>${2*s4}</wheel_separation>
+    <wheel_diameter>${2*r}</wheel_diameter>
+
+    <!-- limits-->
+    <max_linear_acceleration>10</max_linear_acceleration>
+
+    <!-- topic, frames and ondometry-->
+    <topic>cmd_vel</topic>
+    <tf_topic>/tf</tf_topic>
+    <odom_topic>odom</odom_topic>
+    <frame_id>odom</frame_id>
+    <child_frame_id>base_footprint</child_frame_id>
+    <odom_publisher_frequency>30</odom_publisher_frequency>
+</plugin>
+<plugin filename="gz_sim_joint_state_publisher_system" name="gz::sim::systems::JointStatePublisher">
+<topic>joint_states</topic> <!-- from <ros><remapping> -->
+<joint_name>wheel1_joint</joint_name>
+<joint_name>wheel2_joint</joint_name>
+</plugin>
+</gazebo>
+</robot>
