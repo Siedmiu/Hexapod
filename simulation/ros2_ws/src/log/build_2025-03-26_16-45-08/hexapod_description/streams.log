@@ -1,0 +1,59 @@
+[0.062s] Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_description -DCMAKE_INSTALL_PREFIX=/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description
+[0.110s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.556s] -- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[0.846s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.846s] -- Configured 'flake8' exclude dirs and/or files: 
+[0.851s] -- Added test 'lint_cmake' to check CMake code style
+[0.855s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.861s] -- Added test 'xmllint' to check XML markup files
+[0.869s] -- Configuring done (0.8s)
+[0.873s] -- Generating done (0.0s)
+[0.876s] -- Build files have been written to: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description
+[0.880s] Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_description -DCMAKE_INSTALL_PREFIX=/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description
+[0.882s] Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description -- -j4 -l4
+[0.978s] Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description -- -j4 -l4
+[0.980s] Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description
+[1.006s] -- Install configuration: ""
+[1.006s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/meshes
+[1.006s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/meshes/platform_gear.stl
+[1.008s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/meshes/leg_mid_gear.stl
+[1.009s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/meshes/leg_down.stl
+[1.029s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/meshes/leg_up.stl
+[1.037s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/meshes/leg_mid.stl
+[1.040s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/meshes/platform.stl
+[1.054s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/meshes/leg_up_gear.stl
+[1.056s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf
+[1.056s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/up_section
+[1.057s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/up_section/up_section.xacro
+[1.057s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/hexapod
+[1.057s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/hexapod/hexapod.xacro
+[1.057s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/control
+[1.058s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/control/hexapod.gazebo
+[1.058s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/hexapod.urdf
+[1.058s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/middle_section
+[1.058s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/middle_section/middle_section.xacro
+[1.058s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/down_section
+[1.059s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/down_section/down_section.xacro
+[1.059s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/platform
+[1.059s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/urdf/platform/platform.xacro
+[1.059s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/launch
+[1.060s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/launch/robot_state_publisher.launch.py
+[1.060s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/launch/check_urdf.launch.py
+[1.060s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/rviz
+[1.060s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/rviz/hexapod_description.rviz
+[1.061s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/ament_index/resource_index/package_run_dependencies/hexapod_description
+[1.061s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/ament_index/resource_index/parent_prefix_path/hexapod_description
+[1.061s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/environment/ament_prefix_path.sh
+[1.061s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/environment/ament_prefix_path.dsv
+[1.062s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/environment/path.sh
+[1.062s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/environment/path.dsv
+[1.062s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/local_setup.bash
+[1.062s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/local_setup.sh
+[1.063s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/local_setup.zsh
+[1.063s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/local_setup.dsv
+[1.063s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/package.dsv
+[1.063s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/ament_index/resource_index/packages/hexapod_description
+[1.064s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/cmake/hexapod_descriptionConfig.cmake
+[1.064s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/cmake/hexapod_descriptionConfig-version.cmake
+[1.064s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/package.xml
+[1.067s] Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description

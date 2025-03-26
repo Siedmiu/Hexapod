@@ -8,9 +8,12 @@
 
     <xacro:include filename="$(find hexapod_description)/urdf/platform/platform.xacro"/>
     <xacro:include filename="$(find hexapod_description)/urdf/up_section/up_section.xacro"/>
+    <xacro:include filename="$(find hexapod_description)/urdf/middle_section/middle_section.xacro"/>
+    <xacro:include filename="$(find hexapod_description)/urdf/down_section/down_section.xacro"/>
 
     <xacro:platform_macro/>
-
     <xacro:up_section_macro/>
+    <xacro:mid_section_macro/>
+    <xacro:down_section_macro/>
     
 </robot>

@@ -1,0 +1,90 @@
+<robot name="hexapod">
+  <!-- <xacro:property name="M_PI" value="3.1415926535897931" /> -->
+  <!-- tak można przekazać parametr -->
+  <!--  <xacro:macro name="mecanum_wheel" params="prefix side x_reflect y_reflect"> -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="file:///home/bartosz-babi-ski/ros2_ws/install/hexapod_description/share/hexapod_description/meshes/platform.stl"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="file:///home/bartosz-babi-ski/ros2_ws/install/hexapod_description/share/hexapod_description/meshes/platform.stl"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="4.6"/>
+      <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
+    </inertial>
+  </link>
+  <!-- Root joint: Floating joint between base_link and world -->
+  <joint name="base_to_world" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <gazebo reference="base_link">
+    <visual>
+      <material>
+        <ambient>0 0.7 0 1</ambient>
+        <diffuse>0 0.7 0 1</diffuse>
+        <specular>0 0.7 0 1</specular>
+      </material>
+    </visual>
+  </gazebo>
+  <link name="up_section">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/bartosz-babi-ski/ros2_ws/install/hexapod_description/share/hexapod_description/meshes/leg_up.stl"/>
+      </geometry>
+      <material name="dark_gray">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/bartosz-babi-ski/ros2_ws/install/hexapod_description/share/hexapod_description/meshes/leg_up.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+  </link>
+  <joint name="up_section_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="base_link"/>
+    <child link="up_section"/>
+    <origin rpy="0 0 0" xyz="-0.0052386 0.097578 0.0015"/>
+    <!-- ograniczenie kątów -30 do 30 stopni -->
+    <limit effort="5.0" lower="-0.5236" upper="0.5236" velocity="1.0"/>
+  </joint>
+  <gazebo reference="up_section">
+    <surface>
+      <friction>
+        <ode>
+          <mu>1.0</mu>
+          <mu2>0.0</mu2>
+        </ode>
+      </friction>
+    </surface>
+    <visual>
+      <material>
+        <ambient>0.2 0.2 0.2 1.0</ambient>
+        <diffuse>0.2 0.2 0.2 1.0</diffuse>
+        <specular>0.2 0.2 0.2 1.0</specular>
+        <emissive>0.0 0.0 0.0 0.0</emissive>
+      </material>
+    </visual>
+  </gazebo>
+</robot>

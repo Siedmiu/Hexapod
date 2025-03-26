@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot name="hexapod" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="base_mass" value="4.6" />
+  <xacro:property name="ixx" value="1.0"/>
+  <xacro:property name="iyy" value="1.0"/>
+  <xacro:property name="izz" value="1.0"/>
+
+  <!-- Definicja makra 'platform' -->
+  <xacro:macro name="platform_macro">
+    <link name="base_link">
+      <visual>
+        <geometry>
+          <mesh filename="file://$(find hexapod_description)/meshes/platform.stl"/>
+        </geometry>
+        <material name="green">
+          <color rgba="0.0 1.0 0.0 1.0"/>
+        </material>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="file://$(find hexapod_description)/meshes/platform.stl"/>
+        </geometry>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      </collision>
+      <inertial>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <mass value="${base_mass}"/>
+        <inertia
+          ixx="${ixx}" ixy="0.0" ixz="0.0"
+          iyy="${iyy}" iyz="0.0"
+          izz="${izz}"/>
+      </inertial>
+    </link>
+
+    <!-- <joint name="base_to_world" type="fixed">
+      <parent link="world"/>
+      <child link="base_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint> -->
+
+    <gazebo reference="base_link">
+      <visual>
+        <material>
+          <ambient>0.0 0.7 0.0 1.0</ambient>
+          <diffuse>0.0 0.7 0.0 1.0</diffuse>
+          <specular>0.0 0.7 0.0 1.0</specular>
+        </material>
+      </visual>
+    </gazebo>
+  </xacro:macro>
+
+</robot>

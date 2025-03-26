@@ -1,0 +1,19 @@
+[100%] Built target hexapod_joint_control
+-- Install configuration: ""
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib/hexapod_control/hexapod_joint_control
+-- Set non-toolchain portion of runtime path of "/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib/hexapod_control/hexapod_joint_control" to ""
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/ament_index/resource_index/package_run_dependencies/hexapod_control
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/ament_index/resource_index/parent_prefix_path/hexapod_control
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/ament_prefix_path.sh
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/ament_prefix_path.dsv
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/path.sh
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/path.dsv
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.bash
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.sh
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.zsh
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.dsv
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.dsv
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/ament_index/resource_index/packages/hexapod_control
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/cmake/hexapod_controlConfig.cmake
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/cmake/hexapod_controlConfig-version.cmake
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.xml

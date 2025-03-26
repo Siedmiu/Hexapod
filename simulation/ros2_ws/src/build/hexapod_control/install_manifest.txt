@@ -1,0 +1,16 @@
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib/hexapod_control/hexapod_joint_control
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/ament_index/resource_index/package_run_dependencies/hexapod_control
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/ament_index/resource_index/parent_prefix_path/hexapod_control
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/ament_prefix_path.sh
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/ament_prefix_path.dsv
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/path.sh
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/path.dsv
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.bash
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.sh
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.zsh
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.dsv
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.dsv
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/ament_index/resource_index/packages/hexapod_control
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/cmake/hexapod_controlConfig.cmake
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/cmake/hexapod_controlConfig-version.cmake
+/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.xml

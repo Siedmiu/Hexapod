@@ -1,0 +1,4 @@
+[0.068s] Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control -- -j4 -l4
+[0.285s] [ 50%] [32mBuilding CXX object CMakeFiles/hexapod_joint_control.dir/src/hello_moveit.cpp.o[0m
+[18.049s] [100%] [32m[1mLinking CXX executable hexapod_joint_control[0m
+[19.450s] [100%] Built target hexapod_joint_control

@@ -1,0 +1,3 @@
+[ 50%] [32mBuilding CXX object CMakeFiles/hexapod_joint_control.dir/src/hello_moveit.cpp.o[0m
+[100%] [32m[1mLinking CXX executable hexapod_joint_control[0m
+[100%] Built target hexapod_joint_control
