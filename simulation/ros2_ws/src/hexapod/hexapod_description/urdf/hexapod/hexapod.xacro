@@ -15,5 +15,5 @@
     <xacro:up_section_macro/>
     <xacro:mid_section_macro/>
     <xacro:down_section_macro/>
-    
+
 </robot>

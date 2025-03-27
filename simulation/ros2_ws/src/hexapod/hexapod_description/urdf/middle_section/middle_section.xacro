@@ -11,7 +11,7 @@
   <xacro:macro name="mid_section_macro">
     <link name="mid_section">
       <visual>
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.0 0.03637 0.00361" rpy="0.0 0.0 0.0"/>
         <geometry>
           <mesh filename="file://$(find hexapod_description)/meshes/leg_mid.stl"/>
         </geometry>
@@ -37,27 +37,17 @@
       </inertial>
     </link>
 
-<!-- joint do górnej -->
 
     <joint name="mid_section_joint_1" type="revolute">
       <axis xyz="1.0 0.0 0.0"/>
       <parent link="up_section"/>
       <child link="mid_section"/>
-      <origin xyz="0.007288 0.031914 0.00522" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.0       0.03062  -0.01454" rpy="0.0 0.0 0.0"/>
       <!-- ograniczenie kątów -30 do 30 stopni -->
       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
     </joint>
 
-<!-- joint do dolnej -->
 
-    <joint name="mid_section_joint_2" type="revolute">
-      <axis xyz="1.0 0.0 0.0"/>
-      <parent link="up_section"/>
-      <child link="mid_section"/>
-      <origin xyz="0.007288 0.031914 0.00522" rpy="0.0 0.0 0.0"/>
-      <!-- ograniczenie kątów -30 do 30 stopni -->
-      <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
-    </joint>
 
 
     <gazebo reference="mid_section">

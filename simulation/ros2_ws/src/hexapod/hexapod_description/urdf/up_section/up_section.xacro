@@ -37,14 +37,16 @@
       </inertial>
     </link>
 
-    <joint name="up_section_joint" type="revolute">
+    <joint name="up_section_joint_1" type="revolute">
       <axis xyz="0.0 0.0 1.0"/>
       <parent link="base_link"/>
       <child link="up_section"/>
-      <origin xyz="-0.0052386 0.097578 0.0015" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.0  0.069   0.000952" rpy="0.0 0.0 0.0"/>
       <!-- ograniczenie kątów -30 do 30 stopni -->
       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
     </joint>
+
+
 
     <gazebo reference="up_section">
       <surface>
