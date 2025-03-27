@@ -1,10 +1,25 @@
 moveit_setup_assistant_config:
   urdf:
     package: hexapod_description
-    relative_path: urdf/hexapod/hexapod.xacro
+    relative_path: urdf/hexapod/hexapod.urdf
   srdf:
     relative_path: config/hexapod.srdf
   package_settings:
     author_name: Bebo457
     author_email: bartekbab845@gmail.com
-    generated_timestamp: 1742806328
+    generated_timestamp: 1743041159
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

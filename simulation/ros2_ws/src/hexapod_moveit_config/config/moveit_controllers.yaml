@@ -4,11 +4,9 @@ moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControll
 
 moveit_simple_controller_manager:
   controller_names:
-    - hexapod_leg_controller
+    - hexapod_arm_controller
 
-  hexapod_leg_controller:
+  hexapod_arm_controller:
     type: FollowJointTrajectory
     joints:
       - up_section_joint
-    action_ns: follow_joint_trajectory
-    default: true

@@ -3,7 +3,7 @@
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
 
     <!-- Import hexapod urdf file -->
-    <xacro:include filename="$(find hexapod_description)/urdf/hexapod/hexapod.xacro" />
+    <xacro:include filename="$(find hexapod_description)/urdf/hexapod/hexapod.urdf" />
 
     <!-- Import control_xacro -->
     <xacro:include filename="hexapod.ros2_control.xacro" />

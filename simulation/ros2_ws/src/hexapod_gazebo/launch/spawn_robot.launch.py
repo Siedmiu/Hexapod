@@ -87,10 +87,10 @@ def generate_launch_description():
         ]
     )
 
-    # joint_state_publisher_gui_node = Node(
-    #     package='joint_state_publisher_gui',
-    #     executable='joint_state_publisher_gui',
-    # )
+    joint_state_publisher_gui_node = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+    )
 
         # Node to bridge messages like /cmd_vel and /odom
     gz_bridge_node = Node(
@@ -118,6 +118,6 @@ def generate_launch_description():
     launchDescriptionObject.add_action(rviz_node)
     launchDescriptionObject.add_action(spawn_urdf_node)
     launchDescriptionObject.add_action(robot_state_publisher_node)
-    # launchDescriptionObject.add_action(joint_state_publisher_gui_node)
+    launchDescriptionObject.add_action(joint_state_publisher_gui_node)
 
     return launchDescriptionObject
