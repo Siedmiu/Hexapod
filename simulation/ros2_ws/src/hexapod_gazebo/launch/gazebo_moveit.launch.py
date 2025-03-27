@@ -107,6 +107,27 @@ def generate_launch_description():
         ]
     )
 
+    controller_manager_node = Node(
+        package="controller_manager",
+            executable="ros2_control_node",
+            parameters=["/path/to/ros2_controllers.yaml"],
+            output="screen",
+    )
+
+    controller_manager_node2 = Node(
+        package="controller_manager",
+            executable="spawner",
+            arguments=["hexapod_arm_controller"],
+            output="screen",
+    )
+
+    controller_manager_node3 = Node(
+        package="controller_manager",
+            executable="spawner",
+            arguments=["joint_state_broadcaster"],
+            output="screen",
+    )
+
     # MoveIt! - Załaduj konfigurację MoveIt!
     moveit_config = MoveItConfigsBuilder("hexapod", package_name="hexapod_moveit_config").to_moveit_configs()
     moveit_launch = generate_demo_launch(moveit_config)
@@ -123,7 +144,9 @@ def generate_launch_description():
     launchDescriptionObject.add_action(spawn_urdf_node)
     launchDescriptionObject.add_action(robot_state_publisher_node)
     launchDescriptionObject.add_action(joint_state_publisher_gui_node)
-    
+    launchDescriptionObject.add_action(controller_manager_node)
+    launchDescriptionObject.add_action(controller_manager_node2)
+    launchDescriptionObject.add_action(controller_manager_node3)
     # Dodaj uruchomienie MoveIt!
     launchDescriptionObject.add_action(moveit_launch)
 

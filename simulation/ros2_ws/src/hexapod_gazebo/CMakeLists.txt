@@ -11,12 +11,17 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 find_package(ros_gz_sim REQUIRED)
+find_package(trajectory_msgs REQUIRED)
+find_package(moveit_ros_planning_interface REQUIRED)
 
 install (
-  DIRECTORY launch worlds
+  DIRECTORY launch worlds src
   DESTINATION share/${PROJECT_NAME}
 )
 
+add_executable(gazebo_control src/gazebo_control.cpp)
+ament_target_dependencies(gazebo_control rclcpp trajectory_msgs moveit_ros_planning_interface)
+install(TARGETS gazebo_control DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
