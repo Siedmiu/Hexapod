@@ -1,0 +1,8 @@
+source;share/hexapod_description/hook/cmake_prefix_path.ps1
+source;share/hexapod_description/hook/cmake_prefix_path.dsv
+source;share/hexapod_description/hook/cmake_prefix_path.sh
+source;share/hexapod_description/local_setup.bash
+source;share/hexapod_description/local_setup.dsv
+source;share/hexapod_description/local_setup.ps1
+source;share/hexapod_description/local_setup.sh
+source;share/hexapod_description/local_setup.zsh

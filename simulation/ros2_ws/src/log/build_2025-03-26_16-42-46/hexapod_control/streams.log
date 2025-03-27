@@ -1,0 +1,23 @@
+[0.049s] Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control -- -j4 -l4
+[0.249s] [100%] Built target hexapod_joint_control
+[0.287s] Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control -- -j4 -l4
+[0.290s] Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control
+[0.312s] -- Install configuration: ""
+[0.312s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib/hexapod_control/hexapod_joint_control
+[0.313s] -- Set non-toolchain portion of runtime path of "/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib/hexapod_control/hexapod_joint_control" to ""
+[0.314s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/ament_index/resource_index/package_run_dependencies/hexapod_control
+[0.315s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/ament_index/resource_index/parent_prefix_path/hexapod_control
+[0.315s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/ament_prefix_path.sh
+[0.315s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/ament_prefix_path.dsv
+[0.316s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/path.sh
+[0.316s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/environment/path.dsv
+[0.317s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.bash
+[0.317s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.sh
+[0.318s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.zsh
+[0.318s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/local_setup.dsv
+[0.318s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.dsv
+[0.319s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/ament_index/resource_index/packages/hexapod_control
+[0.319s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/cmake/hexapod_controlConfig.cmake
+[0.320s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/cmake/hexapod_controlConfig-version.cmake
+[0.320s] -- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.xml
+[0.324s] Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control

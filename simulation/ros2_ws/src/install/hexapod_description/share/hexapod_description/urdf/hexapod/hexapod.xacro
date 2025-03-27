@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hexapod">
+
+    <!-- <xacro:property name="M_PI" value="3.1415926535897931" /> -->
+
+    <xacro:arg name="robot_name" default="hexapod"/>
+    <xacro:arg name="use_gazebo" default="false"/>
+
+    <xacro:include filename="$(find hexapod_description)/urdf/platform/platform.xacro"/>
+    <xacro:include filename="$(find hexapod_description)/urdf/up_section/up_section.xacro"/>
+
+    <xacro:platform_macro/>
+
+    <xacro:up_section_macro/>
+    
+</robot>

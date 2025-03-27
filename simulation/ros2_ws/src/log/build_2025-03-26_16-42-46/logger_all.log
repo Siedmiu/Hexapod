@@ -1,0 +1,283 @@
+[0.214s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.214s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x718834ed2810>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x718834ed2540>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x718834ed2540>>, mixin_verb=('build',))
+[0.290s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.290s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.290s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.290s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.290s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.290s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.290s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.335s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extensions ['ignore', 'ignore_ament_install']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extension 'ignore'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extension 'ignore_ament_install'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extensions ['colcon_pkg']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extension 'colcon_pkg'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extensions ['colcon_meta']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extension 'colcon_meta'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extensions ['ros']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extension 'ros'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extensions ['cmake', 'python']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extension 'cmake'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extension 'python'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extensions ['python_setup_py']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod) by extension 'python_setup_py'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod) by extensions ['ignore', 'ignore_ament_install']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod) by extension 'ignore'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod) by extension 'ignore_ament_install'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod) by extensions ['colcon_pkg']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod) by extension 'colcon_pkg'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod) by extensions ['colcon_meta']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod) by extension 'colcon_meta'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod) by extensions ['ros']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod) by extension 'ros'
+[0.341s] DEBUG:colcon.colcon_core.package_identification:Package 'hexapod/hexapod' with type 'ros.ament_cmake' and name 'hexapod'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_description) by extensions ['ignore', 'ignore_ament_install']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_description) by extension 'ignore'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_description) by extension 'ignore_ament_install'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_description) by extensions ['colcon_pkg']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_description) by extension 'colcon_pkg'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_description) by extensions ['colcon_meta']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_description) by extension 'colcon_meta'
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_description) by extensions ['ros']
+[0.342s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_description) by extension 'ros'
+[0.343s] DEBUG:colcon.colcon_core.package_identification:Package 'hexapod/hexapod_description' with type 'ros.ament_cmake' and name 'hexapod_description'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_gazebo) by extensions ['ignore', 'ignore_ament_install']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_gazebo) by extension 'ignore'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_gazebo) by extension 'ignore_ament_install'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_gazebo) by extensions ['colcon_pkg']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_gazebo) by extension 'colcon_pkg'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_gazebo) by extensions ['colcon_meta']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_gazebo) by extension 'colcon_meta'
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_gazebo) by extensions ['ros']
+[0.344s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod/hexapod_gazebo) by extension 'ros'
+[0.346s] DEBUG:colcon.colcon_core.package_identification:Package 'hexapod/hexapod_gazebo' with type 'ros.ament_cmake' and name 'hexapod_gazebo'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_control) by extensions ['ignore', 'ignore_ament_install']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_control) by extension 'ignore'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_control) by extension 'ignore_ament_install'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_control) by extensions ['colcon_pkg']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_control) by extension 'colcon_pkg'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_control) by extensions ['colcon_meta']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_control) by extension 'colcon_meta'
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_control) by extensions ['ros']
+[0.346s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_control) by extension 'ros'
+[0.347s] DEBUG:colcon.colcon_core.package_identification:Package 'hexapod_control' with type 'ros.ament_cmake' and name 'hexapod_control'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_moveit_config) by extensions ['ignore', 'ignore_ament_install']
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_moveit_config) by extension 'ignore'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_moveit_config) by extension 'ignore_ament_install'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_moveit_config) by extensions ['colcon_pkg']
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_moveit_config) by extension 'colcon_pkg'
+[0.347s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_moveit_config) by extensions ['colcon_meta']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_moveit_config) by extension 'colcon_meta'
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_moveit_config) by extensions ['ros']
+[0.348s] Level 1:colcon.colcon_core.package_identification:_identify(hexapod_moveit_config) by extension 'ros'
+[0.349s] DEBUG:colcon.colcon_core.package_identification:Package 'hexapod_moveit_config' with type 'ros.ament_cmake' and name 'hexapod_moveit_config'
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.349s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.349s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.378s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.378s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.386s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install
+[0.389s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 72 installed packages in /home/julia-hrycyna/ws_moveit/install
+[0.392s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 388 installed packages in /opt/ros/jazzy
+[0.393s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_control' build argument 'cmake_args' from command line to 'None'
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_control' build argument 'cmake_target' from command line to 'None'
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_control' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_control' build argument 'cmake_clean_cache' from command line to 'False'
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_control' build argument 'cmake_clean_first' from command line to 'False'
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_control' build argument 'cmake_force_configure' from command line to 'False'
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_control' build argument 'ament_cmake_args' from command line to 'None'
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_control' build argument 'catkin_cmake_args' from command line to 'None'
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_control' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.485s] DEBUG:colcon.colcon_core.verb:Building package 'hexapod_control' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control', 'merge_install': False, 'path': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod_control', 'symlink_install': False, 'test_result_base': None}
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_description' build argument 'cmake_args' from command line to 'None'
+[0.485s] Level 5:colcon.colcon_core.verb:set package 'hexapod_description' build argument 'cmake_target' from command line to 'None'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.486s] DEBUG:colcon.colcon_core.verb:Building package 'hexapod_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description', 'merge_install': False, 'path': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_description', 'symlink_install': False, 'test_result_base': None}
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_gazebo' build argument 'cmake_args' from command line to 'None'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_gazebo' build argument 'cmake_target' from command line to 'None'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_gazebo' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_gazebo' build argument 'cmake_clean_cache' from command line to 'False'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_gazebo' build argument 'cmake_clean_first' from command line to 'False'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_gazebo' build argument 'cmake_force_configure' from command line to 'False'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_gazebo' build argument 'ament_cmake_args' from command line to 'None'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_gazebo' build argument 'catkin_cmake_args' from command line to 'None'
+[0.486s] Level 5:colcon.colcon_core.verb:set package 'hexapod_gazebo' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.486s] DEBUG:colcon.colcon_core.verb:Building package 'hexapod_gazebo' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo', 'merge_install': False, 'path': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_gazebo', 'symlink_install': False, 'test_result_base': None}
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod' build argument 'cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod' build argument 'cmake_target' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod' build argument 'cmake_clean_cache' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod' build argument 'cmake_clean_first' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod' build argument 'cmake_force_configure' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod' build argument 'ament_cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod' build argument 'catkin_cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.487s] DEBUG:colcon.colcon_core.verb:Building package 'hexapod' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod', 'merge_install': False, 'path': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod', 'symlink_install': False, 'test_result_base': None}
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod_moveit_config' build argument 'cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod_moveit_config' build argument 'cmake_target' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod_moveit_config' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod_moveit_config' build argument 'cmake_clean_cache' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod_moveit_config' build argument 'cmake_clean_first' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod_moveit_config' build argument 'cmake_force_configure' from command line to 'False'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod_moveit_config' build argument 'ament_cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod_moveit_config' build argument 'catkin_cmake_args' from command line to 'None'
+[0.487s] Level 5:colcon.colcon_core.verb:set package 'hexapod_moveit_config' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.487s] DEBUG:colcon.colcon_core.verb:Building package 'hexapod_moveit_config' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_moveit_config', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config', 'merge_install': False, 'path': '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod_moveit_config', 'symlink_install': False, 'test_result_base': None}
+[0.488s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.489s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.489s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_description' with build type 'ament_cmake'
+[0.489s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_description'
+[0.493s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.494s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.494s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.525s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod_control' with build type 'ament_cmake'
+[0.525s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod_control'
+[0.525s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.525s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.541s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_gazebo' with build type 'ament_cmake'
+[0.542s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_gazebo'
+[0.542s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.542s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.563s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_description -DCMAKE_INSTALL_PREFIX=/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description
+[0.575s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control -- -j4 -l4
+[0.582s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo -- -j4 -l4
+[0.713s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo -- -j4 -l4
+[0.737s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo
+[0.772s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexapod_gazebo)
+[0.774s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo
+[0.779s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo' for CMake module files
+[0.781s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo' for CMake config files
+[0.781s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexapod_gazebo', 'cmake_prefix_path')
+[0.781s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/hook/cmake_prefix_path.ps1'
+[0.783s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/hook/cmake_prefix_path.dsv'
+[0.783s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/hook/cmake_prefix_path.sh'
+[0.785s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/bin'
+[0.785s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/lib/pkgconfig/hexapod_gazebo.pc'
+[0.786s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/lib/python3.12/site-packages'
+[0.786s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/bin'
+[0.787s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.ps1'
+[0.788s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.dsv'
+[0.790s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.sh'
+[0.791s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.bash'
+[0.793s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.zsh'
+[0.795s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/colcon-core/packages/hexapod_gazebo)
+[0.797s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexapod_gazebo)
+[0.797s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo' for CMake module files
+[0.799s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo' for CMake config files
+[0.799s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexapod_gazebo', 'cmake_prefix_path')
+[0.800s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/hook/cmake_prefix_path.ps1'
+[0.800s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/hook/cmake_prefix_path.dsv'
+[0.801s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/hook/cmake_prefix_path.sh'
+[0.802s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/bin'
+[0.803s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/lib/pkgconfig/hexapod_gazebo.pc'
+[0.803s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/lib/python3.12/site-packages'
+[0.804s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/bin'
+[0.804s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.ps1'
+[0.805s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.dsv'
+[0.806s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.sh'
+[0.807s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.bash'
+[0.808s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/hexapod_gazebo/package.zsh'
+[0.809s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo/share/colcon-core/packages/hexapod_gazebo)
+[0.813s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control -- -j4 -l4
+[0.816s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control
+[0.848s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexapod_control)
+[0.848s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control' for CMake module files
+[0.849s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_control
+[0.850s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control' for CMake config files
+[0.851s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexapod_control', 'cmake_prefix_path')
+[0.851s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/hook/cmake_prefix_path.ps1'
+[0.851s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/hook/cmake_prefix_path.dsv'
+[0.852s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/hook/cmake_prefix_path.sh'
+[0.853s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib'
+[0.853s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/bin'
+[0.853s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib/pkgconfig/hexapod_control.pc'
+[0.854s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib/python3.12/site-packages'
+[0.854s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/bin'
+[0.854s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.ps1'
+[0.855s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.dsv'
+[0.856s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.sh'
+[0.856s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.bash'
+[0.857s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.zsh'
+[0.857s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/colcon-core/packages/hexapod_control)
+[0.858s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexapod_control)
+[0.858s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control' for CMake module files
+[0.859s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control' for CMake config files
+[0.859s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexapod_control', 'cmake_prefix_path')
+[0.859s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/hook/cmake_prefix_path.ps1'
+[0.860s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/hook/cmake_prefix_path.dsv'
+[0.860s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/hook/cmake_prefix_path.sh'
+[0.877s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib'
+[0.877s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/bin'
+[0.877s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib/pkgconfig/hexapod_control.pc'
+[0.877s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/lib/python3.12/site-packages'
+[0.877s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/bin'
+[0.878s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.ps1'
+[0.878s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.dsv'
+[0.879s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.sh'
+[0.880s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.bash'
+[0.880s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/hexapod_control/package.zsh'
+[0.881s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_control/share/colcon-core/packages/hexapod_control)
+[1.110s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_description' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_description -DCMAKE_INSTALL_PREFIX=/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description
+[1.137s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexapod_description)
+[1.137s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description' for CMake module files
+[1.138s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description' for CMake config files
+[1.138s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/bin'
+[1.138s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/lib/pkgconfig/hexapod_description.pc'
+[1.139s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/lib/python3.12/site-packages'
+[1.139s] Level 1:colcon.colcon_core.environment:checking '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/bin'
+[1.139s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/package.ps1'
+[1.140s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/package.dsv'
+[1.140s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/package.sh'
+[1.140s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/package.bash'
+[1.141s] INFO:colcon.colcon_core.shell:Creating package script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/hexapod_description/package.zsh'
+[1.141s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_description/share/colcon-core/packages/hexapod_description)
+[1.142s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.142s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.143s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '1'
+[1.143s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.157s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.157s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.157s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.181s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.181s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/local_setup.ps1'
+[1.183s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/_local_setup_util_ps1.py'
+[1.185s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/setup.ps1'
+[1.194s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/local_setup.sh'
+[1.195s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/_local_setup_util_sh.py'
+[1.195s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/setup.sh'
+[1.205s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/local_setup.bash'
+[1.206s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/setup.bash'
+[1.213s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/local_setup.zsh'
+[1.213s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/setup.zsh'

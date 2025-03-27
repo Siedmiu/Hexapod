@@ -1,0 +1,34 @@
+[0.033s] Invoking command in '/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/julia-hrycyna/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/hexapod/hexapod_gazebo -DCMAKE_INSTALL_PREFIX=/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_gazebo
+[0.486s] -- The C compiler identification is GNU 13.3.0
+[0.752s] -- The CXX compiler identification is GNU 13.3.0
+[0.798s] -- Detecting C compiler ABI info
+[1.066s] -- Detecting C compiler ABI info - done
+[1.088s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.089s] -- Detecting C compile features
+[1.089s] -- Detecting C compile features - done
+[1.115s] -- Detecting CXX compiler ABI info
+[1.415s] -- Detecting CXX compiler ABI info - done
+[1.433s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.433s] -- Detecting CXX compile features
+[1.434s] -- Detecting CXX compile features - done
+[1.504s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[2.112s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[2.654s] -- Found ros_gz_sim: 1.0.9 (/opt/ros/jazzy/share/ros_gz_sim/cmake)
+[2.867s] -- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[2.932s] -- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[3.002s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.081s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.355s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[3.377s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[3.667s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[3.711s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[3.759s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[4.043s] -- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[4.349s] -- Added test 'flake8' to check Python code syntax and style conventions
+[4.349s] -- Configured 'flake8' exclude dirs and/or files: 
+[4.353s] -- Added test 'lint_cmake' to check CMake code style
+[4.357s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[4.363s] -- Added test 'xmllint' to check XML markup files
+[4.372s] -- Configuring done (4.3s)
+[4.380s] -- Generating done (0.0s)
+[4.383s] -- Build files have been written to: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_gazebo

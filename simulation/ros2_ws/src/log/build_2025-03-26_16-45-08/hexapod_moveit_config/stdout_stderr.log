@@ -1,0 +1,57 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (1.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod_moveit_config
+-- Install configuration: ""
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/ament_index/resource_index/package_run_dependencies/hexapod_moveit_config
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/ament_index/resource_index/parent_prefix_path/hexapod_moveit_config
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/environment/ament_prefix_path.sh
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/environment/ament_prefix_path.dsv
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/environment/path.sh
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/environment/path.dsv
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/local_setup.bash
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/local_setup.sh
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/local_setup.zsh
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/local_setup.dsv
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/package.dsv
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/ament_index/resource_index/packages/hexapod_moveit_config
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/cmake/hexapod_moveit_configConfig.cmake
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/cmake/hexapod_moveit_configConfig-version.cmake
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/package.xml
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/rsp.launch.py
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/demo.launch.py
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/setup_assistant.launch.py
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/moveit_rviz.launch.py
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/move_group.launch.py
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/__pycache__
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/__pycache__/demo.launch.cpython-312.pyc
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/static_virtual_joint_tfs.launch.py
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/spawn_controllers.launch.py
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/launch/warehouse_db.launch.py
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/hexapod.srdf
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/kinematics.yaml
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/moveit.rviz
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/initial_positions.yaml
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/hexapod.urdf.xacro
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/hexapod.ros2_control.xacro
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/ros2_controllers.yaml
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/sensors_3d.yaml
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/moveit_controllers.yaml
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/joint_limits.yaml
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/config/pilz_cartesian_limits.yaml
+-- Installing: /home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/install/hexapod_moveit_config/share/hexapod_moveit_config/.setup_assistant
