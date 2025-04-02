@@ -1,0 +1,65 @@
+<hexapod leg>
+	<down section>
+		<bevel gear assembly>
+			gear 24 R 1/6
+			pinion 24 1/6
+			shaft cap in 1/6
+			shaft cap out 1/6
+			shaft 1/6
+		</bevel gear assembly>
+		<leg down section>
+			down truss L D 4/6 co z zepsutymi ?
+			down truss L U 4/6
+			down truss R D 4/6 co z zepsutymi?
+			down truss R U 4/6
+			rod 14/24 (trzeba je pomierzyć i zobaczyć które to są)
+		</leg down section>
+		<leg spring assembly>
+			linear holder up 1/6
+			linear holder down 1/6
+			clamp 1/6
+			pin 1/6
+			spring angle 6/6
+		</leg spring assembly>
+	</down section>
+	<mid section>
+		<bevel gear assembly>
+			gear 24 R 1/6
+			pinion 24 1/6
+			shaft cap in 1/6
+			shaft cap out 1/6
+			shaft 1/6
+		</bevel gear assembly>
+		<leg mid section>
+			gear holder M 6/6
+			mid truss L 6/6
+			mid truss R 6/6
+			mid truss rod 2/12
+			outside servo holder 6/6
+		</leg mid section>
+	</mid section>
+	<up section>
+		ball bearing 1 6/6
+		ball bearing 2 6/6
+		<leg attatchment>
+			gear holder U 6/6
+			servo holder 6/6
+		</leg attatchment>
+		<servo gears>
+			gear x3 1/6
+			Nominal gear 2/6
+			bearing spacer 1/6
+			shaft vertical 2/6
+		</servo gears>
+	</up section>
+</hexapod leg>
+<hexapod platform>
+	B 6/6
+	M 6/6
+	Plate Bottom 1/1
+	Plate Top 1/1
+	Rod 0/8
+	Servo Holder L 0/1
+	Servo Holder R 0/1
+	T 6/6
+</hexapod platform>
