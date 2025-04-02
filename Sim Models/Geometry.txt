@@ -1,0 +1,22 @@
+Origin positions for objects in collection 'Geometry':
+============================================================
+
+Object: Down section Leg 3 | Origin: X: 0.168192, Y: 0.221392, Z: -0.011819
+Object: Down section Leg 1 | Origin: X: -0.176430, Y: 0.215093, Z: -0.011819
+Object: Down section Leg 2 | Origin: X: -0.005185, Y: 0.283645, Z: -0.011819
+Object: Down section Leg 5 | Origin: X: -0.005715, Y: -0.283645, Z: -0.011819
+Object: Down section Leg 6 | Origin: X: -0.176851, Y: -0.214771, Z: -0.011819
+Object: Down section Leg 4 | Origin: X: 0.167771, Y: -0.221714, Z: -0.011819
+Object: Mid section Leg 6 | Origin: X: -0.107599, Y: -0.124595, Z: -0.016307
+Object: Mid section Leg 4 | Origin: X: 0.098896, Y: -0.131250, Z: -0.016307
+Object: Mid section Leg 3 | Origin: X: 0.098941, Y: 0.131216, Z: -0.016307
+Object: Mid section Leg 1 | Origin: X: -0.107554, Y: 0.124630, Z: -0.016307
+Object: Mid section Leg 2 | Origin: X: -0.005422, Y: 0.169946, Z: -0.016308
+Object: Mid section Leg 5 | Origin: X: -0.005478, Y: -0.169946, Z: -0.016308
+Object: Up section Leg 5 | Origin: X: -0.004957, Y: -0.119562, Z: 0.002729
+Object: Up section Leg 6 | Origin: X: -0.076581, Y: -0.084889, Z: 0.002729
+Object: Up section Leg 4 | Origin: X: 0.068706, Y: -0.090910, Z: 0.002729
+Object: Up section Leg 3 | Origin: X: 0.067922, Y: 0.091509, Z: 0.002729
+Object: Up section Leg 1 | Origin: X: -0.077365, Y: 0.084289, Z: 0.002729
+Object: Up section Leg 2 | Origin: X: -0.005943, Y: 0.119562, Z: 0.002729
+Object: Platform All | Origin: X: -0.001140, Y: 0.000016, Z: -0.002812

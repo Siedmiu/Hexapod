@@ -1,0 +1,28 @@
+Origin positions for objects in collection 'Helper Coordinates Blocks':
+============================================================
+
+Object: Leg 1 Bearing | Origin: X: -0.063754, Y: 0.067301, Z: 0.003148
+Object: Leg 1 J1 | Origin: X: -0.082618, Y: 0.091972, Z: -0.016854
+Object: Leg 1 J2 | Origin: X: -0.137254, Y: 0.163423, Z: -0.011804
+Object: Leg 1 Tip | Origin: X: -0.239473, Y: 0.297103, Z: -0.011804
+Object: Leg 2 Bearing | Origin: X: -0.005450, Y: 0.097800, Z: 0.003148
+Object: Leg 2 J1 | Origin: X: -0.005450, Y: 0.128857, Z: -0.016854
+Object: Leg 2 J2 | Origin: X: -0.005450, Y: 0.218803, Z: -0.011804
+Object: Leg 2 Tip | Origin: X: -0.005450, Y: 0.387086, Z: -0.011804
+Object: Leg 3 Bearing | Origin: X: 0.055095, Y: 0.073922, Z: 0.003148
+Object: Leg 3 J1 | Origin: X: 0.073960, Y: 0.098593, Z: -0.016854
+Object: Leg 3 J2 | Origin: X: 0.128595, Y: 0.170044, Z: -0.011804
+Object: Leg 3 Tip | Origin: X: 0.230815, Y: 0.303724, Z: -0.011804
+Object: Leg 4 Bearing | Origin: X: 0.055095, Y: -0.073922, Z: 0.003148
+Object: Leg 4 J1 | Origin: X: 0.073960, Y: -0.098593, Z: -0.016854
+Object: Leg 4 J2 | Origin: X: 0.128595, Y: -0.170044, Z: -0.011804
+Object: Leg 4 Tip | Origin: X: 0.230815, Y: -0.303724, Z: -0.011804
+Object: Leg 5 Bearing | Origin: X: -0.005450, Y: -0.097800, Z: 0.003148
+Object: Leg 5 J1 | Origin: X: -0.005450, Y: -0.128857, Z: -0.016854
+Object: Leg 5 J2 | Origin: X: -0.005450, Y: -0.218803, Z: -0.011804
+Object: Leg 5 Tip | Origin: X: -0.005450, Y: -0.387086, Z: -0.011804
+Object: Leg 6 Bearing | Origin: X: -0.063754, Y: -0.067301, Z: 0.003148
+Object: Leg 6 J1 | Origin: X: -0.082618, Y: -0.091972, Z: -0.016854
+Object: Leg 6 J2 | Origin: X: -0.137254, Y: -0.163423, Z: -0.011804
+Object: Leg 6 Tip | Origin: X: -0.239473, Y: -0.297103, Z: -0.011804
+Object: Platform Center | Origin: X: 0.000000, Y: -0.000000, Z: -0.000000
