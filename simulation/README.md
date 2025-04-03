@@ -20,7 +20,7 @@ Dodałem kod z tutoriala napisany w cpp, który umożliwia wpływanie na ROS, co
 Instrukcja używania katalogu ros2_ws:
 
 WYMAGANIA:
-- Ubuntu 24.04, ale Ubuntu 24.xx (xx jakakolwiek wersja) też powinno działać
+- Ubuntu 24.04.xx (xx jakakolwiek wersja)
 - ROS2 Jazzy Jalisco
 - MoveIt2
 
