@@ -42,3 +42,26 @@ to powinno odpalić Rviz z widocznym modelem robota (na razie linki). Następnie
 ros2 run hexapod_control hexapod_joint_control
 
 to powinno poruszyć naszym jedynym jointem do zadanego kąta
+
+
+---------------------------------commit dotyczący inercji, 03.04--------------------------------------
+
+Do wyznaczenia inercji poszczególnych nóg skorzystano z równania Steina, ze względu na to, że punkt obrotu każdej z nóg znajduje się w innym miejscu niż środek masy. Wstępnie przyjęto, że środek masy znajduje się w połowie długości nogi, jednak może to zostać zmodyfikowane w celu lepszego odwzorowania rzeczywistego modelu.  
+
+Do wyznaczenia przesunięć wyprowadzono następujące wzory:
+
+dx_^ = 2 * leg_radius  
+dy_^ = 2 * leg_radius  
+dz_^ = leg_length_^
+
+^{which part of the leg} 
+
+Inercja korpusu pajączka pozostała bez zmian, ponieważ jego punkt obrotu pokrywa się z centrum masy.  
+
+Równanie Steina dla inercji:  
+
+             ⎡ dy² + dz²   -dx·dy   -dx·dz ⎤ 
+
+I' = I + m · ⎢ -dx·dy   dx² + dz²   -dy·dz ⎥  
+
+             ⎣ -dx·dz   -dy·dz   dx² + dy² ⎦  
