@@ -4,9 +4,70 @@
 
   <xacro:property name="base_mass" value="4.6" />
   <xacro:property name="wheel_mass" value="1.0" />
+
+  <!-- Define global properties -->
+  
+  <xacro:property name="base_radius" value="0.15"/>
+  <xacro:property name="base_height" value="0.02"/>
+
+  <xacro:property name="leg_length_upper" value="0.03"/>
+  <xacro:property name="leg_length_middle" value="0.089"/>
+  <xacro:property name="leg_length_lower" value="0.164"/>
+
+  <xacro:property name="leg_radius" value="0.02"/>
+
+  <xacro:property name="PI_const" value="3.1415926"/>
+
+  <xacro:property name="mass_upper" value="0.1" />
+  <xacro:property name="mass_middle" value="0.1" />
+  <xacro:property name="mass_lower" value="0.1" />
+
+
+  <xacro:property name="dx_upp" value="${leg_radius * 2}"/>  
+  <xacro:property name="dy_upp" value="${leg_radius * 2}"/>  
+  <xacro:property name="dz_upp" value="${leg_length_upper}"/>  
+
+  <xacro:property name="dx_mid" value="${leg_radius * 2}"/>     
+  <xacro:property name="dy_mid" value="${leg_radius * 2}"/>  
+  <xacro:property name="dz_mid" value="${leg_length_middle}"/>  
+
+  <xacro:property name="dx_low" value="${leg_radius * 2}"/>   
+  <xacro:property name="dy_low" value="${leg_radius * 2}"/>  
+  <xacro:property name="dz_low" value="${leg_length_lower}"/>  
+
   <xacro:property name="ixx" value="1.0"/>
   <xacro:property name="iyy" value="1.0"/>
   <xacro:property name="izz" value="1.0"/>
+
+  <!--upper leg -->
+  <xacro:property name="ixx_upp" value="${dy_upp*dy_upp + dz_upp*dz_upp}"/>
+  <xacro:property name="iyy_upp" value="${dx_upp*dx_upp + dz_upp*dz_upp}"/>
+  <xacro:property name="izz_upp" value="${dx_upp*dx_upp + dy_upp*dy_upp}"/>
+  
+  <xacro:property name="ixy_upp" value="(-dx_upp * dy_upp)"/>
+  <xacro:property name="ixz_upp" value="(-dx_upp * dz_upp)"/>
+  <xacro:property name="iyz_upp" value="(-dy_upp * dz_upp)"/>
+
+  <!--middle leg -->
+
+  <xacro:property name="ixx_mid" value="${dy_mid*dy_mid + dz_mid*dz_mid}"/>
+  <xacro:property name="iyy_mid" value="${dx_mid*dx_mid + dz_mid*dz_mid}"/>
+  <xacro:property name="izz_mid" value="${dx_mid*dx_mid + dy_mid*dy_mid}"/>
+  
+  <xacro:property name="ixy_mid" value="(-dx_mid * dy_mid)"/>
+  <xacro:property name="ixz_mid" value="(-dx_mid * dz_mid)"/>
+  <xacro:property name="iyz_mid" value="(-dy_mid * dz_mid)"/>
+
+  <!-- lower leg -->
+
+  <xacro:property name="ixx_low" value="${dy_low*dy_low + dz_low*dz_low}"/>
+  <xacro:property name="iyy_low" value="${dx_low*dx_low + dz_low*dz_low}"/>
+  <xacro:property name="izz_low" value="${dx_low*dx_low + dy_low*dy_low}"/>
+  
+  <xacro:property name="ixy_low" value="(-dx_low * dy_low)"/>
+  <xacro:property name="ixz_low" value="(-dx_low * dz_low)"/>
+  <xacro:property name="iyz_low" value="(-dy_low * dz_low)"/>
+
 
   <xacro:macro name="open_manipulator_x" params="prefix=''">
 
@@ -79,9 +140,9 @@
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="${wheel_mass}"/>
         <inertia
-          ixx="${ixx}" ixy="0.0" ixz="0.0"
-          iyy="${iyy}" iyz="0.0"
-          izz="${izz}"/>
+          ixx="${ixx_upp}" ixy="${ixy_upp}" ixz="${ixz_upp}"
+          iyy="${iyy_upp}" iyz="${iyz_upp}"
+          izz="${izz_upp}"/>
       </inertial>
     </link>
 
@@ -120,9 +181,9 @@
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="${wheel_mass}"/>
         <inertia
-          ixx="${ixx}" ixy="0.0" ixz="0.0"
-          iyy="${iyy}" iyz="0.0"
-          izz="${izz}"/>
+          ixx="${ixx_mid}" ixy="${ixy_mid}" ixz="${ixz_mid}"
+          iyy="${iyy_mid}" iyz="${iyz_mid}"
+          izz="${izz_mid}"/>
       </inertial>
     </link>
 
@@ -161,9 +222,9 @@
         <origin xyz="0.0        0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="${wheel_mass}"/>
         <inertia
-          ixx="${ixx}" ixy="0.0" ixz="0.0"
-          iyy="${iyy}" iyz="0.0"
-          izz="${izz}"/>
+          ixx="${ixx_low}" ixy="${ixy_low}" ixz="${ixz_low}"
+          iyy="${iyy_low}" iyz="${iyz_low}"
+          izz="${izz_low}"/>
       </inertial>
     </link>
 
