@@ -1,0 +1,1 @@
+gripper_controllers:gz_ros2_control:open_manipulator_description:robot_state_publisher:ros2_control:ros2_controllers:ros_gz_bridge:ros_gz_image:ros_gz_sim:rviz2:xacro

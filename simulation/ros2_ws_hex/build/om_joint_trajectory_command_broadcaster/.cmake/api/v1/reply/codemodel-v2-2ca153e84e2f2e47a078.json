@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-fa8294d6e1d54ef2a20e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "om_joint_trajectory_command_broadcaster",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "joint_trajectory_command_broadcaster::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-joint_trajectory_command_broadcaster-12b0a62e861eed5059a3.json",
+					"name" : "joint_trajectory_command_broadcaster",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "joint_trajectory_command_broadcaster_parameters::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-joint_trajectory_command_broadcaster_parameters-968c02086d337324a8be.json",
+					"name" : "joint_trajectory_command_broadcaster_parameters",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "om_joint_trajectory_command_broadcaster_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-om_joint_trajectory_command_broadcaster_uninstall-f09f8f23ab98f8a63b7f.json",
+					"name" : "om_joint_trajectory_command_broadcaster_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-5a6e13109fd3e3cc3538.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_joint_trajectory_command_broadcaster",
+		"source" : "/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_joint_trajectory_command_broadcaster"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

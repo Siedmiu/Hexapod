@@ -30,6 +30,7 @@ install(PROGRAMS scripts/x_create_udev_rules
   scripts/y_create_udev_rules
   scripts/init_position_for_x.py
   scripts/init_position_for_follower.py
+  scripts/one_leg_movement_gazebo.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

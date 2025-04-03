@@ -1,0 +1,62 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (0.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/open_manipulator_bringup
+-- Install configuration: ""
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/launch/hardware_y.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/launch/gazebo_float.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/launch/ai_teleoperation.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/launch/hardware_y_leader.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/launch/hardware_x.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/launch/hardware_y_follower.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/launch/gazebo.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_x
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_x/hardware_controller_manager.yaml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_x/gazebo_controller_manager.yaml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_y
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_y/hardware_controller_manager.yaml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_y/gazebo_controller_manager.yaml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_y_follower
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_y_follower/hardware_controller_manager.yaml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_y_follower/gazebo_controller_manager.yaml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_y_leader
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/config/om_y_leader/ros2_controllers_leader.yaml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/worlds
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/worlds/empty_world.sdf
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/open-manipulator-x-cdc.rules
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/open-manipulator-y-cdc.rules
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/lib/open_manipulator_bringup/x_create_udev_rules
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/lib/open_manipulator_bringup/y_create_udev_rules
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/lib/open_manipulator_bringup/init_position_for_x.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/lib/open_manipulator_bringup/init_position_for_follower.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/lib/open_manipulator_bringup/one_leg_movement_gazebo.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/ament_index/resource_index/package_run_dependencies/open_manipulator_bringup
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/ament_index/resource_index/parent_prefix_path/open_manipulator_bringup
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/environment/ament_prefix_path.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/environment/ament_prefix_path.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/environment/path.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/environment/path.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/local_setup.bash
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/local_setup.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/local_setup.zsh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/local_setup.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/package.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/ament_index/resource_index/packages/open_manipulator_bringup
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/cmake/open_manipulator_bringupConfig.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/cmake/open_manipulator_bringupConfig-version.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/open_manipulator_bringup/share/open_manipulator_bringup/package.xml

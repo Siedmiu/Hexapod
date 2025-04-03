@@ -1,0 +1,104 @@
+[0.023s] Invoking command in '/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/bartosz-babi-ski/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller -DCMAKE_INSTALL_PREFIX=/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller
+[0.080s] -- The CXX compiler identification is GNU 13.3.0
+[0.093s] -- Detecting CXX compiler ABI info
+[0.177s] -- Detecting CXX compiler ABI info - done
+[0.184s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.184s] -- Detecting CXX compile features
+[0.184s] -- Detecting CXX compile features - done
+[0.191s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.367s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.530s] -- Found angles: 1.16.0 (/opt/ros/jazzy/share/angles/cmake)
+[0.537s] -- Found control_msgs: 5.3.0 (/opt/ros/jazzy/share/control_msgs/cmake)
+[0.608s] -- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.630s] -- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.657s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.686s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.879s] -- Found control_toolbox: 4.0.1 (/opt/ros/jazzy/share/control_toolbox/cmake)
+[0.964s] -- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.973s] -- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[1.087s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[1.110s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[1.137s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.561s] -- Found controller_interface: 4.27.0 (/opt/ros/jazzy/share/controller_interface/cmake)
+[1.669s] -- Found kdl_parser: 2.11.0 (/opt/ros/jazzy/share/kdl_parser/cmake)
+[1.690s] -- Found eigen3_cmake_module: 0.3.0 (/opt/ros/jazzy/share/eigen3_cmake_module/cmake)
+[1.691s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[1.691s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[1.799s] -- Configuring done (1.8s)
+[1.815s] -- Generating done (0.0s)
+[1.819s] -- Build files have been written to: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller
+[1.828s] Invoked command in '/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/bartosz-babi-ski/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller -DCMAKE_INSTALL_PREFIX=/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller
+[1.829s] Invoking command in '/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/bartosz-babi-ski/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller -- -j12 -l12
+[1.880s] [ 25%] [34m[1mRunning `/opt/ros/jazzy/bin/generate_parameter_library_cpp /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller/include/om_gravity_compensation_controller/gravity_compensation_controller_parameters.hpp /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller_parameters.yaml `[0m
+[2.449s] [ 50%] [34m[1mCreating deprecated header file /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller/include/gravity_compensation_controller_parameters.hpp[0m
+[2.492s] [ 50%] Built target gravity_compensation_controller_parameters
+[2.514s] [ 75%] [32mBuilding CXX object CMakeFiles/gravity_compensation_controller.dir/src/gravity_compensation_controller.cpp.o[0m
+[4.716s] In file included from [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/include/gravity_compensation_controller/gravity_compensation_controller.hpp:42[m[K,
+[4.716s]                  from [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller.cpp:15[m[K:
+[4.716s] [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller/include/gravity_compensation_controller_parameters.hpp:1:199:[m[K [01;36m[Knote: [m[K‘[01m[K#pragma message: #include "gravity_compensation_controller_parameters.hpp" is deprecated. Use #include <om_gravity_compensation_controller/gravity_compensation_controller_parameters.hpp> instead.[m[K’
+[4.716s]     1 | ty_compensation_controller/gravity_compensation_controller_parameters.hpp> instead."[01;36m[K)[m[K
+[4.716s]       |                                                                                     [01;36m[K^[m[K
+[4.716s] 
+[4.819s] /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller.cpp: In instantiation of ‘[01m[Kgravity_compensation_controller::GravityCompensationController::update(const rclcpp::Time&, const rclcpp::Duration&)::<lambda(std::vector<double, std::allocator<double> >&, const auto:47&)> [35m[K[with auto:47 = std::vector<std::reference_wrapper<hardware_interface::LoanedStateInterface>, std::allocator<std::reference_wrapper<hardware_interface::LoanedStateInterface> > >][m[K[m[K’:
+[4.819s] [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller.cpp:70:30:[m[K   required from here
+[4.819s] [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller.cpp:66:83:[m[K [01;35m[Kwarning: [m[K‘[01m[Kdouble hardware_interface::LoanedStateInterface::[01;32m[Kget_value[m[K() const[m[K’ is deprecated: Use std::optional<T> get_optional() instead to retrieve the value. This method will be removed by the ROS 2 Kilted Kaiju release. [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+[4.819s]    66 |         trajectory_point_interface[index] = [01;35m[Kjoint_interface[index].get().get_value()[m[K;
+[4.819s]       |                                             [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~[m[K
+[4.819s] In file included from [01m[K/opt/ros/jazzy/include/controller_interface/controller_interface/controller_interface_base.hpp:28[m[K,
+[4.819s]                  from [01m[K/opt/ros/jazzy/include/controller_interface/controller_interface/controller_interface.hpp:21[m[K,
+[4.819s]                  from [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/include/gravity_compensation_controller/gravity_compensation_controller.hpp:30[m[K:
+[4.820s] [01m[K/opt/ros/jazzy/include/hardware_interface/hardware_interface/loaned_state_interface.hpp:94:10:[m[K [01;36m[Knote: [m[Kdeclared here
+[4.820s]    94 |   double [01;36m[Kget_value[m[K() const
+[4.820s]       |          [01;36m[K^~~~~~~~~[m[K
+[4.822s] [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller.cpp:[m[K In member function ‘[01m[Kvirtual controller_interface::return_type gravity_compensation_controller::GravityCompensationController::[01;32m[Kupdate[m[K(const rclcpp::Time&, const rclcpp::Duration&)[m[K’:
+[4.822s] [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller.cpp:133:51:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Kbool hardware_interface::LoanedCommandInterface::[01;32m[Kset_value[m[K(const T&, unsigned int) [35m[K[with T = double][m[K[m[K’, declared with attribute ‘[01m[Knodiscard[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+[4.822s]   133 |     [01;35m[Kjoint_command_interface_[0][i].get().set_value(torques(i) * params_.torque_scaling_factors[i])[m[K;
+[4.822s]       |     [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.822s] In file included from [01m[K/opt/ros/jazzy/include/controller_interface/controller_interface/controller_interface_base.hpp:27[m[K:
+[4.823s] [01m[K/opt/ros/jazzy/include/hardware_interface/hardware_interface/loaned_command_interface.hpp:113:22:[m[K [01;36m[Knote: [m[Kdeclared here
+[4.823s]   113 |   [[nodiscard]] bool [01;36m[Kset_value[m[K(const T & value, unsigned int max_tries = 10)
+[4.823s]       |                      [01;36m[K^~~~~~~~~[m[K
+[4.829s] [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller.cpp:[m[K In member function ‘[01m[Kvirtual controller_interface::CallbackReturn gravity_compensation_controller::GravityCompensationController::[01;32m[Kon_deactivate[m[K(const rclcpp_lifecycle::State&)[m[K’:
+[4.829s] [01m[K/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller.cpp:266:77:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Kbool hardware_interface::LoanedCommandInterface::[01;32m[Kset_value[m[K(const T&, unsigned int) [35m[K[with T = double][m[K[m[K’, declared with attribute ‘[01m[Knodiscard[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+[4.829s]   266 |       [01;35m[Kcommand_interfaces_[i * command_interface_types_.size() + j].set_value(0.0)[m[K;
+[4.830s]       |       [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~[m[K
+[4.830s] [01m[K/opt/ros/jazzy/include/hardware_interface/hardware_interface/loaned_command_interface.hpp:113:22:[m[K [01;36m[Knote: [m[Kdeclared here
+[4.830s]   113 |   [[nodiscard]] bool [01;36m[Kset_value[m[K(const T & value, unsigned int max_tries = 10)
+[4.830s]       |                      [01;36m[K^~~~~~~~~[m[K
+[6.485s] [100%] [32m[1mLinking CXX shared library libgravity_compensation_controller.so[0m
+[6.617s] [100%] Built target gravity_compensation_controller
+[6.628s] Invoked command in '/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/bartosz-babi-ski/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller -- -j12 -l12
+[6.628s] Invoking command in '/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/bartosz-babi-ski/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller
+[6.637s] -- Install configuration: ""
+[6.637s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/include/om_gravity_compensation_controller
+[6.637s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/include/om_gravity_compensation_controller/gravity_compensation_controller_parameters.hpp
+[6.637s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/gravity_compensation_plugin.xml
+[6.637s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/include/gravity_compensation_controller
+[6.637s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/include/gravity_compensation_controller/gravity_compensation_controller
+[6.637s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/include/gravity_compensation_controller/gravity_compensation_controller/visibility_control.h
+[6.637s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/include/gravity_compensation_controller/gravity_compensation_controller/gravity_compensation_controller.hpp
+[6.637s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/lib/libgravity_compensation_controller.so
+[6.638s] -- Set non-toolchain portion of runtime path of "/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/lib/libgravity_compensation_controller.so" to ""
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/library_path.sh
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/library_path.dsv
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/ament_index/resource_index/package_run_dependencies/om_gravity_compensation_controller
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/ament_index/resource_index/parent_prefix_path/om_gravity_compensation_controller
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/ament_prefix_path.sh
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/ament_prefix_path.dsv
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/path.sh
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/path.dsv
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/local_setup.bash
+[6.638s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/local_setup.sh
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/local_setup.zsh
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/local_setup.dsv
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/package.dsv
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/ament_index/resource_index/packages/om_gravity_compensation_controller
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/ament_index/resource_index/controller_interface__pluginlib__plugin/om_gravity_compensation_controller
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/export_gravity_compensation_controllerExport.cmake
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/export_gravity_compensation_controllerExport-noconfig.cmake
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/ament_cmake_export_targets-extras.cmake
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/om_gravity_compensation_controllerConfig.cmake
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/om_gravity_compensation_controllerConfig-version.cmake
+[6.639s] -- Installing: /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/package.xml
+[6.641s] Invoked command in '/home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/bartosz-babi-ski/ws_moveit/install/moveit_configs_utils:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/bartosz-babi-ski/Hexapod_git2/Hexapod/simulation/ros2_ws_hex/build/om_gravity_compensation_controller

@@ -1,0 +1,4 @@
+source;share/open_manipulator/local_setup.bash
+source;share/open_manipulator/local_setup.dsv
+source;share/open_manipulator/local_setup.sh
+source;share/open_manipulator/local_setup.zsh
