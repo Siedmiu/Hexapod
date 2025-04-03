@@ -15,10 +15,10 @@
 			rod 14/24 (trzeba je pomierzyć i zobaczyć które to są)
 		</leg down section>
 		<leg spring assembly>
-			linear holder up 1/6
-			linear holder down 1/6
-			clamp 1/6
-			pin 1/6
+			linear holder up 6/6
+			linear holder down 6/6
+			clamp 6/6
+			pin 6/6
 			spring angle 6/6
 		</leg spring assembly>
 	</down section>
