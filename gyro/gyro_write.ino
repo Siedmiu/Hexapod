@@ -3,6 +3,8 @@
 
 MPU6050 mpu;
 unsigned long currentTime;
+float previousTime = 0;
+float angleZ = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -13,7 +15,9 @@ void setup() {
     Serial.println("Cannot connect with MPU6050!");
     while (1);
   }
-  Serial.println("Time [ms],Accel X [m/s^2],Accel Y [m/s^2],Accel Z [m/s^2],Angle X [deg],Angle Y [deg]");
+  mpu.CalibrateAccel();
+  mpu.CalibrateGyro();
+
 }
 
 void loop() {
@@ -21,15 +25,20 @@ void loop() {
   int16_t gx, gy, gz;
 
   mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+  float gyroX = gx / 131.0;
+  float gyroY = gy / 131.0;
+  float gyroZ = gz / 131.0;
+
 
   float accelX = ax / 16384.0 * 9.81;
   float accelY = ay / 16384.0 * 9.81;
   float accelZ = az / 16384.0 * 9.81;
 
+  currentTime = millis();
+
   float angleX = atan2(accelY, accelZ) * 180 / PI;
   float angleY = atan2(accelX, accelZ) * 180 / PI;
-
-  currentTime = millis();
+  angleZ += (currentTime - previousTime)/1000 * gyroZ;
 
   Serial.print(currentTime);
   Serial.print(",");
@@ -41,7 +50,11 @@ void loop() {
   Serial.print(",");
   Serial.print(angleX);
   Serial.print(",");
-  Serial.println(angleY);
+  Serial.print(angleY);
+  Serial.print(",");
+  Serial.println(angleZ);
 
-  delay(500);
+  previousTime = currentTime;
+
+  delay(200);
 }
