@@ -18,7 +18,7 @@
  
      <link name="${prefix}link1">
        <visual>
-         <origin xyz="0 0 0" rpy="0 0 0"/>
+         <origin xyz="-0.001140 0.000016 -0.002812" rpy="0 0 0"/>
          <geometry>
            <mesh filename="${meshes_file_direction}/platform.stl" scale="1.0 1.0 1.0"/>
          </geometry>
@@ -49,7 +49,7 @@
      <joint name="${prefix}joint1" type="revolute">
        <parent link="${prefix}link1"/>
        <child link="${prefix}link2"/>
-       <origin xyz="0.0  0.067311   0.0" rpy="0 0 0"/>
+       <origin xyz="-0.00431  -0.097816   0.00596" rpy="0 0 0"/>
        <axis xyz="0.0 0.0 1.0"/>
        <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
        <dynamics damping="0.1"/>
@@ -59,7 +59,7 @@
  
      <link name="${prefix}link2">
        <visual>
-         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <origin xyz="0.000493	-0.021762	-0.000419" rpy="0 0 0"/>
          <geometry>
            <mesh filename="${meshes_file_direction}/leg_up.stl" scale="1.0 1.0 1.0"/>
          </geometry>
@@ -90,7 +90,7 @@
      <joint name="${prefix}joint2" type="revolute">
        <parent link="${prefix}link2"/>
        <child link="${prefix}link3"/>
-       <origin xyz="0	0.02984	-0.012092" rpy="0 0 0"/>
+       <origin xyz="0.0	-0.031057	-0.020002" rpy="0 0 0"/>
        <axis xyz="1 0 0"/>
        <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
        <dynamics damping="0.1"/>
@@ -100,7 +100,7 @@
  
      <link name="${prefix}link3">
        <visual>
-         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <origin xyz="0.0	-0.041	0.000546" rpy="0 0 0"/>
          <geometry>
            <mesh filename="${meshes_file_direction}/leg_mid.stl" scale="1.0 1.0 1.0"/>
          </geometry>
@@ -131,7 +131,7 @@
      <joint name="${prefix}joint3" type="revolute">
        <parent link="${prefix}link3"/>
        <child link="${prefix}link4"/>
-       <origin xyz="0	0.089024	0.005843" rpy="0 0 0"/>
+       <origin xyz="0.0	-0.089946	0.00505" rpy="0 0 0"/>
        <axis xyz="1 0 0"/>
        <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
        <dynamics damping="0.1"/>
@@ -141,7 +141,7 @@
  
      <link name="${prefix}link4">
        <visual>
-         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <origin xyz="-0.000265	-0.064842	0.0" rpy="0 0 0"/>
          <geometry>
            <mesh filename="${meshes_file_direction}/leg_down.stl" scale="1.0 1.0 1.0"/>
          </geometry>
