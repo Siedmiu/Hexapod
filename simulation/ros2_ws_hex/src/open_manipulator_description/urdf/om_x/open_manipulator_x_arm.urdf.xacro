@@ -14,7 +14,9 @@
        name="meshes_file_direction"
        value="package://open_manipulator_description/meshes"/>
  
- <!-- PLATFORMA -->
+
+
+<!-- PLATFORMA -->
  
      <link name="${prefix}link1">
        <visual>
@@ -43,6 +45,537 @@
            izz="${izz}"/>
        </inertial>
      </link>
+
+
+  <!-- LEG 1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+ 
+     <!-- PLATFORMA - UP_SECTION -->
+ 
+     <joint name="${prefix}joint1_1" type="revolute">
+       <parent link="${prefix}link1"/>
+       <child link="${prefix}link2_1"/>
+       <origin xyz="-0.062614  0.067285   0.00596" rpy="0 0 0"/>
+       <axis xyz="0.0 0.0 1.0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- UP_SECTION -->
+ 
+     <link name="${prefix}link2_1">
+       <visual>
+         <origin xyz="-0.013611	0.016988 -0.000419" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/1_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/1_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- UP_SECTION - MID_SECTION -->
+ 
+     <joint name="${prefix}joint2_1" type="revolute">
+       <parent link="${prefix}link2_1"/>
+       <child link="${prefix}link3_1"/>
+       <origin xyz="-0.018864	0.024671	-0.020002" rpy="0 0 0"/>
+       <axis xyz="0.6074290528 0.794374 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- MID_SECTION -->
+ 
+     <link name="${prefix}link3_1">
+       <visual>
+         <origin xyz="-0.024936	0.032658	0.000547" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/1_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/1_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- MID_SECTION - DOWN_SECTION -->
+ 
+     <joint name="${prefix}joint3_1" type="revolute">
+       <parent link="${prefix}link3_1"/>
+       <child link="${prefix}link4_1"/>
+       <origin xyz="-0.054636	0.071451	0.00505" rpy="0 0 0"/>
+       <axis xyz="0.6074290528 0.794374 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- DOWN_SECTION -->
+ 
+     <link name="${prefix}link4_1">
+       <visual>
+         <origin xyz="-0.039176	0.05167	0" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/1_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/1_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0        0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+
+
+
+
+
+
+
+
+
+     <!-- LEG 2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 -->
+
+     <!-- PLATFORMA - UP_SECTION -->
+ 
+     <!-- PLATFORMA - UP_SECTION -->
+ 
+     <joint name="${prefix}joint1_2" type="revolute">
+       <parent link="${prefix}link1"/>
+       <child link="${prefix}link2_2"/>
+       <origin xyz="-0.00431  0.097816   0.00596" rpy="0 0 0"/>
+       <axis xyz="0.0 0.0 1.0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- UP_SECTION -->
+ 
+     <link name="${prefix}link2_2">
+       <visual>
+         <origin xyz="-0.000493	0.021762	-0.000419" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/2_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/2_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- UP_SECTION - MID_SECTION -->
+ 
+     <joint name="${prefix}joint2_2" type="revolute">
+       <parent link="${prefix}link2_2"/>
+       <child link="${prefix}link3_2"/>
+       <origin xyz="0.0	0.031057	-0.020002" rpy="0 0 0"/>
+       <axis xyz="-1 0 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- MID_SECTION -->
+ 
+     <link name="${prefix}link3_2">
+       <visual>
+         <origin xyz="0.0	0.041	0.000546" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/2_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/2_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- MID_SECTION - DOWN_SECTION -->
+ 
+     <joint name="${prefix}joint3_2" type="revolute">
+       <parent link="${prefix}link3_2"/>
+       <child link="${prefix}link4_2"/>
+       <origin xyz="0.0	0.089946	0.00505" rpy="0 0 0"/>
+       <axis xyz="-1 0 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- DOWN_SECTION -->
+ 
+     <link name="${prefix}link4_2">
+       <visual>
+         <origin xyz="0.000265	0.064842	0.0" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/2_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/2_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0        0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+
+
+
+
+
+
+
+
+  <!-- LEG 3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+ 
+     <!-- PLATFORMA - UP_SECTION -->
+ 
+     <joint name="${prefix}joint1_3" type="revolute">
+       <parent link="${prefix}link1"/>
+       <child link="${prefix}link2_3"/>
+       <origin xyz="0.056235  0.073938   0.00596" rpy="0 0 0"/>
+       <axis xyz="0.0 0.0 1.0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- UP_SECTION -->
+ 
+     <link name="${prefix}link2_3">
+       <visual>
+         <origin xyz="0.012827	0.017587 -0.000419" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/3_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/3_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- UP_SECTION - MID_SECTION -->
+ 
+     <joint name="${prefix}joint2_3" type="revolute">
+       <parent link="${prefix}link2_3"/>
+       <child link="${prefix}link3_3"/>
+       <origin xyz="0.018864	0.024671	-0.020002" rpy="0 0 0"/>
+       <axis xyz="-0.794374 0.6074290528 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- MID_SECTION -->
+ 
+     <link name="${prefix}link3_3">
+       <visual>
+         <origin xyz="0.024936	0.032658	0.000547" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/3_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/3_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- MID_SECTION - DOWN_SECTION -->
+ 
+     <joint name="${prefix}joint3_3" type="revolute">
+       <parent link="${prefix}link3_3"/>
+       <child link="${prefix}link4_3"/>
+       <origin xyz="0.054636	0.071451	0.00505" rpy="0 0 0"/>
+       <axis xyz="-0.794374 0.6074290528 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- DOWN_SECTION -->
+ 
+     <link name="${prefix}link4_3">
+       <visual>
+         <origin xyz="0.039176	0.05167	0" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/3_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/3_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0        0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+
+
+
+
+
+  <!-- LEG 4!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+ 
+     <!-- PLATFORMA - UP_SECTION -->
+ 
+     <joint name="${prefix}joint1_4" type="revolute">
+       <parent link="${prefix}link1"/>
+       <child link="${prefix}link2_4"/>
+       <origin xyz="0.056235  -0.073938   0.00596" rpy="0 0 0"/>
+       <axis xyz="0.0 0.0 1.0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- UP_SECTION -->
+ 
+     <link name="${prefix}link2_4">
+       <visual>
+         <origin xyz="0.013611	-0.016988 -0.000419" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/4_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/4_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- UP_SECTION - MID_SECTION -->
+ 
+     <joint name="${prefix}joint2_4" type="revolute">
+       <parent link="${prefix}link2_4"/>
+       <child link="${prefix}link3_4"/>
+       <origin xyz="0.018864	-0.024671	-0.020002" rpy="0 0 0"/>
+       <axis xyz="0.6074290528 0.794374 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- MID_SECTION -->
+ 
+     <link name="${prefix}link3_4">
+       <visual>
+         <origin xyz="0.024936	-0.032658	0.000547" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/4_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/4_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- MID_SECTION - DOWN_SECTION -->
+ 
+     <joint name="${prefix}joint3_4" type="revolute">
+       <parent link="${prefix}link3_4"/>
+       <child link="${prefix}link4_4"/>
+       <origin xyz="0.054636	-0.071451	0.00505" rpy="0 0 0"/>
+       <axis xyz="0.6074290528 0.794374 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- DOWN_SECTION -->
+ 
+     <link name="${prefix}link4_4">
+       <visual>
+         <origin xyz="0.039176	-0.05167	0" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/4_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/4_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0        0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+
+
+
+
+
+
+
+  <!-- LEG 5!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+ 
  
      <!-- PLATFORMA - UP_SECTION -->
  
@@ -61,7 +594,7 @@
        <visual>
          <origin xyz="0.000493	-0.021762	-0.000419" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/leg_up.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/5_leg_up.stl" scale="1.0 1.0 1.0"/>
          </geometry>
          <material name="grey">
            <color rgba="0.2 0.2 0.2 1"/>
@@ -71,7 +604,7 @@
        <collision>
          <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/leg_up.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/5_leg_up.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -102,7 +635,7 @@
        <visual>
          <origin xyz="0.0	-0.041	0.000546" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/leg_mid.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/5_leg_mid.stl" scale="1.0 1.0 1.0"/>
          </geometry>
          <material name="grey">
            <color rgba="0.2 0.2 0.2 1"/>
@@ -112,7 +645,7 @@
        <collision>
          <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/leg_mid.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/5_leg_mid.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -143,7 +676,7 @@
        <visual>
          <origin xyz="-0.000265	-0.064842	0.0" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/leg_down.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/5_leg_down.stl" scale="1.0 1.0 1.0"/>
          </geometry>
          <material name="grey">
            <color rgba="0.2 0.2 0.2 1"/>
@@ -153,7 +686,139 @@
        <collision>
          <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/leg_down.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/5_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0        0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+
+
+
+
+
+
+
+
+  <!-- LEG 1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+ 
+     <!-- PLATFORMA - UP_SECTION -->
+ 
+     <joint name="${prefix}joint1_6" type="revolute">
+       <parent link="${prefix}link1"/>
+       <child link="${prefix}link2_6"/>
+       <origin xyz="-0.062614  -0.067285   0.00596" rpy="0 0 0"/>
+       <axis xyz="0.0 0.0 1.0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- UP_SECTION -->
+ 
+     <link name="${prefix}link2_6">
+       <visual>
+         <origin xyz="-0.012827	-0.017588 -0.000419" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/6_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/1_leg_up.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- UP_SECTION - MID_SECTION -->
+ 
+     <joint name="${prefix}joint2_6" type="revolute">
+       <parent link="${prefix}link2_6"/>
+       <child link="${prefix}link3_6"/>
+       <origin xyz="-0.018864	-0.024671	-0.020002" rpy="0 0 0"/>
+       <axis xyz="0.794374 -0.6074290528 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- MID_SECTION -->
+ 
+     <link name="${prefix}link3_6">
+       <visual>
+         <origin xyz="-0.024936	-0.032658	0.000547" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/6_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/6_leg_mid.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+       </collision>
+ 
+        <inertial>
+         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+         <mass value="${wheel_mass}"/>
+         <inertia
+           ixx="${ixx}" ixy="0.0" ixz="0.0"
+           iyy="${iyy}" iyz="0.0"
+           izz="${izz}"/>
+       </inertial>
+     </link>
+ 
+   <!-- MID_SECTION - DOWN_SECTION -->
+ 
+     <joint name="${prefix}joint3_6" type="revolute">
+       <parent link="${prefix}link3_6"/>
+       <child link="${prefix}link4_6"/>
+       <origin xyz="-0.054636	-0.071451	0.00505" rpy="0 0 0"/>
+       <axis xyz="0.794374 -0.6074290528 0"/>
+       <limit effort="5.0" velocity="1.0" lower="-0.5236" upper="0.5236"/>
+       <dynamics damping="0.1"/>
+     </joint>
+ 
+   <!-- DOWN_SECTION -->
+ 
+     <link name="${prefix}link4_6">
+       <visual>
+         <origin xyz="-0.039176	-0.05167	0" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/6_leg_down.stl" scale="1.0 1.0 1.0"/>
+         </geometry>
+         <material name="grey">
+           <color rgba="0.2 0.2 0.2 1"/>
+         </material>
+       </visual>
+ 
+       <collision>
+         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <geometry>
+           <mesh filename="${meshes_file_direction}/6_leg_down.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
