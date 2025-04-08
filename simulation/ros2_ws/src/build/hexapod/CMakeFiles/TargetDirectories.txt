@@ -1,9 +1,0 @@
-/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod/CMakeFiles/uninstall.dir
-/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod/CMakeFiles/hexapod_uninstall.dir
-/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod/CMakeFiles/test.dir
-/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod/CMakeFiles/edit_cache.dir
-/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod/CMakeFiles/rebuild_cache.dir
-/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod/CMakeFiles/list_install_components.dir
-/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod/CMakeFiles/install.dir
-/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod/CMakeFiles/install/local.dir
-/home/julia-hrycyna/Pulpit/Hexapod/simulation/ros2_ws/src/build/hexapod/CMakeFiles/install/strip.dir
