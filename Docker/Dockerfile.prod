@@ -1,0 +1,58 @@
+ARG UBUNTU_VERSION=24.04
+FROM ubuntu:${UBUNTU_VERSION}
+
+# Zależności systemowe
+RUN apt update && apt install -y \
+    curl gnupg2 lsb-release \
+    git python3-pip \
+    locales sudo \
+    build-essential \
+    x11-apps \
+    && locale-gen en_US en_US.UTF-8
+
+# Instalacja colcon-common-extensions za pomocą pip3 z flagą --break-system-packages
+RUN pip3 install --break-system-packages -U colcon-common-extensions
+
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
+# Dodanie zmiennej XDG_RUNTIME_DIR oraz utworzenie katalogu z odpowiednimi uprawnieniami
+ENV XDG_RUNTIME_DIR=/tmp/runtime-root
+RUN mkdir -p /tmp/runtime-root && chmod 0700 /tmp/runtime-root
+
+# ROS2 Jazzy oraz pakiety ros-jazzy: desktop, ros-gz-sim, ros-gz-bridge, control-msgs, backward-ros, controller-interface, control-toolbox, xacro
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - && \
+    echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list && \
+    apt update && \
+    apt install -y \
+    ros-jazzy-desktop \
+    ros-jazzy-ros-gz-sim \
+    ros-jazzy-ros-gz-bridge \
+    ros-jazzy-control-msgs \
+    ros-jazzy-backward-ros \
+    ros-jazzy-controller-interface \
+    ros-jazzy-control-toolbox \
+    ros-jazzy-xacro
+
+# Gazebo Harmonic
+RUN curl -sSL https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" > /etc/apt/sources.list.d/gazebo-stable.list && \
+    apt update && \
+    apt install -y gz-harmonic
+
+# Source ROS2
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc
+
+# Pobranie kodu i build
+WORKDIR /root
+RUN git clone https://github.com/Siedmiu/Hexapod.git && \
+    cd Hexapod/simulation/ros2_ws_hex && \
+    bash -c "source /opt/ros/jazzy/setup.bash && colcon build"
+
+# Source workspace
+RUN echo "source /root/Hexapod/simulation/ros2_ws_hex/install/setup.bash" >> /root/.bashrc
+
+# Domyślnie uruchamiana symulacja
+CMD ["/bin/bash", "-c", "source /opt/ros/jazzy/setup.bash && source /root/Hexapod/simulation/ros2_ws_hex/install/setup.bash && ros2 launch hex_gz gazebo.launch.py"]
+

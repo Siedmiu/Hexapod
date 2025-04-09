@@ -1,0 +1,51 @@
+ARG UBUNTU_VERSION=24.04
+FROM ubuntu:${UBUNTU_VERSION}
+
+# Instalacja zależności systemowych
+RUN apt update && apt install -y \
+    curl gnupg2 lsb-release \
+    git python3-pip \
+    locales sudo \
+    build-essential \
+    x11-apps \
+    && locale-gen en_US en_US.UTF-8
+
+# Instalacja colcon-common-extensions
+RUN pip3 install --break-system-packages -U colcon-common-extensions
+
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
+# Konfiguracja XDG_RUNTIME_DIR
+ENV XDG_RUNTIME_DIR=/tmp/runtime-root
+RUN mkdir -p /tmp/runtime-root && chmod 0700 /tmp/runtime-root
+
+# Instalacja ROS2 Jazzy i wymaganych pakietów
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - && \
+    echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list && \
+    apt update && \
+    apt install -y \
+        ros-jazzy-desktop \
+        ros-jazzy-ros-gz-sim \
+        ros-jazzy-ros-gz-bridge \
+        ros-jazzy-control-msgs \
+        ros-jazzy-backward-ros \
+        ros-jazzy-controller-interface \
+        ros-jazzy-control-toolbox \
+        ros-jazzy-xacro
+
+# Instalacja Gazebo Harmonic
+RUN curl -sSL https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" > /etc/apt/sources.list.d/gazebo-stable.list && \
+    apt update && \
+    apt install -y gz-harmonic
+
+# Automatyczne source ROS2 przy wejściu do terminala
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc
+
+WORKDIR /ros_ws
+
+# Kontener DEV - uruchamiany bash dla łatwego rozwoju
+CMD ["/bin/bash"]
+
