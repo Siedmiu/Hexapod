@@ -74,9 +74,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <origin xyz="-0.013611	0.016988 -0.000419" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/1_leg_up.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_1_leg_up.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -115,9 +115,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <origin xyz="-0.024936	0.032658	0.000547" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/1_leg_mid.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_1_leg_mid.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -156,9 +156,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <origin xyz="-0.039176	0.05167	0" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/1_leg_down.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_1_leg_down.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -209,9 +209,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <origin xyz="-0.000493	0.021762	-0.000419" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/2_leg_up.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_2_leg_up.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -250,9 +250,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <origin xyz="0.0	0.041	0.000546" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/2_leg_mid.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_2_leg_mid.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -291,9 +291,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <origin xyz="0.000265	0.064842	0.0" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/2_leg_down.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_2_leg_down.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -341,9 +341,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <origin xyz="0.012827	0.017587 -0.000419" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/3_leg_up.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_3_leg_up.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -382,9 +382,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <origin xyz=".024936	0.032658	0.000547" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/3_leg_mid.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_3_leg_mid.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -423,9 +423,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <origin xyz="0.039176	0.05167	0" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/3_leg_down.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_3_leg_down.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -470,9 +470,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <origin xyz="0.013611	-0.016988 -0.000419" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/4_leg_up.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_4_leg_up.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -511,9 +511,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <origin xyz="0.024936	-0.032658	0.000547" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/4_leg_mid.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_4_leg_mid.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -552,9 +552,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <origin xyz="0.039176	-0.05167	0" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/4_leg_down.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_4_leg_down.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -602,9 +602,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <origin xyz="0.000493	-0.021762	-0.000419" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/5_leg_up.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_5_leg_up.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -643,9 +643,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <origin xyz="00.0	-0.041	0.000546" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/5_leg_mid.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_5_leg_mid.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -684,9 +684,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <origin xyz="-0.000265	-0.064842	0.0" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/5_leg_down.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_5_leg_down.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -734,9 +734,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.001689	0.000952" rpy="0 0 0"/>
+         <origin xyz="-0.012827	-0.017588 -0.000419" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/1_leg_up.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_6_leg_up.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -775,9 +775,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.038839	0.002114" rpy="0 0 0"/>
+         <origin xyz="-0.024936	-0.032658	0.000547" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/6_leg_mid.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_6_leg_mid.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
@@ -816,9 +816,9 @@
        </visual>
  
        <collision>
-         <origin xyz="0	0.057622	-0.058093" rpy="0 0 0"/>
+         <origin xyz="-0.039176	-0.05167	0" rpy="0 0 0"/>
          <geometry>
-           <mesh filename="${meshes_file_direction}/6_leg_down.stl" scale="1.0 1.0 1.0"/>
+           <mesh filename="${meshes_file_direction}/hitbox_6_leg_down.stl" scale="1.0 1.0 1.0"/>
          </geometry>
        </collision>
  
