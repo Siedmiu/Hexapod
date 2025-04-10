@@ -1,0 +1,45 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hex_gz
+-- Install configuration: ""
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/launch
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/launch/ai_teleoperation.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/launch/hardware_x.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/launch/gazebo.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/config
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/config/hardware_controller_manager.yaml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/config/gazebo_controller_manager.yaml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/worlds
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/worlds/empty_world.sdf
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/open-manipulator-x-cdc.rules
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/lib/hex_gz/x_create_udev_rules
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/lib/hex_gz/one_leg.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/ament_index/resource_index/package_run_dependencies/hex_gz
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/ament_index/resource_index/parent_prefix_path/hex_gz
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/environment/ament_prefix_path.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/environment/ament_prefix_path.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/environment/path.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/environment/path.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/local_setup.bash
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/local_setup.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/local_setup.zsh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/local_setup.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/package.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/ament_index/resource_index/packages/hex_gz
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/cmake/hex_gzConfig.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/cmake/hex_gzConfig-version.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hex_gz/share/hex_gz/package.xml

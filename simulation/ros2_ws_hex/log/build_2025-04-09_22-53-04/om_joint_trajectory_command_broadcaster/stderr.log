@@ -1,0 +1,19 @@
+In file included from [01m[K/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster.hpp:27[m[K,
+                 from [01m[K/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_joint_trajectory_command_broadcaster/src/joint_trajectory_command_broadcaster.cpp:15[m[K:
+[01m[K/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster_parameters.hpp:1:214:[m[K [01;36m[Knote: [m[K‘[01m[K#pragma message: #include "joint_trajectory_command_broadcaster_parameters.hpp" is deprecated. Use #include <om_joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster_parameters.hpp> instead.[m[K’
+    1 | dcaster/joint_trajectory_command_broadcaster_parameters.hpp> instead."[01;36m[K)[m[K
+      |                                                                       [01;36m[K^[m[K
+
+[01m[K/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_joint_trajectory_command_broadcaster/src/joint_trajectory_command_broadcaster.cpp:[m[K In member function ‘[01m[Kvirtual controller_interface::return_type joint_trajectory_command_broadcaster::JointTrajectoryCommandBroadcaster::[01;32m[Kupdate[m[K(const rclcpp::Time&, const rclcpp::Duration&)[m[K’:
+[01m[K/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_joint_trajectory_command_broadcaster/src/joint_trajectory_command_broadcaster.cpp:276:32:[m[K [01;35m[Kwarning: [m[K‘[01m[Kdouble hardware_interface::LoanedStateInterface::[01;32m[Kget_value[m[K() const[m[K’ is deprecated: Use std::optional<T> get_optional() instead to retrieve the value. This method will be removed by the ROS 2 Kilted Kaiju release. [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wdeprecated-declarations-Wdeprecated-declarations]8;;[m[K]
+  276 |       [01;35m[Kstate_interface.get_value()[m[K;
+      |       [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~^~[m[K
+In file included from [01m[K/opt/ros/jazzy/include/controller_interface/controller_interface/controller_interface_base.hpp:28[m[K,
+                 from [01m[K/opt/ros/jazzy/include/controller_interface/controller_interface/controller_interface.hpp:21[m[K,
+                 from [01m[K/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster.hpp:24[m[K:
+[01m[K/opt/ros/jazzy/include/hardware_interface/hardware_interface/loaned_state_interface.hpp:94:10:[m[K [01;36m[Knote: [m[Kdeclared here
+   94 |   double [01;36m[Kget_value[m[K() const
+      |          [01;36m[K^~~~~~~~~[m[K
+[01m[K/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_joint_trajectory_command_broadcaster/src/joint_trajectory_command_broadcaster.cpp:267:24:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Ktime[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  267 |   [01;35m[Kconst rclcpp::Time & time[m[K, const rclcpp::Duration & /*period*/)
+      |   [01;35m[K~~~~~~~~~~~~~~~~~~~~~^~~~[m[K

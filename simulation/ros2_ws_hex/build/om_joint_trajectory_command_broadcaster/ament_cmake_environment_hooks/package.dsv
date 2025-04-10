@@ -1,0 +1,4 @@
+source;share/om_joint_trajectory_command_broadcaster/local_setup.bash
+source;share/om_joint_trajectory_command_broadcaster/local_setup.dsv
+source;share/om_joint_trajectory_command_broadcaster/local_setup.sh
+source;share/om_joint_trajectory_command_broadcaster/local_setup.zsh

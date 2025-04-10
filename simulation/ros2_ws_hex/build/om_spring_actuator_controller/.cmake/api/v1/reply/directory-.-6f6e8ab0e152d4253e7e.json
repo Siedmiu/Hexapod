@@ -1,0 +1,610 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install",
+			"generate_parameter_library",
+			"pluginlib_export_plugin_description_file",
+			"ament_environment_hooks",
+			"_ament_cmake_export_libraries_register_environment_hook",
+			"ament_export_targets",
+			"ament_index_register_resource",
+			"ament_cmake_environment_generate_package_run_dependencies_marker",
+			"include",
+			"ament_execute_extensions",
+			"ament_package",
+			"ament_cmake_environment_generate_parent_prefix_path_marker",
+			"ament_generate_package_environment",
+			"ament_index_register_package",
+			"_ament_package"
+		],
+		"files" : 
+		[
+			"/opt/ros/jazzy/share/generate_parameter_library/cmake/generate_parameter_library.cmake",
+			"CMakeLists.txt",
+			"/opt/ros/jazzy/share/pluginlib/cmake/pluginlib_export_plugin_description_file.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_core/cmake/environment_hooks/ament_environment_hooks.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_export_libraries/cmake/ament_cmake_export_libraries-extras.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_export_targets/cmake/ament_export_targets.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_core/cmake/index/ament_index_register_resource.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_core/cmake/environment/ament_cmake_environment_package_hook.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_execute_extensions.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_core/cmake/environment_hooks/ament_cmake_environment_hooks_package_hook.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_core/cmake/environment_hooks/ament_generate_package_environment.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_core/cmake/index/ament_index_register_package.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_core/cmake/index/ament_cmake_index_package_hook.cmake",
+			"/opt/ros/jazzy/share/pluginlib/cmake/pluginlib_package_hook.cmake",
+			"/opt/ros/jazzy/share/ament_cmake_export_targets/cmake/ament_cmake_export_targets_package_hook.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 34,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 102,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 54,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 2,
+				"line" : 89,
+				"parent" : 3
+			},
+			{
+				"command" : 0,
+				"file" : 1,
+				"line" : 56,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 1,
+				"line" : 60,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 1,
+				"line" : 69,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 5,
+				"line" : 59,
+				"parent" : 7
+			},
+			{
+				"command" : 3,
+				"file" : 4,
+				"line" : 25,
+				"parent" : 8
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 70,
+				"parent" : 9
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 87,
+				"parent" : 9
+			},
+			{
+				"command" : 10,
+				"file" : 1,
+				"line" : 71,
+				"parent" : 0
+			},
+			{
+				"command" : 9,
+				"file" : 9,
+				"line" : 66,
+				"parent" : 12
+			},
+			{
+				"command" : 8,
+				"file" : 8,
+				"line" : 48,
+				"parent" : 13
+			},
+			{
+				"file" : 7,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 7,
+				"line" : 47,
+				"parent" : 15
+			},
+			{
+				"command" : 6,
+				"file" : 7,
+				"line" : 29,
+				"parent" : 16
+			},
+			{
+				"command" : 0,
+				"file" : 6,
+				"line" : 105,
+				"parent" : 17
+			},
+			{
+				"command" : 11,
+				"file" : 7,
+				"line" : 48,
+				"parent" : 15
+			},
+			{
+				"command" : 6,
+				"file" : 7,
+				"line" : 43,
+				"parent" : 19
+			},
+			{
+				"command" : 0,
+				"file" : 6,
+				"line" : 105,
+				"parent" : 20
+			},
+			{
+				"command" : 8,
+				"file" : 8,
+				"line" : 48,
+				"parent" : 13
+			},
+			{
+				"file" : 10,
+				"parent" : 22
+			},
+			{
+				"command" : 3,
+				"file" : 10,
+				"line" : 20,
+				"parent" : 23
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 70,
+				"parent" : 24
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 87,
+				"parent" : 24
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 70,
+				"parent" : 24
+			},
+			{
+				"command" : 0,
+				"file" : 3,
+				"line" : 87,
+				"parent" : 24
+			},
+			{
+				"command" : 12,
+				"file" : 10,
+				"line" : 26,
+				"parent" : 23
+			},
+			{
+				"command" : 0,
+				"file" : 11,
+				"line" : 91,
+				"parent" : 29
+			},
+			{
+				"command" : 0,
+				"file" : 11,
+				"line" : 91,
+				"parent" : 29
+			},
+			{
+				"command" : 0,
+				"file" : 11,
+				"line" : 91,
+				"parent" : 29
+			},
+			{
+				"command" : 0,
+				"file" : 11,
+				"line" : 107,
+				"parent" : 29
+			},
+			{
+				"command" : 0,
+				"file" : 11,
+				"line" : 120,
+				"parent" : 29
+			},
+			{
+				"command" : 8,
+				"file" : 8,
+				"line" : 48,
+				"parent" : 13
+			},
+			{
+				"file" : 13,
+				"parent" : 35
+			},
+			{
+				"command" : 13,
+				"file" : 13,
+				"line" : 16,
+				"parent" : 36
+			},
+			{
+				"command" : 6,
+				"file" : 12,
+				"line" : 29,
+				"parent" : 37
+			},
+			{
+				"command" : 0,
+				"file" : 6,
+				"line" : 105,
+				"parent" : 38
+			},
+			{
+				"command" : 8,
+				"file" : 8,
+				"line" : 48,
+				"parent" : 13
+			},
+			{
+				"file" : 14,
+				"parent" : 40
+			},
+			{
+				"command" : 6,
+				"file" : 14,
+				"line" : 22,
+				"parent" : 41
+			},
+			{
+				"command" : 0,
+				"file" : 6,
+				"line" : 105,
+				"parent" : 42
+			},
+			{
+				"command" : 8,
+				"file" : 8,
+				"line" : 48,
+				"parent" : 13
+			},
+			{
+				"file" : 15,
+				"parent" : 44
+			},
+			{
+				"command" : 0,
+				"file" : 15,
+				"line" : 28,
+				"parent" : 45
+			},
+			{
+				"command" : 14,
+				"file" : 9,
+				"line" : 68,
+				"parent" : 12
+			},
+			{
+				"command" : 0,
+				"file" : 9,
+				"line" : 122,
+				"parent" : 47
+			},
+			{
+				"command" : 0,
+				"file" : 9,
+				"line" : 122,
+				"parent" : 47
+			},
+			{
+				"command" : 0,
+				"file" : 9,
+				"line" : 150,
+				"parent" : 47
+			},
+			{
+				"command" : 0,
+				"file" : 9,
+				"line" : 157,
+				"parent" : 47
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/include/om_spring_actuator_controller"
+			],
+			"type" : "directory"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller",
+			"paths" : 
+			[
+				"spring_actuator_plugin.xml"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 5,
+			"component" : "Unspecified",
+			"destination" : "include/spring_actuator_controller",
+			"paths" : 
+			[
+				{
+					"from" : "include",
+					"to" : "."
+				}
+			],
+			"type" : "directory"
+		},
+		{
+			"backtrace" : 6,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"libspring_actuator_controller.so"
+			],
+			"targetId" : "spring_actuator_controller::@6890427a1f51a3e7e1df",
+			"targetIndex" : 1,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 10,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/environment",
+			"paths" : 
+			[
+				"/opt/ros/jazzy/lib/python3.12/site-packages/ament_package/template/environment_hook/library_path.sh"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 11,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/environment",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_environment_hooks/library_path.dsv"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 18,
+			"component" : "Unspecified",
+			"destination" : "share/ament_index/resource_index/package_run_dependencies",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/om_spring_actuator_controller"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 21,
+			"component" : "Unspecified",
+			"destination" : "share/ament_index/resource_index/parent_prefix_path",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/om_spring_actuator_controller"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 25,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/environment",
+			"paths" : 
+			[
+				"/opt/ros/jazzy/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 26,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/environment",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_environment_hooks/ament_prefix_path.dsv"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 27,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/environment",
+			"paths" : 
+			[
+				"/opt/ros/jazzy/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 28,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/environment",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_environment_hooks/path.dsv"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 30,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_environment_hooks/local_setup.bash"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 31,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_environment_hooks/local_setup.sh"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 32,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_environment_hooks/local_setup.zsh"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 33,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_environment_hooks/local_setup.dsv"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 34,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_environment_hooks/package.dsv"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 39,
+			"component" : "Unspecified",
+			"destination" : "share/ament_index/resource_index/packages",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_index/share/ament_index/resource_index/packages/om_spring_actuator_controller"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 43,
+			"component" : "Unspecified",
+			"destination" : "share/ament_index/resource_index/controller_interface__pluginlib__plugin",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_index/share/ament_index/resource_index/controller_interface__pluginlib__plugin/om_spring_actuator_controller"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 46,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/cmake",
+			"exportName" : "export_spring_actuator_controller",
+			"exportTargets" : 
+			[
+				{
+					"id" : "spring_actuator_controller::@6890427a1f51a3e7e1df",
+					"index" : 1
+				},
+				{
+					"id" : "spring_actuator_controller_parameters::@6890427a1f51a3e7e1df",
+					"index" : 2
+				}
+			],
+			"paths" : 
+			[
+				"CMakeFiles/Export/7584adcc834468f2e390041d6e607cd4/export_spring_actuator_controllerExport.cmake"
+			],
+			"type" : "export"
+		},
+		{
+			"backtrace" : 48,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/cmake",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_export_dependencies/ament_cmake_export_dependencies-extras.cmake"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 49,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/cmake",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_export_targets/ament_cmake_export_targets-extras.cmake"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 50,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller/cmake",
+			"paths" : 
+			[
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_core/om_spring_actuator_controllerConfig.cmake",
+				"/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_spring_actuator_controller/ament_cmake_core/om_spring_actuator_controllerConfig-version.cmake"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 51,
+			"component" : "Unspecified",
+			"destination" : "share/om_spring_actuator_controller",
+			"paths" : 
+			[
+				"package.xml"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	}
+}

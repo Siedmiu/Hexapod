@@ -1,0 +1,68 @@
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Found builtin_interfaces: 2.0.2 (/opt/ros/jazzy/share/builtin_interfaces/cmake)
+-- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found control_msgs: 5.3.0 (/opt/ros/jazzy/share/control_msgs/cmake)
+-- Found controller_interface: 4.27.0 (/opt/ros/jazzy/share/controller_interface/cmake)
+-- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+-- Found rmw_implementation_cmake: 7.3.1 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 8.4.1 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+-- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+-- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+-- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+-- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found generate_parameter_library: 0.4.0 (/opt/ros/jazzy/share/generate_parameter_library/cmake)
+-- Found parameter_traits: 0.4.0 (/opt/ros/jazzy/share/parameter_traits/cmake)
+-- Configuring done (1.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_joint_trajectory_command_broadcaster
+[ 25%] [34m[1mRunning `/opt/ros/jazzy/bin/generate_parameter_library_cpp /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_joint_trajectory_command_broadcaster/include/om_joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster_parameters.hpp /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/src/ros2_controller/om_joint_trajectory_command_broadcaster/src/joint_trajectory_command_broadcaster_parameters.yaml `[0m
+[ 50%] [34m[1mCreating deprecated header file /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster_parameters.hpp[0m
+[ 50%] Built target joint_trajectory_command_broadcaster_parameters
+[ 75%] [32mBuilding CXX object CMakeFiles/joint_trajectory_command_broadcaster.dir/src/joint_trajectory_command_broadcaster.cpp.o[0m
+[100%] [32m[1mLinking CXX shared library libjoint_trajectory_command_broadcaster.so[0m
+[100%] Built target joint_trajectory_command_broadcaster
+-- Install configuration: ""
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/include/om_joint_trajectory_command_broadcaster
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/include/om_joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster_parameters.hpp
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/joint_trajectory_command_plugin.xml
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster/visibility_control.h
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster.hpp
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/lib/libjoint_trajectory_command_broadcaster.so
+-- Set non-toolchain portion of runtime path of "/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/lib/libjoint_trajectory_command_broadcaster.so" to ""
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/library_path.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/library_path.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/ament_index/resource_index/package_run_dependencies/om_joint_trajectory_command_broadcaster
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/ament_index/resource_index/parent_prefix_path/om_joint_trajectory_command_broadcaster
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/ament_prefix_path.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/ament_prefix_path.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/path.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/path.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/local_setup.bash
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/local_setup.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/local_setup.zsh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/local_setup.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/package.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/ament_index/resource_index/packages/om_joint_trajectory_command_broadcaster
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/ament_index/resource_index/controller_interface__pluginlib__plugin/om_joint_trajectory_command_broadcaster
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/export_joint_trajectory_command_broadcasterExport.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/export_joint_trajectory_command_broadcasterExport-noconfig.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/om_joint_trajectory_command_broadcasterConfig.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/om_joint_trajectory_command_broadcasterConfig-version.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/package.xml

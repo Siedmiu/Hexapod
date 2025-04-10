@@ -1,0 +1,15 @@
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/ament_index/resource_index/package_run_dependencies/hexapod
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/ament_index/resource_index/parent_prefix_path/hexapod
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/environment/ament_prefix_path.sh
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/environment/ament_prefix_path.dsv
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/environment/path.sh
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/environment/path.dsv
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/local_setup.bash
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/local_setup.sh
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/local_setup.zsh
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/local_setup.dsv
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/package.dsv
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/ament_index/resource_index/packages/hexapod
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/cmake/hexapodConfig.cmake
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/cmake/hexapodConfig-version.cmake
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod/share/hexapod/package.xml

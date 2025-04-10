@@ -1,0 +1,70 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod_description
+-- Install configuration: ""
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/launch
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/launch/model_x.launch.py
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/platform_gear.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/leg_mid_gear.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/1_leg_up.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/5_leg_mid.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/3_leg_down.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/2_leg_down.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/2_leg_up.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/3_leg_up.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/leg_up_gear.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/6_leg_up.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/leg_down.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/6_leg_mid.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/3_leg_mid.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/leg_up.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/1_leg_mid.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/6_leg_down.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/2_leg_mid.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/5_leg_up.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/platform.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/1_leg_down.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/leg_mid.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/4_leg_down.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/4_leg_mid.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/4_leg_up.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/meshes/5_leg_down.stl
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/rviz
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/rviz/hexapod.rviz
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/urdf
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/urdf/hexapod_leg.urdf.xacro
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/urdf/hexapod.urdf.xacro
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/gazebo
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/gazebo/hexapod.gazebo.xacro
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/ros2_control
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/ros2_control/hexapod_system.ros2_control.xacro
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/ament_index/resource_index/package_run_dependencies/hexapod_description
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/ament_index/resource_index/parent_prefix_path/hexapod_description
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/environment/ament_prefix_path.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/environment/ament_prefix_path.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/environment/path.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/environment/path.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/local_setup.bash
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/local_setup.sh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/local_setup.zsh
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/local_setup.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/package.dsv
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/ament_index/resource_index/packages/hexapod_description
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/cmake/hexapod_descriptionConfig.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/cmake/hexapod_descriptionConfig-version.cmake
+-- Installing: /home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/install/hexapod_description/share/hexapod_description/package.xml

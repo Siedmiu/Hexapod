@@ -1,0 +1,9 @@
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod/CMakeFiles/uninstall.dir
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod/CMakeFiles/hexapod_uninstall.dir
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod/CMakeFiles/test.dir
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod/CMakeFiles/edit_cache.dir
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod/CMakeFiles/rebuild_cache.dir
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod/CMakeFiles/list_install_components.dir
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod/CMakeFiles/install.dir
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod/CMakeFiles/install/local.dir
+/home/bartosz-babi-ski/Hexapod_git4/Hexapod/simulation/ros2_ws_hex/build/hexapod/CMakeFiles/install/strip.dir
