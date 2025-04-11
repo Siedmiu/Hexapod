@@ -1,0 +1,65 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# tutaj kod opisuje do jakiego punktu ma sie ustawić dana noga tak aby pająk poruszył się o delta x i delta y i obrócił wokół własnej osi o kąt alfa
+# nazwy zmiennych są opisane w @Hexapod -> Walking Algorythm Blending
+delta_x = -3
+delta_y = -1
+alfa = np.deg2rad(45)
+
+x_n = 5
+y_n = 0
+
+x_no = x_n * np.cos(alfa) - y_n * np.sin(alfa)
+y_no = x_n * np.sin(alfa) + y_n * np.cos(alfa)
+
+x_n1 = x_no + delta_x
+y_n1 = y_no + delta_y
+
+A_x = 3
+A_y = 0
+
+A_x_wzgl_przyczepu = np.sqrt(A_x**2 + A_y**2) #np.sqrt(A_x**2 + A_y**2) jest z pozycji wyjściowej, podczas chodzenia tutaj bedą musiały być pobierane wartości tych wychyleń przed ruchem
+A_y_wzgl_przyczepu = 0 #0 jest z pozycji wyjściowej, podczas chodzenia tutaj bedą musiały być pobierane wartości tych wychyleń przed ruchem
+
+beta = np.atan2(A_y, A_x)
+
+x_l = x_n1 - x_n
+y_l = y_n1 - y_n
+l = np.sqrt(x_l**2 + y_l**2)
+
+gamma = np.atan2(y_l, x_l)
+
+teta = np.deg2rad(180) - gamma + beta
+
+x_l_wzgl_przyczepu = -np.cos(teta) * l
+y_l_wzgl_przyczepu = np.sin(teta) * l
+
+A_x_buf = A_x_wzgl_przyczepu - x_l_wzgl_przyczepu
+A_y_buf = A_y_wzgl_przyczepu - y_l_wzgl_przyczepu
+
+A_x_n = A_x_buf * np.cos(alfa) + A_y_buf * np.sin(alfa)
+A_y_n = -A_x_buf * np.sin(alfa) + A_y_buf * np.cos(alfa)
+
+print(A_x_n, A_y_n)
+#ten fragment kodu odpowiada za wyznaczenie kąta obrotu o jaki sie obraca robot między podanymi mu punktami
+t = np.linspace(0, 5 *np.pi, 100)
+x = t
+y = np.cos(t)
+suma_kata_obrotu = 0
+katy_obrotu = [0]
+delta_x_tab = [0]
+delta_y_tab = [0]
+for i in range(len(t) - 1):
+    kat_obrotu = -np.deg2rad(90) + np.arctan2(y[i + 1] - y[i], x[i + 1] - x[i]) - suma_kata_obrotu
+    katy_obrotu.append(kat_obrotu)
+    suma_kata_obrotu += kat_obrotu
+    delta_y_tab.append(y[i + 1] - y[i])
+    delta_x_tab.append(x[i + 1] - x[i])
+
+plt.scatter(t[2:], delta_y_tab[2:], label='zmiana funkcji w y') # wartości y wzgledem t
+plt.show()
+plt.scatter(t[2:], delta_x_tab[2:], label='zmiana funkcji w x') # wartości x wzgledem t
+plt.show()
+plt.scatter(t[2:], np.rad2deg(katy_obrotu[2:]), label = 'katy_obrotu') # wartości kata o jaki ma sie obrocic hexapod miedzy punktami
+plt.show()
