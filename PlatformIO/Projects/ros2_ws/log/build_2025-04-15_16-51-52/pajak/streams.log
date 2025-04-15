@@ -1,0 +1,28 @@
+[0.916s] Invoking command in '/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/src/pajak': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pajak build --build-base /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build install --record /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/install.log --single-version-externally-managed install_data
+[1.120s] running egg_info
+[1.135s] writing ../../build/pajak/pajak.egg-info/PKG-INFO
+[1.135s] writing dependency_links to ../../build/pajak/pajak.egg-info/dependency_links.txt
+[1.135s] writing entry points to ../../build/pajak/pajak.egg-info/entry_points.txt
+[1.135s] writing requirements to ../../build/pajak/pajak.egg-info/requires.txt
+[1.135s] writing top-level names to ../../build/pajak/pajak.egg-info/top_level.txt
+[1.164s] reading manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+[1.167s] adding license file 'LICENSE'
+[1.168s] writing manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+[1.168s] running build
+[1.168s] running build_py
+[1.168s] copying pajak/esp32_serial_commander.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak
+[1.168s] running install
+[1.173s] running install_lib
+[1.188s] copying /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak/esp32_serial_commander.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.188s] byte-compiling /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/esp32_serial_commander.py to esp32_serial_commander.cpython-312.pyc
+[1.189s] running install_data
+[1.189s] running install_egg_info
+[1.206s] removing '/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak-0.0.0-py3.12.egg-info' (and everything under it)
+[1.206s] Copying ../../build/pajak/pajak.egg-info to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak-0.0.0-py3.12.egg-info
+[1.207s] running install_scripts
+[1.312s] Installing esp32_serial_commander script to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak
+[1.312s] Installing my_node script to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak
+[1.312s] Installing pajak_trajectory script to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak
+[1.312s] Installing test script to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak
+[1.312s] writing list of installed files to '/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/install.log'
+[1.336s] Invoked command in '/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/src/pajak' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pajak build --build-base /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build install --record /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/install.log --single-version-externally-managed install_data

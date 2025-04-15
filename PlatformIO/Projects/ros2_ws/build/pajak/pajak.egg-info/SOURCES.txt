@@ -10,6 +10,8 @@ setup.py
 ../../build/pajak/pajak.egg-info/top_level.txt
 ../../build/pajak/pajak.egg-info/zip-safe
 pajak/__init__.py
+pajak/esp32_serial_commander.py
+pajak/interactive_pub.py
 pajak/my_node.py
 pajak/pajak_trajectory.py
 pajak/test.py
