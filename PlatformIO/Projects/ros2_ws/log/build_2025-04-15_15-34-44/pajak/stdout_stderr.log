@@ -1,0 +1,44 @@
+running egg_info
+creating ../../build/pajak/pajak.egg-info
+writing ../../build/pajak/pajak.egg-info/PKG-INFO
+writing dependency_links to ../../build/pajak/pajak.egg-info/dependency_links.txt
+writing entry points to ../../build/pajak/pajak.egg-info/entry_points.txt
+writing requirements to ../../build/pajak/pajak.egg-info/requires.txt
+writing top-level names to ../../build/pajak/pajak.egg-info/top_level.txt
+writing manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+reading manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/milosz/ros2_ws/build/pajak/build
+creating /home/milosz/ros2_ws/build/pajak/build/lib
+creating /home/milosz/ros2_ws/build/pajak/build/lib/pajak
+copying pajak/pajak_trajectory.py -> /home/milosz/ros2_ws/build/pajak/build/lib/pajak
+copying pajak/test.py -> /home/milosz/ros2_ws/build/pajak/build/lib/pajak
+copying pajak/my_node.py -> /home/milosz/ros2_ws/build/pajak/build/lib/pajak
+copying pajak/__init__.py -> /home/milosz/ros2_ws/build/pajak/build/lib/pajak
+running install
+running install_lib
+creating /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+copying /home/milosz/ros2_ws/build/pajak/build/lib/pajak/pajak_trajectory.py -> /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+copying /home/milosz/ros2_ws/build/pajak/build/lib/pajak/test.py -> /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+copying /home/milosz/ros2_ws/build/pajak/build/lib/pajak/my_node.py -> /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+copying /home/milosz/ros2_ws/build/pajak/build/lib/pajak/__init__.py -> /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+byte-compiling /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/pajak_trajectory.py to pajak_trajectory.cpython-312.pyc
+byte-compiling /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/test.py to test.cpython-312.pyc
+byte-compiling /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/my_node.py to my_node.cpython-312.pyc
+byte-compiling /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__init__.py to __init__.cpython-312.pyc
+running install_data
+creating /home/milosz/ros2_ws/install/pajak/share/ament_index
+creating /home/milosz/ros2_ws/install/pajak/share/ament_index/resource_index
+creating /home/milosz/ros2_ws/install/pajak/share/ament_index/resource_index/packages
+copying resource/pajak -> /home/milosz/ros2_ws/install/pajak/share/ament_index/resource_index/packages
+copying package.xml -> /home/milosz/ros2_ws/install/pajak/share/pajak
+running install_egg_info
+Copying ../../build/pajak/pajak.egg-info to /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak-0.0.0-py3.12.egg-info
+running install_scripts
+Installing my_node script to /home/milosz/ros2_ws/install/pajak/lib/pajak
+Installing pajak_trajectory script to /home/milosz/ros2_ws/install/pajak/lib/pajak
+Installing test script to /home/milosz/ros2_ws/install/pajak/lib/pajak
+writing list of installed files to '/home/milosz/ros2_ws/build/pajak/install.log'

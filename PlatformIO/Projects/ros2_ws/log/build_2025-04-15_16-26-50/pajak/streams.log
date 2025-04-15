@@ -1,0 +1,27 @@
+[0.770s] Invoking command in '/home/milosz/ros2_ws/src/pajak': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/milosz/ros2_ws/build/pajak/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pajak build --build-base /home/milosz/ros2_ws/build/pajak/build install --record /home/milosz/ros2_ws/build/pajak/install.log --single-version-externally-managed install_data
+[0.973s] running egg_info
+[0.988s] writing ../../build/pajak/pajak.egg-info/PKG-INFO
+[0.991s] writing dependency_links to ../../build/pajak/pajak.egg-info/dependency_links.txt
+[0.991s] writing entry points to ../../build/pajak/pajak.egg-info/entry_points.txt
+[0.991s] writing requirements to ../../build/pajak/pajak.egg-info/requires.txt
+[0.991s] writing top-level names to ../../build/pajak/pajak.egg-info/top_level.txt
+[1.023s] reading manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+[1.023s] adding license file 'LICENSE'
+[1.024s] writing manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+[1.024s] running build
+[1.024s] running build_py
+[1.024s] copying pajak/pajak_trajectory.py -> /home/milosz/ros2_ws/build/pajak/build/lib/pajak
+[1.024s] running install
+[1.029s] running install_lib
+[1.045s] copying /home/milosz/ros2_ws/build/pajak/build/lib/pajak/pajak_trajectory.py -> /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.045s] byte-compiling /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/pajak_trajectory.py to pajak_trajectory.cpython-312.pyc
+[1.047s] running install_data
+[1.047s] running install_egg_info
+[1.062s] removing '/home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak-0.0.0-py3.12.egg-info' (and everything under it)
+[1.062s] Copying ../../build/pajak/pajak.egg-info to /home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak-0.0.0-py3.12.egg-info
+[1.063s] running install_scripts
+[1.160s] Installing my_node script to /home/milosz/ros2_ws/install/pajak/lib/pajak
+[1.160s] Installing pajak_trajectory script to /home/milosz/ros2_ws/install/pajak/lib/pajak
+[1.160s] Installing test script to /home/milosz/ros2_ws/install/pajak/lib/pajak
+[1.160s] writing list of installed files to '/home/milosz/ros2_ws/build/pajak/install.log'
+[1.183s] Invoked command in '/home/milosz/ros2_ws/src/pajak' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/milosz/ros2_ws/build/pajak/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/milosz/ros2_ws/install/pajak/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pajak build --build-base /home/milosz/ros2_ws/build/pajak/build install --record /home/milosz/ros2_ws/build/pajak/install.log --single-version-externally-managed install_data
