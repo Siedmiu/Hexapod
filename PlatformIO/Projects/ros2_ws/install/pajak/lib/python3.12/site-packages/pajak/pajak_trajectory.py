@@ -44,7 +44,7 @@ def parabola_w_przestrzeni_z_punktow(w1, w2, w3, liczba_punktow):
 class SerialLegController(Node):
     def __init__(self):
         super().__init__('serial_leg_controller')
-        self.ser = serial.Serial('/dev/ttyUSB1', 115200)  # Dostosuj port!
+        self.ser = serial.Serial('/dev/ttyUSB0', 115200)  # Dostosuj port!
         self.get_logger().info("Serial port initialized")
 
     def send_joint_positions(self, joint_positions):

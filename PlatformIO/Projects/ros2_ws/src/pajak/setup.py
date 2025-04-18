@@ -24,6 +24,7 @@ setup(
             'pajak_trajectory = pajak.pajak_trajectory:main',
             'test = pajak.test:main',
             'esp32_serial_commander = pajak.esp32_serial_commander:main',
+            'walk_v1 = pajak.walk_v1:main',
         ],
     },
 )

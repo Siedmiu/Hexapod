@@ -15,6 +15,7 @@ pajak/interactive_pub.py
 pajak/my_node.py
 pajak/pajak_trajectory.py
 pajak/test.py
+pajak/walk_v1.py
 resource/pajak
 test/test_copyright.py
 test/test_flake8.py
