@@ -7,3 +7,12 @@ Write.py is a script that writes the data to .csv file
 traj.py calculates trajectory based of the data about angles and acceleration
 
 MPU-6050 datasheet: https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Datasheet1.pdf
+
+================19.04.2025==============
+I am testing an alternative approach, and created new implementation.
+The program runs through Matlab and directly connects to the esp, remember to define the COM port.
+
+I want to use the onboard Digital Motion Processor (DMP) to get accurate orientation data while minimizing drift.
+
+Data looks promising with minimal diviation and fast responses, but the acceleration scaling
+needs to be fixed.
