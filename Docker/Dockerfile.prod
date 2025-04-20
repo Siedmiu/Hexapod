@@ -16,6 +16,8 @@ RUN pip3 install --break-system-packages -U colcon-common-extensions
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
+ENV LIBGL_ALWAYS_SOFTWARE=1  
+ENV GZ_SIM_SYSTEM_PLUGIN_PATH=/opt/ros/jazzy/lib/
 
 # Dodanie zmiennej XDG_RUNTIME_DIR oraz utworzenie katalogu z odpowiednimi uprawnieniami
 ENV XDG_RUNTIME_DIR=/tmp/runtime-root

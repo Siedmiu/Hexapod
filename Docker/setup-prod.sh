@@ -1,6 +1,18 @@
 #!/bin/bash
 set -e
 
+# Sprawdzenie, czy zmienna DISPLAY jest ustawiona
+if [ -z "$DISPLAY" ]; then
+    echo "DISPLAY variable is not set. Exiting."
+    exit 1
+fi
+
+# Sprawdzenie, czy xhost jest dostępny
+if ! command -v xhost &> /dev/null; then
+    echo "xhost command not found. Please install x11-xserver-utils."
+    exit 1
+fi
+
 # Aktualizacja systemu
 sudo apt update && sudo apt upgrade -y
 
@@ -31,5 +43,6 @@ sudo docker run -it --rm \
   --name hexapod-prod \
   --network host \
   -e DISPLAY=$DISPLAY \
+  -e QT_X11_NO_MITSHM=1 \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   hexapod-prod

@@ -17,6 +17,10 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
+# Dodane nowe zmienne środowiskowe
+ENV LIBGL_ALWAYS_SOFTWARE=1
+ENV GZ_SIM_SYSTEM_PLUGIN_PATH=/opt/ros/jazzy/lib/
+
 # Konfiguracja XDG_RUNTIME_DIR
 ENV XDG_RUNTIME_DIR=/tmp/runtime-root
 RUN mkdir -p /tmp/runtime-root && chmod 0700 /tmp/runtime-root
@@ -43,6 +47,8 @@ RUN curl -sSL https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/
 
 # Automatyczne source ROS2 przy wejściu do terminala
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc
+# Dodany sourcing workspace, jeśli istnieje (np. zmontowany katalog)
+RUN echo "if [ -f /ros_ws/Hexapod/simulation/ros2_ws_hex/install/setup.bash ]; then source /ros_ws/Hexapod/simulation/ros2_ws_hex/install/setup.bash; fi" >> /root/.bashrc
 
 WORKDIR /ros_ws
 

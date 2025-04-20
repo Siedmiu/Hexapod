@@ -52,6 +52,14 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 - Skrypty wykorzystują sudo, co wymaga uprzedniego ustawienia odpowiednich uprawnień.
 - Jeśli w eksploratorze plików widzisz ikonę kłódki przy pliku lub folderze, użyj polecenia:
   `sudo chown -R $USER:$USER <nazwa pliku/folderu>`
+- Aby wyczyścić nieużywane dane budowy i systemu Dockera, można użyć:
+  - `docker builder prune --all` – usuwa nieużywane dane builda.
+  - `docker system prune --all --volumes` – usuwa nieużywane kontenery, obrazy, sieci i woluminy.
+- Aby otworzyć dodatkowy terminal do uruchomionego kontenera:
+  - Uruchom obraz jako kontener w tle: `docker run -d -it <image_id>`
+  - Sprawdź identyfikator kontenera: `docker ps`
+  - Otwórz pierwszy terminal i wykonaj: `docker exec -it <container_id> bash`
+  - Następnie otwórz kolejny terminal i powtórz `docker exec ...`, aby uzyskać kolejny interaktywny dostęp.
 
 ## Skrypty
 

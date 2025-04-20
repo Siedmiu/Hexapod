@@ -20,6 +20,17 @@ if ! command -v docker &> /dev/null; then
   echo "Docker został zainstalowany. Może być konieczne ponowne zalogowanie."
 fi
 
+# Dodanie sprawdzania, czy katalog Hexapod istnieje
+if [ ! -d "$PWD/Hexapod" ]; then
+  echo "Katalog Hexapod nie znaleziony. Klonowanie repozytorium i budowa workspace..."
+  git clone https://github.com/Siedmiu/Hexapod.git
+  sudo chown -R $USER:$USER Hexapod
+  sudo chmod -R u+rw Hexapod
+  cd Hexapod/simulation/ros2_ws_hex
+  bash -c "source /opt/ros/jazzy/setup.bash && colcon build"
+  cd ../..
+fi
+
 # Ścieżka do pliku z obrazem DEV
 IMAGE_TAR="hexapod-dev.tar"
 
@@ -43,6 +54,6 @@ sudo docker run -it --rm \
   --network host \
   -e DISPLAY=$DISPLAY \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -v "$PWD:/ros_ws" \
+  -v "$PWD/Hexapod:/ros_ws/Hexapod" \
   hexapod-dev \
   bash
