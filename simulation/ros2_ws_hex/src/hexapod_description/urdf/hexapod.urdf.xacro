@@ -1,6 +1,19 @@
 <?xml version="1.0"?>
 <!-- OpenManipulator Chain -->
 <robot name="hexapod" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  
+  <!-- Includes start -->
+<!-- 
+  <xacro:include filename="lidar.xacro"/>
+-->
+  
+  <xacro:include filename="camera.xacro"/>
+
+
+  <!-- Includes end-->
+
+
   <xacro:arg name="prefix" default="" />
   <xacro:arg name="use_sim" default="false" />
   <xacro:arg name="use_fake_hardware" default="false" />
@@ -38,5 +51,37 @@
     <parent link="world"/>
     <child link="$(arg prefix)link1"/>
   </joint> -->
+
+  <!-- Fake left wheel -->
+  <link name="fake_left_wheel"/>
+  <joint name="fake_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="fake_left_wheel"/>
+    <origin xyz="0 0.1 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Fake right wheel -->
+  <link name="fake_right_wheel"/>
+  <joint name="fake_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="fake_right_wheel"/>
+    <origin xyz="0 -0.1 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <gazebo reference="fake_left_wheel">
+    <mu1>0</mu1>
+    <mu2>0</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+  
+  <gazebo reference="fake_right_wheel">
+    <mu1>0</mu1>
+    <mu2>0</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+  
+
 
 </robot>
