@@ -20,7 +20,8 @@
       
      <link name="${prefix}link1">
        <visual>
-         <origin xyz="-0.001140 0.000016 -0.002812" rpy="0 0 0"/>
+         <origin xyz="-0.001140 0.000016 -0.002812" rpy="0 0 0"/> 
+         <origin xyz="-0.001140 0.000016 1.002812" rpy="0 0 0"/>
          <geometry>
            <mesh filename="${meshes_file_direction}/platform.stl" scale="1.0 1.0 1.0"/>
          </geometry>
@@ -30,7 +31,7 @@
        </visual>
  
        <collision>
-         <origin xyz="-0.001140 0.000016 -0.002812" rpy="0 0 0"/>
+         <origin xyz="-0.001140 0.000016 -0.002812" rpy="0 0 0"/> 
          <geometry>
            <mesh filename="${meshes_file_direction}/platform.stl" scale="1.0 1.0 1.0"/>
          </geometry>

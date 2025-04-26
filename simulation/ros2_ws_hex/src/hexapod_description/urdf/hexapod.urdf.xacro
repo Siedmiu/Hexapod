@@ -42,6 +42,38 @@
     </plugin>
   </gazebo>
 
+  <!-- Fake left wheel -->
+  <link name="fake_left_wheel">
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <joint name="fake_left_wheel_joint" type="continuous">
+    <parent link="${prefix}link1"/>
+    <child link="fake_left_wheel"/>
+    <origin xyz="0 0.15 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Fake right wheel -->
+  <link name="fake_right_wheel">
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <joint name="fake_right_wheel_joint" type="continuous">
+    <parent link="${prefix}link1"/>
+    <child link="fake_right_wheel"/>
+    <origin xyz="0 -0.15 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
   <!-- World -->
   <!-- <link name="world"/> -->
 
@@ -52,36 +84,6 @@
     <child link="$(arg prefix)link1"/>
   </joint> -->
 
-  <!-- Fake left wheel -->
-  <link name="fake_left_wheel"/>
-  <joint name="fake_left_wheel_joint" type="continuous">
-    <parent link="base_link"/>
-    <child link="fake_left_wheel"/>
-    <origin xyz="0 0.1 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <!-- Fake right wheel -->
-  <link name="fake_right_wheel"/>
-  <joint name="fake_right_wheel_joint" type="continuous">
-    <parent link="base_link"/>
-    <child link="fake_right_wheel"/>
-    <origin xyz="0 -0.1 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <gazebo reference="fake_left_wheel">
-    <mu1>0</mu1>
-    <mu2>0</mu2>
-    <material>Gazebo/Black</material>
-  </gazebo>
-  
-  <gazebo reference="fake_right_wheel">
-    <mu1>0</mu1>
-    <mu2>0</mu2>
-    <material>Gazebo/Black</material>
-  </gazebo>
-  
 
 
 </robot>

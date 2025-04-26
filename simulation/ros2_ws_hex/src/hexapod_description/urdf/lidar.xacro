@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
+<!-- we wouldnt have a lidar in out hexapod it is just pretty similar to camera, that's why it was added like an example for futher development -->
+<!-- source - https://articulatedrobotics.xyz/tutorials/mobile-robot/hardware/lidar -->
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
     <xacro:property name="prefix" value=""/>

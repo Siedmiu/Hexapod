@@ -123,6 +123,17 @@ def generate_launch_description():
         output='screen'
     )
 
+    load_drive_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+            'diff_drive_controller'],
+        output='screen'
+    )
+
+    load_diff_drive_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'diff_drive_controller'],
+        output='screen'
+    )
+
 
     bridge = Node(
         package='ros_gz_bridge',
@@ -141,8 +152,11 @@ def generate_launch_description():
         arguments=["-d", rviz_config_file],
     )
 
+
+
+
     return LaunchDescription([
-        RegisterEventHandler(
+        RegisterEventHandler(           
             event_handler=OnProcessExit(
                 target_action=gz_spawn_entity,
                 on_exit=[load_joint_state_controller],
@@ -152,6 +166,12 @@ def generate_launch_description():
             event_handler=OnProcessExit(
                target_action=load_joint_state_controller,
                on_exit=[load_arm_controller], 
+            )
+        ),
+            RegisterEventHandler(
+            event_handler=OnProcessExit(
+            target_action=load_arm_controller,
+            on_exit=[load_drive_controller],
             )
         ),
         bridge,

@@ -9,6 +9,9 @@ controller_manager:
     arm_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
+    diff_drive_controller:
+      type: diff_drive_controller/DiffDriveController
+
 arm_controller:
   ros__parameters:
     use_sim_time: True
@@ -56,3 +59,26 @@ arm_controller:
     constraints:
       stopped_velocity_tolerance: 0.01
       goal_time: 0.0 # Defaults to 0.0 (start immediately)
+
+
+diff_drive_controller:
+  ros__parameters:
+    use_sim_time: true
+    type: diff_drive_controller/DiffDriveController
+
+    left_wheel_names: ["fake_left_wheel_joint"]
+    right_wheel_names: ["fake_right_wheel_joint"]
+
+    wheel_separation: 0.2
+    wheel_radius: 0.05
+
+    publish_rate: 50.0
+
+    cmd_vel_timeout: 0.25
+
+    base_frame_id: base_link
+    odom_frame_id: odom
+    enable_odom_tf: true
+
+    use_stamped_vel: false
+
