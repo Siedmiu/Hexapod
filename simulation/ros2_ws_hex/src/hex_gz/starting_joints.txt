@@ -1,0 +1,14 @@
+If we want to set the starting position of the robot in gazebo at the start,
+then in addition to modifying urdf. should also 
+change something in the .yaml and gazebo_launch.py files. 
+Unfortunately I have not been able to figure out what to do, 
+everything I have attempted has not worked. 
+It seems to me that ros_controll overwrites all the initial values given in the yaml, 
+but I have not been able to get past that.
+Modifying only the xacro file here 
+<origin xyz="-0.054636 -0.071451 0.00505" rpy="1.0472 0 0"/>
+in addition to rotating the leg by the proper angle around the joint 
+also causes rotation around axes around which the leg should not rotate. 
+Besides, xacro(urdf) is not used to set initial values or any fixed alignments, 
+but to define connections between different parts of the robot, such as 
+joints (joint), links (link), as well as senzors and other robot parts.
