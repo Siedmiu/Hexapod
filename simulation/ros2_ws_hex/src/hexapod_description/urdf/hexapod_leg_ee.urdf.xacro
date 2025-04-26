@@ -875,13 +875,8 @@
     </link>
 
     <!-- END EFFECTOR JOINT AND LINK -->
-<!--may be useful to set leg in starting position
-    <joint name="${prefix}joint4_6" type="fixed">
-      <parent link="${prefix}link4_6"/>
-      <child link="${prefix}link5_6"/>
-      <origin xyz="-0.099223	-0.130739	-0.000046" rpy="0 0 0"/>
-    </joint>
 
+<!--may be useful to set leg in starting position
     <transmission name="${prefix}trans_joint1_6">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}joint1_6">
