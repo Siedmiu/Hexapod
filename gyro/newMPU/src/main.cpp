@@ -5,7 +5,7 @@
 #include "I2Cdev.h"
 #include "MPU6050_6Axis_MotionApps20.h"
 
-void calibrateMPU6050();
+void calibrateMPU6050(); //not used currently
 void sendDataToSerial();
 
 //MPU control
@@ -25,6 +25,11 @@ VectorInt16 aaWorld;    // [x, y, z]            world-frame accel sensor measure
 VectorFloat gravity;    // [x, y, z]
 float ypr[3];           // [yaw, pitch, roll]
 
+//sensor settle time
+unsigned long startTime = 0;
+bool initialPeriodComplete = false;
+const unsigned long INITIAL_PERIOD_MS = 17000;
+
 //MPU interrupt detection
 volatile bool mpuInterrupt = false;
 void IRAM_ATTR dmpDataReady() {
@@ -33,7 +38,8 @@ void IRAM_ATTR dmpDataReady() {
 
 void setup() {
     Serial.begin(115200);
-    while (!Serial); 
+    while (!Serial);
+
     //I2C
     Wire.begin(26, 25); // SDA, SCL pins, define as constants
     Wire.setClock(400000); //400kHz
@@ -55,12 +61,12 @@ void setup() {
     
     //DMP initialization check
     if (devStatus == 0) {
-        Serial.println("Calibrating MPU6050...");
-        calibrateMPU6050();
+        //Serial.println("Calibrating MPU6050...");
+        //calibrateMPU6050();
         Serial.println("Enabling DMP...");
         mpu.setDMPEnabled(true);
         
-        // Enable interrupt detection
+        //enable interrupt detection
         Serial.println("Enabling interrupt detection (ESP32 pin 27)...");
         attachInterrupt(27, dmpDataReady, RISING);
         mpuIntStatus = mpu.getIntStatus();
@@ -70,6 +76,10 @@ void setup() {
         
         // get packet size
         packetSize = mpu.dmpGetFIFOPacketSize();
+
+        //settle time
+        startTime = millis();
+        Serial.println("Waiting for the sensor to settle...");
     } else {
         // ERROR!
         // 1 = initial memory load failed
@@ -86,6 +96,11 @@ void loop() {
     
     mpuInterrupt = false;
     mpuIntStatus = mpu.getIntStatus();
+
+    if (!initialPeriodComplete && (millis() - startTime > INITIAL_PERIOD_MS)) {
+        initialPeriodComplete = true;
+        Serial.println("INIT_COMPLETE");
+    }
 
     // Check for overflow
     fifoCount = mpu.getFIFOCount();
@@ -107,7 +122,9 @@ void loop() {
         mpu.dmpGetLinearAccel(&aaReal, &aa, &gravity);
         mpu.dmpGetLinearAccelInWorld(&aaWorld, &aaReal, &q);
         
-        sendDataToSerial();
+        if (initialPeriodComplete) {
+            sendDataToSerial();
+        }
     }
 }
 
@@ -119,9 +136,8 @@ void calibrateMPU6050() {
     int32_t ax_sum = 0, ay_sum = 0, az_sum = 0;
     int32_t gx_sum = 0, gy_sum = 0, gz_sum = 0;
     
-    Serial.println("Letting sensor settle...");
-    delay(settleTime);
-    
+    //Serial.println("Letting sensor settle...");
+    //delay(settleTime);
     Serial.println("Collecting calibration samples...");
     for (int i = 0; i < numSamples; i++) {
         int16_t ax, ay, az, gx, gy, gz;
@@ -145,8 +161,8 @@ void calibrateMPU6050() {
     int16_t gz_mean = gz_sum / numSamples;
     
     //compensate for gravity in z-axis (~16384 at rest with 2g sensitivity setting)
-    //???
-    az_mean -= 16384;  
+    //??? this won't work, what if the sensor is at an angle?
+    //az_mean -= 16384;  
     
     //Set offsets
     mpu.setXAccelOffset(-ax_mean);
@@ -184,6 +200,7 @@ void sendDataToSerial() {
     Serial.print(",");
     
     // Raw acceleration
+    //this value doesn't change, why?
     Serial.print(aa.x);
     Serial.print(",");
     Serial.print(aa.y);
