@@ -96,7 +96,7 @@
        <parent link="${prefix}link2_1"/>
        <child link="${prefix}link3_1"/>
        <origin xyz="-0.018864	0.024671	-0.020002" rpy="0 0 0"/>
-       <axis xyz="-0.6074290528 -0.794374 0"/>
+       <axis xyz="-0.794374 -0.6074290528 0"/>
        <limit effort="5.0" velocity="1.0" lower="-0.261799388" upper="1.308996939"/>
        <dynamics damping="0.1"/>
      </joint>
@@ -137,7 +137,7 @@
        <parent link="${prefix}link3_1"/>
        <child link="${prefix}link4_1"/>
        <origin xyz="-0.054636	0.071451	0.00505" rpy="0 0 0"/>
-       <axis xyz="-0.6074290528 -0.794374 0"/>
+       <axis xyz="-0.7968540982 -0.6041717854 0"/>
        <limit effort="5.0" velocity="1.0" lower="0" upper="1.570796327"/>
        <dynamics damping="0.1"/>
      </joint>
@@ -533,7 +533,7 @@
        <parent link="${prefix}link3_4"/>
        <child link="${prefix}link4_4"/>
        <origin xyz="0.054636	-0.071451	0.00505" rpy="0 0 0"/>
-       <axis xyz="0.6074290528 0.794374 0"/>
+       <axis xyz="0.794374 0.6074290528 0"/>
        <limit effort="5.0" velocity="1.0" lower="0" upper="1.570796327"/>
        <dynamics damping="0.1"/>
      </joint>
