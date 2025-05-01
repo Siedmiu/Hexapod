@@ -67,6 +67,11 @@
         <joint name="joint2_1" value="0"/>
         <joint name="joint3_1" value="0"/>
     </group_state>
+    <group_state name="moja_nowa_poza" group="leg1_group">
+    <joint name="joint1_1" value="0.436332"/>
+    <joint name="joint2_1" value="0.0"/>
+    <joint name="joint3_1" value="1.047197551"/>
+    </group_state>
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base_link"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
