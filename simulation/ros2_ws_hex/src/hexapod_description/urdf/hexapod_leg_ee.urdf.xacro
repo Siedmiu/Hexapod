@@ -145,7 +145,7 @@
     <joint name="${prefix}joint3_1" type="revolute">
       <parent link="${prefix}link3_1"/>
       <child link="${prefix}link4_1"/>
-      <origin xyz="-0.054636	0.071451	0.00505" rpy="1.4072 0 0"/>
+      <origin xyz="-0.054636	0.071451	0.00505" rpy="0 0 0"/>
       <axis xyz="-0.6074290528 -0.794374 0"/>
       <limit effort="5.0" velocity="1.0" lower="0" upper="1.570796327"/>
       <dynamics damping="0.1"/>
@@ -280,7 +280,7 @@
     <joint name="${prefix}joint3_2" type="revolute">
       <parent link="${prefix}link3_2"/>
       <child link="${prefix}link4_2"/>
-      <origin xyz="0.0	0.089946	0.00505" rpy="1.4072 0 0"/>
+      <origin xyz="0.0	0.089946	0.00505" rpy="0 0 0"/>
       <axis xyz="-1 0 0"/>
       <limit effort="5.0" velocity="1.0" lower="0" upper="1.570796327"/>
       <dynamics damping="0.1"/>
@@ -419,7 +419,7 @@
     <joint name="${prefix}joint3_3" type="revolute">
       <parent link="${prefix}link3_3"/>
       <child link="${prefix}link4_3"/>
-      <origin xyz="0.054636	0.071451	0.00505" rpy="1.4072 0 0"/>
+      <origin xyz="0.054636	0.071451	0.00505" rpy="0 0 0"/>
       <axis xyz="-0.794374 0.6074290528 0"/>
       <limit effort="5.0" velocity="1.0" lower="0" upper="1.570796327"/>
       <dynamics damping="0.1"/>
@@ -558,7 +558,7 @@
     <joint name="${prefix}joint3_4" type="revolute">
       <parent link="${prefix}link3_4"/>
       <child link="${prefix}link4_4"/>
-      <origin xyz="0.054636	-0.071451	0.00505" rpy="1.4072 0 0"/>
+      <origin xyz="0.054636	-0.071451	0.00505" rpy="0 0 0"/>
       <axis xyz="0.6074290528 0.794374 0"/>
       <limit effort="5.0" velocity="1.0" lower="0" upper="1.570796327"/>
       <dynamics damping="0.1"/>
@@ -698,7 +698,7 @@
     <joint name="${prefix}joint3_5" type="revolute">
       <parent link="${prefix}link3_5"/>
       <child link="${prefix}link4_5"/>
-      <origin xyz="0.0	-0.089946	0.00505" rpy="1.4072 0 0"/>
+      <origin xyz="0.0	-0.089946	0.00505" rpy="0 0 0"/>
       <axis xyz="1 0 0"/>
       <limit effort="5.0" velocity="1.0" lower="0" upper="1.570796327"/>
       <dynamics damping="0.1"/>
@@ -838,7 +838,7 @@
     <joint name="${prefix}joint3_6" type="revolute">
       <parent link="${prefix}link3_6"/>
       <child link="${prefix}link4_6"/>
-      <origin xyz="-0.054636	-0.071451	0.00505" rpy="1.4072 0 0"/>
+      <origin xyz="-0.054636	-0.071451	0.00505" rpy="0 0 0"/>
       <axis xyz="0.794374 -0.6074290528 0"/>
       <limit effort="5.0" velocity="1.0" lower="0" upper="1.570796327"/>
       <dynamics damping="0.1"/>
@@ -876,40 +876,6 @@
 
     <!-- END EFFECTOR JOINT AND LINK -->
 
-<!--may be useful to set leg in starting position
-    <transmission name="${prefix}trans_joint1_6">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${prefix}joint1_6">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="${prefix}motor1_6">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-        <mechanicalReduction>1.0</mechanicalReduction>
-      </actuator>
-    </transmission>
-
-    <transmission name="${prefix}trans_joint2_6">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${prefix}joint2_6">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="${prefix}motor2_6">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-        <mechanicalReduction>1.0</mechanicalReduction>
-      </actuator>
-    </transmission>
-
-    <transmission name="${prefix}trans_joint3_6">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${prefix}joint3_6">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="${prefix}motor3_6">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-        <mechanicalReduction>1.0</mechanicalReduction>
-      </actuator>
-    </transmission>
-    -->
     <joint name="${prefix}joint4_6" type="fixed">
       <parent link="${prefix}link4_6"/>
       <child link="${prefix}link5_6"/>
