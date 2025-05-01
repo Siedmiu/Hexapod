@@ -52,26 +52,162 @@
         <joint name="virtual_joint"/>
     </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
-    <group_state name="pose1" group="leg1_group">
-        <joint name="joint1_1" value="0.5235"/>
-        <joint name="joint2_1" value="0"/>
-        <joint name="joint3_1" value="0"/>
-    </group_state>
-    <group_state name="default" group="leg1_group">
+    <group_state name="home_1" group="leg1_group">
         <joint name="joint1_1" value="0"/>
         <joint name="joint2_1" value="0"/>
-        <joint name="joint3_1" value="0"/>
+        <joint name="joint3_1" value="1.047197551"/>
     </group_state>
-    <group_state name="pose2" group="leg1_group">
-        <joint name="joint1_1" value="-0.5235"/>
-        <joint name="joint2_1" value="0"/>
-        <joint name="joint3_1" value="0"/>
+    <group_state name="przod_1" group="leg1_group">
+        <joint name="joint1_1" value="0.349066"/>
+        <joint name="joint2_1" value="0.0"/>
+        <joint name="joint3_1" value="1.047197551"/>
     </group_state>
-    <group_state name="moja_nowa_poza" group="leg1_group">
-    <joint name="joint1_1" value="0.436332"/>
-    <joint name="joint2_1" value="0.0"/>
-    <joint name="joint3_1" value="1.047197551"/>
+    <group_state name="tyl_1" group="leg1_group">
+        <joint name="joint1_1" value="-0.349066"/>
+        <joint name="joint2_1" value="0.0"/>
+        <joint name="joint3_1" value="1.047197551"/>
     </group_state>
+    <group_state name="up_1" group="leg1_group">
+        <joint name="joint1_1" value="0"/>
+        <joint name="joint2_1" value="-0.174533"/>
+        <joint name="joint3_1" value="1.047197551"/>
+    </group_state>
+    <group_state name="half_up_1" group="leg1_group">
+        <joint name="joint1_1" value="0.174533"/>
+        <joint name="joint2_1" value="-0.174533"/>
+        <joint name="joint3_1" value="1.047197551"/>
+    </group_state>
+
+    <group_state name="home_2" group="leg2_group">
+        <joint name="joint1_2" value="0"/>
+        <joint name="joint2_2" value="0"/>
+        <joint name="joint3_2" value="1.047197551"/>
+    </group_state>
+    <group_state name="przod_2" group="leg2_group">
+        <joint name="joint1_2" value="0.349066"/>
+        <joint name="joint2_2" value="0.0"/>
+        <joint name="joint3_2" value="1.047197551"/>
+    </group_state>
+    <group_state name="tyl_2" group="leg2_group">
+        <joint name="joint1_2" value="-0.349066"/>
+        <joint name="joint2_2" value="0.0"/>
+        <joint name="joint3_2" value="1.047197551"/>
+    </group_state>
+    <group_state name="up_2" group="leg2_group">
+        <joint name="joint1_2" value="0"/>
+        <joint name="joint2_2" value="-0.174533"/>
+        <joint name="joint3_2" value="1.047197551"/>
+    </group_state>
+    <group_state name="half_up_2" group="leg2_group">
+        <joint name="joint1_2" value="0.174533"/>
+        <joint name="joint2_2" value="-0.174533"/>
+        <joint name="joint3_2" value="1.047197551"/>
+    </group_state>
+
+    <group_state name="home_3" group="leg3_group">
+        <joint name="joint1_3" value="0"/>
+        <joint name="joint2_3" value="0"/>
+        <joint name="joint3_3" value="1.047197551"/>
+    </group_state>
+    <group_state name="przod_3" group="leg3_group">
+        <joint name="joint1_3" value="0.349066"/>
+        <joint name="joint2_3" value="0.0"/>
+        <joint name="joint3_3" value="1.047197551"/>
+    </group_state>
+    <group_state name="tyl_3" group="leg3_group">
+        <joint name="joint1_3" value="-0.349066"/>
+        <joint name="joint2_3" value="0.0"/>
+        <joint name="joint3_3" value="1.047197551"/>
+    </group_state>
+    <group_state name="up_3" group="leg3_group">
+        <joint name="joint1_3" value="0"/>
+        <joint name="joint2_3" value="-0.174533"/>
+        <joint name="joint3_3" value="1.047197551"/>
+    </group_state>
+    <group_state name="half_up_3" group="leg3_group">
+        <joint name="joint1_3" value="0.174533"/>
+        <joint name="joint2_3" value="-0.174533"/>
+        <joint name="joint3_3" value="1.047197551"/>
+    </group_state>
+
+    <group_state name="home_4" group="leg4_group">
+        <joint name="joint1_4" value="0"/>
+        <joint name="joint2_4" value="0"/>
+        <joint name="joint3_4" value="1.047197551"/>
+    </group_state>
+    <group_state name="przod_4" group="leg4_group">
+        <joint name="joint1_4" value="-0.349066"/>
+        <joint name="joint2_4" value="0.0"/>
+        <joint name="joint3_4" value="1.047197551"/>
+    </group_state>
+    <group_state name="tyl_4" group="leg4_group">
+        <joint name="joint1_4" value="0.349066"/>
+        <joint name="joint2_4" value="0.0"/>
+        <joint name="joint3_4" value="1.047197551"/>
+    </group_state>
+    <group_state name="up_4" group="leg4_group">
+        <joint name="joint1_4" value="0"/>
+        <joint name="joint2_4" value="-0.174533"/>
+        <joint name="joint3_4" value="1.047197551"/>
+    </group_state>
+    <group_state name="half_up_4" group="leg4_group">
+        <joint name="joint1_4" value="-0.174533"/>
+        <joint name="joint2_4" value="-0.174533"/>
+        <joint name="joint3_4" value="1.047197551"/>
+    </group_state>
+
+    <group_state name="home_5" group="leg5_group">
+        <joint name="joint1_5" value="0"/>
+        <joint name="joint2_5" value="0"/>
+        <joint name="joint3_5" value="1.047197551"/>
+    </group_state>
+    <group_state name="przod_5" group="leg5_group">
+        <joint name="joint1_5" value="-0.349066"/>
+        <joint name="joint2_5" value="0.0"/>
+        <joint name="joint3_5" value="1.047197551"/>
+    </group_state>
+    <group_state name="tyl_5" group="leg5_group">
+        <joint name="joint1_5" value="0.349066"/>
+        <joint name="joint2_5" value="0.0"/>
+        <joint name="joint3_5" value="1.047197551"/>
+    </group_state>
+    <group_state name="up_5" group="leg5_group">
+        <joint name="joint1_5" value="0"/>
+        <joint name="joint2_5" value="-0.174533"/>
+        <joint name="joint3_5" value="1.047197551"/>
+    </group_state>
+    <group_state name="half_up_5" group="leg5_group">
+        <joint name="joint1_5" value="-0.174533"/>
+        <joint name="joint2_5" value="-0.174533"/>
+        <joint name="joint3_5" value="1.047197551"/>
+    </group_state>
+    
+    <group_state name="home_6" group="leg6_group">
+        <joint name="joint1_6" value="0"/>
+        <joint name="joint2_6" value="0"/>
+        <joint name="joint3_6" value="1.047197551"/>
+    </group_state>
+    <group_state name="przod_6" group="leg6_group">
+        <joint name="joint1_6" value="-0.349066"/>
+        <joint name="joint2_6" value="0.0"/>
+        <joint name="joint3_6" value="1.047197551"/>
+    </group_state>
+    <group_state name="tyl_6" group="leg6_group">
+        <joint name="joint1_6" value="0.349066"/>
+        <joint name="joint2_6" value="0.0"/>
+        <joint name="joint3_6" value="1.047197551"/>
+    </group_state>
+    <group_state name="up_6" group="leg6_group">
+        <joint name="joint1_6" value="0"/>
+        <joint name="joint2_6" value="-0.174533"/>
+        <joint name="joint3_6" value="1.047197551"/>
+    </group_state>
+    <group_state name="half_up_6" group="leg6_group">
+        <joint name="joint1_6" value="-0.174533"/>
+        <joint name="joint2_6" value="-0.174533"/>
+        <joint name="joint3_6" value="1.047197551"/>
+    </group_state>
+
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base_link"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
