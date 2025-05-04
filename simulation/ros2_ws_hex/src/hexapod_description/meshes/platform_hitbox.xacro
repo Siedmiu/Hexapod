@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Macro modelu kolizji platformy złożonego z sześcianów -->
+<xacro:macro name="platform_collision" params="prefix">
+    <!-- Sześcian 1 - Główny korpus platformy -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.15 0.06 0.028"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 2 -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.032 0.15 0.028"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 3 -->
+    <collision>
+      <origin xyz="0.0344177 0.0376451 0.00013328" rpy="0 0 0.9250245036"/>
+      <geometry>
+        <box size="0.0376 0.0748 0.028"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 4 -->
+    <collision>
+      <origin xyz="-0.0344177 -0.0376451 0.00013328" rpy="0 0 0.9250245036"/>
+      <geometry>
+        <box size="0.0376 0.0748 0.028"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 5 -->
+    <collision>
+      <origin xyz="-0.0344177 0.0376451 0.00013328" rpy="0 0 2.234021443"/>
+      <geometry>
+        <box size="0.0376 0.0748 0.028"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 6 -->
+    <collision>
+      <origin xyz="0.0344177 -0.0376451 0.00013328" rpy="0 0 2.234021443"/>
+      <geometry>
+        <box size="0.0376 0.0748 0.028"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 7 -->
+    <collision>
+      <origin xyz="-0.00536563 -0.0826875 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.0376 0.0536 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 8 -->
+    <collision>
+      <origin xyz="0.0121058 0.0846033 0" rpy="0 0 0.3141592654"/>
+      <geometry>
+        <box size="0.0172 0.0462 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 9 -->
+    <collision>
+      <origin xyz="0.0121058 -0.0846033 0" rpy="0 0 -0.3141592654"/>
+      <geometry>
+        <box size="0.0172 0.0462 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 10 -->
+    <collision>
+      <origin xyz="-0.00536563 0.0826875 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.0376 0.0536 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 11 -->
+    <collision>
+      <origin xyz="-0.03946 -0.0686116 -0.0110529" rpy="0 0 -0.6457718232"/>
+      <geometry>
+        <box size="0.0146 0.0398 0.0118"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 12 -->
+    <collision>
+      <origin xyz="0.051308 -0.058483 0" rpy="0 0 0.2094395102"/>
+      <geometry>
+        <box size="0.038 0.037 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 13 -->
+    <collision>
+      <origin xyz="0.0549773 -0.077999 0" rpy="0 0 0.4537856055"/>
+      <geometry>
+        <box size="0.035 0.0166 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 14 -->
+    <collision>
+      <origin xyz="0.0493266 0.0503133 -0.0109195" rpy="0 0 -0.2443460953"/>
+      <geometry>
+        <box size="0.0484 0.0448 0.012"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 15 -->
+    <collision>
+      <origin xyz="0.0549773 0.077999 0" rpy="0 0 -0.4537856055"/>
+      <geometry>
+        <box size="0.035 0.0166 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 16 -->
+    <collision>
+      <origin xyz="0.0493266 -0.0503133 -0.0109195" rpy="0 0 0.2443460953"/>
+      <geometry>
+        <box size="0.0484 0.0448 0.012"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 17 -->
+    <collision>
+      <origin xyz="0.051308 0.058483 0" rpy="0 0 -0.2094395102"/>
+      <geometry>
+        <box size="0.038 0.037 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 18 -->
+    <collision>
+      <origin xyz="-0.0577113 -0.0548582 0" rpy="0 0 -0.6457718232"/>
+      <geometry>
+        <box size="0.0408 0.05 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 19 -->
+    <collision>
+      <origin xyz="-0.0577113 0.0548582 0" rpy="0 0 0.6457718232"/>
+      <geometry>
+        <box size="0.0408 0.05 0.039"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 20 -->
+    <collision>
+      <origin xyz="-0.03946 0.0686116 -0.0110529" rpy="0 0 0.6457718232"/>
+      <geometry>
+        <box size="0.0146 0.0398 0.0118"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 21 -->
+    <collision>
+      <origin xyz="0 0.0689883 -0.0239027" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.0228 0.0118 0.0108"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 22 -->
+    <collision>
+      <origin xyz="0 -0.0689883 -0.0239027" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.0228 0.0118 0.0108"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 23 -->
+    <collision>
+      <origin xyz="0.042256 -0.0476523 -0.0239027" rpy="0 0 0.6632251158"/>
+      <geometry>
+        <box size="0.0228 0.0118 0.0108"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 24 -->
+    <collision>
+      <origin xyz="-0.042256 0.0476523 -0.0239027" rpy="0 0 0.6632251158"/>
+      <geometry>
+        <box size="0.0228 0.0118 0.0108"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 25 -->
+    <collision>
+      <origin xyz="0.042256 0.0476523 -0.0239027" rpy="0 0 -0.6632251158"/>
+      <geometry>
+        <box size="0.0228 0.0118 0.0108"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 26 -->
+    <collision>
+      <origin xyz="-0.042256 -0.0476523 -0.0239027" rpy="0 0 -0.6632251158"/>
+      <geometry>
+        <box size="0.0228 0.0118 0.0108"/>
+      </geometry>
+    </collision>
+    
+  </xacro:macro>
+</robot>

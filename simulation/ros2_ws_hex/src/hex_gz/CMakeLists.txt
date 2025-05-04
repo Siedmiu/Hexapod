@@ -14,7 +14,7 @@ find_package(Python3 REQUIRED)
 # Install
 ################################################################################
 install(
-  DIRECTORY launch config worlds
+  DIRECTORY launch config worlds rviz
   DESTINATION share/${PROJECT_NAME}
 )
 

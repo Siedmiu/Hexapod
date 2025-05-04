@@ -11,36 +11,38 @@
        name="meshes_file_direction"
        value="package://hexapod_description/meshes"/>
        
+   <!-- Include macro modeli kolizyjnych z prostych kształtów geometrycznych -->
+   <xacro:include filename="$(find hexapod_description)/meshes/platform_hitbox.xacro"/>
+   <xacro:include filename="$(find hexapod_description)/meshes/up_section_hitbox.xacro"/>
+   <xacro:include filename="$(find hexapod_description)/meshes/mid_section_hitbox.xacro"/>
+   <xacro:include filename="$(find hexapod_description)/meshes/down_section_hitbox.xacro"/>
+
    <!-- Macro platformy -->
-   <xacro:macro name="platform_base" params="prefix">
-    <link name="${prefix}base_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="${meshes_file_direction}/platform.stl" scale="1 1 1"/>
-        </geometry>
-        <material name="gray">
-          <color rgba="0.2 0.2 0.2 1"/>
-        </material>
-      </visual>
+    <xacro:macro name="platform_base" params="prefix">
+      <link name="${prefix}base_link">
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="${meshes_file_direction}/platform.stl" scale="1 1 1"/>
+          </geometry>
+          <material name="gray">
+            <color rgba="0.2 0.2 0.2 1"/>
+          </material>
+        </visual>
+        
+        <!-- MODEL KOLIZYJNY -->
+        <xacro:platform_collision prefix="${prefix}" />
 
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="${meshes_file_direction}/hitbox_platform.stl" scale="1 1 1"/>
-        </geometry>
-      </collision>
-
-      <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="${base_mass}"/>
-        <inertia
-          ixx="${ixx}" ixy="0.0" ixz="0.0"
-          iyy="${iyy}" iyz="0.0"
-          izz="${izz}"/>
-      </inertial>
-    </link>
-  </xacro:macro>
+        <inertial>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <mass value="${base_mass}"/>
+          <inertia
+            ixx="${ixx}" ixy="0.0" ixz="0.0"
+            iyy="${iyy}" iyz="0.0"
+            izz="${izz}"/>
+        </inertial>
+      </link>
+    </xacro:macro>
   
   <!-- Macro: Joint -->
   <xacro:macro name="leg_joint" params="prefix joint_name parent_link child_link xyz axis lower upper">
@@ -60,18 +62,16 @@
       <visual>
         <origin xyz="${xyz}" rpy="${rpy}"/>
         <geometry>
-          <mesh filename="${meshes_file_direction}/${index}_leg_up.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="${meshes_file_direction}/leg_up.stl" scale="1.0 1.0 1.0"/>
         </geometry>
         <material name="grey">
           <color rgba="0.2 0.2 0.2 1"/>
         </material>
       </visual>
-      <collision>
-        <origin xyz="${xyz}" rpy="${rpy}"/>
-        <geometry>
-          <mesh filename="${meshes_file_direction}/hitbox_${index}_leg_up.stl" scale="1.0 1.0 1.0"/>
-        </geometry>
-      </collision>
+
+      <!-- MODEL KOLIZYJNY -->
+      <xacro:upper_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
+
       <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="${wheel_mass}"/>
@@ -86,18 +86,15 @@
       <visual>
         <origin xyz="${xyz}" rpy="${rpy}"/>
         <geometry>
-          <mesh filename="${meshes_file_direction}/${index}_leg_mid.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="${meshes_file_direction}/leg_mid.stl" scale="1.0 1.0 1.0"/>
         </geometry>
         <material name="grey">
           <color rgba="0.2 0.2 0.2 1"/>
         </material>
       </visual>
-      <collision>
-        <origin xyz="${xyz}" rpy="${rpy}"/>
-        <geometry>
-          <mesh filename="${meshes_file_direction}/hitbox_${index}_leg_mid.stl" scale="1.0 1.0 1.0"/>
-        </geometry>
-      </collision>
+      <!-- MODEL KOLIZYJNY -->
+      <xacro:mid_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
+
       <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="${wheel_mass}"/>
@@ -112,18 +109,16 @@
       <visual>
         <origin xyz="${xyz}" rpy="${rpy}"/>
         <geometry>
-          <mesh filename="${meshes_file_direction}/${index}_leg_down.stl" scale="1.0 1.0 1.0"/>
+          <mesh filename="${meshes_file_direction}/leg_down.stl" scale="1.0 1.0 1.0"/>
         </geometry>
         <material name="grey">
           <color rgba="0.2 0.2 0.2 1"/>
         </material>
       </visual>
-      <collision>
-        <origin xyz="${xyz}" rpy="${rpy}"/>
-        <geometry>
-          <mesh filename="${meshes_file_direction}/hitbox_${index}_leg_down.stl" scale="1.0 1.0 1.0"/>
-        </geometry>
-      </collision>
+
+      <!-- MODEL KOLIZYJNY -->
+      <xacro:lower_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
+      
       <inertial>
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <mass value="${wheel_mass}"/>
@@ -162,7 +157,7 @@
   axis="0 0 1"
   lower="-0.5236"
   upper="0.5236" />
-<xacro:upper_leg prefix="${prefix}" index="1" xyz="-0.013611	0.016988 -0.000419" rpy="0 0 0" />
+  <xacro:upper_leg prefix="${prefix}" index="1" xyz="-0.013611	0.016988 -0.000419" rpy="0 0 0.654498469" />
 
 <xacro:leg_joint
   prefix="${prefix}"
@@ -173,7 +168,7 @@
   axis="-0.7968540982 -0.6041717854 0"
   lower="-0.261799388"
   upper="1.308996939" />
-<xacro:mid_leg prefix="${prefix}" index="1" xyz="-0.024936	0.032658	0.000547" rpy="0 0 0" />
+<xacro:mid_leg prefix="${prefix}" index="1" xyz="-0.024936	0.032658	0.000547" rpy="0 0 0.654498469" />
 
 <xacro:leg_joint
   prefix="${prefix}"
@@ -184,7 +179,7 @@
   axis="-0.7968540982 -0.6041717854 0"
   lower="0"
   upper="1.570796327" />
-<xacro:lower_leg prefix="${prefix}" index="1" xyz="-0.039176	0.05167	0" rpy="0 0 0" />
+<xacro:lower_leg prefix="${prefix}" index="1" xyz="-0.039176	0.05167	0" rpy="0 0 0.654498469" />
 
 <xacro:end_effector_joint prefix="${prefix}" index="1" xyz="-0.099587 0.130461 -0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="1"/>
@@ -238,7 +233,7 @@
   axis="0 0 1" 
   lower="-0.5236" 
   upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="3" xyz="0.012827	0.017587 -0.000419" rpy="0 0 0"/>
+<xacro:upper_leg prefix="${prefix}" index="3" xyz="0.012827	0.017587 -0.000419" rpy="0 0 -0.654498469"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -249,7 +244,7 @@
   axis="-0.794374 0.6074290528 0" 
   lower="-0.261799388" 
   upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="3" xyz="0.024936	0.032658	0.000547" rpy="0 0 0"/>
+<xacro:mid_leg prefix="${prefix}" index="3" xyz="0.024936	0.032658	0.000547" rpy="0 0 -0.654498469"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -260,7 +255,7 @@
   axis="-0.794374 0.6074290528 0" 
   lower="0" 
   upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="3" xyz="0.039176	0.05167	0" rpy="0 0 0"/>
+<xacro:lower_leg prefix="${prefix}" index="3" xyz="0.039176	0.05167	0" rpy="0 0 -0.654498469"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="3" xyz="0.099252	0.130694	-0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="3"/>
@@ -276,7 +271,7 @@
   axis="0 0 1" 
   lower="-0.5236" 
   upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="4" xyz="0.013611	-0.016988 -0.000419" rpy="0 0 0"/>
+<xacro:upper_leg prefix="${prefix}" index="4" xyz="0.013611	-0.016988 -0.000419" rpy="0 0 3.796091123"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -287,7 +282,7 @@
   axis="0.6074290528 0.794374 0" 
   lower="-0.261799388" 
   upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="4" xyz="0.024936	-0.032658	0.000547" rpy="0 0 0"/>
+<xacro:mid_leg prefix="${prefix}" index="4" xyz="0.024936	-0.032658	0.000547" rpy="0 0 3.796091123"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -298,7 +293,7 @@
   axis="0.794374 0.6074290528 0" 
   lower="0" 
   upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="4" xyz="0.039176	-0.05167	0" rpy="0 0 0"/>
+<xacro:lower_leg prefix="${prefix}" index="4" xyz="0.039176	-0.05167	0" rpy="0 0 3.796091123"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="4" xyz="0.099758	-0.130448	-0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="4"/>
@@ -314,7 +309,7 @@
   axis="0 0 1" 
   lower="-0.5236" 
   upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="5" xyz="0.000493	-0.021762	-0.000419" rpy="0 0 0"/>
+<xacro:upper_leg prefix="${prefix}" index="5" xyz="0.000493	-0.021762	-0.000419" rpy="0 0 3.141592654"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -325,7 +320,7 @@
   axis="1 0 0" 
   lower="-0.261799388" 
   upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="5" xyz="0.0	-0.041	0.000546" rpy="0 0 0"/>
+<xacro:mid_leg prefix="${prefix}" index="5" xyz="0.0	-0.041	0.000546" rpy="0 0 3.141592654"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -336,7 +331,7 @@
   axis="1 0 0" 
   lower="0" 
   upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="5" xyz="-0.000265	-0.064842	0.0" rpy="0 0 0"/>
+<xacro:lower_leg prefix="${prefix}" index="5" xyz="-0.000265	-0.064842	0.0" rpy="0 0 3.141592654"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="5" xyz="-0.000051	-0.164207	-0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="5"/>
@@ -352,7 +347,7 @@
   axis="0 0 1" 
   lower="-0.5236" 
   upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="6" xyz="-0.012827	-0.017588 -0.000419" rpy="0 0 0"/>
+<xacro:upper_leg prefix="${prefix}" index="6" xyz="-0.012827	-0.017588 -0.000419" rpy="0 0 2.487094184"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -363,7 +358,7 @@
   axis="0.794374 -0.6074290528 0" 
   lower="-0.261799388" 
   upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="6" xyz="-0.024936	-0.032658	0.000547" rpy="0 0 0"/>
+<xacro:mid_leg prefix="${prefix}" index="6" xyz="-0.024936	-0.032658	0.000547" rpy="0 0 2.487094184"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -374,7 +369,7 @@
   axis="0.794374 -0.6074290528 0" 
   lower="0" 
   upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="6" xyz="-0.039176	-0.05167	0" rpy="0 0 0"/>
+<xacro:lower_leg prefix="${prefix}" index="6" xyz="-0.039176	-0.05167	0" rpy="0 0 2.487094184"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="6" xyz="-0.099223	-0.130739	-0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="6"/>
