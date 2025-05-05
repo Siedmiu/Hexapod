@@ -54,9 +54,9 @@ def znajdz_punkty_rowno_odlegle_na_paraboli(r, h, ilosc_punktow_na_krzywej, ilos
     return punkty
 
 # Długosci segmentow nog
-L1 = 3
-L2 = 5
-L3 = 6
+L1 = 0.03694034
+L2 = 0.090087959
+L3 = 0.168282698
 
 # Położenie punktu spoczynku od przyczepu nogi wyznaczone na bazie katow przgubow podczas spoczynku
 # WAZNE !!! jest to polozenie stopy w ukladzie punktu zaczepienia stopy a nie ukladu XYZ
@@ -66,8 +66,8 @@ L3 = 6
 
 # zalozone katy spoczynkowe przegubow
 alfa_1 = 0
-alfa_2 = np.radians(15)
-alfa_3 = np.radians(90)
+alfa_2 = np.radians(0)
+alfa_3 = np.radians(120)
 
 P1 = np.array([L1 * np.cos(alfa_1), L1 * np.sin(alfa_1), 0])
 P2 = P1 + np.array([
@@ -84,26 +84,17 @@ stopa_spoczynkowa = P2 + np.array([
 
 wysokosc_start = -stopa_spoczynkowa[2]
 
-# Punkty tulowia
-tulow = np.array([
-    [2, 6, wysokosc_start],
-    [4, 2, wysokosc_start],
-    [4, -2, wysokosc_start],
-    [2, -6, wysokosc_start],
-    [-2, -6, wysokosc_start],
-    [-4, -2, wysokosc_start],
-    [-4, 2, wysokosc_start],
-    [-2, 6, wysokosc_start],
-])
-
-# Pozycje spoczynkowe nog
 przyczepy_nog_do_tulowia = np.array([
-    (tulow[i] + tulow[(i + 1) % 8]) / 2 for i in [0, 1, 2, 4, 5, 6]
+    [ 0.073922, 0.055095 ,0.003148],
+    [ 0.0978, -0.00545, 0.003148],
+    [ 0.067301, -0.063754, 0.003148],
+    [ -0.067301, -0.063754 , 0.003148],
+    [ -0.0978 , -0.00545,0.003148],
+    [ -0.073922, 0.055095,0.003148],
 ])
 
 nachylenia_nog_do_bokow_platformy_pajaka = np.array([
-    np.atan2(tulow[i + 1][1] - tulow[i][1], tulow[i + 1][0] - tulow[i][0]) + np.pi / 2
-    for i in [0, 1, 2, 4, 5, 6]
+    np.deg2rad(37.169), 0, np.deg2rad(-37.169), np.deg2rad(180 + 37.169), np.deg2rad(180), np.deg2rad(180 - 37.169)
 ])
 
 # Polozenie spoczynkowe stop
@@ -120,8 +111,8 @@ polozenie_spoczynkowe_stop = np.array([
 ])
 
 # tor pokonywany przez nogi w ukladzie wspolrzednych srodka robota
-h = 4
-r = 3
+h = L3 / 4
+r = h
 ilosc_punktow_na_krzywych = 20
 punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
 punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
@@ -239,9 +230,9 @@ def update(frame, lines, positions):
 positions = calculate_positions()
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.set_xlim([-15, 15])
-ax.set_ylim([-15, 15])
-ax.set_zlim([-15, 15])
+ax.set_xlim([-0.5, 0.5])
+ax.set_ylim([-0.5, 0.5])
+ax.set_zlim([-0.5, 0.5])
 
 lines = [[ax.plot([], [], [], 'ro-')[0], ax.plot([], [], [], 'go-')[0], ax.plot([], [], [], 'bo-')[0]] for _ in
          range(6)]
