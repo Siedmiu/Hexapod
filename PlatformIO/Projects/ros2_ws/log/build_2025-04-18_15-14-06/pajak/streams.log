@@ -1,0 +1,57 @@
+[0.884s] Invoking command in '/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/src/pajak': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pajak build --build-base /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build install --record /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/install.log --single-version-externally-managed install_data
+[1.116s] running egg_info
+[1.116s] creating ../../build/pajak/pajak.egg-info
+[1.131s] writing ../../build/pajak/pajak.egg-info/PKG-INFO
+[1.131s] writing dependency_links to ../../build/pajak/pajak.egg-info/dependency_links.txt
+[1.131s] writing entry points to ../../build/pajak/pajak.egg-info/entry_points.txt
+[1.131s] writing requirements to ../../build/pajak/pajak.egg-info/requires.txt
+[1.131s] writing top-level names to ../../build/pajak/pajak.egg-info/top_level.txt
+[1.131s] writing manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+[1.164s] reading manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+[1.164s] adding license file 'LICENSE'
+[1.164s] writing manifest file '../../build/pajak/pajak.egg-info/SOURCES.txt'
+[1.165s] running build
+[1.165s] running build_py
+[1.165s] creating /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build
+[1.165s] creating /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib
+[1.165s] creating /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak
+[1.165s] copying pajak/pajak_trajectory.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak
+[1.165s] copying pajak/test.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak
+[1.165s] copying pajak/interactive_pub.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak
+[1.165s] copying pajak/my_node.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak
+[1.165s] copying pajak/__init__.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak
+[1.165s] copying pajak/esp32_serial_commander.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak
+[1.165s] copying pajak/another_test.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak
+[1.166s] running install
+[1.172s] running install_lib
+[1.187s] creating /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.187s] copying /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak/pajak_trajectory.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.187s] copying /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak/test.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.188s] copying /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak/interactive_pub.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.188s] copying /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak/my_node.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.188s] copying /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak/__init__.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.188s] copying /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak/esp32_serial_commander.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.188s] copying /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build/lib/pajak/another_test.py -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak
+[1.188s] byte-compiling /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/pajak_trajectory.py to pajak_trajectory.cpython-312.pyc
+[1.190s] byte-compiling /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/test.py to test.cpython-312.pyc
+[1.190s] byte-compiling /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/interactive_pub.py to interactive_pub.cpython-312.pyc
+[1.191s] byte-compiling /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/my_node.py to my_node.cpython-312.pyc
+[1.191s] byte-compiling /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__init__.py to __init__.cpython-312.pyc
+[1.191s] byte-compiling /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/esp32_serial_commander.py to esp32_serial_commander.cpython-312.pyc
+[1.192s] byte-compiling /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/another_test.py to another_test.cpython-312.pyc
+[1.194s] running install_data
+[1.194s] creating /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/share/ament_index
+[1.194s] creating /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/share/ament_index/resource_index
+[1.194s] creating /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/share/ament_index/resource_index/packages
+[1.195s] copying resource/pajak -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/share/ament_index/resource_index/packages
+[1.195s] copying package.xml -> /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/share/pajak
+[1.195s] running install_egg_info
+[1.212s] Copying ../../build/pajak/pajak.egg-info to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak-0.0.0-py3.12.egg-info
+[1.212s] running install_scripts
+[1.319s] Installing another_test script to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak
+[1.319s] Installing esp32_serial_commander script to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak
+[1.319s] Installing my_node script to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak
+[1.319s] Installing pajak_trajectory script to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak
+[1.319s] Installing test script to /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak
+[1.319s] writing list of installed files to '/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/install.log'
+[1.349s] Invoked command in '/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/src/pajak' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pajak build --build-base /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/build install --record /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/build/pajak/install.log --single-version-externally-managed install_data
