@@ -25,6 +25,7 @@ setup(
             'test = pajak.test:main',
             'esp32_serial_commander = pajak.esp32_serial_commander:main',
             'walk_v1 = pajak.walk_v1:main',
+            'wifi_conect = pajak.wifi_conect:main',
         ],
     },
 )

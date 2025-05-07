@@ -13,12 +13,6 @@ const char* password = "your_PASSWORD";
 const char* server_ip = "192.168.0.123";  // IP komputera z ROS2
 const int server_port = 8765;
 
-// Joystick and LED pins
-const int xPin = 4;
-const int led1 = 15;
-const int led2 = 16;
-const int led3 = 17;
-
 // NeoPixel setup
 #define PIN_PIXS 48
 #define PIX_NUM 1
@@ -39,12 +33,6 @@ WebSocketsClient webSocket;
 
 int currentLedState = 0;
 int lastXValue = -1;
-
-void updateLeds(int ledCount) {
-    digitalWrite(led1, ledCount >= 1 ? HIGH : LOW);
-    digitalWrite(led2, ledCount >= 2 ? HIGH : LOW);
-    digitalWrite(led3, ledCount >= 3 ? HIGH : LOW);
-}
 
 void showPixelColor(uint32_t c) {
     pixels.setPixelColor(0, c);
@@ -71,16 +59,6 @@ void webSocketEvent(WStype_t type, uint8_t *payload, size_t length) {
                 Serial.print("deserializeJson() failed: ");
                 Serial.println(error.c_str());
                 return;
-            }
-
-            // Obsługa LEDów
-            if (!doc["led_state"].isNull()) {
-                int newLedState = doc["led_state"];
-                if (newLedState != currentLedState) {
-                    currentLedState = newLedState;
-                    updateLeds(currentLedState);
-                    Serial.printf("[STATE] LED state: %d | Time: %lu ms\n", currentLedState, millis());
-                }
             }
 
             // Kolor NeoPixela
@@ -135,11 +113,6 @@ void setup() {
     webSocket.onEvent(webSocketEvent);
     webSocket.setReconnectInterval(5000);
 
-    // LEDy
-    pinMode(led1, OUTPUT);
-    pinMode(led2, OUTPUT);
-    pinMode(led3, OUTPUT);
-
     // NeoPixel
     pixels.begin();
     showPixelColor(0x000000);  // Off
@@ -160,22 +133,6 @@ void loop() {
         delay(5000);
         return;
     }
-
-    // Joystick – tylko jeśli chcesz wysyłać X do ROS2
-    int xValue = analogRead(xPin);
-    if (abs(xValue - lastXValue) > 100) {
-        lastXValue = xValue;
-
-        StaticJsonDocument<200> doc;
-        doc["joystick_x"] = xValue;
-
-        char jsonBuffer[200];
-        serializeJson(doc, jsonBuffer);
-
-        Serial.printf("[INPUT] Joystick X: %d | Time: %lu ms\n", xValue, millis());
-        webSocket.sendTXT(jsonBuffer);
-    }
-
     webSocket.loop();
     delay(100);
 }

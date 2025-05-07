@@ -4,6 +4,7 @@
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/my_node.py
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/walk_v1.py
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__init__.py
+/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/wifi_conect.py
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/esp32_serial_commander.py
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__pycache__/pajak_trajectory.cpython-312.pyc
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__pycache__/test.cpython-312.pyc
@@ -11,6 +12,7 @@
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__pycache__/my_node.cpython-312.pyc
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__pycache__/walk_v1.cpython-312.pyc
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__pycache__/__init__.cpython-312.pyc
+/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__pycache__/wifi_conect.cpython-312.pyc
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/python3.12/site-packages/pajak/__pycache__/esp32_serial_commander.cpython-312.pyc
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/share/ament_index/resource_index/packages/pajak
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/share/pajak/package.xml
@@ -26,3 +28,4 @@
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak/pajak_trajectory
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak/test
 /home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak/walk_v1
+/home/milosz/Dokumenty/Hexapod-1/PlatformIO/Projects/ros2_ws/install/pajak/lib/pajak/wifi_conect

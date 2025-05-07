@@ -4,3 +4,4 @@ my_node = pajak.my_node:main
 pajak_trajectory = pajak.pajak_trajectory:main
 test = pajak.test:main
 walk_v1 = pajak.walk_v1:main
+wifi_conect = pajak.wifi_conect:main
