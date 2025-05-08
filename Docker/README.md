@@ -26,7 +26,8 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 ## Sposób użycia
 
 1. Aby zbudować i uruchomić kontener produkcyjny, wykonaj (w razie problemów użyj sudo):
-   - `sudo ./setup-prod.sh` – budowanie obrazu i uruchomienie kontenera.
+   - `sudo ./setup-prod.sh` – budowanie obrazu i uruchomienie Gazebo.
+   - `sudo ./setup-prod.sh moveit` – budowanie obrazu i uruchomienie MoveIt.
    - `sudo ./setup-import-prod.sh` – import obrazu produkcyjnego z pliku .tar (dostępny wkrótce).
 
 2. Aby zbudować środowisko deweloperskie, wykonaj (w razie problemów użyj sudo):
@@ -79,3 +80,25 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 
 - Dockerfile.prod: Definiuje środowisko produkcyjne z ROS2, Gazebo, MoveIt oraz dodatkowymi narzędziami.
 - Dockerfile.dev: Definiuje środowisko deweloperskie, które automatycznie sourcuje potrzebne skrypty przy wejściu do terminala.
+
+## Obsługa GPU
+
+Skrypty automatycznie wykrywają dostępne karty graficzne (NVIDIA, AMD, Intel) i konfigurują kontener do wykorzystania akceleracji sprzętowej.
+
+Aby ręcznie sprawdzić czy akceleracja graficzna działa poprawnie, możesz użyć argumentu `diagnose`:
+```bash
+./setup-prod.sh diagnose
+./setup-dev.sh diagnose
+```
+
+### Rozwiązywanie problemów z GPU
+
+Jeśli masz problemy z akceleracją GPU:
+
+1. Upewnij się, że sterowniki graficzne są prawidłowo zainstalowane
+2. Dodaj użytkownika do grup `video` i `render`: 
+   ```bash
+   sudo usermod -aG video,render $USER
+   ```
+3. Uruchom `xhost +` przed uruchomieniem kontenera
+4. Dla kart NVIDIA sprawdź, czy `nvidia-smi` działa poprawnie na hoście
