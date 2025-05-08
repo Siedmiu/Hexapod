@@ -6,13 +6,14 @@ Docker to narzędzie do wirtualizacji kontenerów, które umożliwia uruchamiani
 - Umożliwia łatwe budowanie spójnych środowisk produkcyjnych i deweloperskich,
 - Izoluje zależności oprogramowania,
 - Ułatwia przełączanie się między różnymi konfiguracjami bez wpływu na system hosta.
+- Wspiera środowiska MoveIt/RViz obok symulacji w Gazebo.
 
 # Dockeryzacja projektu
 
 ## Różnice między kontenerem produkcyjnym a deweloperskim
 
 Kontener produkcyjny (oparty na Dockerfile.prod):
-- Uruchamia aplikację lub symulację automatycznie po starcie.
+- Uruchamia aplikację lub symulację automatycznie po starcie. Domyślnie startuje symulacja w Gazebo, tryb MoveIt/RViz aktywowany argumentem "moveit"
 - Zawiera kompletną konfigurację systemu, ROS2 oraz zależności potrzebne do symulacji.
 - Przeznaczony jest do wdrożeń i prezentacji stabilnej wersji aplikacji.
 - Uruchamiany zwykle z interfejsem graficznym (GUI) wspomaganym przez X11.
@@ -25,20 +26,26 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 ## Sposób użycia
 
 1. Aby zbudować i uruchomić kontener produkcyjny, wykonaj (w razie problemów użyj sudo):
-   - `sudo ./setup-prod.sh` – budowanie obrazu.
+   - `sudo ./setup-prod.sh` – budowanie obrazu i uruchomienie kontenera.
    - `sudo ./setup-import-prod.sh` – import obrazu produkcyjnego z pliku .tar (dostępny wkrótce).
 
 2. Aby zbudować środowisko deweloperskie, wykonaj (w razie problemów użyj sudo):
    - `sudo ./setup-dev.sh` – pobranie repozytorium, budowa workspace i uruchomienie kontenera deweloperskiego.
-      - Uwaga: Jeśli przy pierwszym uruchomieniu pojawi się komunikat:
-     "bash: line 1: /opt/ros/jazzy/setup.bash: No such file or directory"
-     uruchom skrypt ponownie.
+     - Uwaga: Jeśli przy pierwszym uruchomieniu pojawi się komunikat:
+       "bash: line 1: /opt/ros/jazzy/setup.bash: No such file or directory"
+       uruchom skrypt ponownie.
    - `sudo ./setup-import-dev.sh` – import obrazu deweloperskiego z pliku .tar (dostępny wkrótce).
+
+3. Wewnątrz środowiska deweloperskiego możesz uruchomić:
+   - Uruchomienie Gazebo:
+     - `ros2 launch hex_gz gazebo.launch.py`
+   - Uruchomienie RViz/MoveIt:
+     - `ros2 launch hexapod_moveit_config demo.launch.py`
 
 3. Eksport i import obrazu Dockera (opcjonalnie):
    - Aby wyeksportować obraz produkcyjny do pliku .tar, wykonaj:
-     - `sudo docker save -o hexapod-prod.tar hexapod-prod` 
-     - lub analogicznie 
+     - `sudo docker save -o hexapod-prod.tar hexapod-prod`
+     - lub analogicznie dla obrazu deweloperskiego:
      - `sudo docker save -o hexapod-dev.tar hexapod-dev`
    - Aby zaimportować obraz na innej maszynie, wykonaj:
      - `sudo docker load -i hexapod-prod.tar` 
@@ -63,37 +70,12 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 
 ## Skrypty
 
-### setup-prod.sh
-- Buduje obraz produkcyjny przy użyciu Dockerfile.prod.
-- Umożliwia uruchomienie kontenera produkcyjnego, który pozwala korzystać z interfejsu graficznego (X11).
-- W komentarzach zawarto przykłady eksportu obrazu (docker save) oraz importu (docker load).
-
-### setup-import-prod.sh
-- Importuje obraz Docker z pliku `hexapod-prod.tar`.
-- Po imporcie dopasowuje prawa do pliku obrazu, by użytkownik miał do niego pełny dostęp.
-- Uruchamia kontener produkcyjny.
-
-### setup-import-dev.sh
-- Podobnie jak import prod, ale dla obrazu deweloperskiego (`hexapod-dev.tar`).
-- Ustawia odpowiednie prawa dostępu do pliku obrazu.
-- Uruchamia kontener deweloperski z woluminem montującym katalog roboczy.
-
-### setup-dev.sh
-- Aktualizuje system oraz instaluje Docker, o ile nie jest zainstalowany.
-- Jeśli katalog Hexapod nie istnieje, klonuje repozytorium z GitHub i buduje workspace.
-- Dopasowuje prawa dostępu do klastra repozytorium.
-- Buduje obraz deweloperski z wykorzystaniem Dockerfile.dev.
-- Uruchamia kontener deweloperski.
+- setup-prod.sh: Buduje obraz produkcyjny przy użyciu Dockerfile.prod i uruchamia kontener z GUI.
+- setup-import-prod.sh: Importuje obraz produkcyjny z pliku hexapod-prod.tar i uruchamia kontener.
+- setup-dev.sh: Buduje obraz deweloperski przy użyciu Dockerfile.dev z zamontowanym katalogiem projektu i uruchamia kontener.
+- setup-import-dev.sh: Importuje obraz deweloperski z pliku hexapod-dev.tar i uruchamia kontener.
 
 ## Dockerfile
 
-### Dockerfile.prod
-- Definiuje środowisko produkcyjne.
-- Instaluje zależności systemowe, ROS2, Gazebo oraz narzędzia budowlane.
-- Klonuje repozytorium Hexapod, buduje workspace i ustawia automatyczne source'owanie środowiska.
-
-### Dockerfile.dev
-- Definiuje środowisko deweloperskie.
-- Konfiguruje zawierające ROS2 i Gazebo środowisko, zapewniając łatwy dostęp do terminala (CMD ["/bin/bash"]).
-
----
+- Dockerfile.prod: Definiuje środowisko produkcyjne z ROS2, Gazebo, MoveIt oraz dodatkowymi narzędziami.
+- Dockerfile.dev: Definiuje środowisko deweloperskie, które automatycznie sourcuje potrzebne skrypty przy wejściu do terminala.

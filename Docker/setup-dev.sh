@@ -47,16 +47,15 @@ fi
 # Ustawienie xhost, aby Docker mógł używać X11 
 xhost +local:docker
 
-# Dodaj polecenie budowania obrazu DEV
-docker build -t hexapod-dev -f Dockerfile.dev .
+# Budowanie obrazu DEV (Dockerfile.dev znajduje się w tym samym katalogu)
+docker build -t hexapod-dev -f "$(dirname "$0")/Dockerfile.dev" .
 
-# Uruchomienie kontenera DEV
+# Uruchomienie kontenera DEV z zamontowanym katalogiem Hexapod bez automatycznego launch’u
 docker run -it --rm \
   --name hexapod-dev \
   --network host \
   -e DISPLAY=$DISPLAY \
-  -e QT_X11_NO_MITSHM=1 \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v "$PWD/Hexapod:/ros_ws/Hexapod" \
   hexapod-dev \
-  bash
+  bash -c "source /opt/ros/jazzy/setup.bash && bash"

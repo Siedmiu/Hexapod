@@ -53,7 +53,7 @@ sudo docker run -it --rm \
   --name hexapod-dev \
   --network host \
   -e DISPLAY=$DISPLAY \
-  -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v "$PWD/Hexapod:/ros_ws/Hexapod" \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
   hexapod-dev \
   bash
