@@ -6,14 +6,26 @@ import matplotlib.animation as animation
 
 matplotlib.use('TkAgg')
 
-def katy_serw(x_docelowy, y_docelowy, z_docelowy, L1, L2, L3):
-    r = np.sqrt(x_docelowy ** 2 + y_docelowy ** 2)
-    d = np.sqrt(z_docelowy ** 2 + (r - L1) ** 2)
+def katy_serw(P3, l1, h1, l2, h2, l3):
 
     # wyznaczenie katow potrzebnych do osiagniecia przez stope punktu docelowego
-    alfa_1 = np.arctan2(y_docelowy, x_docelowy)
-    alfa_2 = np.arccos((L2 ** 2 + d ** 2 - L3 ** 2) / (2 * L2 * d)) + np.arctan2(z_docelowy, (r - L1))
-    alfa_3 = np.arccos((L2 ** 2 + L3 ** 2 - d ** 2) / (2 * L2 * L3))
+    alfa_1 = np.arctan2(P3[1], P3[0])
+
+    P1 = np.array([l1 * np.cos(alfa_1), l1 * np.sin(alfa_1), h1])
+
+    d = np.sqrt((P3[0] - P1[0]) ** 2 + (P3[1] - P1[1]) ** 2 + (P3[2] - P1[2]) ** 2)
+    r = np.sqrt(l2 ** 2 + h2 ** 2)
+
+    staly_kat_przy_P1 = np.arctan2(h2, l2)
+
+    cos_fi = (r ** 2 + l3 ** 2 - d ** 2) / (2 * r * l3)
+    fi = np.arccos(cos_fi)
+    alfa_3 = np.deg2rad(180) - fi - staly_kat_przy_P1
+
+    epsilon = np.arcsin(np.sin(fi) * l3 / d)
+    tau = np.arctan2(P3[2] - P1[2], np.sqrt((P3[0] - P1[0]) ** 2 + (P3[1] - P1[1]) ** 2))
+
+    alfa_2 = epsilon + tau - staly_kat_przy_P1
     return [alfa_1, alfa_2, alfa_3]
 
 def polozenie_przegub_1(l1, alfa1, przyczep):
@@ -54,10 +66,12 @@ def znajdz_punkty_rowno_odlegle_na_paraboli(r, h, ilosc_punktow_na_krzywej, ilos
     return punkty
 
 # Długosci segmentow nog
-L1 = 0.03694034
-L2 = 0.090087959
-L3 = 0.168282698
-
+h1 = -0.016854 - 0.003148
+l1 = 0.12886 - 0.0978
+l2 = 0.2188-0.12886
+h2 = -0.011804 + 0.016854
+l3 = 0.38709 - 0.2188
+staly_kat_przy_P1 = np.arctan2(h2, l2)
 # Położenie punktu spoczynku od przyczepu nogi wyznaczone na bazie katow przgubow podczas spoczynku
 # WAZNE !!! jest to polozenie stopy w ukladzie punktu zaczepienia stopy a nie ukladu XYZ
 # w ktorym X1 to prostopadła prosta do boku platformy do ktorej noga jest zaczepiona i rosnie w kierunku od hexapoda
@@ -67,20 +81,17 @@ L3 = 0.168282698
 # zalozone katy spoczynkowe przegubow
 alfa_1 = 0
 alfa_2 = np.radians(0)
-alfa_3 = np.radians(120)
+alfa_3 = np.radians(60)
 
-P1 = np.array([L1 * np.cos(alfa_1), L1 * np.sin(alfa_1), 0])
-P2 = P1 + np.array([
-    L2 * np.cos(alfa_1) * np.cos(alfa_2),
-    L2 * np.sin(alfa_1) * np.cos(alfa_2),
-    L2 * np.sin(alfa_2)
-])
 
-stopa_spoczynkowa = P2 + np.array([
-    L3 * np.cos(alfa_1) * np.sin(alfa_3 - (np.pi / 2 - alfa_2)),
-    L3 * np.sin(alfa_1) * np.sin(alfa_3 - (np.pi / 2 - alfa_2)),
-    -L3 * np.cos(alfa_3 - (np.pi / 2 - alfa_2))
-])
+P0 = np.array([0, 0, 0])
+P0_pod = P0 + np.array([0, 0, h1])
+P1 = P0_pod + np.array([l1 * np.cos(alfa_1), l1 *np.sin(alfa_1), 0])
+P2 = P1 + np.array([np.cos(alfa_1)*np.cos(alfa_2)*l2,np.sin(alfa_1)*np.cos(alfa_2)*l2, np.sin(alfa_2) * l2])
+P3 = P1 + np.array([np.cos(alfa_1)*np.cos(staly_kat_przy_P1 + alfa_2)*np.sqrt(h2**2 + l2**2),np.sin(alfa_1)*np.cos(staly_kat_przy_P1 + alfa_2)*np.sqrt(h2**2 + l2**2), np.sin(staly_kat_przy_P1 + alfa_2)*np.sqrt(h2**2 + l2**2)])
+P4 = P3 + np.array([np.cos(alfa_1)*np.cos(alfa_2 - alfa_3)*l3, np.sin(alfa_1)*np.cos(alfa_2 - alfa_3)*l3, np.sin(alfa_2 - alfa_3) * l3])
+
+stopa_spoczynkowa = P4
 
 wysokosc_start = -stopa_spoczynkowa[2]
 
@@ -111,7 +122,7 @@ polozenie_spoczynkowe_stop = np.array([
 ])
 
 # tor pokonywany przez nogi w ukladzie wspolrzednych srodka robota
-h = L3 / 4
+h = l3 / 4
 r = h
 ilosc_punktow_na_krzywych = 20
 punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
@@ -163,70 +174,102 @@ polozenia_stop_podczas_cyklu = np.array([ # polozenie_stop jest wzgledem ukladu 
     for i in range(len(cykl_ogolny_nog_1_3_5))]
     for j in range(6)
 ])
-print(polozenia_stop_podczas_cyklu[0])
+np.set_printoptions(threshold=np.inf)
+print(polozenia_stop_podczas_cyklu[2])
 
 #wychyly podawane odpowiednio dla 1 2 i 3 przegubu w radianach
 wychyly_serw_podczas_ruchu = np.array([
-[katy_serw(polozenia_stop_podczas_cyklu[j][i][0], polozenia_stop_podczas_cyklu[j][i][1], polozenia_stop_podczas_cyklu[j][i][2], L1, L2, L3)
+[katy_serw(polozenia_stop_podczas_cyklu[j][i], l1, h1, l2, h2, l3)
     for i in range(len(cykl_ogolny_nog_1_3_5))]
     for j in range(6)
 ])
+
+#print(wychyly_serw_podczas_ruchu[0])
 #obliczanie polozenia przegubow i stop z wyliczonymi wychyleniami serw
 
 def calculate_positions():
     #rownania zastosowane z kinematyki odwrotnej, nachylenia nog do bokow platformy pajaka sa dodana TYLKO DO SYMULACJI!!!
     #w rzeczywistości nie trzeba tego uwzgledniać gdyż noga bedzie fizycznie obrocona
 
-    polozenie_punktow_pierwszych_przegubow_nog = np.array([
+    polozenie_punktow_P1_w_ruchu = np.array([
     [[
-        przyczepy_nog_do_tulowia[j][0] + L1 * np.cos(wychyly_serw_podczas_ruchu[j][i][0] + nachylenia_nog_do_bokow_platformy_pajaka[j]),
-        przyczepy_nog_do_tulowia[j][1] + L1 * np.sin(wychyly_serw_podczas_ruchu[j][i][0] + nachylenia_nog_do_bokow_platformy_pajaka[j]),
-        przyczepy_nog_do_tulowia[j][2]
+        przyczepy_nog_do_tulowia[j][0] + l1 * np.cos(wychyly_serw_podczas_ruchu[j][i][0] + nachylenia_nog_do_bokow_platformy_pajaka[j]),
+        przyczepy_nog_do_tulowia[j][1] + l1 * np.sin(wychyly_serw_podczas_ruchu[j][i][0] + nachylenia_nog_do_bokow_platformy_pajaka[j]),
+        przyczepy_nog_do_tulowia[j][2] + h1
     ]
         for i in range(len(cykl_ogolny_nog_1_3_5))]
         for j in range(6)
     ])
 
-    polozenie_punktow_drugich_przegubow_nog = polozenie_punktow_pierwszych_przegubow_nog + np.array([
+    polozenie_punktow_P2_w_ruchu = polozenie_punktow_P1_w_ruchu + np.array([
 
     [[
-        L2 * np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.cos(wychyly_serw_podczas_ruchu[j][i][1]),
-        L2 * np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.cos(wychyly_serw_podczas_ruchu[j][i][1]),
-        L2 * np.sin(wychyly_serw_podczas_ruchu[j][i][1])
+        np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.cos(wychyly_serw_podczas_ruchu[j][i][1]) * l2,
+        np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.cos(wychyly_serw_podczas_ruchu[j][i][1]) * l2,
+        l2 * np.sin(wychyly_serw_podczas_ruchu[j][i][1])
     ]
         for i in range(len(cykl_ogolny_nog_1_3_5))]
         for j in range(6)
     ])
 
-    obliczone_z_serw_polozenie_stop = polozenie_punktow_drugich_przegubow_nog + np.array([
-    [[
-        L3 * np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.sin(wychyly_serw_podczas_ruchu[j][i][2] - (np.pi / 2 - wychyly_serw_podczas_ruchu[j][i][1])),
-        L3 * np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.sin(wychyly_serw_podczas_ruchu[j][i][2] - (np.pi / 2 - wychyly_serw_podczas_ruchu[j][i][1])),
-        -L3 * np.cos(wychyly_serw_podczas_ruchu[j][i][2] - (np.pi / 2 - wychyly_serw_podczas_ruchu[j][i][1]))
-    ]
-        for i in range(len(cykl_ogolny_nog_1_3_5))]
+    polozenie_punktow_P3_w_ruchu = polozenie_punktow_P1_w_ruchu + np.array([
+
+        [[
+            np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(staly_kat_przy_P1 + wychyly_serw_podczas_ruchu[j][i][1])*np.sqrt(h2**2 + l2**2),
+            np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(staly_kat_przy_P1 + wychyly_serw_podczas_ruchu[j][i][1])*np.sqrt(h2**2 + l2**2),
+            np.sin(staly_kat_przy_P1 + wychyly_serw_podczas_ruchu[j][i][1])*np.sqrt(h2**2 + l2**2)
+        ]
+            for i in range(len(cykl_ogolny_nog_1_3_5))]
         for j in range(6)
     ])
-    return polozenie_punktow_pierwszych_przegubow_nog, polozenie_punktow_drugich_przegubow_nog, obliczone_z_serw_polozenie_stop
+
+    obliczone_z_serw_polozenie_stop = polozenie_punktow_P3_w_ruchu + np.array([
+        [[
+            np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(wychyly_serw_podczas_ruchu[j][i][1] - wychyly_serw_podczas_ruchu[j][i][2])*l3,
+            np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(wychyly_serw_podczas_ruchu[j][i][1] - wychyly_serw_podczas_ruchu[j][i][2])*l3,
+            np.sin(wychyly_serw_podczas_ruchu[j][i][1] - wychyly_serw_podczas_ruchu[j][i][2]) * l3
+        ]
+            for i in range(len(cykl_ogolny_nog_1_3_5))]
+        for j in range(6)
+    ])
+
+    return polozenie_punktow_P1_w_ruchu, polozenie_punktow_P2_w_ruchu, polozenie_punktow_P3_w_ruchu, obliczone_z_serw_polozenie_stop
+
+P0_pod_tab = przyczepy_nog_do_tulowia + np.array([0, 0, h1])
 
 #funkcja odpowiada za rysowanie symulacji
 def update(frame, lines, positions):
-    first_joints, second_joints, feet = positions
+    P1, P2, P3, foot = positions
     for j in range(6):
-        lines[j][0].set_data([przyczepy_nog_do_tulowia[j][0], first_joints[j][frame][0]],
-                             [przyczepy_nog_do_tulowia[j][1], first_joints[j][frame][1]])
-        lines[j][0].set_3d_properties([przyczepy_nog_do_tulowia[j][2], first_joints[j][frame][2]])
+        # 0. Przyczep -> P0_pod
+        lines[j][0].set_data([przyczepy_nog_do_tulowia[j][0], P0_pod_tab[j][0]],
+                             [przyczepy_nog_do_tulowia[j][1], P0_pod_tab[j][1]])
+        lines[j][0].set_3d_properties([przyczepy_nog_do_tulowia[j][2], P0_pod_tab[j][2]])
 
-        lines[j][1].set_data([first_joints[j][frame][0], second_joints[j][frame][0]],
-                             [first_joints[j][frame][1], second_joints[j][frame][1]])
-        lines[j][1].set_3d_properties([first_joints[j][frame][2], second_joints[j][frame][2]])
+        # 1. P0_pod -> P1
+        lines[j][1].set_data([P0_pod_tab[j][0], P1[j][frame][0]],
+                             [P0_pod_tab[j][1], P1[j][frame][1]])
+        lines[j][1].set_3d_properties([P0_pod_tab[j][2], P1[j][frame][2]])
 
-        lines[j][2].set_data([second_joints[j][frame][0], feet[j][frame][0]],
-                             [second_joints[j][frame][1], feet[j][frame][1]])
-        lines[j][2].set_3d_properties([second_joints[j][frame][2], feet[j][frame][2]])
-    return lines
+        # 2. P1 -> P2
+        lines[j][2].set_data([P1[j][frame][0], P2[j][frame][0]],
+                             [P1[j][frame][1], P2[j][frame][1]])
+        lines[j][2].set_3d_properties([P1[j][frame][2], P2[j][frame][2]])
+
+        # 3. P2 -> P3
+        lines[j][3].set_data([P2[j][frame][0], P3[j][frame][0]],
+                             [P2[j][frame][1], P3[j][frame][1]])
+        lines[j][3].set_3d_properties([P2[j][frame][2], P3[j][frame][2]])
+
+        # 4. P3 -> koniec stopy
+        lines[j][4].set_data([P3[j][frame][0], foot[j][frame][0]],
+                             [P3[j][frame][1], foot[j][frame][1]])
+        lines[j][4].set_3d_properties([P3[j][frame][2], foot[j][frame][2]])
+
+    return [segment for leg in lines for segment in leg]  # spłaszczona lista
 
 
+# Ustawienia wykresu i animacji
 positions = calculate_positions()
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
@@ -234,7 +277,9 @@ ax.set_xlim([-0.5, 0.5])
 ax.set_ylim([-0.5, 0.5])
 ax.set_zlim([-0.5, 0.5])
 
-lines = [[ax.plot([], [], [], 'ro-')[0], ax.plot([], [], [], 'go-')[0], ax.plot([], [], [], 'bo-')[0]] for _ in
-         range(6)]
-ani = animation.FuncAnimation(fig, update, frames=1000, fargs=(lines, positions), interval=50, blit=False)
+segment_colors = ['purple','r','b', 'orange', 'g']
+lines = [[ax.plot([], [], [], color=segment_colors[i], marker='o')[0] for i in range(5)] for _ in range(6)]
+
+ani = animation.FuncAnimation(fig, update, frames=len(positions[0][0]), fargs=(lines, positions),
+                              interval=50, blit=False)
 plt.show()
