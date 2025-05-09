@@ -12,10 +12,10 @@
        value="package://hexapod_description/meshes"/>
        
    <!-- Include macro modeli kolizyjnych z prostych kształtów geometrycznych -->
-   <xacro:include filename="$(find hexapod_description)/meshes/platform_hitbox.xacro"/>
-   <xacro:include filename="$(find hexapod_description)/meshes/up_section_hitbox.xacro"/>
-   <xacro:include filename="$(find hexapod_description)/meshes/mid_section_hitbox.xacro"/>
-   <xacro:include filename="$(find hexapod_description)/meshes/down_section_hitbox.xacro"/>
+   <xacro:include filename="$(find hexapod_description)/collision/platform_hitbox.xacro"/>
+   <xacro:include filename="$(find hexapod_description)/collision/up_section_hitbox.xacro"/>
+   <xacro:include filename="$(find hexapod_description)/collision/mid_section_hitbox.xacro"/>
+   <xacro:include filename="$(find hexapod_description)/collision/down_section_hitbox.xacro"/>
 
    <!-- Macro platformy -->
     <xacro:macro name="platform_base" params="prefix">

@@ -1,33 +1,23 @@
 <?xml version="1.0"?>
-<!-- OpenManipulator Chain -->
 <robot name="hexapod" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:arg name="use_sim" default="true" />
   <xacro:arg name="prefix" default="" />
-  <!-- <xacro:arg name="use_sim" default="false" /> -->
-  <!-- <xacro:arg name="use_fake_hardware" default="true" /> -->
-  <!-- <xacro:arg name="fake_sensor_commands" default="false" /> -->
-  <!-- <xacro:arg name="port_name" default="/dev/ttyUSB0" /> -->
-
-  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
-  <!-- <xacro:include filename="$(find hexapod_description)/gazebo/hexapod.gazebo.xacro" /> -->
-
-  <!-- Import URDF -->
+  
+  <xacro:include filename="$(find hexapod_description)/gazebo/hexapod.gazebo.xacro" />
   <xacro:include filename="$(find hexapod_description)/urdf/hexapod_leg_ee.urdf.xacro" />
+  <xacro:include filename="$(find hexapod_description)/urdf/hexapod_gazebo.urdf.xacro" />
 
-  <!-- <xacro:include filename="$(find hexapod_description)/ros2_control/hexapod_system.ros2_control.xacro" /> -->
+  <xacro:include filename="$(find hexapod_description)/ros2_control/hexapod_system.ros2_control.xacro" />
 
   <xacro:hexapod prefix="$(arg prefix)" />
-  <!-- <xacro:hexapod_gazebo prefix="$(arg prefix)" />
-  <xacro:hexapod_system
-    name="HexapodSystem" prefix="$(arg prefix)" use_sim="$(arg use_sim)"
-    use_fake_hardware="$(arg use_fake_hardware)"
-    fake_sensor_commands="$(arg fake_sensor_commands)"
-    port_name="$(arg port_name)"/> -->
+  <xacro:hexapod_gazebo prefix="$(arg prefix)" />
+  <xacro:hexapod_system use_sim="$(arg use_sim)" prefix="$(arg prefix)"/>
 
-  <!-- <gazebo>
+  <gazebo>
     <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <parameters>$(find hex_gz)/config/gazebo_controller_manager.yaml</parameters>
     </plugin>
-  </gazebo> -->
+  </gazebo>
 
   
 

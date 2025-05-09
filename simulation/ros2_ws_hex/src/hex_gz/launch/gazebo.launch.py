@@ -98,7 +98,7 @@ def generate_launch_description():
             '-name', 'hexapod',
             '-x', '0.0',
             '-y', '0.0',
-            '-z', '0.2',  # Lekko nad ziemią, aby uniknąć początkowej kolizji
+            '-z', '0.3',  
             '-R', '0.0',
             '-P', '0.0',
             '-Y', '0.0',

@@ -33,14 +33,14 @@
         <xacro:property name="cube_2_offset_z" value="0.0"/>
         
         <!-- Cylinder 1 - CSV: cylinder_1,"0,425","0,425","0,65","-0,00025391","0,0926495",0,"1,570796327",0,0 -->
-        <xacro:property name="cylinder_1_radius" value="0.00850"/>  <!-- Doubled from 0.00425 -->
+        <xacro:property name="cylinder_1_radius" value="0.00425"/>  <!-- Doubled from 0.00425 -->
         <xacro:property name="cylinder_1_length" value="0.0130"/>   <!-- Doubled from 0.0065 -->
         <xacro:property name="cylinder_1_offset_x" value="-0.00025391"/>
         <xacro:property name="cylinder_1_offset_y" value="0.0926495"/>
         <xacro:property name="cylinder_1_offset_z" value="0.0"/>
         
         <!-- Sphere 1 - CSV: sphere_1,"0,425","0,425","0,425","-0,00025391","0,0992194",0,0,0,0 -->
-        <xacro:property name="sphere_1_radius" value="0.00850"/>  <!-- Doubled from 0.00425 -->
+        <xacro:property name="sphere_1_radius" value="0.00425"/>  <!-- Doubled from 0.00425 -->
         <xacro:property name="sphere_1_offset_x" value="-0.00025391"/>
         <xacro:property name="sphere_1_offset_y" value="0.0992194"/>
         <xacro:property name="sphere_1_offset_z" value="0.0"/>
