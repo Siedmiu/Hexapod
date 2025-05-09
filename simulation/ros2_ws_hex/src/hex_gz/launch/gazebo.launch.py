@@ -62,11 +62,11 @@ def generate_launch_description():
     xacro_file = os.path.join(
         hexapod_description_path,
         'urdf',
-        'hexapod_ee.urdf.xacro',
+        'hexapod.urdf.xacro',
     )
 
     # Parsowanie pliku XACRO z parametrem use_sim=true
-    doc = xacro.process_file(xacro_file, mappings={'use_sim': 'true', 'prefix': ''})
+    doc = xacro.process_file(xacro_file, mappings={'use_gazebo': 'true'})
     robot_desc = doc.toprettyxml(indent='  ')
     
     # Parametry dla robot_state_publisher
@@ -178,12 +178,12 @@ def generate_launch_description():
     )
     
     # Node do publikowania początkowych pozycji stawów (z pliku YAML)
-    initial_positions_publisher = Node(
-        package='hex_gz',
-        executable='initial_positions_publisher.py',
-        name='initial_positions_publisher',
-        output='screen',
-    )
+    # initial_positions_publisher = Node(
+    #     package='hex_gz',
+    #     executable='initial_positions_publisher.py',
+    #     name='initial_positions_publisher',
+    #     output='screen',
+    # )
 
     # Tworzenie sekwencji uruchomienia
     launch_sequence = [
@@ -223,14 +223,17 @@ def generate_launch_description():
         )
     )
     
-    # Rejestracja zdarzenia do uruchomienia node'a pozycji początkowych po załadowaniu wszystkich kontrolerów
-    launch_sequence.append(
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=load_leg6_controller,  # Czekamy na załadowanie ostatniego kontrolera
-                on_exit=[initial_positions_publisher],
-            )
-        )
-    )
+    # # Rejestracja zdarzenia do uruchomienia node'a pozycji początkowych po załadowaniu wszystkich kontrolerów
+    # launch_sequence.append(
+    #     RegisterEventHandler(
+    #         event_handler=OnProcessExit(
+    #             target_action=load_leg6_controller,  # Czekamy na załadowanie ostatniego kontrolera
+    #             on_exit=[initial_positions_publisher],
+    #         )
+    #     )
+    # )
     
     return LaunchDescription(launch_sequence)
+
+    #D.U.P.A.
+    
