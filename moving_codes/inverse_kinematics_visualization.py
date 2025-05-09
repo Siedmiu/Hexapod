@@ -9,7 +9,7 @@ h2 = -0.011804 + 0.016854
 l3 = 0.38709 - 0.2188
 
 #kinematyka odwrotna
-P3 = np.array([0.38709 - 0.0978, 0, -0.011804 - 0.003148])
+P3 = np.array([0.34709 - 0.0978, 0.14, -0.011804 - 0.003148])
 
 print(P3)
 
@@ -31,7 +31,7 @@ alfa_3 = np.deg2rad(180) - fi - staly_kat_przy_P1
 epsilon = np.arcsin(np.sin(fi) * l3 / d)
 tau = np.arctan2(P3[2] - P1[2], np.sqrt((P3[0] - P1[0])**2 + (P3[1] - P1[1])**2))
 
-alfa_2 = epsilon + tau - staly_kat_przy_P1
+alfa_2 = - (epsilon + tau - staly_kat_przy_P1)
 
 print(np.rad2deg(alfa_1), np.rad2deg(alfa_2), np.rad2deg(alfa_3))
 
@@ -45,12 +45,13 @@ print(np.rad2deg(alfa_1), np.rad2deg(alfa_2), np.rad2deg(alfa_3))
 P0 = np.array([0, 0, 0])
 P0_pod = P0 + np.array([0, 0, h1])
 P1 = P0_pod + np.array([l1 * np.cos(alfa_1), l1 *np.sin(alfa_1), 0])
-P2 = P1 + np.array([np.cos(alfa_1)*np.cos(alfa_2)*l2,np.sin(alfa_1)*np.cos(alfa_2)*l2, np.sin(alfa_2) * l2])
-P3 = P1 + np.array([np.cos(alfa_1)*np.cos(staly_kat_przy_P1 + alfa_2)*np.sqrt(h2**2 + l2**2),np.sin(alfa_1)*np.cos(staly_kat_przy_P1 + alfa_2)*np.sqrt(h2**2 + l2**2), np.sin(staly_kat_przy_P1 + alfa_2)*np.sqrt(h2**2 + l2**2)])
-P4 = P3 + np.array([np.cos(alfa_1)*np.cos(alfa_2 - alfa_3)*l3, np.sin(alfa_1)*np.cos(alfa_2 - alfa_3)*l3, np.sin(alfa_2 - alfa_3) * l3])
+P2 = P1 + np.array([np.cos(alfa_1)*np.cos(-alfa_2)*l2,np.sin(alfa_1)*np.cos(-alfa_2)*l2, np.sin(-alfa_2) * l2])
+P3 = P1 + np.array([np.cos(alfa_1)*np.cos(staly_kat_przy_P1 - alfa_2)*np.sqrt(h2**2 + l2**2),np.sin(alfa_1)*np.cos(staly_kat_przy_P1 - alfa_2)*np.sqrt(h2**2 + l2**2), np.sin(staly_kat_przy_P1 - alfa_2)*np.sqrt(h2**2 + l2**2)])
+P4 = P3 + np.array([np.cos(alfa_1)*np.cos(-alfa_2 - alfa_3)*l3, np.sin(alfa_1)*np.cos(-alfa_2 - alfa_3)*l3, np.sin(-alfa_2 - alfa_3) * l3])
 
 print(P4)
 
+# Lista punktów
 points = np.array([
     [P0[0], P0[1], P0[2]],
     [P0_pod[0], P0_pod[1], P0_pod[2]],
@@ -69,6 +70,7 @@ axis_max = max(x_max, y_max, z_max) + 0.05
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
+# Lista połączeń (indeksy punktów + kolor)
 segments = [
     (0, 1, 'red'),
     (1, 2, 'red'),
