@@ -25,7 +25,7 @@ def katy_serw(P3, l1, h1, l2, h2, l3):
     epsilon = np.arcsin(np.sin(fi) * l3 / d)
     tau = np.arctan2(P3[2] - P1[2], np.sqrt((P3[0] - P1[0]) ** 2 + (P3[1] - P1[1]) ** 2))
 
-    alfa_2 = epsilon + tau - staly_kat_przy_P1
+    alfa_2 = -(epsilon + tau - staly_kat_przy_P1)
     return [alfa_1, alfa_2, alfa_3]
 
 def polozenie_przegub_1(l1, alfa1, przyczep):
@@ -175,7 +175,7 @@ polozenia_stop_podczas_cyklu = np.array([ # polozenie_stop jest wzgledem ukladu 
     for j in range(6)
 ])
 np.set_printoptions(threshold=np.inf)
-print(polozenia_stop_podczas_cyklu[2])
+print(polozenia_stop_podczas_cyklu[1])
 
 #wychyly podawane odpowiednio dla 1 2 i 3 przegubu w radianach
 wychyly_serw_podczas_ruchu = np.array([
@@ -204,9 +204,9 @@ def calculate_positions():
     polozenie_punktow_P2_w_ruchu = polozenie_punktow_P1_w_ruchu + np.array([
 
     [[
-        np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.cos(wychyly_serw_podczas_ruchu[j][i][1]) * l2,
-        np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.cos(wychyly_serw_podczas_ruchu[j][i][1]) * l2,
-        l2 * np.sin(wychyly_serw_podczas_ruchu[j][i][1])
+        np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.cos(-wychyly_serw_podczas_ruchu[j][i][1]) * l2,
+        np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j]) * np.cos(-wychyly_serw_podczas_ruchu[j][i][1]) * l2,
+        l2 * np.sin(-wychyly_serw_podczas_ruchu[j][i][1])
     ]
         for i in range(len(cykl_ogolny_nog_1_3_5))]
         for j in range(6)
@@ -215,9 +215,9 @@ def calculate_positions():
     polozenie_punktow_P3_w_ruchu = polozenie_punktow_P1_w_ruchu + np.array([
 
         [[
-            np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(staly_kat_przy_P1 + wychyly_serw_podczas_ruchu[j][i][1])*np.sqrt(h2**2 + l2**2),
-            np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(staly_kat_przy_P1 + wychyly_serw_podczas_ruchu[j][i][1])*np.sqrt(h2**2 + l2**2),
-            np.sin(staly_kat_przy_P1 + wychyly_serw_podczas_ruchu[j][i][1])*np.sqrt(h2**2 + l2**2)
+            np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(staly_kat_przy_P1 - wychyly_serw_podczas_ruchu[j][i][1])*np.sqrt(h2**2 + l2**2),
+            np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(staly_kat_przy_P1 - wychyly_serw_podczas_ruchu[j][i][1])*np.sqrt(h2**2 + l2**2),
+            np.sin(staly_kat_przy_P1 - wychyly_serw_podczas_ruchu[j][i][1])*np.sqrt(h2**2 + l2**2)
         ]
             for i in range(len(cykl_ogolny_nog_1_3_5))]
         for j in range(6)
@@ -225,9 +225,9 @@ def calculate_positions():
 
     obliczone_z_serw_polozenie_stop = polozenie_punktow_P3_w_ruchu + np.array([
         [[
-            np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(wychyly_serw_podczas_ruchu[j][i][1] - wychyly_serw_podczas_ruchu[j][i][2])*l3,
-            np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos(wychyly_serw_podczas_ruchu[j][i][1] - wychyly_serw_podczas_ruchu[j][i][2])*l3,
-            np.sin(wychyly_serw_podczas_ruchu[j][i][1] - wychyly_serw_podczas_ruchu[j][i][2]) * l3
+            np.cos(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos( -wychyly_serw_podczas_ruchu[j][i][1] - wychyly_serw_podczas_ruchu[j][i][2])*l3,
+            np.sin(wychyly_serw_podczas_ruchu[j][i][0]+ nachylenia_nog_do_bokow_platformy_pajaka[j])*np.cos( -wychyly_serw_podczas_ruchu[j][i][1] - wychyly_serw_podczas_ruchu[j][i][2])*l3,
+            np.sin( -wychyly_serw_podczas_ruchu[j][i][1] - wychyly_serw_podczas_ruchu[j][i][2]) * l3
         ]
             for i in range(len(cykl_ogolny_nog_1_3_5))]
         for j in range(6)
