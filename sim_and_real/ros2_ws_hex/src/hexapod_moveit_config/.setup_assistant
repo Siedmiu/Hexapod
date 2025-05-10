@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: hexapod_description
+    relative_path: urdf/hexapod_ee.urdf.xacro
+  srdf:
+    relative_path: config/hexapod.srdf
+  package_settings:
+    author_name: Bebo457
+    author_email: bartekbab845@gmail.com
+    generated_timestamp: 1745660362

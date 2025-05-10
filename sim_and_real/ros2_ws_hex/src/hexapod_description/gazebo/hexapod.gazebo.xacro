@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="hexapod_gazebo" params="prefix">
+
+  <xacro:macro name="SimpleTransmission" params="trans joint actuator">
+    <transmission name="${trans}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint}">
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${actuator}">
+        <mechanicalReduction>1</mechanicalReduction>
+        <hardwareInterface>PositionJointInterface</hardwareInterface>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+  <xacro:macro name="Link" params="reference">
+    <gazebo reference="${reference}">
+      <kp>1000000.0</kp>
+      <kd>100.0</kd>
+      <mu1>30.0</mu1>
+      <mu2>30.0</mu2>
+      <maxVel>1.0</maxVel>
+      <minDepth>0.001</minDepth>
+    </gazebo>
+  </xacro:macro>
+
+  <!-- Define links for all parts of the hexapod -->
+  <xacro:Link reference="${prefix}base_link"/>
+  
+  <!-- Leg 1 links -->
+  <xacro:Link reference="${prefix}link1_1"/>
+  <xacro:Link reference="${prefix}link2_1"/>
+  <xacro:Link reference="${prefix}link3_1"/>
+  <xacro:Link reference="${prefix}link4_1"/>
+  
+  <!-- Leg 2 links -->
+  <xacro:Link reference="${prefix}link1_2"/>
+  <xacro:Link reference="${prefix}link2_2"/>
+  <xacro:Link reference="${prefix}link3_2"/>
+  <xacro:Link reference="${prefix}link4_2"/>
+  
+  <!-- Leg 3 links -->
+  <xacro:Link reference="${prefix}link1_3"/>
+  <xacro:Link reference="${prefix}link2_3"/>
+  <xacro:Link reference="${prefix}link3_3"/>
+  <xacro:Link reference="${prefix}link4_3"/>
+  
+  <!-- Leg 4 links -->
+  <xacro:Link reference="${prefix}link1_4"/>
+  <xacro:Link reference="${prefix}link2_4"/>
+  <xacro:Link reference="${prefix}link3_4"/>
+  <xacro:Link reference="${prefix}link4_4"/>
+  
+  <!-- Leg 5 links -->
+  <xacro:Link reference="${prefix}link1_5"/>
+  <xacro:Link reference="${prefix}link2_5"/>
+  <xacro:Link reference="${prefix}link3_5"/>
+  <xacro:Link reference="${prefix}link4_5"/>
+  
+  <!-- Leg 6 links -->
+  <xacro:Link reference="${prefix}link1_6"/>
+  <xacro:Link reference="${prefix}link2_6"/>
+  <xacro:Link reference="${prefix}link3_6"/>
+  <xacro:Link reference="${prefix}link4_6"/>
+
+  <!-- Leg 1 Transmissions -->
+  <xacro:SimpleTransmission trans="${prefix}leg1_trans1" joint="${prefix}joint1_1" actuator="${prefix}leg1_motor1" />
+  <xacro:SimpleTransmission trans="${prefix}leg1_trans2" joint="${prefix}joint2_1" actuator="${prefix}leg1_motor2" />
+  <xacro:SimpleTransmission trans="${prefix}leg1_trans3" joint="${prefix}joint3_1" actuator="${prefix}leg1_motor3" />
+  
+  <!-- Leg 2 Transmissions -->
+  <xacro:SimpleTransmission trans="${prefix}leg2_trans1" joint="${prefix}joint1_2" actuator="${prefix}leg2_motor1" />
+  <xacro:SimpleTransmission trans="${prefix}leg2_trans2" joint="${prefix}joint2_2" actuator="${prefix}leg2_motor2" />
+  <xacro:SimpleTransmission trans="${prefix}leg2_trans3" joint="${prefix}joint3_2" actuator="${prefix}leg2_motor3" />
+  
+  <!-- Leg 3 Transmissions -->
+  <xacro:SimpleTransmission trans="${prefix}leg3_trans1" joint="${prefix}joint1_3" actuator="${prefix}leg3_motor1" />
+  <xacro:SimpleTransmission trans="${prefix}leg3_trans2" joint="${prefix}joint2_3" actuator="${prefix}leg3_motor2" />
+  <xacro:SimpleTransmission trans="${prefix}leg3_trans3" joint="${prefix}joint3_3" actuator="${prefix}leg3_motor3" />
+  
+  <!-- Leg 4 Transmissions -->
+  <xacro:SimpleTransmission trans="${prefix}leg4_trans1" joint="${prefix}joint1_4" actuator="${prefix}leg4_motor1" />
+  <xacro:SimpleTransmission trans="${prefix}leg4_trans2" joint="${prefix}joint2_4" actuator="${prefix}leg4_motor2" />
+  <xacro:SimpleTransmission trans="${prefix}leg4_trans3" joint="${prefix}joint3_4" actuator="${prefix}leg4_motor3" />
+  
+  <!-- Leg 5 Transmissions -->
+  <xacro:SimpleTransmission trans="${prefix}leg5_trans1" joint="${prefix}joint1_5" actuator="${prefix}leg5_motor1" />
+  <xacro:SimpleTransmission trans="${prefix}leg5_trans2" joint="${prefix}joint2_5" actuator="${prefix}leg5_motor2" />
+  <xacro:SimpleTransmission trans="${prefix}leg5_trans3" joint="${prefix}joint3_5" actuator="${prefix}leg5_motor3" />
+  
+  <!-- Leg 6 Transmissions -->
+  <xacro:SimpleTransmission trans="${prefix}leg6_trans1" joint="${prefix}joint1_6" actuator="${prefix}leg6_motor1" />
+  <xacro:SimpleTransmission trans="${prefix}leg6_trans2" joint="${prefix}joint2_6" actuator="${prefix}leg6_motor2" />
+  <xacro:SimpleTransmission trans="${prefix}leg6_trans3" joint="${prefix}joint3_6" actuator="${prefix}leg6_motor3" />
+
+  </xacro:macro>
+
+</robot>

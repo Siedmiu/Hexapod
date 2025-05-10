@@ -1,0 +1,102 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    leg1_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    leg2_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    leg3_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    
+    leg4_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    
+    leg5_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    
+    leg6_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+leg1_controller:
+  ros__parameters:
+    joints:
+      - joint1_1
+      - joint2_1
+      - joint3_1
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    allow_nonzero_velocity_at_trajectory_end: true
+
+leg2_controller:
+  ros__parameters:
+    joints:
+      - joint1_2
+      - joint2_2
+      - joint3_2
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    allow_nonzero_velocity_at_trajectory_end: true
+
+leg3_controller:
+  ros__parameters:
+    joints:
+      - joint1_3
+      - joint2_3
+      - joint3_3
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    allow_nonzero_velocity_at_trajectory_end: true
+
+leg4_controller:
+  ros__parameters:
+    joints:
+      - joint1_4
+      - joint2_4
+      - joint3_4
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    allow_nonzero_velocity_at_trajectory_end: true
+
+leg5_controller:
+  ros__parameters:
+    joints:
+      - joint1_5
+      - joint2_5
+      - joint3_5
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    allow_nonzero_velocity_at_trajectory_end: true
+
+leg6_controller:
+  ros__parameters:
+    joints:
+      - joint1_6
+      - joint2_6
+      - joint3_6
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    allow_nonzero_velocity_at_trajectory_end: true

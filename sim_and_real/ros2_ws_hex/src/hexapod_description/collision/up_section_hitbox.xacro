@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Macro for upper leg collision model composed of simple geometric shapes -->
+    <xacro:macro name="upper_leg_collision" params="prefix position rotation">
+        <!-- Parse position into separate x, y, z variables -->
+        <xacro:property name="pos_parts" value="${position.split(' ')}"/>
+        <xacro:property name="center_x" value="${pos_parts[0]}"/>
+        <xacro:property name="center_y" value="${pos_parts[1]}"/>
+        <xacro:property name="center_z" value="${pos_parts[2]}"/>
+        
+        <!-- Parse rotation into separate roll, pitch, yaw variables -->
+        <xacro:property name="rot_parts" value="${rotation.split(' ')}"/>
+        <xacro:property name="roll" value="${rot_parts[0]}"/>
+        <xacro:property name="pitch" value="${rot_parts[1]}"/>
+        <xacro:property name="yaw" value="${rot_parts[2]}"/>
+        
+        <!-- Define geometric shapes with their relative positions and sizes from CSV data -->
+        <!-- Doubled dimensions as requested -->
+        
+        <!-- Cube 1 - Doubled dimensions -->
+        <xacro:property name="cube_1_size_x" value="0.02"/>   <!-- 2 * 0.01 -->
+        <xacro:property name="cube_1_size_y" value="0.05"/>   <!-- 2 * 0.025 -->
+        <xacro:property name="cube_1_size_z" value="0.04"/>   <!-- 2 * 0.02 -->
+        <xacro:property name="cube_1_offset_x" value="0.0"/>
+        <xacro:property name="cube_1_offset_y" value="0.0132122"/>
+        <xacro:property name="cube_1_offset_z" value="-0.0123717"/>
+        
+        <!-- Cube 2 - Doubled dimensions -->
+        <xacro:property name="cube_2_size_x" value="0.0124"/> <!-- 2 * 0.0062 -->
+        <xacro:property name="cube_2_size_y" value="0.0226"/> <!-- 2 * 0.0113 -->
+        <xacro:property name="cube_2_size_z" value="0.0164"/> <!-- 2 * 0.0082 -->
+        <xacro:property name="cube_2_offset_x" value="0.00063677"/>
+        <xacro:property name="cube_2_offset_y" value="0.014818"/>
+        <xacro:property name="cube_2_offset_z" value="0.0158369"/>
+        
+        <!-- Cube 3 - Doubled dimensions -->
+        <xacro:property name="cube_3_size_x" value="0.021"/>  <!-- 2 * 0.0105 -->
+        <xacro:property name="cube_3_size_y" value="0.0232"/> <!-- 2 * 0.0116 -->
+        <xacro:property name="cube_3_size_z" value="0.009"/>  <!-- 2 * 0.0045 -->
+        <xacro:property name="cube_3_offset_x" value="0.00056752"/>
+        <xacro:property name="cube_3_offset_y" value="-0.0232772"/>
+        <xacro:property name="cube_3_offset_z" value="0.0"/>
+        
+        <!-- Cube 4 - Doubled dimensions -->
+        <xacro:property name="cube_4_size_x" value="0.0292"/> <!-- 2 * 0.0146 -->
+        <xacro:property name="cube_4_size_y" value="0.01"/>   <!-- 2 * 0.005 -->
+        <xacro:property name="cube_4_size_z" value="0.008"/>  <!-- 2 * 0.004 -->
+        <xacro:property name="cube_4_offset_x" value="0.00126394"/>
+        <xacro:property name="cube_4_offset_y" value="-0.0391864"/>
+        <xacro:property name="cube_4_offset_z" value="0.00042181"/>
+        
+        <!-- Cylinder 1 - Doubled dimensions -->
+        <xacro:property name="cylinder_1_radius" value="0.007"/> <!-- 2 * 0.007 -->
+        <xacro:property name="cylinder_1_length" value="0.0392"/> <!-- 2 * 0.0392 -->
+        <xacro:property name="cylinder_1_offset_x" value="0.00041972"/>
+        <xacro:property name="cylinder_1_offset_y" value="-0.021777"/>
+        <xacro:property name="cylinder_1_offset_z" value="-0.00314257"/>
+        
+        <!-- Calculate rotation components -->
+        <xacro:property name="cr" value="${cos(roll)}"/>
+        <xacro:property name="sr" value="${sin(roll)}"/>
+        <xacro:property name="cp" value="${cos(pitch)}"/>
+        <xacro:property name="sp" value="${sin(pitch)}"/>
+        <xacro:property name="cy" value="${cos(yaw)}"/>
+        <xacro:property name="sy" value="${sin(yaw)}"/>
+        
+        <!-- Create rotation matrix for Rx * Ry * Rz (roll, pitch, yaw) -->
+        <!-- First row of rotation matrix -->
+        <xacro:property name="r11" value="${cy * cp}"/>
+        <xacro:property name="r12" value="${cy * sp * sr - sy * cr}"/>
+        <xacro:property name="r13" value="${cy * sp * cr + sy * sr}"/>
+        
+        <!-- Second row of rotation matrix -->
+        <xacro:property name="r21" value="${sy * cp}"/>
+        <xacro:property name="r22" value="${sy * sp * sr + cy * cr}"/>
+        <xacro:property name="r23" value="${sy * sp * cr - cy * sr}"/>
+        
+        <!-- Third row of rotation matrix -->
+        <xacro:property name="r31" value="${-sp}"/>
+        <xacro:property name="r32" value="${cp * sr}"/>
+        <xacro:property name="r33" value="${cp * cr}"/>
+        
+        <!-- Apply rotation to each shape position -->
+        <!-- Cube 1 -->
+        <xacro:property name="cube_1_trans_x" value="${cube_1_offset_x * r11 + cube_1_offset_y * r12 + cube_1_offset_z * r13}"/>
+        <xacro:property name="cube_1_trans_y" value="${cube_1_offset_x * r21 + cube_1_offset_y * r22 + cube_1_offset_z * r23}"/>
+        <xacro:property name="cube_1_trans_z" value="${cube_1_offset_x * r31 + cube_1_offset_y * r32 + cube_1_offset_z * r33}"/>
+        
+        <!-- Cube 2 -->
+        <xacro:property name="cube_2_trans_x" value="${cube_2_offset_x * r11 + cube_2_offset_y * r12 + cube_2_offset_z * r13}"/>
+        <xacro:property name="cube_2_trans_y" value="${cube_2_offset_x * r21 + cube_2_offset_y * r22 + cube_2_offset_z * r23}"/>
+        <xacro:property name="cube_2_trans_z" value="${cube_2_offset_x * r31 + cube_2_offset_y * r32 + cube_2_offset_z * r33}"/>
+        
+        <!-- Cube 3 -->
+        <xacro:property name="cube_3_trans_x" value="${cube_3_offset_x * r11 + cube_3_offset_y * r12 + cube_3_offset_z * r13}"/>
+        <xacro:property name="cube_3_trans_y" value="${cube_3_offset_x * r21 + cube_3_offset_y * r22 + cube_3_offset_z * r23}"/>
+        <xacro:property name="cube_3_trans_z" value="${cube_3_offset_x * r31 + cube_3_offset_y * r32 + cube_3_offset_z * r33}"/>
+        
+        <!-- Cube 4 -->
+        <xacro:property name="cube_4_trans_x" value="${cube_4_offset_x * r11 + cube_4_offset_y * r12 + cube_4_offset_z * r13}"/>
+        <xacro:property name="cube_4_trans_y" value="${cube_4_offset_x * r21 + cube_4_offset_y * r22 + cube_4_offset_z * r23}"/>
+        <xacro:property name="cube_4_trans_z" value="${cube_4_offset_x * r31 + cube_4_offset_y * r32 + cube_4_offset_z * r33}"/>
+        
+        <!-- Cylinder 1 -->
+        <xacro:property name="cylinder_1_trans_x" value="${cylinder_1_offset_x * r11 + cylinder_1_offset_y * r12 + cylinder_1_offset_z * r13}"/>
+        <xacro:property name="cylinder_1_trans_y" value="${cylinder_1_offset_x * r21 + cylinder_1_offset_y * r22 + cylinder_1_offset_z * r23}"/>
+        <xacro:property name="cylinder_1_trans_z" value="${cylinder_1_offset_x * r31 + cylinder_1_offset_y * r32 + cylinder_1_offset_z * r33}"/>
+        
+        <!-- Create collision elements for each shape with transformed positions -->
+        
+        <!-- Cube 1 -->
+        <collision>
+            <origin xyz="${center_x + cube_1_trans_x} ${center_y + cube_1_trans_y} ${center_z + cube_1_trans_z}" rpy="${roll} ${pitch} ${yaw}"/>
+            <geometry>
+                <box size="${cube_1_size_x} ${cube_1_size_y} ${cube_1_size_z}"/>
+            </geometry>
+        </collision>
+        
+        <!-- Cube 2 -->
+        <collision>
+            <origin xyz="${center_x + cube_2_trans_x} ${center_y + cube_2_trans_y} ${center_z + cube_2_trans_z}" rpy="${roll} ${pitch} ${yaw}"/>
+            <geometry>
+                <box size="${cube_2_size_x} ${cube_2_size_y} ${cube_2_size_z}"/>
+            </geometry>
+        </collision>
+        
+        <!-- Cube 3 -->
+        <collision>
+            <origin xyz="${center_x + cube_3_trans_x} ${center_y + cube_3_trans_y} ${center_z + cube_3_trans_z}" rpy="${roll} ${pitch} ${yaw}"/>
+            <geometry>
+                <box size="${cube_3_size_x} ${cube_3_size_y} ${cube_3_size_z}"/>
+            </geometry>
+        </collision>
+        
+        <!-- Cube 4 -->
+        <collision>
+            <origin xyz="${center_x + cube_4_trans_x} ${center_y + cube_4_trans_y} ${center_z + cube_4_trans_z}" rpy="${roll} ${pitch} ${yaw}"/>
+            <geometry>
+                <box size="${cube_4_size_x} ${cube_4_size_y} ${cube_4_size_z}"/>
+            </geometry>
+        </collision>
+        
+        <!-- Cylinder 1 -->
+        <collision>
+            <origin xyz="${center_x + cylinder_1_trans_x} ${center_y + cylinder_1_trans_y} ${center_z + cylinder_1_trans_z}" rpy="${roll} ${pitch} ${yaw}"/>
+            <geometry>
+                <cylinder radius="${cylinder_1_radius}" length="${cylinder_1_length}"/>
+            </geometry>
+        </collision>
+    </xacro:macro>
+</robot>
