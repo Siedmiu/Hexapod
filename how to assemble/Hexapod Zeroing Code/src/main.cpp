@@ -16,14 +16,6 @@ void setup() {
   Wire.begin();
   pwm.begin();
   pwm.setPWMFreq(60);
-
-  // Example usage
-  setServoAngle(0, 0);
-  setServoAngle(1, 0);
-  setServoAngle(2, 0);
-  setServoAngle(3, 180);
-  setServoAngle(4, 180);
-  setServoAngle(5, 180);
 }
 
 void loop() {
