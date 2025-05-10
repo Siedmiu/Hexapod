@@ -2,11 +2,13 @@
  
  <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
  
-   <xacro:property name="base_mass" value="4.6" />
-   <xacro:property name="wheel_mass" value="1.0" />
-   <xacro:property name="ixx" value="1.0"/>
-   <xacro:property name="iyy" value="1.0"/>
-   <xacro:property name="izz" value="1.0"/>
+   <xacro:property name="platform_mass" value="0.3" />
+   <xacro:property name="up_section_mass" value="0.1" />
+   <xacro:property name="mid_section_mass" value="0.1" />
+   <xacro:property name="down_section_mass" value="0.1" />
+   <xacro:property name="ixx" value="0.001"/>
+   <xacro:property name="iyy" value="0.001"/>
+   <xacro:property name="izz" value="0.001"/>
    <xacro:property
        name="meshes_file_direction"
        value="package://hexapod_description/meshes"/>
@@ -35,7 +37,7 @@
 
         <inertial>
           <origin xyz="0 0 0" rpy="0 0 0"/>
-          <mass value="${base_mass}"/>
+          <mass value="${platform_mass}"/>
           <inertia
             ixx="${ixx}" ixy="0.0" ixz="0.0"
             iyy="${iyy}" iyz="0.0"
@@ -73,8 +75,8 @@
       <xacro:upper_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
 
       <inertial>
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-        <mass value="${wheel_mass}"/>
+        <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+        <mass value="${up_section_mass}"/>
         <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
       </inertial>
     </link>
@@ -96,8 +98,8 @@
       <xacro:mid_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
 
       <inertial>
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-        <mass value="${wheel_mass}"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+        <mass value="${mid_section_mass}"/>
         <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
       </inertial>
     </link>
@@ -120,8 +122,8 @@
       <xacro:lower_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
       
       <inertial>
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-        <mass value="${wheel_mass}"/>
+        <origin xxyz="${xyz}" rpy="${rpy}"/>
+        <mass value="${down_section_mass}"/>
         <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
       </inertial>
     </link>
