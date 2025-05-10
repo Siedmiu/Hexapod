@@ -20,7 +20,7 @@ find_package(ament_cmake REQUIRED)
 ################################################################################
 # Install
 ################################################################################
-install(DIRECTORY launch meshes rviz urdf gazebo ros2_control collision config
+install(DIRECTORY launch meshes rviz urdf gazebo collision config
   DESTINATION share/${PROJECT_NAME}
 )
 

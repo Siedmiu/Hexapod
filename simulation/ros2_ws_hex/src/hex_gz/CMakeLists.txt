@@ -27,6 +27,7 @@ install(PROGRAMS scripts/x_create_udev_rules
   scripts/one_leg.py
   scripts/initial_positions_publisher.py
   scripts/setup.py
+  scripts/leg_sequence_player.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

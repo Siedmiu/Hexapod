@@ -9,7 +9,7 @@
    <xacro:property name="izz" value="1.0"/>
    <xacro:property
        name="meshes_file_direction"
-       value="package://hexapod_description/meshes"/>
+       value="$(find hexapod_description)/meshes"/>
        
    <!-- Include macro modeli kolizyjnych z prostych kształtów geometrycznych -->
    <xacro:include filename="$(find hexapod_description)/collision/platform_hitbox.xacro"/>
