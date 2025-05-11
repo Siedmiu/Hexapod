@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+'''A small program to calculate the inertia of a given stl file.'''
+import argparse
+import numpy as np
+import stl
+import textwrap
+from pint import Quantity
+
+
+
+def change_inertial_frame(inertia_matrix, mass, current_frame, new_frame):
+    '''Apply the parallel axis theorem to get the inertia matrix about a new reference point.
+
+    @param inertia_matrix: The inertia matrix to transform.
+
+    @param mass: The mass of the body with the given inertia matrix.
+
+    @param current_frame: Current point relative to which the inertia matrix is expressed.
+
+    @param new_frame: New point relative to which the resultant inertia matrix will be expressed.
+    '''
+    r = new_frame - current_frame  # The displacement.
+    E = np.identity(len(r))  # The identity matrix.
+    return inertia + mass * (np.dot(r, r) * E - np.outer(r, r))
+
+
+def matrix_to_text(matrix):
+    '''Convert the matrix to plain text.'''
+    return str(matrix)
+
+
+def matrix_to_urdf(matrix):
+    '''Convert the matrix to urdf text.'''
+    return textwrap.dedent('''\
+           <inertia ixx="{:e}" ixy="{:e}" ixz="{:e}"
+                    iyx="{:e}" iyy="{:e}" iyz="{:e}"
+                    izx="{:e}" izy="{:e}" izz="{:e}"/>''').format(*matrix.flatten())
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser('Calculate the inertia tensor of a given STL model.'
+                                     'The result is given in kg×m²')
+    parser.add_argument('-f', '--format', default='text',
+                        help='The output format in which the matrix is expressed. Defaults to "%(default)s".')
+    parser.add_argument('-u', '--units', default='meters', type=Quantity,
+                        help='The length units of the STL model. Defaults to "%(default)s".')
+    parser.add_argument('-s', '--scale', default=1.0, type=float,
+                        help='The scale factor of the STL model. Defaults to "%(default)s".')
+    parser.add_argument('-m', '--mass', default=1.0, type=float,
+                        help='The total mass of the STL model in kg. Defaults to "%(default)s')
+    parser.add_argument('-r', '--reference', default='0, 0, 0', type=str,
+                    help='The reference point about which the resultant inertia '
+                         'tensor is expressed. Defaults to "%(default)s".')
+    parser.add_argument('file',
+                        help='The input STL file to be processed.')
+    args = parser.parse_args()
+
+    # Parse the given units and scale.
+    if not Quantity('meters').is_compatible_with(args.units):
+        raise argparse.ArgumentError("Couldn't parse the given units: {}".format(args.units))
+    scale_factor = args.scale * args.units.to_base_units().magnitude
+
+    # Parse the output format.
+    matrix_conversion_dictionary = {'text': matrix_to_text,
+                                    'urdf': matrix_to_urdf}
+    if args.format not in matrix_conversion_dictionary:
+        raise argparse.ArgumentError('Unknown output format: {}'.format(args.format))
+    formatter = matrix_conversion_dictionary[args.format]
+
+    mesh = stl.mesh.Mesh.from_file(args.file)
+    # Scale the mesh to the given units.
+    mesh.x *= scale_factor
+    mesh.y *= scale_factor
+    mesh.z *= scale_factor
+    volume, center_of_mass, inertia = mesh.get_mass_properties()
+    inertia /= volume  # The default inertia is multiplied by the volume, so we undo that.
+    inertia *= args.mass
+
+    # Get the reference frame.
+    if args.reference == 'center of mass' or args.reference == 'cog':
+        reference = center_of_mass
+    else:
+        reference = np.fromstring(args.reference, sep=',', dtype=float)
+
+    inertia = change_inertial_frame(inertia,
+                                    mass=args.mass,
+                                    current_frame=center_of_mass,
+                                    new_frame=reference)
+
+    print(formatter(inertia))
