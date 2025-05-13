@@ -4,6 +4,28 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
+// # Mapowanie nazw jointów na numery serw
+// joint_to_servo = {
+//     "joint1_3": 0,
+//     "joint2_3": 1,
+//     "joint3_3": 2,
+//     "joint1_2": 3,
+//     "joint2_2": 4,
+//     "joint3_2": 5,
+//     "joint1_1": 6,
+//     "joint2_1": 7,
+//     "joint3_1": 8,
+//     "joint1_6": 9,
+//     "joint2_6": 10,
+//     "joint3_6": 11,
+//     "joint1_5": 12,
+//     "joint2_5": 13,
+//     "joint3_5": 14,
+//     "joint1_4": 15,
+//     "joint2_4": 16,
+//     "joint3_4": 17,
+// }
+
 // WiFi credentials
 const char* ssid = "Twoja_Siec";
 const char* password = "Twoje_Haslo";
@@ -41,22 +63,31 @@ void onWebSocketMessage(void *arg, uint8_t *data, size_t len) {
     msg.trim();
 
     if (msg.startsWith("servo")) {
-      int spaceIndex = msg.indexOf(' ');
+      // Usunięcie słowa "servo" i przycinanie
+      String params = msg.substring(5);
+      params.trim();
+      
+      // Znalezienie spacji między numerem serwa a kątem
+      int spaceIndex = params.indexOf(' ');
       if (spaceIndex != -1) {
-        String servoStr = msg.substring(5, spaceIndex);
-        String angleStr = msg.substring(spaceIndex + 1);
+        String servoStr = params.substring(0, spaceIndex);
+        String angleStr = params.substring(spaceIndex + 1);
+        
+        servoStr.trim();
+        angleStr.trim();
 
-        int servoNum = servoStr.toInt();  // teraz serwa 1–18
+        int servoNum = servoStr.toInt();
         int angle = angleStr.toInt();
 
         if (servoNum >= 1 && servoNum <= 18 && angle >= 0 && angle <= 180) {
           setServoAngle(servoNum - 1, angle);  // indeksujemy od 0
-          Serial.printf("Servo %d moved to %d°\n", servoNum, angle);
+          Serial.printf("Servo %d moved to %d°\r\n", servoNum, angle);
         } else {
-          Serial.println("Invalid servo number or angle.");
+          Serial.printf("Invalid servo number (%d) or angle (%d). Allowed: 1-18, 0-180\r\n", 
+                       servoNum, angle);
         }
       } else {
-        Serial.println("Invalid command format.");
+        Serial.println("Invalid command format. Expected: 'servo <number> <angle>'");
       }
     } else {
       Serial.println("Unknown command.");
@@ -67,9 +98,9 @@ void onWebSocketMessage(void *arg, uint8_t *data, size_t len) {
 void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client,
              AwsEventType type, void *arg, uint8_t *data, size_t len) {
   if (type == WS_EVT_CONNECT) {
-    Serial.printf("Client connected: %u\n", client->id());
+    Serial.printf("Client connected: %u\r\n", client->id());
   } else if (type == WS_EVT_DISCONNECT) {
-    Serial.printf("Client disconnected: %u\n", client->id());
+    Serial.printf("Client disconnected: %u\r\n", client->id());
   } else if (type == WS_EVT_DATA) {
     onWebSocketMessage(arg, data, len);
   }
