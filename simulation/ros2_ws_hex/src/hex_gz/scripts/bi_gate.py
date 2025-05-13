@@ -132,6 +132,7 @@ polozenie_spoczynkowe_stop = np.array([
 h = l3 / 4
 r = h
 ilosc_punktow_na_krzywych = 10
+
 punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
 punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
 punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
@@ -144,11 +145,21 @@ punkty_etap6_ruchu.reverse()
 punkty_etap7_ruchu = punkty_etap1_ruchu.copy()
 punkty_etap7_ruchu.reverse()
 
-pierwszy_krok_nóg_1_4 = punkty_etap6_ruchu.copy()
-pierwszy_krok_nóg_2_5 = []
+zera = []
 for i in range(ilosc_punktow_na_krzywych):
-    pierwszy_krok_nóg_2_5.append([0, 0, 0])
-pierwszy_krok_nóg_3_6 = punkty_etap7_ruchu.copy()
+    zera.append([0, 0, 0])
+
+pierwszy_krok_nóg_1_4 = punkty_etap6_ruchu.copy()
+pierwszy_krok_nóg_2_5 = zera.copy()
+pierwszy_krok_nóg_3_6 = zera.copy()
+
+wypelniacz = []
+for i in range(ilosc_punktow_na_krzywych):
+    wypelniacz.append(pierwszy_krok_nóg_1_4[ilosc_punktow_na_krzywych - 1])
+
+drugi_krok_nóg_1_4 = wypelniacz.copy()
+drugi_krok_nóg_2_5 = zera.copy()
+drugi_krok_nóg_3_6 = punkty_etap1_ruchu.copy()
 
 # Wysokość paraboli
 h_parabola = h / 2
@@ -156,22 +167,28 @@ h_parabola = h / 2
 # Generowanie punktów na paraboli
 punkty_paraboli = znajdz_punkty_rowno_odlegle_na_paraboli(r, h_parabola, ilosc_punktow_na_krzywych, 10000, 0)
 
-
-
-cykl_nog_1_4 = punkty_etap6_ruchu.copy()
+cykl_nog_1_4 = pierwszy_krok_nóg_1_4.copy()
 cykl_nog_2_5 = pierwszy_krok_nóg_2_5.copy()
-cykl_nog_3_6 = punkty_etap1_ruchu.copy()
+cykl_nog_3_6 = pierwszy_krok_nóg_3_6.copy()
 
-ilosc_cykli = 10 
+cykl_nog_1_4 = np.concatenate([cykl_nog_1_4, drugi_krok_nóg_1_4])
+cykl_nog_2_5 = np.concatenate([cykl_nog_2_5, drugi_krok_nóg_2_5])
+cykl_nog_3_6 = np.concatenate([cykl_nog_3_6, drugi_krok_nóg_3_6])
+
+ilosc_cykli = 2 
 
 for _ in range(ilosc_cykli):
     cykl_nog_1_4 = np.concatenate([cykl_nog_1_4, punkty_etap4_ruchu, punkty_etap2_ruchu, punkty_etap3_ruchu])
     cykl_nog_2_5 = np.concatenate([cykl_nog_2_5, punkty_etap3_ruchu, punkty_etap4_ruchu, punkty_etap2_ruchu])
     cykl_nog_3_6 = np.concatenate([cykl_nog_3_6, punkty_etap2_ruchu, punkty_etap3_ruchu, punkty_etap4_ruchu])
 
-cykl_nog_1_4 = np.concatenate([cykl_nog_1_4, punkty_etap5_ruchu])
-cykl_nog_2_5 = np.concatenate([cykl_nog_2_5, pierwszy_krok_nóg_2_5])
-cykl_nog_3_6 = np.concatenate([cykl_nog_3_6, punkty_etap7_ruchu])
+wypelniacz = []
+for i in range(ilosc_punktow_na_krzywych):
+    wypelniacz.append(punkty_etap4_ruchu[ilosc_punktow_na_krzywych - 1])
+
+cykl_nog_1_4 = np.concatenate([cykl_nog_1_4, punkty_etap5_ruchu, zera])
+cykl_nog_2_5 = np.concatenate([cykl_nog_2_5, zera, zera])
+cykl_nog_3_6 = np.concatenate([cykl_nog_3_6, wypelniacz, punkty_etap7_ruchu])
 
 
 
