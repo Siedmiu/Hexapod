@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
   <xacro:macro name="hexapod_gazebo" params="prefix">
     
     <!-- Makro dla właściwości fizycznych linków -->
@@ -98,6 +99,6 @@
     <xacro:SimpleTransmission trans="${prefix}leg6_trans1" joint="${prefix}joint1_6" actuator="${prefix}leg6_motor1" />
     <xacro:SimpleTransmission trans="${prefix}leg6_trans2" joint="${prefix}joint2_6" actuator="${prefix}leg6_motor2" />
     <xacro:SimpleTransmission trans="${prefix}leg6_trans3" joint="${prefix}joint3_6" actuator="${prefix}leg6_motor3" />
-    
+
   </xacro:macro>
 </robot>

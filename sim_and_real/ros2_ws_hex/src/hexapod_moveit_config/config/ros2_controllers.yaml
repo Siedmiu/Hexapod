@@ -23,6 +23,10 @@ controller_manager:
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
+    
+    imu_broadcaster:
+      type: imu_sensor_broadcaster/IMUSensorBroadcaster
+      sensor_name: imu
 
 leg1_controller:
   ros__parameters:
@@ -101,3 +105,4 @@ leg6_controller:
       - position
       - velocity
     allow_nonzero_velocity_at_trajectory_end: true
+

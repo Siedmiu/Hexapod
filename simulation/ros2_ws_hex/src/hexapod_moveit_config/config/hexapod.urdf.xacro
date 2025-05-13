@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<robot name="hexapod" xmlns:xacro="http://ros.org/wiki/xacro">
-    <xacro:arg name="use_gazebo" default="false" />
-    <xacro:include filename="$(find hexapod_description)/urdf/hexapod_ee.urdf.xacro" />
-    <xacro:hexapod_ee use_sim="true" prefix="" use_gazebo="$(arg use_gazebo)"/>
-</robot>
