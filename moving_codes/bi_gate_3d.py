@@ -130,32 +130,16 @@ punkty_etap3_ruchu_y = np.linspace(-r / ilosc_punktow_na_krzywych, -r, ilosc_pun
 punkty_etap3_ruchu = [[0, punkty_etap3_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
 punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r, h, ilosc_punktow_na_krzywych, 20000, -r)
 punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, -r)
+punkty_etap6_ruchu = punkty_etap5_ruchu.copy()
+punkty_etap6_ruchu.reverse()
+punkty_etap7_ruchu = punkty_etap1_ruchu.copy()
+punkty_etap7_ruchu.reverse()
 
-# Modify the cycle generation to make all legs move simultaneously
-cykl_ogolny_nog = punkty_etap1_ruchu.copy()
-
-cały_cykl = np.concatenate([punkty_etap2_ruchu, punkty_etap3_ruchu, punkty_etap4_ruchu])
-
-fragmenty = np.array_split(cały_cykl, 3)
-print(len(fragmenty[0]))
-print(len(punkty_etap4_ruchu))
-
-tył_1 = fragmenty[0]
-tył_2 = fragmenty[1]
-ruch_paraboliczny = fragmenty[2]
-
-
-pierwszy_krok_nóg_1_4 = punkty_etap1_ruchu
-pierwszy_krok_nóg_2_5 = np.linspace(punkty_etap1_ruchu[0], tył_2[int(ilosc_punktow_na_krzywych/2)], ilosc_punktow_na_krzywych)
-pierwszy_krok_nóg_3_6 = np.linspace(punkty_etap1_ruchu[0], tył_2[int(ilosc_punktow_na_krzywych/2)], ilosc_punktow_na_krzywych)
-
-drugi_krok_nóg_1_4 = tył_1
-drugi_krok_nóg_2_5 = np.linspace(tył_2[int(ilosc_punktow_na_krzywych/2)], punkty_etap1_ruchu[-1], ilosc_punktow_na_krzywych)
-drugi_krok_nóg_3_6 = np.linspace(tył_2[int(ilosc_punktow_na_krzywych/2)], tył_2[-1], ilosc_punktow_na_krzywych)
-
-# Punkty startowy i końcowy z oryginalnej tablicy drugi_krok_nóg_2_5
-start_point = drugi_krok_nóg_2_5[0]
-end_point = drugi_krok_nóg_2_5[-1]
+pierwszy_krok_nóg_1_4 = punkty_etap6_ruchu.copy()
+pierwszy_krok_nóg_2_5 = []
+for i in range(ilosc_punktow_na_krzywych):
+    pierwszy_krok_nóg_2_5.append([0, 0, 0])
+pierwszy_krok_nóg_3_6 = punkty_etap7_ruchu.copy()
 
 # Wysokość paraboli
 h_parabola = h / 2
@@ -164,32 +148,23 @@ h_parabola = h / 2
 punkty_paraboli = znajdz_punkty_rowno_odlegle_na_paraboli(r, h_parabola, ilosc_punktow_na_krzywych, 10000, 0)
 
 # Przeskalowanie punktów paraboli, aby pasowały do zakresu y między start_point a end_point
-y_start = start_point[1]
-y_end = end_point[1]
-y_range = y_end - y_start
-
 # Przeskalowanie punktów paraboli
-przeskalowane_punkty_paraboli = [
-    [0, y_start + (punkt[1] / r) * y_range, punkt[2]]
-    for punkt in punkty_paraboli
-]
 
-# Tworzenie nowej tablicy drugi_krok_nóg_2_5
-drugi_krok_nóg_2_5 = przeskalowane_punkty_paraboli
+cykl_nog_1_4 = punkty_etap6_ruchu.copy()
+cykl_nog_2_5 = pierwszy_krok_nóg_2_5.copy()
+cykl_nog_3_6 = punkty_etap1_ruchu.copy()
 
-cykl_nog_1_4 = np.concatenate([pierwszy_krok_nóg_1_4, drugi_krok_nóg_1_4])
-cykl_nog_2_5 = np.concatenate([pierwszy_krok_nóg_2_5, drugi_krok_nóg_2_5])
-cykl_nog_3_6 = np.concatenate([pierwszy_krok_nóg_3_6, drugi_krok_nóg_3_6])
-
-
-
-ilosc_cykli = 10 # jak dlugo pajak idzie
+ilosc_cykli = 1 # jak dlugo pajak idzie
 
 for _ in range(ilosc_cykli):
-    cykl_nog_1_4 = np.concatenate([cykl_nog_1_4, tył_2, ruch_paraboliczny, tył_1]) 
-    cykl_nog_2_5 = np.concatenate([cykl_nog_2_5, tył_1, tył_2, ruch_paraboliczny]) 
-    cykl_nog_3_6 = np.concatenate([cykl_nog_3_6, ruch_paraboliczny, tył_1, tył_2])
 
+    cykl_nog_1_4 = np.concatenate([cykl_nog_1_4, punkty_etap4_ruchu, punkty_etap2_ruchu, punkty_etap3_ruchu])
+    cykl_nog_2_5 = np.concatenate([cykl_nog_2_5, punkty_etap3_ruchu, punkty_etap4_ruchu, punkty_etap2_ruchu])
+    cykl_nog_3_6 = np.concatenate([cykl_nog_3_6, punkty_etap2_ruchu, punkty_etap3_ruchu, punkty_etap4_ruchu])
+
+cykl_nog_1_4 = np.concatenate([cykl_nog_1_4, punkty_etap5_ruchu])
+cykl_nog_2_5 = np.concatenate([cykl_nog_2_5, pierwszy_krok_nóg_2_5])
+cykl_nog_3_6 = np.concatenate([cykl_nog_3_6, punkty_etap7_ruchu])
 
 # Update the cycle array to use the new unified cycle
 cykle_nog = np.array([
@@ -299,4 +274,3 @@ lines = [[ax.plot([], [], [], 'ro-')[0], ax.plot([], [], [], 'go-')[0], ax.plot(
          range(6)]
 ani = animation.FuncAnimation(fig, update, frames=1000, fargs=(lines, positions), interval=50, blit=False)
 plt.show()
-
