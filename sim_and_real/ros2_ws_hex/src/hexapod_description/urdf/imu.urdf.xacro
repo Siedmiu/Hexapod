@@ -6,7 +6,7 @@
 
     <xacro:macro name="imu_sensor" params="
         prefix:=''
-        parent:='$(przefix)base_link'
+        parent:='$(arg prefix)base_link'
         frame_id:='imu'
         xyz_offset:='0 0 0'
         rpy_offset:='0 0 0'

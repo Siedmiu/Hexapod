@@ -23,3 +23,12 @@ echo 'Connecting to ESP32 WebSocket Server at ws://$ESP_IP/';
 websocat ws://$ESP_IP/;
 exec bash
 "
+
+# Terminal 3: IMU topic run
+gnome-terminal --title="IMU=" -- bash -c "
+cd ~/Hexapod/sim_and_real/ros2_ws_hex;
+source install/setup.bash;
+echo 'IMU';
+ros2 run hex_gz imu_processer.py;
+exec bash
+"

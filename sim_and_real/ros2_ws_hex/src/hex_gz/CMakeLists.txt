@@ -28,6 +28,7 @@ install(PROGRAMS scripts/x_create_udev_rules
   scripts/initial_positions_publisher.py
   scripts/setup.py
   scripts/leg_sequence_player.py
+  scripts/imu_processer.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
