@@ -6,9 +6,6 @@
    <xacro:property name="up_section_mass" value="0.1" />
    <xacro:property name="mid_section_mass" value="0.1" />
    <xacro:property name="down_section_mass" value="0.1" />
-   <xacro:property name="ixx" value="0.001"/>
-   <xacro:property name="iyy" value="0.001"/>
-   <xacro:property name="izz" value="0.001"/>
    <xacro:property
        name="meshes_file_direction"
        value="package://hexapod_description/meshes"/>
@@ -20,7 +17,7 @@
    <xacro:include filename="$(find hexapod_description)/collision/down_section_hitbox.xacro"/>
 
    <!-- Macro platformy -->
-    <xacro:macro name="platform_base" params="prefix">
+    <xacro:macro name="platform_base" params="prefix ixx ixy ixz iyy iyz izz">
       <link name="${prefix}base_link">
         <visual>
           <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -39,8 +36,8 @@
           <origin xyz="0 0 0" rpy="0 0 0"/>
           <mass value="${platform_mass}"/>
           <inertia
-            ixx="${ixx}" ixy="0.0" ixz="0.0"
-            iyy="${iyy}" iyz="0.0"
+            ixx="${ixx}" ixy="${ixy}" ixz="${ixz}"
+            iyy="${iyy}" iyz="${iyz}"
             izz="${izz}"/>
         </inertial>
       </link>
@@ -59,7 +56,7 @@
   </xacro:macro>
   
   <!-- Macro: UP_SECTION -->
-  <xacro:macro name="upper_leg" params="prefix index xyz rpy">
+  <xacro:macro name="upper_leg" params="prefix index xyz rpy ixx ixy ixz iyy iyz izz">
     <link name="${prefix}link2_${index}">
       <visual>
         <origin xyz="${xyz}" rpy="${rpy}"/>
@@ -77,13 +74,13 @@
       <inertial>
         <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
         <mass value="${up_section_mass}"/>
-        <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
       </inertial>
     </link>
   </xacro:macro>
   
   <!-- Macro: MID_SECTION -->
-  <xacro:macro name="mid_leg" params="prefix index xyz rpy">
+  <xacro:macro name="mid_leg" params="prefix index xyz rpy ixx ixy ixz iyy iyz izz">
     <link name="${prefix}link3_${index}">
       <visual>
         <origin xyz="${xyz}" rpy="${rpy}"/>
@@ -100,13 +97,13 @@
       <inertial>
         <origin xyz="${xyz}" rpy="${rpy}"/>
         <mass value="${mid_section_mass}"/>
-        <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
       </inertial>
     </link>
   </xacro:macro>
 
   <!-- Macro: DOWN_SECTION -->
-  <xacro:macro name="lower_leg" params="prefix index xyz rpy">
+  <xacro:macro name="lower_leg" params="prefix index xyz rpy ixx ixy ixz iyy iyz izz">
     <link name="${prefix}link4_${index}">
       <visual>
         <origin xyz="${xyz}" rpy="${rpy}"/>
@@ -124,7 +121,7 @@
       <inertial>
         <origin xxyz="${xyz}" rpy="${rpy}"/>
         <mass value="${down_section_mass}"/>
-        <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
       </inertial>
     </link>
   </xacro:macro>
@@ -147,7 +144,14 @@
 <!-- Macro wywołujące hexapoda -->
 <xacro:macro name="hexapod" params="prefix=''">
   <!-- Platform -->
-  <xacro:platform_base prefix="${prefix}" />
+<xacro:platform_base 
+  prefix="${prefix}" 
+  ixx="2.752506e-03"
+  ixy="2.768026e-08"
+  ixz="-1.305478e-06"
+  iyy="1.430780e-03"
+  iyz="1.593686e-10"
+  izz="3.895841e-03"/>
 
 <!-- LEG 1 -->
 <xacro:leg_joint
@@ -159,7 +163,18 @@
   axis="0 0 1"
   lower="-0.5236"
   upper="0.5236" />
-  <xacro:upper_leg prefix="${prefix}" index="1" xyz="-0.013611	0.016988 -0.000419" rpy="0 0 0.654498469" />
+
+<xacro:upper_leg 
+  prefix="${prefix}" 
+  index="1" 
+  xyz="-0.013611	0.016988 -0.000419" 
+  rpy="0 0 0.654498469" 
+  ixx="2.568568e-05"
+  ixy="7.190815e-06"
+  ixz="-4.383121e-07"
+  iyy="1.022635e-05"
+  iyz="-5.320311e-07"
+  izz="2.781267e-05"/>
 
 <xacro:leg_joint
   prefix="${prefix}"
@@ -170,7 +185,16 @@
   axis="-0.7968540982 -0.6041717854 0"
   lower="-0.261799388"
   upper="1.308996939" />
-<xacro:mid_leg prefix="${prefix}" index="1" xyz="-0.024936	0.032658	0.000547" rpy="0 0 0.654498469" />
+<xacro:mid_leg 
+  prefix="${prefix}" 
+  index="1" xyz="-0.024936	0.032658	0.000547" 
+  rpy="0 0 0.654498469" 
+  ixx="1.071725e-04"
+  ixy="4.118637e-05"
+  ixz="6.741401e-07"
+  iyy="3.853424e-05"
+  iyz="-2.945627e-06"
+  izz="1.379702e-04"/>
 
 <xacro:leg_joint
   prefix="${prefix}"
@@ -181,7 +205,17 @@
   axis="-0.7968540982 -0.6041717854 0"
   lower="0"
   upper="1.570796327" />
-<xacro:lower_leg prefix="${prefix}" index="1" xyz="-0.039176	0.05167	0" rpy="0 0 0.654498469" />
+<xacro:lower_leg 
+  prefix="${prefix}" 
+  index="1" 
+  xyz="-0.039176	0.05167	0" 
+  rpy="0 0 0.654498469" 
+  ixx="2.892772e-04"
+  ixy="1.082271e-04"
+  ixz="4.221544e-08"
+  iyy="8.850525e-05"
+  iyz="-1.141746e-07"
+  izz="3.712638e-04"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="1" xyz="-0.099587 0.130461 -0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="1"/>
@@ -197,7 +231,17 @@
   axis="0 0 1" 
   lower="-0.5236" 
   upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="2" xyz="-0.000493	0.021762	-0.000419" rpy="0 0 0"/>
+<xacro:upper_leg 
+  prefix="${prefix}" 
+  index="2" 
+  xyz="-0.000493	0.021762	-0.000419" 
+  rpy="0 0 0"
+  ixx="3.123539e-05"
+  ixy="5.760573e-07"
+  ixz="-2.734288e-07"
+  iyy="4.675870e-06"
+  iyz="-4.720256e-07"
+  izz="2.781190e-05"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -208,7 +252,17 @@
   axis="-1 0 0" 
   lower="-0.261799388" 
   upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="2" xyz="0.0	0.041	0.000546" rpy="0 0 0"/>
+<xacro:mid_leg 
+  prefix="${prefix}" 
+  index="2" 
+  xyz="0.0	0.041	0.000546" 
+  rpy="0 0 0"
+  ixx="1.372807e-04"
+  ixy="1.282678e-06"
+  ixz="5.615442e-09"
+  iyy="8.065921e-06"
+  iyz="-3.167264e-06"
+  izz="1.376103e-04"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -219,7 +273,17 @@
   axis="-1 0 0" 
   lower="0" 
   upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="2" xyz="0.000265	0.064842	0.0" rpy="0 0 0"/>
+<xacro:lower_leg 
+  prefix="${prefix}" 
+  index="2" 
+  xyz="0.000265	0.064842	0.0" 
+  rpy="0 0 0"
+  ixx="3.706160e-04"
+  ixy="3.252977e-08"
+  ixz="4.221449e-08"
+  iyy="7.167254e-06"
+  iyz="-1.141749e-07"
+  izz="3.712646e-04"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="2" xyz="0.000147	0.164223	-0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="2"/>
@@ -235,7 +299,17 @@
   axis="0 0 1" 
   lower="-0.5236" 
   upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="3" xyz="0.012827	0.017587 -0.000419" rpy="0 0 -0.654498469"/>
+<xacro:upper_leg 
+  prefix="${prefix}" 
+  index="3" 
+  xyz="0.012827	0.017587 -0.000419" 
+  rpy="0 0 -0.654498469"
+  ixx="2.630698e-05"
+  ixy="-6.513359e-06"
+  ixz="-1.060066e-07"
+  iyy="9.604546e-06"
+  iyz="-5.245021e-07"
+  izz="2.781217e-05"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -246,7 +320,17 @@
   axis="-0.794374 0.6074290528 0" 
   lower="-0.261799388" 
   upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="3" xyz="0.024936	0.032658	0.000547" rpy="0 0 -0.654498469"/>
+<xacro:mid_leg 
+  prefix="${prefix}" 
+  index="3" 
+  xyz="0.024936	0.032658	0.000547" 
+  rpy="0 0 -0.654498469"
+  ixx="1.071725e-04"
+  ixy="-3.862097e-05"
+  ixz="-6.629092e-07"
+  iyy="3.853451e-05"
+  iyz="-2.945627e-06"
+  izz="1.379705e-04"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -257,7 +341,17 @@
   axis="-0.794374 0.6074290528 0" 
   lower="0" 
   upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="3" xyz="0.039176	0.05167	0" rpy="0 0 -0.654498469"/>
+<xacro:lower_leg 
+  prefix="${prefix}" 
+  index="3" 
+  xyz="0.039176	0.05167	0" 
+  rpy="0 0 -0.654498469"
+  ixx="2.892772e-04"
+  ixy="-1.063404e-04"
+  ixz="4.221354e-08"
+  iyy="8.850626e-05"
+  iyz="-1.141746e-07"
+  izz="3.712648e-04"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="3" xyz="0.099252	0.130694	-0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="3"/>
@@ -273,7 +367,17 @@
   axis="0 0 1" 
   lower="-0.5236" 
   upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="4" xyz="0.013611	-0.016988 -0.000419" rpy="0 0 3.796091123"/>
+<xacro:upper_leg 
+  prefix="${prefix}" 
+  index="4" 
+  xyz="0.013611	-0.016988 -0.000419" 
+  rpy="0 0 3.796091123"
+  ixx="2.568617e-05"
+  ixy="7.191023e-06"
+  ixz="-9.615233e-08"
+  iyy="1.022637e-05"
+  iyz="-9.590835e-07"
+  izz="2.781317e-05"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -284,7 +388,17 @@
   axis="0.6074290528 0.794374 0" 
   lower="-0.261799388" 
   upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="4" xyz="0.024936	-0.032658	0.000547" rpy="0 0 3.796091123"/>
+<xacro:mid_leg 
+  prefix="${prefix}" 
+  index="4" 
+  xyz="0.024936	-0.032658	0.000547" 
+  rpy="0 0 3.796091123"
+  ixx="1.071723e-04"
+  ixy="4.118647e-05"
+  ixz="-6.629092e-07"
+  iyy="3.853451e-05"
+  iyz="-1.194530e-06"
+  izz="1.379703e-04"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -295,7 +409,17 @@
   axis="0.794374 0.6074290528 0" 
   lower="0" 
   upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="4" xyz="0.039176	-0.05167	0" rpy="0 0 3.796091123"/>
+<xacro:lower_leg 
+  prefix="${prefix}" 
+  index="4" 
+  xyz="0.039176	-0.05167	0" 
+  rpy="0 0 3.796091123"
+  ixx="2.892779e-04"
+  ixy="1.082280e-04"
+  ixz="4.221354e-08"
+  iyy="8.850626e-05"
+  iyz="-1.141720e-07"
+  izz="3.712655e-04"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="4" xyz="0.099758	-0.130448	-0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="4"/>
@@ -311,7 +435,17 @@
   axis="0 0 1" 
   lower="-0.5236" 
   upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="5" xyz="0.000493	-0.021762	-0.000419" rpy="0 0 3.141592654"/>
+<xacro:upper_leg 
+  prefix="${prefix}" 
+  index="5" 
+  xyz="0.000493	-0.021762	-0.000419" 
+  rpy="0 0 3.141592654"
+  ixx="3.123601e-05"
+  ixy="5.760804e-07"
+  ixz="-2.610356e-07"
+  iyy="4.675871e-06"
+  iyz="-1.019089e-06"
+  izz="2.781252e-05"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -322,7 +456,17 @@
   axis="1 0 0" 
   lower="-0.261799388" 
   upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="5" xyz="0.0	-0.041	0.000546" rpy="0 0 3.141592654"/>
+<xacro:mid_leg 
+  prefix="${prefix}" 
+  index="5" 
+  xyz="0.0	-0.041	0.000546" 
+  rpy="0 0 3.141592654"
+  ixx="1.372805e-04"
+  ixy="1.282896e-06"
+  ixz="5.615442e-09"
+  iyy="8.065921e-06"
+  iyz="-9.728935e-07"
+  izz="1.376100e-04"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -333,7 +477,17 @@
   axis="1 0 0" 
   lower="0" 
   upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="5" xyz="-0.000265	-0.064842	0.0" rpy="0 0 3.141592654"/>
+<xacro:lower_leg 
+  prefix="${prefix}" 
+  index="5" 
+  xyz="-0.000265	-0.064842	0.0" 
+  rpy="0 0 3.141592654"
+  ixx="3.706168e-04"
+  ixy="3.335744e-08"
+  ixz="4.221450e-08"
+  iyy="7.167247e-06"
+  iyz="-1.141717e-07"
+  izz="3.712654e-04"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="5" xyz="-0.000051	-0.164207	-0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="5"/>
@@ -349,7 +503,17 @@
   axis="0 0 1" 
   lower="-0.5236" 
   upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="6" xyz="-0.012827	-0.017588 -0.000419" rpy="0 0 2.487094184"/>
+<xacro:upper_leg 
+  prefix="${prefix}" 
+  index="6" 
+  xyz="-0.012827	-0.017588 -0.000419" 
+  rpy="0 0 2.487094184"
+  ixx="2.630854e-05"
+  ixy="-6.513915e-06"
+  ixz="-4.284578e-07"
+  iyy="9.604527e-06"
+  iyz="-9.666250e-07"
+  izz="2.781371e-05"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -360,7 +524,17 @@
   axis="0.794374 -0.6074290528 0" 
   lower="-0.261799388" 
   upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="6" xyz="-0.024936	-0.032658	0.000547" rpy="0 0 2.487094184"/>
+<xacro:mid_leg 
+  prefix="${prefix}" 
+  index="6" 
+  xyz="-0.024936	-0.032658	0.000547" 
+  rpy="0 0 2.487094184"
+  ixx="1.071723e-04"
+  ixy="-3.862072e-05"
+  ixz="6.741401e-07"
+  iyy="3.853424e-05"
+  iyz="-1.194530e-06"
+  izz="1.379700e-04"/>
 
 <xacro:leg_joint 
   prefix="${prefix}" 
@@ -371,7 +545,17 @@
   axis="0.794374 -0.6074290528 0" 
   lower="0" 
   upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="6" xyz="-0.039176	-0.05167	0" rpy="0 0 2.487094184"/>
+<xacro:lower_leg 
+  prefix="${prefix}" 
+  index="6" 
+  xyz="-0.039176	-0.05167	0" 
+  rpy="0 0 2.487094184"
+  ixx="2.892779e-04"
+  ixy="-1.063400e-04"
+  ixz="4.221544e-08"
+  iyy="8.850525e-05"
+  iyz="-1.141720e-07"
+  izz="3.712645e-04"/>
 
 <xacro:end_effector_joint prefix="${prefix}" index="6" xyz="-0.099223	-0.130739	-0.000046" rpy="0 0 0"/>
 <xacro:end_effector_link prefix="${prefix}" index="6"/>
