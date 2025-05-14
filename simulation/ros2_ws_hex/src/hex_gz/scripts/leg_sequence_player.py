@@ -131,7 +131,7 @@ polozenie_spoczynkowe_stop = np.array([
 # tor pokonywany przez nogi w ukladzie wspolrzednych srodka robota
 h = l3 / 4
 r = h
-ilosc_punktow_na_krzywych = 20
+ilosc_punktow_na_krzywych = 10
 punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
 punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
 punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
@@ -182,7 +182,7 @@ polozenia_stop_podczas_cyklu = np.array([ # polozenie_stop jest wzgledem ukladu 
     for j in range(6)
 ])
 np.set_printoptions(threshold=np.inf)
-print(polozenia_stop_podczas_cyklu[2])
+print(polozenia_stop_podczas_cyklu[1])
 
 #wychyly podawane odpowiednio dla 1 2 i 3 przegubu w radianach
 wychyly_serw_podczas_ruchu = np.array([
@@ -191,13 +191,20 @@ wychyly_serw_podczas_ruchu = np.array([
     for j in range(6)
 ])
 
-#print(wychyly_serw_podczas_ruchu[0])
-#obliczanie polozenia przegubow i stop z wyliczonymi wychyleniami serw
+#wychyly podawane odpowiednio dla 1 2 i 3 przegubu w radianach
+wychyly_serw_podczas_ruchu = np.array([
+[katy_serw(polozenia_stop_podczas_cyklu[j][i], l1, h1, l2, h2, l3)
+    for i in range(len(cykl_ogolny_nog_1_3_5))]
+    for j in range(6)
+])
+
 
 class LegSequencePlayer(Node):
     def __init__(self):
         super().__init__('leg_sequence_player')
         self.get_logger().info('Inicjalizacja węzła do sekwencji ruchów')
+        
+        # Przechowaj tablicę z wychyłami serw
         
         # Wydawcy dla kontrolerów wszystkich nóg
         self.trajectory_publishers = {
@@ -209,236 +216,6 @@ class LegSequencePlayer(Node):
             6: self.create_publisher(JointTrajectory, '/leg6_controller/joint_trajectory', 10)
         }
         
-        # Definicje pozycji (możesz dostosować wartości na podstawie twoich pozycji)
-        self.positions = {
-            # Na podstawie twoich definicji w pliku SRDF
-            'home_1': {
-                'joint1_1': wychyly_serw_podczas_ruchu[0][-1][0],
-                'joint2_1': wychyly_serw_podczas_ruchu[0][-1][1],
-                'joint3_1': wychyly_serw_podczas_ruchu[0][-1][2],
-            },
-            'przod_1': {
-                'joint1_1': wychyly_serw_podczas_ruchu[0][19][0],
-                'joint2_1': wychyly_serw_podczas_ruchu[0][19][1],
-                'joint3_1': wychyly_serw_podczas_ruchu[0][19][2],
-            },
-            'tyl_1': {
-                'joint1_1': wychyly_serw_podczas_ruchu[0][59][0],
-                'joint2_1': wychyly_serw_podczas_ruchu[0][59][1],
-                'joint3_1': wychyly_serw_podczas_ruchu[0][59][2],
-            },
-            'up_1': {
-                'joint1_1': wychyly_serw_podczas_ruchu[0][79][0],
-                'joint2_1': wychyly_serw_podczas_ruchu[0][79][1],
-                'joint3_1': wychyly_serw_podczas_ruchu[0][79][2],
-            },
-            'half_up_1': {
-                'joint1_1': wychyly_serw_podczas_ruchu[0][9][0],
-                'joint2_1': wychyly_serw_podczas_ruchu[0][9][1],
-                'joint3_1': wychyly_serw_podczas_ruchu[0][9][2],
-            },
-            'half_back_1': {
-                'joint1_1': wychyly_serw_podczas_ruchu[0][49][0],
-                'joint2_1': wychyly_serw_podczas_ruchu[0][49][1],
-                'joint3_1': wychyly_serw_podczas_ruchu[0][49][2],
-            },
-            'half_back_up_1': {
-                'joint1_1': wychyly_serw_podczas_ruchu[0][-11][0],
-                'joint2_1': wychyly_serw_podczas_ruchu[0][-11][1],
-                'joint3_1': wychyly_serw_podczas_ruchu[0][-11][2],
-            },
-            'half_front_1': {
-                'joint1_1': wychyly_serw_podczas_ruchu[0][29][0],
-                'joint2_1': wychyly_serw_podczas_ruchu[0][29][1],
-                'joint3_1': wychyly_serw_podczas_ruchu[0][29][2],
-            },
-
-
-
-            'home_2': {
-                'joint1_2': wychyly_serw_podczas_ruchu[1][-1][0],
-                'joint2_2': wychyly_serw_podczas_ruchu[1][-1][1],
-                'joint3_2': wychyly_serw_podczas_ruchu[1][-1][2],
-            },
-            'przod_2': {
-                'joint1_2': wychyly_serw_podczas_ruchu[1][59][0],
-                'joint2_2': wychyly_serw_podczas_ruchu[1][59][1],
-                'joint3_2': wychyly_serw_podczas_ruchu[1][59][2],
-            },
-            'tyl_2': {
-                'joint1_2': wychyly_serw_podczas_ruchu[1][19][0],
-                'joint2_2': wychyly_serw_podczas_ruchu[1][19][1],
-                'joint3_2': wychyly_serw_podczas_ruchu[1][19][2],
-            },
-            'up_2': {
-                'joint1_2': wychyly_serw_podczas_ruchu[1][39][0],
-                'joint2_2': wychyly_serw_podczas_ruchu[1][39][1],
-                'joint3_2': wychyly_serw_podczas_ruchu[1][39][2],
-            },
-            'half_back_2': {
-                'joint1_2': wychyly_serw_podczas_ruchu[1][9][0],
-                'joint2_2': wychyly_serw_podczas_ruchu[1][9][1],
-                'joint3_2': wychyly_serw_podczas_ruchu[1][9][2],
-            },
-            'half_front_2': {
-                'joint1_2': wychyly_serw_podczas_ruchu[1][69][0],
-                'joint2_2': wychyly_serw_podczas_ruchu[1][69][1],
-                'joint3_2': wychyly_serw_podczas_ruchu[1][69][2],
-            },
-
-
-
-            'home_3': {
-                'joint1_3': wychyly_serw_podczas_ruchu[2][-1][0],
-                'joint2_3': wychyly_serw_podczas_ruchu[2][-1][1],
-                'joint3_3': wychyly_serw_podczas_ruchu[2][-1][2],
-            },
-            'przod_3': {
-                'joint1_3': wychyly_serw_podczas_ruchu[2][19][0],
-                'joint2_3': wychyly_serw_podczas_ruchu[2][19][1],
-                'joint3_3': wychyly_serw_podczas_ruchu[2][19][2],
-            },
-            'tyl_3': {
-                'joint1_3': wychyly_serw_podczas_ruchu[2][59][0],
-                'joint2_3': wychyly_serw_podczas_ruchu[2][59][1],
-                'joint3_3': wychyly_serw_podczas_ruchu[2][59][2],
-            },
-            'up_3': {
-                'joint1_3': wychyly_serw_podczas_ruchu[2][79][0],
-                'joint2_3': wychyly_serw_podczas_ruchu[2][79][1],
-                'joint3_3': wychyly_serw_podczas_ruchu[2][79][2],
-            },
-            'half_up_3': {
-                'joint1_3': wychyly_serw_podczas_ruchu[2][9][0],
-                'joint2_3': wychyly_serw_podczas_ruchu[2][9][1],
-                'joint3_3': wychyly_serw_podczas_ruchu[2][9][2],
-            },
-            'half_back_3': {
-                'joint1_3': wychyly_serw_podczas_ruchu[2][49][0],
-                'joint2_3': wychyly_serw_podczas_ruchu[2][49][1],
-                'joint3_3': wychyly_serw_podczas_ruchu[2][49][2],
-            },
-            'half_back_up_3': {
-                'joint1_3': wychyly_serw_podczas_ruchu[2][-11][0],
-                'joint2_3': wychyly_serw_podczas_ruchu[2][-11][1],
-                'joint3_3': wychyly_serw_podczas_ruchu[2][-11][2],
-            },
-            'half_front_3': {
-                'joint1_3': wychyly_serw_podczas_ruchu[2][29][0],
-                'joint2_3': wychyly_serw_podczas_ruchu[2][29][1],
-                'joint3_3': wychyly_serw_podczas_ruchu[2][29][2],
-            },
-
-
-
-            'home_4': {
-                'joint1_4': wychyly_serw_podczas_ruchu[3][-1][0],
-                'joint2_4': wychyly_serw_podczas_ruchu[3][-1][1],
-                'joint3_4': wychyly_serw_podczas_ruchu[3][-1][2],
-            },
-            'przod_4': {
-                'joint1_4': wychyly_serw_podczas_ruchu[3][59][0],
-                'joint2_4': wychyly_serw_podczas_ruchu[3][59][1],
-                'joint3_4': wychyly_serw_podczas_ruchu[3][59][2],
-            },
-            'tyl_4': {
-                'joint1_4': wychyly_serw_podczas_ruchu[3][19][0],
-                'joint2_4': wychyly_serw_podczas_ruchu[3][19][1],
-                'joint3_4': wychyly_serw_podczas_ruchu[3][19][2],
-            },
-            'up_4': {
-                'joint1_4': wychyly_serw_podczas_ruchu[3][39][0],
-                'joint2_4': wychyly_serw_podczas_ruchu[3][39][1],
-                'joint3_4': wychyly_serw_podczas_ruchu[3][39][2],
-            },
-            'half_back_4': {
-                'joint1_4': wychyly_serw_podczas_ruchu[3][9][0],
-                'joint2_4': wychyly_serw_podczas_ruchu[3][9][1],
-                'joint3_4': wychyly_serw_podczas_ruchu[3][9][2],
-            },
-            'half_front_4': {
-                'joint1_4': wychyly_serw_podczas_ruchu[3][69][0],
-                'joint2_4': wychyly_serw_podczas_ruchu[3][69][1],
-                'joint3_4': wychyly_serw_podczas_ruchu[3][69][2],
-            },
-
-
-
-            'home_5': {
-                'joint1_5': wychyly_serw_podczas_ruchu[4][-1][0],
-                'joint2_5': wychyly_serw_podczas_ruchu[4][-1][1],
-                'joint3_5': wychyly_serw_podczas_ruchu[4][-1][2],
-            },
-            'przod_5': {
-                'joint1_5': wychyly_serw_podczas_ruchu[4][19][0],
-                'joint2_5': wychyly_serw_podczas_ruchu[4][19][1],
-                'joint3_5': wychyly_serw_podczas_ruchu[4][19][2],
-            },
-            'tyl_5': {
-                'joint1_5': wychyly_serw_podczas_ruchu[4][59][0],
-                'joint2_5': wychyly_serw_podczas_ruchu[4][59][1],
-                'joint3_5': wychyly_serw_podczas_ruchu[4][59][2],
-            },
-            'up_5': {
-                'joint1_5': wychyly_serw_podczas_ruchu[4][79][0],
-                'joint2_5': wychyly_serw_podczas_ruchu[4][79][1],
-                'joint3_5': wychyly_serw_podczas_ruchu[4][79][2],
-            },
-            'half_up_5': {
-                'joint1_5': wychyly_serw_podczas_ruchu[4][9][0],
-                'joint2_5': wychyly_serw_podczas_ruchu[4][9][1],
-                'joint3_5': wychyly_serw_podczas_ruchu[4][9][2],
-            },
-            'half_back_5': {
-                'joint1_5': wychyly_serw_podczas_ruchu[4][49][0],
-                'joint2_5': wychyly_serw_podczas_ruchu[4][49][1],
-                'joint3_5': wychyly_serw_podczas_ruchu[4][49][2],
-            },
-            'half_back_up_5': {
-                'joint1_5': wychyly_serw_podczas_ruchu[4][-11][0],
-                'joint2_5': wychyly_serw_podczas_ruchu[4][-11][1],
-                'joint3_5': wychyly_serw_podczas_ruchu[4][-11][2],
-            },
-            'half_front_5': {
-                'joint1_5': wychyly_serw_podczas_ruchu[4][29][0],
-                'joint2_5': wychyly_serw_podczas_ruchu[4][29][1],
-                'joint3_5': wychyly_serw_podczas_ruchu[4][29][2],
-            },
-
-
-
-            'home_6': {
-                'joint1_6': wychyly_serw_podczas_ruchu[5][-1][0],
-                'joint2_6': wychyly_serw_podczas_ruchu[5][-1][1],
-                'joint3_6': wychyly_serw_podczas_ruchu[5][-1][2],
-            },
-            'przod_6': {
-                'joint1_6': wychyly_serw_podczas_ruchu[5][59][0],
-                'joint2_6': wychyly_serw_podczas_ruchu[5][59][1],
-                'joint3_6': wychyly_serw_podczas_ruchu[5][59][2],
-            },
-            'tyl_6': {
-                'joint1_6': wychyly_serw_podczas_ruchu[5][19][0],
-                'joint2_6': wychyly_serw_podczas_ruchu[5][19][1],
-                'joint3_6': wychyly_serw_podczas_ruchu[5][19][2],
-            },
-            'up_6': {
-                'joint1_6': wychyly_serw_podczas_ruchu[5][39][0],
-                'joint2_6': wychyly_serw_podczas_ruchu[5][39][1],
-                'joint3_6': wychyly_serw_podczas_ruchu[5][39][2],
-            },
-            'half_back_6': {
-                'joint1_6': wychyly_serw_podczas_ruchu[5][9][0],
-                'joint2_6': wychyly_serw_podczas_ruchu[5][9][1],
-                'joint3_6': wychyly_serw_podczas_ruchu[5][9][2],
-            },
-            'half_front_6': {
-                'joint1_6': wychyly_serw_podczas_ruchu[5][69][0],
-                'joint2_6': wychyly_serw_podczas_ruchu[5][69][1],
-                'joint3_6': wychyly_serw_podczas_ruchu[5][69][2],
-            },
-        }
-
         # Listy stawów dla nóg
         self.joint_names = {
             1: ['joint1_1', 'joint2_1', 'joint3_1'],
@@ -449,18 +226,18 @@ class LegSequencePlayer(Node):
             6: ['joint1_6', 'joint2_6', 'joint3_6']
         }
         
-    def send_trajectory_to_all_legs(self, positions_dict, duration_sec=2.0):
+
+    def send_trajectory_to_all_legs_at_step(self, step_index, duration_sec=2.0):
         """
         Wysyła trajektorię do kontrolerów wszystkich nóg jednocześnie
-        positions_dict to słownik z pozycjami dla wszystkich nóg, np. {"home_1", "home_2", ...}
+        używając wartości z tablicy wychyly_serw_podczas_ruchu dla danego kroku
         """
-        self.get_logger().info(f'Wysyłam trajektorię do pozycji: {positions_dict}')
+        self.get_logger().info(f'Wysyłam trajektorię dla kroku {step_index}')
         
-        # Sprawdź, czy wszystkie pozycje istnieją
-        for leg_num, position_name in positions_dict.items():
-            if position_name not in self.positions:
-                self.get_logger().error(f'Pozycja {position_name} nie istnieje!')
-                return False
+        # Sprawdź, czy indeks jest prawidłowy
+        if step_index >= len(wychyly_serw_podczas_ruchu[0]):
+            self.get_logger().error(f'Indeks kroku {step_index} jest poza zakresem!')
+            return False
         
         # Ustaw czas trwania ruchu
         duration = Duration()
@@ -468,7 +245,7 @@ class LegSequencePlayer(Node):
         duration.nanosec = int((duration_sec - int(duration_sec)) * 1e9)
         
         # Dla każdej nogi przygotuj i wyślij trajektorię
-        for leg_num, position_name in positions_dict.items():
+        for leg_num in range(1, 7):
             # Utwórz wiadomość trajektorii dla nogi
             trajectory = JointTrajectory()
             trajectory.joint_names = self.joint_names[leg_num]
@@ -476,14 +253,16 @@ class LegSequencePlayer(Node):
             # Utwórz punkt trajektorii
             point = JointTrajectoryPoint()
             
-            # Ustaw pozycje stawów
-            position_values = []
-            for joint in self.joint_names[leg_num]:
-                position_values.append(self.positions[position_name][joint])
+            # Pobierz wartości z tablicy (indeks nogi to leg_num-1)
+            joint_values = wychyly_serw_podczas_ruchu[leg_num-1][step_index]
             
-            point.positions = position_values
-            point.velocities = [0.0] * len(self.joint_names[leg_num])
-            point.accelerations = [0.0] * len(self.joint_names[leg_num])
+            point.positions = [
+                float(joint_values[0]),  # joint1
+                float(joint_values[1]),  # joint2
+                float(joint_values[2])   # joint3
+            ]
+            point.velocities = [0.0] * 3
+            point.accelerations = [0.0] * 3
             
             # Ustaw czas trwania ruchu
             point.time_from_start = duration
@@ -497,137 +276,30 @@ class LegSequencePlayer(Node):
         self.get_logger().info('Wysłano trajektorie dla wszystkich nóg')
         return True
     
-    def execute_sequence(self):
-        """Wykonanie sekwencji ruchów dla wszystkich nóg równocześnie"""
+    def execute_sequence(self, start_step=0, end_step=None, step_duration=0.2):
+        """
+        Wykonanie sekwencji ruchów dla wszystkich nóg równocześnie
+        używając wartości z tablicy wychyly_serw_podczas_ruchu
+        """
         self.get_logger().info('Rozpoczynam sekwencję ruchów dla wszystkich nóg')
         
-        # Przejście do pozycji początkowej dla wszystkich nóg
-        self.send_trajectory_to_all_legs({
-            1: "home_1",
-            2: "home_2",
-            3: "home_3",
-            4: "home_4",
-            5: "home_5",
-            6: "home_6"
-        })
-        self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-        time.sleep(2.0)  # Daj czas na wykonanie ruchu
-
-        # Przejście do pozycji początkowej sekwencji
-        self.send_trajectory_to_all_legs({
-            1: "half_up_1",
-            2: "half_back_2",
-            3: "half_up_3",
-            4: "half_back_4",
-            5: "half_up_5",
-            6: "half_back_6"
-        })
-        self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-        time.sleep(1.0)
+        # Jeśli nie podano end_step, użyj całej tablicy
+        if end_step is None:
+            end_step = len(wychyly_serw_podczas_ruchu[0])
         
-        self.send_trajectory_to_all_legs({
-            1: "przod_1",
-            2: "tyl_2",
-            3: "przod_3",
-            4: "tyl_4",
-            5: "przod_5",
-            6: "tyl_6"
-        })
-        self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-        time.sleep(2.0)  # Daj czas na wykonanie ruchu
-
-        for i in range(3):
-            self.send_trajectory_to_all_legs({
-                1: "home_1",
-                2: "up_2",
-                3: "home_3",
-                4: "up_4",
-                5: "home_5",
-                6: "up_6"
-            })
-            self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-            time.sleep(1.5)  # Daj czas na wykonanie ruchu
-
-            self.send_trajectory_to_all_legs({
-                1: "tyl_1",
-                2: "przod_2",
-                3: "tyl_3",
-                4: "przod_4",
-                5: "tyl_5",
-                6: "przod_6"
-            })
-            self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-            time.sleep(2.0)  # Daj czas na wykonanie ruchu
-
-            self.send_trajectory_to_all_legs({
-                1: "up_1",
-                2: "home_2",
-                3: "up_3",
-                4: "home_4",
-                5: "up_5",
-                6: "home_6"
-            })
-            self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-            time.sleep(1.5)
-
-            self.send_trajectory_to_all_legs({
-                1: "przod_1",
-                2: "tyl_2",
-                3: "przod_3",
-                4: "tyl_4",
-                5: "przod_5",
-                6: "tyl_6"
-            })
-            self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-            time.sleep(2.0)  # Daj czas na wykonanie ruchu
-
-
-        self.send_trajectory_to_all_legs({
-            1: "home_1",
-            2: "up_2",
-            3: "home_3",
-            4: "up_4",
-            5: "home_5",
-            6: "up_6"
-        })
-        self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-        time.sleep(1.0)
-
-
-        self.send_trajectory_to_all_legs({
-            1: "tyl_1",
-            2: "przod_2",
-            3: "tyl_3",
-            4: "przod_4",
-            5: "tyl_5",
-            6: "przod_6"
-        })
-        self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-        time.sleep(1.0)
-
-        self.send_trajectory_to_all_legs({
-            1: "half_back_up_1",
-            2: "half_front_2",
-            3: "half_back_up_3",
-            4: "half_front_4",
-            5: "half_back_up_5",
-            6: "half_front_6"
-        })
-        self.get_logger().info('Oczekiwanie na wykonanie ruchu...')
-        time.sleep(1.0)
-
-
-        self.send_trajectory_to_all_legs({
-            1: "home_1",
-            2: "home_2",
-            3: "home_3",
-            4: "home_4",
-            5: "home_5",
-            6: "home_6"
-        })
-
-
+        # Przejście do pozycji początkowej (pierwszy punkt w tablicy)
+        self.send_trajectory_to_all_legs_at_step(start_step, duration_sec=3.0)
+        self.get_logger().info('Oczekiwanie na wykonanie początkowego ruchu...')
+        time.sleep(3.0)
+        
+        # Wykonanie sekwencji ruchów
+        for step in range(start_step + 1, end_step):
+            self.send_trajectory_to_all_legs_at_step(step, duration_sec=step_duration)
+            self.get_logger().info(f'Wykonano krok {step}, oczekiwanie {step_duration}s...')
+            time.sleep(step_duration)
+        
         self.get_logger().info('Sekwencja zakończona')
+
 
 def main(args=None):
     rclpy.init(args=args)
