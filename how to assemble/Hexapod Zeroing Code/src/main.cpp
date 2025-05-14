@@ -3,8 +3,8 @@
 
 // Servo driver setup
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
-const int SERVO_MIN = 102;
-const int SERVO_MAX = 512;
+const int SERVO_MIN = 205;
+const int SERVO_MAX = 410;
 
 void setServoAngle(uint8_t channel, float angle) {
   angle = constrain(angle, 0, 180);
@@ -19,23 +19,9 @@ void setup() {
 }
 
 void loop() {
-  setServoAngle(0, 0);
-  setServoAngle(1, 0);
-  setServoAngle(2, 0);
-  setServoAngle(3, 0);
-
-  setServoAngle(4, 30);
-  setServoAngle(5, 30);
-  setServoAngle(6, 30);
-  setServoAngle(7, 30);
-
-  setServoAngle(8, 180);
-  setServoAngle(9, 180);
-  setServoAngle(10, 180);
-  setServoAngle(11, 180);
-
-  setServoAngle(12, 180);
-  setServoAngle(13, 180);
-  setServoAngle(14, 180);
-  setServoAngle(15, 180);
+  for (int i = 0; i <= 36; i++) {
+    if (i % 3 == 0) setServoAngle(i, 90);
+    if (i % 3 == 1) setServoAngle(i, 150);
+    if (i % 3 == 2) setServoAngle(i, 180);
+  }
 }
