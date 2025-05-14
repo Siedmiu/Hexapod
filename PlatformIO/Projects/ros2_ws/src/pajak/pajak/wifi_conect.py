@@ -14,35 +14,19 @@ joint_to_servo = {
     "joint1_2": 3,
     "joint2_2": 4,
     "joint3_2": 5,
-    "joint1_1": 6,
-    "joint2_1": 7,
-    "joint3_1": 8,
-    "joint1_6": 9,
-    "joint2_6": 10,
-    "joint3_6": 11,
-    "joint1_5": 12,
-    "joint2_5": 13,
-    "joint3_5": 14,
-    "joint1_4": 15,
-    "joint2_4": 16,
-    "joint3_4": 17,
+    "joint1_1": 12,
+    "joint2_1": 13,
+    "joint3_1": 14,
+    "joint1_6": 16,
+    "joint2_6": 17,
+    "joint3_6": 18,
+    "joint1_5": 19,
+    "joint2_5": 20,
+    "joint3_5": 21,
+    "joint1_4": 29,
+    "joint2_4": 30,
+    "joint3_4": 31,
 }
-
-def map_ros_angle_to_servo(joint_name, position_rad):
-    deg = math.degrees(position_rad)
-
-    if "joint1" in joint_name:
-        # ROS: [-30°, 30°] → Serwo: [0°, 180°]
-        return int((deg + 30) * (180 / 60))  # przesunięcie i skalowanie
-    elif "joint2" in joint_name:
-        # ROS: [-15°, 75°] → Serwo: [0°, 180°]
-        return int((deg + 15) * (180 / 90))
-    elif "joint3" in joint_name:
-        # ROS: [0°, 90°] → Serwo: [0°, 180°]
-        return int(deg * (180 / 90))
-    else:
-        return 90  # neutralna pozycja w razie nieznanego jointa
-
 
 class MultiLegTrajectorySender(Node):
     def __init__(self):
@@ -86,34 +70,25 @@ class MultiLegTrajectorySender(Node):
                 time.sleep(2)
 
     def trajectory_callback(self, msg):
-        if not msg.points:
+        if not self.connected or not msg.points:
             return
 
         point = msg.points[0]  # Bierzemy pierwszy punkt trajektorii
 
         for joint_name, position_rad in zip(msg.joint_names, point.positions):
-            deg = math.degrees(position_rad)
-            print(f"[ROS] Joint: {joint_name} | Radians: {position_rad:.3f} | Degrees: {deg:.1f}")
-
             if joint_name in joint_to_servo:
                 servo_num = joint_to_servo[joint_name]
-                angle_deg = map_ros_angle_to_servo(joint_name, position_rad)
-                angle_deg = max(0, min(180, angle_deg))  # bezpieczeństwo
+                angle_deg = int(math.degrees(position_rad))
+                angle_deg = max(0, min(180, angle_deg))  # ogranicz do 0–180
 
-                # Zmieniona linia - dodajemy spację po "servo" i zwiększamy numer serwa o 1
-                # Format: "servo <number> <angle>" zamiast "servo{servo_num} {angle_deg}"
-                command = f"servo {servo_num + 1} {angle_deg}"
-                
+                command = f"servo{servo_num} {angle_deg}"
                 self.get_logger().info(f"Sending: {command}")
-                if self.connected:
-                    try:
-                        self.ws.send(command)
-                    except Exception as e:
-                        self.get_logger().warn(f"WebSocket send error: {e}")
-                        self.connected = False
-                        threading.Thread(target=self.connect_ws, daemon=True).start()
-
-
+                try:
+                    self.ws.send(command)
+                except Exception as e:
+                    self.get_logger().warn(f"WebSocket send error: {e}")
+                    self.connected = False
+                    threading.Thread(target=self.connect_ws, daemon=True).start()
 
 def main(args=None):
     rclpy.init(args=args)
