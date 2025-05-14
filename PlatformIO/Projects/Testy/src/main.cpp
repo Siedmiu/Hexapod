@@ -27,8 +27,8 @@
 // }
 
 // WiFi credentials
-const char* ssid = "Twoja_Siec";
-const char* password = "Twoje_Haslo";
+const char* ssid = "EspHex";
+const char* password = "74835915";
 
 // Dwa sterowniki PCA9685
 Adafruit_PWMServoDriver pwm1 = Adafruit_PWMServoDriver(0x40);  // pierwsza płytka
@@ -61,36 +61,44 @@ void onWebSocketMessage(void *arg, uint8_t *data, size_t len) {
   if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
     String msg = String((char*)data);
     msg.trim();
+    
+    Serial.printf("Received: '%s'\r\n", msg.c_str());  // Dodaj to dla debugowania
 
     if (msg.startsWith("servo")) {
-      // Usunięcie słowa "servo" i przycinanie
-      String params = msg.substring(5);
-      params.trim();
+      // Wersja dla ROSa - bez spacji po "servo"
+      int servoNum = -1;
+      int angle = -1;
       
-      // Znalezienie spacji między numerem serwa a kątem
-      int spaceIndex = params.indexOf(' ');
-      if (spaceIndex != -1) {
-        String servoStr = params.substring(0, spaceIndex);
-        String angleStr = params.substring(spaceIndex + 1);
+      // Znajdź pierwszą cyfrę po "servo"
+      int digitPos = 5;  // "servo" ma 5 znaków
+      while (digitPos < msg.length() && !isDigit(msg[digitPos])) {
+        digitPos++;
+      }
+      
+      // Znajdź spację po numerze serwa
+      int spacePos = msg.indexOf(' ', digitPos);
+      
+      if (spacePos != -1) {
+        String servoStr = msg.substring(digitPos, spacePos);
+        String angleStr = msg.substring(spacePos + 1);
         
-        servoStr.trim();
-        angleStr.trim();
-
-        int servoNum = servoStr.toInt();
-        int angle = angleStr.toInt();
-
-        if (servoNum >= 1 && servoNum <= 18 && angle >= 0 && angle <= 180) {
-          setServoAngle(servoNum - 1, angle);  // indeksujemy od 0
+        servoNum = servoStr.toInt();
+        angle = angleStr.toInt();
+        
+        Serial.printf("Parsed: servo=%d, angle=%d\r\n", servoNum, angle);
+        
+        if (servoNum >= 0 && servoNum <= 17 && angle >= 0 && angle <= 180) {
+          setServoAngle(servoNum, angle);  // Używamy bezpośrednio numerów 0-17
           Serial.printf("Servo %d moved to %d°\r\n", servoNum, angle);
         } else {
-          Serial.printf("Invalid servo number (%d) or angle (%d). Allowed: 1-18, 0-180\r\n", 
+          Serial.printf("Invalid servo number (%d) or angle (%d). Allowed: 0-17, 0-180\r\n", 
                        servoNum, angle);
         }
       } else {
-        Serial.println("Invalid command format. Expected: 'servo <number> <angle>'");
+        Serial.println("Invalid command format. Expected: 'servo<number> <angle>'");
       }
     } else {
-      Serial.println("Unknown command.");
+      Serial.printf("Unknown command: '%s'\r\n", msg.c_str());
     }
   }
 }

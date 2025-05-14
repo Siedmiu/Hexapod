@@ -28,6 +28,22 @@ joint_to_servo = {
     "joint3_4": 17,
 }
 
+def map_ros_angle_to_servo(joint_name, position_rad):
+    deg = math.degrees(position_rad)
+
+    if "joint1" in joint_name:
+        # ROS: [-30°, 30°] → Serwo: [0°, 180°]
+        return int((deg + 30) * (180 / 60))  # przesunięcie i skalowanie
+    elif "joint2" in joint_name:
+        # ROS: [-15°, 75°] → Serwo: [0°, 180°]
+        return int((deg + 15) * (180 / 90))
+    elif "joint3" in joint_name:
+        # ROS: [0°, 90°] → Serwo: [0°, 180°]
+        return int(deg * (180 / 90))
+    else:
+        return 90  # neutralna pozycja w razie nieznanego jointa
+
+
 class MultiLegTrajectorySender(Node):
     def __init__(self):
         super().__init__('multi_leg_trajectory_sender')
@@ -62,7 +78,7 @@ class MultiLegTrajectorySender(Node):
         while not self.connected:
             try:
                 self.ws = websocket.WebSocket()
-                self.ws.connect("ws://192.168.1.100:80/")  # <-- Zmień na IP ESP32
+                self.ws.connect("ws://192.168.229.80:80/")  # <-- Zmień na IP ESP32
                 self.connected = True
                 self.get_logger().info("Connected to ESP32 WebSocket.")
             except Exception as e:
@@ -70,25 +86,34 @@ class MultiLegTrajectorySender(Node):
                 time.sleep(2)
 
     def trajectory_callback(self, msg):
-        if not self.connected or not msg.points:
+        if not msg.points:
             return
 
         point = msg.points[0]  # Bierzemy pierwszy punkt trajektorii
 
         for joint_name, position_rad in zip(msg.joint_names, point.positions):
+            deg = math.degrees(position_rad)
+            print(f"[ROS] Joint: {joint_name} | Radians: {position_rad:.3f} | Degrees: {deg:.1f}")
+
             if joint_name in joint_to_servo:
                 servo_num = joint_to_servo[joint_name]
-                angle_deg = int(math.degrees(position_rad))
-                angle_deg = max(0, min(180, angle_deg))  # ogranicz do 0–180
+                angle_deg = map_ros_angle_to_servo(joint_name, position_rad)
+                angle_deg = max(0, min(180, angle_deg))  # bezpieczeństwo
 
-                command = f"servo{servo_num} {angle_deg}"
+                # Zmieniona linia - dodajemy spację po "servo" i zwiększamy numer serwa o 1
+                # Format: "servo <number> <angle>" zamiast "servo{servo_num} {angle_deg}"
+                command = f"servo {servo_num + 1} {angle_deg}"
+                
                 self.get_logger().info(f"Sending: {command}")
-                try:
-                    self.ws.send(command)
-                except Exception as e:
-                    self.get_logger().warn(f"WebSocket send error: {e}")
-                    self.connected = False
-                    threading.Thread(target=self.connect_ws, daemon=True).start()
+                if self.connected:
+                    try:
+                        self.ws.send(command)
+                    except Exception as e:
+                        self.get_logger().warn(f"WebSocket send error: {e}")
+                        self.connected = False
+                        threading.Thread(target=self.connect_ws, daemon=True).start()
+
+
 
 def main(args=None):
     rclpy.init(args=args)
