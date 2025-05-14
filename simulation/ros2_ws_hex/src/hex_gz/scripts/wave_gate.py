@@ -131,7 +131,7 @@ polozenie_spoczynkowe_stop = np.array([
 
 h = l3 / 4
 r = h
-ilosc_punktow_na_krzywych = 10
+ilosc_punktow_na_krzywych = 20
 punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
 punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, int(ilosc_punktow_na_krzywych*2.5))
 punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(int(ilosc_punktow_na_krzywych*2.5))]
@@ -140,8 +140,6 @@ punkty_etap3_ruchu = [[0, punkty_etap3_ruchu_y[i], 0] for i in range(int(ilosc_p
 punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r, h, ilosc_punktow_na_krzywych, 20000, -r)
 punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, -r)
 
-
-cykl_ogolny_nog = punkty_etap1_ruchu.copy()
 
 cały_cykl = np.concatenate([punkty_etap2_ruchu, punkty_etap3_ruchu, punkty_etap4_ruchu])
 
@@ -162,8 +160,10 @@ odleglosc_srodek_tyl4 = np.linalg.norm(tył_4[-1] - punkty_etap1_ruchu[0])
 odleglosc_srodek_tyl5 = np.linalg.norm(tył_5[-1] - punkty_etap1_ruchu[0])
 
 
-pierwszy_krok_1_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(odleglosc_srodek_tyl2, h/2, ilosc_punktow_na_krzywych, 10000, 0)
-template = np.array([punkty_etap1_ruchu[0] for _ in range(ilosc_punktow_na_krzywych)]) # utrzymanie się w 0
+dlugośc_malego_kroku = 10
+
+pierwszy_krok_1_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(odleglosc_srodek_tyl2, h/2, dlugośc_malego_kroku, 10000, 0)
+template = np.array([punkty_etap1_ruchu[0] for _ in range(dlugośc_malego_kroku)]) # utrzymanie się w 0
 pierwszy_krok_2_nogi = template.copy()
 pierwszy_krok_3_nogi = template.copy()
 pierwszy_krok_4_nogi = template.copy()
@@ -171,44 +171,44 @@ pierwszy_krok_5_nogi = template.copy()
 pierwszy_krok_6_nogi = template.copy()
 
 
-drugi_krok_1_nogi = np.array([tył_2[-1] for _ in range(ilosc_punktow_na_krzywych)])
-drugi_krok_2_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(odleglosc_srodek_tyl1, h/2, ilosc_punktow_na_krzywych, 10000, 0)
+drugi_krok_1_nogi = np.array([tył_2[-1] for _ in range(dlugośc_malego_kroku)])
+drugi_krok_2_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(odleglosc_srodek_tyl1, h/2, dlugośc_malego_kroku, 10000, 0)
 drugi_krok_3_nogi = template.copy()
 drugi_krok_4_nogi = template.copy()
 drugi_krok_5_nogi = template.copy()
 drugi_krok_6_nogi = template.copy()
 
 
-trzeci_krok_1_nogi = np.array([tył_2[-1] for _ in range(ilosc_punktow_na_krzywych)])
-trzeci_krok_2_nogi = np.array([tył_1[-1] for _ in range(ilosc_punktow_na_krzywych)])
-trzeci_krok_3_nogi = punkty_etap1_ruchu.copy()
+trzeci_krok_1_nogi = np.array([tył_2[-1] for _ in range(dlugośc_malego_kroku)])
+trzeci_krok_2_nogi = np.array([tył_1[-1] for _ in range(dlugośc_malego_kroku)])
+trzeci_krok_3_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, dlugośc_malego_kroku, 10000, 0)
 trzeci_krok_4_nogi = template.copy()
 trzeci_krok_5_nogi = template.copy()
 trzeci_krok_6_nogi = template.copy()
 
 
-czwarty_krok_1_nogi = np.array([tył_2[-1] for _ in range(ilosc_punktow_na_krzywych)])
-czwarty_krok_2_nogi = np.array([tył_1[-1] for _ in range(ilosc_punktow_na_krzywych)])
-czwarty_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(ilosc_punktow_na_krzywych)])
-czwarty_krok_4_nogi = punkty_etap5_ruchu[::-1]
+czwarty_krok_1_nogi = np.array([tył_2[-1] for _ in range(dlugośc_malego_kroku)])
+czwarty_krok_2_nogi = np.array([tył_1[-1] for _ in range(dlugośc_malego_kroku)])
+czwarty_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(dlugośc_malego_kroku)])
+czwarty_krok_4_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(-r, h/2, dlugośc_malego_kroku, 1000, 0)
 czwarty_krok_5_nogi = template.copy()
 czwarty_krok_6_nogi = template.copy()
 
 
-piaty_krok_1_nogi = np.array([tył_2[-1] for _ in range(ilosc_punktow_na_krzywych)])
-piaty_krok_2_nogi = np.array([tył_1[-1] for _ in range(ilosc_punktow_na_krzywych)])
-piaty_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(ilosc_punktow_na_krzywych)])
-piaty_krok_4_nogi = np.array([tył_5[-1] for _ in range(ilosc_punktow_na_krzywych)])
-piaty_krok_5_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(-odleglosc_srodek_tyl4, h/2, ilosc_punktow_na_krzywych, 1000, 0)
+piaty_krok_1_nogi = np.array([tył_2[-1] for _ in range(dlugośc_malego_kroku)])
+piaty_krok_2_nogi = np.array([tył_1[-1] for _ in range(dlugośc_malego_kroku)])
+piaty_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(dlugośc_malego_kroku)])
+piaty_krok_4_nogi = np.array([tył_5[-1] for _ in range(dlugośc_malego_kroku)])
+piaty_krok_5_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(-odleglosc_srodek_tyl4, h/2, dlugośc_malego_kroku, 1000, 0)
 piaty_krok_6_nogi = template.copy()
 
 
-szosty_krok_6_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(-odleglosc_srodek_tyl3, h/2, ilosc_punktow_na_krzywych, 1000, 0)
-szosty_krok_1_nogi = np.array([tył_2[-1] for _ in range(ilosc_punktow_na_krzywych)])
-szosty_krok_2_nogi = np.array([tył_1[-1] for _ in range(ilosc_punktow_na_krzywych)])
-szosty_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(ilosc_punktow_na_krzywych)])
-szosty_krok_4_nogi = np.array([tył_5[-1] for _ in range(ilosc_punktow_na_krzywych)])
-szosty_krok_5_nogi = np.array([tył_4[-1] for _ in range(ilosc_punktow_na_krzywych)])
+szosty_krok_6_nogi = znajdz_punkty_rowno_odlegle_na_paraboli(-odleglosc_srodek_tyl3, h/2, dlugośc_malego_kroku, 1000, 0)
+szosty_krok_1_nogi = np.array([tył_2[-1] for _ in range(dlugośc_malego_kroku)])
+szosty_krok_2_nogi = np.array([tył_1[-1] for _ in range(dlugośc_malego_kroku)])
+szosty_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(dlugośc_malego_kroku)])
+szosty_krok_4_nogi = np.array([tył_5[-1] for _ in range(dlugośc_malego_kroku)])
+szosty_krok_5_nogi = np.array([tył_4[-1] for _ in range(dlugośc_malego_kroku)])
 
 
 cykl_nogi_1 = np.concatenate([pierwszy_krok_1_nogi, drugi_krok_1_nogi, trzeci_krok_1_nogi, czwarty_krok_1_nogi, piaty_krok_1_nogi, szosty_krok_1_nogi])
@@ -231,33 +231,33 @@ for _ in range(ilosc_cykli):
 
 
 pierwszy_od_konca_krok_1_nogi = pierwszy_krok_1_nogi[::-1]
-pierwszy_od_konca_krok_2_nogi = np.array([tył_1[-1] for _ in range(ilosc_punktow_na_krzywych)])
-pierwszy_od_konca_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(ilosc_punktow_na_krzywych)])
-pierwszy_od_konca_krok_4_nogi = np.array([tył_5[-1] for _ in range(ilosc_punktow_na_krzywych)])
-pierwszy_od_konca_krok_5_nogi = np.array([tył_4[-1] for _ in range(ilosc_punktow_na_krzywych)])
-pierwszy_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(ilosc_punktow_na_krzywych)])
+pierwszy_od_konca_krok_2_nogi = np.array([tył_1[-1] for _ in range(dlugośc_malego_kroku)])
+pierwszy_od_konca_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(dlugośc_malego_kroku)])
+pierwszy_od_konca_krok_4_nogi = np.array([tył_5[-1] for _ in range(dlugośc_malego_kroku)])
+pierwszy_od_konca_krok_5_nogi = np.array([tył_4[-1] for _ in range(dlugośc_malego_kroku)])
+pierwszy_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(dlugośc_malego_kroku)])
 
 drugi_od_konca_krok_1_nogi = template.copy()
 drugi_od_konca_krok_2_nogi = drugi_krok_2_nogi[::-1]
-drugi_od_konca_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(ilosc_punktow_na_krzywych)])
-drugi_od_konca_krok_4_nogi = np.array([tył_5[-1] for _ in range(ilosc_punktow_na_krzywych)])
-drugi_od_konca_krok_5_nogi = np.array([tył_4[-1] for _ in range(ilosc_punktow_na_krzywych)])
-drugi_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(ilosc_punktow_na_krzywych)])
+drugi_od_konca_krok_3_nogi = np.array([punkty_etap4_ruchu[-1] for _ in range(dlugośc_malego_kroku)])
+drugi_od_konca_krok_4_nogi = np.array([tył_5[-1] for _ in range(dlugośc_malego_kroku)])
+drugi_od_konca_krok_5_nogi = np.array([tył_4[-1] for _ in range(dlugośc_malego_kroku)])
+drugi_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(dlugośc_malego_kroku)])
 
 
 trzeci_od_konca_krok_1_nogi = template.copy()
 trzeci_od_konca_krok_2_nogi = template.copy()
 trzeci_od_konca_krok_3_nogi = trzeci_krok_3_nogi[::-1]
-trzeci_od_konca_krok_4_nogi = np.array([tył_5[-1] for _ in range(ilosc_punktow_na_krzywych)])
-trzeci_od_konca_krok_5_nogi = np.array([tył_4[-1] for _ in range(ilosc_punktow_na_krzywych)])
-trzeci_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(ilosc_punktow_na_krzywych)])
+trzeci_od_konca_krok_4_nogi = np.array([tył_5[-1] for _ in range(dlugośc_malego_kroku)])
+trzeci_od_konca_krok_5_nogi = np.array([tył_4[-1] for _ in range(dlugośc_malego_kroku)])
+trzeci_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(dlugośc_malego_kroku)])
 
 czwarty_od_konca_krok_1_nogi = template.copy()
 czwarty_od_konca_krok_2_nogi = template.copy()
 czwarty_od_konca_krok_3_nogi = template.copy()
 czwarty_od_konca_krok_4_nogi = czwarty_krok_4_nogi[::-1]
-czwarty_od_konca_krok_5_nogi = np.array([tył_4[-1] for _ in range(ilosc_punktow_na_krzywych)])
-czwarty_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(ilosc_punktow_na_krzywych)])
+czwarty_od_konca_krok_5_nogi = np.array([tył_4[-1] for _ in range(dlugośc_malego_kroku)])
+czwarty_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(dlugośc_malego_kroku)])
 
 
 piaty_od_konca_krok_1_nogi = template.copy()
@@ -265,7 +265,7 @@ piaty_od_konca_krok_2_nogi = template.copy()
 piaty_od_konca_krok_3_nogi = template.copy()
 piaty_od_konca_krok_4_nogi = template.copy()
 piaty_od_konca_krok_5_nogi = piaty_krok_5_nogi[::-1]
-piaty_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(ilosc_punktow_na_krzywych)])
+piaty_od_konca_krok_6_nogi = np.array([tył_3[-1] for _ in range(dlugośc_malego_kroku)])
 
 
 szosty_od_konca_krok_1_nogi = template.copy()
@@ -283,6 +283,13 @@ cykl_nogi_4 = np.concatenate([cykl_nogi_4, pierwszy_od_konca_krok_4_nogi, drugi_
 cykl_nogi_5 = np.concatenate([cykl_nogi_5, pierwszy_od_konca_krok_5_nogi, drugi_od_konca_krok_5_nogi, trzeci_od_konca_krok_5_nogi, czwarty_od_konca_krok_5_nogi, piaty_od_konca_krok_5_nogi, szosty_od_konca_krok_5_nogi])
 cykl_nogi_6 = np.concatenate([cykl_nogi_6, pierwszy_od_konca_krok_6_nogi, drugi_od_konca_krok_6_nogi, trzeci_od_konca_krok_6_nogi, czwarty_od_konca_krok_6_nogi, piaty_od_konca_krok_6_nogi, szosty_od_konca_krok_6_nogi])
 
+
+print("noga1: ", len(cykl_nogi_1))
+print("noga2: ", len(cykl_nogi_2))
+print("noga3: ", len(cykl_nogi_3))
+print("noga4: ", len(cykl_nogi_4))
+print("noga5: ", len(cykl_nogi_5))
+print("noga6: ", len(cykl_nogi_6))
 
 # Update the cycle array to use the new unified cycle
 cykle_nog = np.array([
@@ -421,7 +428,7 @@ class LegSequencePlayer(Node):
         self.get_logger().info('Wysłano trajektorie dla wszystkich nóg')
         return True
     
-    def execute_sequence(self, start_step=0, end_step=None, step_duration=0.2):
+    def execute_sequence(self, start_step=0, end_step=None, step_duration=0.05):
         """
         Wykonanie sekwencji ruchów dla wszystkich nóg równocześnie
         używając wartości z tablicy wychyly_serw_podczas_ruchu
