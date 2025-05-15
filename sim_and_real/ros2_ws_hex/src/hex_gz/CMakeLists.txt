@@ -29,6 +29,8 @@ install(PROGRAMS scripts/x_create_udev_rules
   scripts/setup.py
   scripts/leg_sequence_player.py
   scripts/imu_processer.py
+  scripts/wifi_conect.py
+  scripts/imu_data.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
