@@ -129,8 +129,8 @@ polozenie_spoczynkowe_stop = np.array([
 ])
 
 
-h = l3 / 4
-r = h
+h = l3 / 3
+r = h / 2.5
 ilosc_punktow_na_krzywych = 20
 punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
 punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, int(ilosc_punktow_na_krzywych*2.5))

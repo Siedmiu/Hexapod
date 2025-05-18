@@ -9,6 +9,30 @@
 // const char* password = "74835915";
 
 // Sterowniki PCA9685
+
+
+// # Mapowanie nazw jointów na numery serw
+// joint_to_servo = {
+//     "joint1_3": 0,
+//     "joint2_3": 1,
+//     "joint3_3": 2,
+//     "joint1_2": 3,
+//     "joint2_2": 4,
+//     "joint3_2": 5,
+//     "joint1_1": 6,
+//     "joint2_1": 7,
+//     "joint3_1": 8,
+//     "joint1_6": 9,
+//     "joint2_6": 10,
+//     "joint3_6": 11,
+//     "joint1_5": 12,
+//     "joint2_5": 13,
+//     "joint3_5": 14,
+//     "joint1_4": 15,
+//     "joint2_4": 16,
+//     "joint3_4": 17,
+// }
+
 Adafruit_PWMServoDriver pwm1 = Adafruit_PWMServoDriver(0x40);
 Adafruit_PWMServoDriver pwm2 = Adafruit_PWMServoDriver(0x41);
 
@@ -49,16 +73,20 @@ void parseAndHandleCommand(String msg) {
       servoNum = servoStr.toInt();
       angle = angleStr.toInt();
 
-      if(servoNum==0){
+      if(servoNum==13){
+        
         Serial.printf("Parsed: servo=%d, angle=%d\r\n", servoNum, angle);
       }
 
       if (servoNum >= 0 && servoNum <= 17 && angle >= 0 && angle <= 180) {
-        if (servoNum == 9 || servoNum == 12 || servoNum == 15 || servoNum % 3 == 2) {
-          angle = 180 - angle;
-        }
+        // if (servoNum == 9 || servoNum == 12 || servoNum == 15 || servoNum % 3 == 2) { // || servoNum % 3 == 1
+        //   angle = 180 - angle;
+        // }
         setServoAngle(servoNum, angle);
-        Serial.printf("Servo %d moved to %d°\r\n", servoNum, angle);
+        if (servoNum == 13) {
+          Serial.printf("Servo %d moved to %d°\r\n", servoNum, angle);
+        }
+        
       } else {
         Serial.printf("Invalid servo number (%d) or angle (%d). Allowed: 0-17, 0-180\r\n",servoNum, angle);
       }
@@ -79,7 +107,34 @@ void setup() {
   pwm2.begin();
   pwm2.setPWMFreq(60);
   Serial.println("Both PCA9685 initialized.");
+
+  int all_j1_angle = 90;
+  int all_j2_angle = 30;
+  int all_j3_angle = 60;
+  // joint 1
+  setServoAngle(0, all_j1_angle);
+  setServoAngle(3, all_j1_angle);
+  setServoAngle(6, all_j1_angle);
+  setServoAngle(9, all_j1_angle);
+  setServoAngle(12, all_j1_angle);
+  setServoAngle(15, all_j1_angle);
+
+  // joint 2
+  setServoAngle(1, all_j2_angle);
+  setServoAngle(4, all_j2_angle);
+  setServoAngle(7, all_j2_angle);
+  setServoAngle(10, all_j2_angle);
+  setServoAngle(13, all_j2_angle);
+  setServoAngle(16, all_j2_angle);
+  // joint 3
+  setServoAngle(2, all_j3_angle);
+  setServoAngle(5, all_j3_angle);
+  setServoAngle(8, all_j3_angle);
+  setServoAngle(11, all_j3_angle);
+  setServoAngle(14, all_j3_angle);
+  setServoAngle(17, all_j3_angle);
 }
+  
 
 void loop() {
   static String inputString = "";
@@ -94,4 +149,29 @@ void loop() {
       inputString += c;
     }
   }
+  // int all_j1_angle = 90;
+  // int all_j2_angle = 150;
+  // int all_j3_angle = 180;
+  // // joint 1
+  // setServoAngle(0, all_j1_angle);
+  // setServoAngle(3, all_j1_angle);
+  // setServoAngle(6, all_j1_angle);
+  // setServoAngle(9, all_j1_angle);
+  // setServoAngle(12, all_j1_angle);
+  // setServoAngle(15, all_j1_angle);
+
+  // // joint 2
+  // setServoAngle(1, all_j2_angle);
+  // setServoAngle(4, all_j2_angle);
+  // setServoAngle(7, all_j2_angle);
+  // setServoAngle(10, all_j2_angle);
+  // setServoAngle(13, all_j2_angle);
+  // setServoAngle(16, all_j2_angle);
+  // // joint 3
+  // setServoAngle(2, all_j3_angle);
+  // setServoAngle(5, all_j3_angle);
+  // setServoAngle(8, all_j3_angle);
+  // setServoAngle(11, all_j3_angle);
+  // setServoAngle(14, all_j3_angle);
+  // setServoAngle(17, all_j3_angle);
 }

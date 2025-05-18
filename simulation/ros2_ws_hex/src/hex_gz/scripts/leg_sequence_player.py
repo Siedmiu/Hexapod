@@ -87,8 +87,8 @@ staly_kat_przy_P1 = np.arctan2(h2, l2)
 
 # zalozone katy spoczynkowe przegubow
 alfa_1 = 0
-alfa_2 = np.radians(0)
-alfa_3 = np.radians(60)
+alfa_2 = np.radians(30)
+alfa_3 = np.radians(50)
 
 
 P0 = np.array([0, 0, 0])
@@ -129,8 +129,8 @@ polozenie_spoczynkowe_stop = np.array([
 ])
 
 # tor pokonywany przez nogi w ukladzie wspolrzednych srodka robota
-h = l3 / 4
-r = h
+h = l3 / 3
+r = l3 / 2.5
 ilosc_punktow_na_krzywych = 10
 punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
 punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)

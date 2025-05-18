@@ -30,7 +30,21 @@ joint_to_servo = {
 }
 
 def map_ros_angle_to_servo(joint_name, position_rad):
+    if math.isnan(position_rad):
+        print(f"OSTRZEŻENIE: Otrzymano wartość NaN dla {joint_name}, używam wartości domyślnej")
+        # Możesz zwrócić wartość domyślną dla danego typu stawu
+        if "joint1" in joint_name:
+            return 90  # środkowa pozycja dla joint1
+        elif "joint2" in joint_name:
+            return 60  # wartość domyślna dla joint2
+        elif "joint3" in joint_name:
+            return 90  # wartość domyślna dla joint3
+        else:
+            return 90  # neutralna pozycja w razie nieznanego jointa
+
     deg = math.degrees(position_rad)
+    if "joint3_4" in joint_name: 
+        print(f"moveit: {joint_name}, Position (rad): {position_rad}, Position (deg): {deg}")
 
     if "joint1" in joint_name:
         # ROS: [-30°, 30°] → Serwo: [0°, 180°]
@@ -78,7 +92,7 @@ class MultiLegTrajectorySender(Node):
         while not self.serial_connected:
             try:
                 # Zmień port na odpowiedni dla Twojego systemu (np. COM3 na Windows)
-                self.serial_port = serial.Serial('/dev/ttyUSB1', 115200, timeout=1)
+                self.serial_port = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)
                 self.serial_connected = True
                 self.get_logger().info("Connected to ESP32 via UART.")
             except Exception as e:
@@ -100,8 +114,8 @@ class MultiLegTrajectorySender(Node):
 
                 command = f"servo{servo_num} {angle_deg}\n"
 
-                if(servo_num == 17):
-                    print(f"Joint: {joint_name}, Servo: {servo_num}, Angle: {angle_deg}")
+                # if(servo_num == 17):
+                #     print(f"Joint: {joint_name}, Servo: {servo_num}, Angle: {angle_deg}")
                 
                 # self.get_logger().info(f"Sending: {command.strip()}")
                 try:
