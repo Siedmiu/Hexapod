@@ -45,21 +45,47 @@ def parabola_w_przestrzeni_z_punktow(w1, w2, w3, liczba_punktow, noga):
     # Interpolacja punktów dla równych odstępów
     punkty_rowne = np.array([
         np.interp(dlugosci_celowe, dlugosci_luku, p[:, i]) for i in range(3)
-    ]).T[1:]
+    ]).T
 
     if noga % 2 == 0:
         punkty_rowne = punkty_rowne[::-1]
+
+    punkty_rowne = punkty_rowne[1:]
 
     return punkty_rowne
 
 def prosta_w_cyklu(P_start, P2, noga, liczba_punktow):
 
-    linia = np.linspace(P_start, P2,liczba_punktow)
+    linia = np.linspace(P_start, P2,liczba_punktow + 1)
 
     if noga % 2 == 1:
         linia = linia[::-1]
 
+    linia = linia[1:]
+
     return linia
+
+def katy_serw(P3, l1, h1, l2, h2, l3):
+
+    # wyznaczenie katow potrzebnych do osiagniecia przez stope punktu docelowego
+    alfa_1 = np.arctan2(P3[1], P3[0])
+
+    P1 = np.array([l1 * np.cos(alfa_1), l1 * np.sin(alfa_1), h1])
+
+    d = np.sqrt((P3[0] - P1[0]) ** 2 + (P3[1] - P1[1]) ** 2 + (P3[2] - P1[2]) ** 2)
+    r = np.sqrt(l2 ** 2 + h2 ** 2)
+
+    staly_kat_przy_P1 = np.arctan2(h2, l2)
+
+    cos_fi = (r ** 2 + l3 ** 2 - d ** 2) / (2 * r * l3)
+    fi = np.arccos(cos_fi)
+    alfa_3 = np.deg2rad(180) - fi - staly_kat_przy_P1
+
+    epsilon = np.arcsin(np.sin(fi) * l3 / d)
+    tau = np.arctan2(P3[2] - P1[2], np.sqrt((P3[0] - P1[0]) ** 2 + (P3[1] - P1[1]) ** 2))
+
+    alfa_2 = -(epsilon + tau - staly_kat_przy_P1)
+    return [alfa_1, alfa_2, alfa_3]
 
 # Długosci segmentow nog
 h1 = -0.016854 - 0.003148
@@ -97,7 +123,7 @@ przyczepy_nog_do_tulowia = np.array([
 
 punkt_start_dla_kazdej_nogi = P4
 
-ilosc_punktow_na_etap = 100
+ilosc_punktow_na_etap = 10
 kat_obrotu = np.deg2rad(20)
 h = l3 / 2
 
@@ -118,6 +144,29 @@ punkt_szczytowy_dla_kazdej_nogi = np.array([
 parabole_nog = np.array([parabola_w_przestrzeni_z_punktow(punkt_start_dla_kazdej_nogi, punkt_szczytowy_dla_kazdej_nogi[i], punkt_po_obrocie_dla_kazdej_nogi[i], ilosc_punktow_na_etap, i) for i in range(6)])
 proste_nog = np.array([prosta_w_cyklu(punkt_start_dla_kazdej_nogi, punkt_po_obrocie_dla_kazdej_nogi[i], i, ilosc_punktow_na_etap) for i in range (6)])
 
+cykle_nog = []
+ilosc_cykli = 2
+for i in range(6):  # Dla każdej nogi
+    cykl = []
+    for c in range(ilosc_cykli):
+        if i in [0, 2, 4]:
+            cykl.append(proste_nog[i])
+            cykl.append(parabole_nog[i])
+        else:
+            cykl.append(parabole_nog[i])
+            cykl.append(proste_nog[i])
+    cykle_nog.append(np.concatenate(cykl))  # Połącz punkty w jeden cykl
+
+cykle_nog = np.array(cykle_nog)
+
+wychyly_serw_podczas_ruchu = np.array([
+[katy_serw(cykle_nog[j][i], l1, h1, l2, h2, l3)
+    for i in range(len(cykle_nog[j]))]
+    for j in range(6)
+])
+
+print(wychyly_serw_podczas_ruchu[0])
+
 czy_wyswietlic = True
 
 if czy_wyswietlic:
@@ -129,10 +178,10 @@ if czy_wyswietlic:
 
     for i in range(6):
         # Parabola – ruch podnoszenia nogi
-        ax.plot(parabole_nog[i][:, 0], parabole_nog[i][:, 1], parabole_nog[i][:, 2], color=colors[i],
+        ax.scatter(parabole_nog[i][:, 0], parabole_nog[i][:, 1], parabole_nog[i][:, 2], color=colors[i],
                 label=f'Parabola noga {i + 1}')
         # Prosta – ruch po podłodze
-        ax.plot(proste_nog[i][:, 0], proste_nog[i][:, 1], proste_nog[i][:, 2], color=colors[i], linestyle='dashed',
+        ax.scatter(proste_nog[i][:, 0], proste_nog[i][:, 1], proste_nog[i][:, 2], color=colors[i], linestyle='dashed',
                 label=f'Prosta noga {i + 1}')
 
     ax.set_xlabel('X')
