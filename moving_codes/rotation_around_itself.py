@@ -2,26 +2,42 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 from mpl_toolkits.mplot3d import Axes3D
-
 matplotlib.use('TkAgg')
 #dane z modelu i potrzeby obrotu o kat alfa
+def push_counterclockwise(R, alfa, fi, beta, x_start, z):
 
-def push_leg(alfa, P_start, przyczep, noga):
+    delta = np.radians(180) + beta - fi
+    tau = np.radians(360) - delta - (np.radians(180) - alfa) / 2
+    r = R * np.sqrt(2 - 2 * np.cos(alfa))
 
-    x_prim = przyczep[0] * np.cos(alfa) - przyczep[1] * np.sin(alfa)
-    y_prim = przyczep[0] * np.sin(alfa) + przyczep[1] * np.cos(alfa)
+    omega = np.sqrt(r ** 2 + x_start ** 2 - 2 * np.cos(tau) * r * x_start)
 
-    delta_x = x_prim - przyczep[0]
-    delta_y = y_prim - przyczep[0]
+    epsilon = np.arcsin(np.sin(tau) * x_start / omega)
 
-    if noga % 2 == 0:
-        P_new = P_start - [delta_x, delta_y, 0]
-    else:
-        P_new = P_start + [delta_x, delta_y, 0]
+    gamma = delta - epsilon - (np.radians(180) - alfa) / 2
 
-    return P_new
+    y_new = -np.sin(gamma) * omega
+    x_new = np.cos(gamma) * omega
 
-def parabola_w_przestrzeni_z_punktow(w1, w2, w3, liczba_punktow, noga):
+    return np.array([x_new, y_new, z])
+
+def push_clockwise(R, alfa, fi, beta, x_start, z):
+    delta = np.radians(180) + beta - fi
+    tau = delta - (np.radians(180) - alfa) / 2
+    r = R * np.sqrt(2 - 2 * np.cos(alfa))
+
+    omega = np.sqrt(r ** 2 + x_start ** 2 - 2 * np.cos(tau) * r * x_start)
+
+    epsilon = np.arcsin(np.sin(tau) * x_start / omega)
+
+    gamma = np.radians(360) - delta - epsilon - (np.radians(180) - alfa) / 2
+
+    y_new = np.sin(gamma) * omega
+    x_new = np.cos(gamma) * omega
+
+    return np.array([x_new, y_new, z])
+
+def parabola_w_przestrzeni_z_punktow(w1, w2, w3, liczba_punktow):
 # rozwiązanie układu parametrycznego równania kwadratowego dla 1 punktu w t = 0, drugiego w t = 1 i trzeciego dla t = 2
     a = []
     b = []
@@ -33,7 +49,9 @@ def parabola_w_przestrzeni_z_punktow(w1, w2, w3, liczba_punktow, noga):
         c.append(w1[i])
 
     t = np.linspace(0, 2, dokladnosc)
-    p = np.array([a[i] * t ** 2 + b[i] * t + c[i] for i in range(3)]).T
+    p = np.array([a[0] * t ** 2 + b[0] * t + c[0],
+                 a[1] * t ** 2 + b[1] * t + c[1],
+                 a[2] * t ** 2 + b[2] * t + c[2]]).T
 
     dlugosci_segmentow = np.sqrt(np.sum(np.diff(p, axis=0) ** 2, axis=1))
     dlugosci_luku = np.concatenate(([0], np.cumsum(dlugosci_segmentow)))
@@ -47,149 +65,210 @@ def parabola_w_przestrzeni_z_punktow(w1, w2, w3, liczba_punktow, noga):
         np.interp(dlugosci_celowe, dlugosci_luku, p[:, i]) for i in range(3)
     ]).T
 
-    if noga % 2 == 0:
-        punkty_rowne = punkty_rowne[::-1]
-
     punkty_rowne = punkty_rowne[1:]
 
     return punkty_rowne
 
-def prosta_w_cyklu(P_start, P2, noga, liczba_punktow):
+odleglosci_przegubow_od_srodka_hexapoda = np.array([3, 2, 3, 3, 2, 3])
+alfa = np.radians(30)
+clockwise_rotation = False
+kat_fi_dla_kazdej_nogi = np.array([np.radians(60), 0, np.radians(-60), np.radians(60), 0, np.radians(-60)])
+kat_beta_dla_kazdej_nogi = np.array([np.radians(20), 0, np.radians(-20), np.radians(20), 0, np.radians(-20)])
+x_start = 4 # poczatkowe wychylenie nogi pajaka w osi x
+z_start = 0 # poczatkowy z
+h = 1 # wysokosc paraboli
+ilosc_punktow_na_etap = 100
 
-    linia = np.linspace(P_start, P2,liczba_punktow + 1)
+punkt_start_dla_kazdej_nogi = np.array([[x_start, 0, z_start] for _ in range(6)])
 
-    if noga % 2 == 1:
-        linia = linia[::-1]
-
-    linia = linia[1:]
-
-    return linia
-
-def katy_serw(P3, l1, h1, l2, h2, l3):
-
-    # wyznaczenie katow potrzebnych do osiagniecia przez stope punktu docelowego
-    alfa_1 = np.arctan2(P3[1], P3[0])
-
-    P1 = np.array([l1 * np.cos(alfa_1), l1 * np.sin(alfa_1), h1])
-
-    d = np.sqrt((P3[0] - P1[0]) ** 2 + (P3[1] - P1[1]) ** 2 + (P3[2] - P1[2]) ** 2)
-    r = np.sqrt(l2 ** 2 + h2 ** 2)
-
-    staly_kat_przy_P1 = np.arctan2(h2, l2)
-
-    cos_fi = (r ** 2 + l3 ** 2 - d ** 2) / (2 * r * l3)
-    fi = np.arccos(cos_fi)
-    alfa_3 = np.deg2rad(180) - fi - staly_kat_przy_P1
-
-    epsilon = np.arcsin(np.sin(fi) * l3 / d)
-    tau = np.arctan2(P3[2] - P1[2], np.sqrt((P3[0] - P1[0]) ** 2 + (P3[1] - P1[1]) ** 2))
-
-    alfa_2 = -(epsilon + tau - staly_kat_przy_P1)
-    return [alfa_1, alfa_2, alfa_3]
-
-# Długosci segmentow nog
-h1 = -0.016854 - 0.003148
-l1 = 0.12886 - 0.0978
-l2 = 0.2188-0.12886
-h2 = -0.011804 + 0.016854
-l3 = 0.38709 - 0.2188
-
-staly_kat_przy_P1 = np.arctan2(h2, l2)
-
-# zalozone katy spoczynkowe przegubow
-alfa_1 = 0
-alfa_2 = np.radians(0)
-alfa_3 = np.radians(60)
-
-P0 = np.array([0, 0, 0])
-P0_pod = P0 + np.array([0, 0, h1])
-P1 = P0_pod + np.array([l1 * np.cos(alfa_1), l1 *np.sin(alfa_1), 0])
-P2 = P1 + np.array([np.cos(alfa_1)*np.cos(alfa_2)*l2,np.sin(alfa_1)*np.cos(alfa_2)*l2, np.sin(alfa_2) * l2])
-P3 = P1 + np.array([np.cos(alfa_1)*np.cos(staly_kat_przy_P1 + alfa_2)*np.sqrt(h2**2 + l2**2),np.sin(alfa_1)*np.cos(staly_kat_przy_P1 + alfa_2)*np.sqrt(h2**2 + l2**2), np.sin(staly_kat_przy_P1 + alfa_2)*np.sqrt(h2**2 + l2**2)])
-P4 = P3 + np.array([np.cos(alfa_1)*np.cos(alfa_2 - alfa_3)*l3, np.sin(alfa_1)*np.cos(alfa_2 - alfa_3)*l3, np.sin(alfa_2 - alfa_3) * l3])
-
-stopa_spoczynkowa = P4
-
-wysokosc_start = -stopa_spoczynkowa[2]
-
-przyczepy_nog_do_tulowia = np.array([
-    [ 0.073922, 0.055095 ,0.003148],
-    [ 0.0978, -0.00545, 0.003148],
-    [ 0.067301, -0.063754, 0.003148],
-    [ -0.067301, -0.063754 , 0.003148],
-    [ -0.0978 , -0.00545,0.003148],
-    [ -0.073922, 0.055095,0.003148],
-])
-
-punkt_start_dla_kazdej_nogi = P4
-
-ilosc_punktow_na_etap = 10
-kat_obrotu = np.deg2rad(20)
-h = l3 / 2
-
-punkt_po_obrocie_dla_kazdej_nogi = np.array([
-    push_leg(kat_obrotu, punkt_start_dla_kazdej_nogi, przyczepy_nog_do_tulowia[i], i)
+punkt_P1_dla_kazdej_nogi = np.array([
+    push_counterclockwise(odleglosci_przegubow_od_srodka_hexapoda[i], alfa, kat_fi_dla_kazdej_nogi[i], kat_beta_dla_kazdej_nogi[i], x_start, z_start)
     for i in range(6)
 ])
 
-#ruch każdej nogi dzieli się na parabolę i ruch po podłodze
-
-punkt_szczytowy_dla_kazdej_nogi = np.array([
-    (punkt_po_obrocie_dla_kazdej_nogi[i] + punkt_start_dla_kazdej_nogi) / 2 + np.array([0, 0, h])
+punkt_P2_dla_kazdej_nogi = np.array([
+    push_clockwise(odleglosci_przegubow_od_srodka_hexapoda[i], alfa, kat_fi_dla_kazdej_nogi[i], kat_beta_dla_kazdej_nogi[i], x_start, z_start)
     for i in range(6)
 ])
-#nogi 1 3 5 najpierw pchają a 2 4 6 parabola
-#funkcja parabola w przestrzeni uwzglednia rodzaj nogi (1 3 5 lub 2 4 6) bo ich parabole sie liczy tak samo ale punkty w tablicy są w odwrotnej kolejności
 
-parabole_nog = np.array([parabola_w_przestrzeni_z_punktow(punkt_start_dla_kazdej_nogi, punkt_szczytowy_dla_kazdej_nogi[i], punkt_po_obrocie_dla_kazdej_nogi[i], ilosc_punktow_na_etap, i) for i in range(6)])
-proste_nog = np.array([prosta_w_cyklu(punkt_start_dla_kazdej_nogi, punkt_po_obrocie_dla_kazdej_nogi[i], i, ilosc_punktow_na_etap) for i in range (6)])
-
-cykle_nog = []
-ilosc_cykli = 2
-for i in range(6):  # Dla każdej nogi
-    cykl = []
-    for c in range(ilosc_cykli):
-        if i in [0, 2, 4]:
-            cykl.append(proste_nog[i])
-            cykl.append(parabole_nog[i])
-        else:
-            cykl.append(parabole_nog[i])
-            cykl.append(proste_nog[i])
-    cykle_nog.append(np.concatenate(cykl))  # Połącz punkty w jeden cykl
-
-cykle_nog = np.array(cykle_nog)
-
-wychyly_serw_podczas_ruchu = np.array([
-[katy_serw(cykle_nog[j][i], l1, h1, l2, h2, l3)
-    for i in range(len(cykle_nog[j]))]
-    for j in range(6)
+punkt_szczytowy_etapu_4_dla_kazdej_nogi = np.array([
+    (punkt_P1_dla_kazdej_nogi[i] + punkt_P2_dla_kazdej_nogi[i]) / 2 + np.array([0, 0, h])
+    for i in range(6)
+])
+#punkt szczytowy etapu 1 ccw to ten sam punkt co etap 5 cw i na odwrot
+punkt_szczytowy_etapu_1_ccw_dla_kazdej_nogi = np.array([
+    (punkt_start_dla_kazdej_nogi[i] + punkt_P2_dla_kazdej_nogi[i]) / 2 + np.array([0, 0, h])
+    for i in range(6)
 ])
 
-print(wychyly_serw_podczas_ruchu[0])
+punkt_szczytowy_etapu_5_ccw_dla_kazdej_nogi = np.array([
+    (punkt_P1_dla_kazdej_nogi[i] + punkt_start_dla_kazdej_nogi[i]) / 2 + np.array([0, 0, h])
+    for i in range(6)
+])
 
-czy_wyswietlic = True
+# cw -> clockwise, ccw-> counter clockwise
+#obrot hexapoda CCW
+etap_1_dla_kazdej_nogi_ccw = np.array([parabola_w_przestrzeni_z_punktow(punkt_start_dla_kazdej_nogi[i], punkt_szczytowy_etapu_1_ccw_dla_kazdej_nogi[i], punkt_P2_dla_kazdej_nogi[i], ilosc_punktow_na_etap) for i in range(6)])
+etap_2_dla_kazdej_nogi_ccw = np.array([
+    np.linspace(punkt_P2_dla_kazdej_nogi[i], punkt_start_dla_kazdej_nogi[i], ilosc_punktow_na_etap)[1:]
+    for i in range(6)
+])
+etap_3_dla_kazdej_nogi_ccw = np.array([
+    np.linspace(punkt_start_dla_kazdej_nogi[i], punkt_P1_dla_kazdej_nogi[i], ilosc_punktow_na_etap)[1:]
+    for i in range(6)
+])
+etap_4_dla_kazdej_nogi_ccw = np.array([parabola_w_przestrzeni_z_punktow(punkt_P1_dla_kazdej_nogi[i], punkt_szczytowy_etapu_4_dla_kazdej_nogi[i], punkt_P2_dla_kazdej_nogi[i], ilosc_punktow_na_etap * 2) for i in range(6)])
+etap_5_dla_kazdej_nogi_ccw = np.array([parabola_w_przestrzeni_z_punktow(punkt_P1_dla_kazdej_nogi[i], punkt_szczytowy_etapu_5_ccw_dla_kazdej_nogi[i], punkt_start_dla_kazdej_nogi[i], ilosc_punktow_na_etap) for i in range(6)])
 
-if czy_wyswietlic:
+#obrot hexapoda CW
+etap_1_dla_kazdej_nogi_cw = np.array([parabola_w_przestrzeni_z_punktow(punkt_start_dla_kazdej_nogi[i], punkt_szczytowy_etapu_5_ccw_dla_kazdej_nogi[i], punkt_P1_dla_kazdej_nogi[i], ilosc_punktow_na_etap) for i in range(6)])
+etap_2_dla_kazdej_nogi_cw = np.array([
+    np.linspace(punkt_P1_dla_kazdej_nogi[i], punkt_start_dla_kazdej_nogi[i], ilosc_punktow_na_etap)[1:]
+    for i in range(6)
+])
+etap_3_dla_kazdej_nogi_cw = np.array([
+    np.linspace(punkt_start_dla_kazdej_nogi[i], punkt_P2_dla_kazdej_nogi[i], ilosc_punktow_na_etap)[1:]
+    for i in range(6)
+])
+etap_4_dla_kazdej_nogi_cw = np.array([parabola_w_przestrzeni_z_punktow(punkt_P2_dla_kazdej_nogi[i], punkt_szczytowy_etapu_4_dla_kazdej_nogi[i], punkt_P1_dla_kazdej_nogi[i], ilosc_punktow_na_etap * 2) for i in range(6)])
+etap_5_dla_kazdej_nogi_cw = np.array([parabola_w_przestrzeni_z_punktow(punkt_P2_dla_kazdej_nogi[i], punkt_szczytowy_etapu_1_ccw_dla_kazdej_nogi[i], punkt_start_dla_kazdej_nogi[i], ilosc_punktow_na_etap) for i in range(6)])
 
-    fig = plt.figure(figsize=(12, 8))
-    ax = fig.add_subplot(111, projection='3d')
+trajektorie_nog = [[] for _ in range(6)]
+etykiety_etapow = [[] for _ in range(6)]  # nowa lista na etykiety
 
-    colors = ['r', 'g', 'b', 'c', 'm', 'y']
-
+cykle = 2
+if clockwise_rotation:
     for i in range(6):
-        # Parabola – ruch podnoszenia nogi
-        ax.scatter(parabole_nog[i][:, 0], parabole_nog[i][:, 1], parabole_nog[i][:, 2], color=colors[i],
-                label=f'Parabola noga {i + 1}')
-        # Prosta – ruch po podłodze
-        ax.scatter(proste_nog[i][:, 0], proste_nog[i][:, 1], proste_nog[i][:, 2], color=colors[i], linestyle='dashed',
-                label=f'Prosta noga {i + 1}')
+        for _ in range(cykle):
+            if i % 2 == 0:
+                trajektorie_nog[i].extend([etap_1_dla_kazdej_nogi_cw[i], etap_2_dla_kazdej_nogi_cw[i]])
+                etykiety_etapow[i].extend([1, 2])
+            else:
+                trajektorie_nog[i].extend([etap_3_dla_kazdej_nogi_cw[i], etap_5_dla_kazdej_nogi_cw[i]])
+                etykiety_etapow[i].extend([3, 5])
+else:
+    for i in range(6):
+        for _ in range(cykle):
+            if i % 2 == 0:
+                trajektorie_nog[i].extend([etap_1_dla_kazdej_nogi_ccw[i], etap_2_dla_kazdej_nogi_ccw[i]])
+                etykiety_etapow[i].extend([1, 2])
+            else:
+                trajektorie_nog[i].extend([etap_3_dla_kazdej_nogi_ccw[i], etap_5_dla_kazdej_nogi_ccw[i]])
+                etykiety_etapow[i].extend([3, 5])
 
+
+czy_wyswietlic = False
+
+fig = plt.figure(figsize=(16, 10))
+
+# Stałe kolory przypisane do numerów etapów
+kolory_etapow = {
+    1: 'blue',
+    2: 'orange',
+    3: 'green',
+    4: 'purple',
+    5: 'red'
+}
+
+for i in range(6):  # Dla 6 nóg
+    ax = fig.add_subplot(2, 3, i + 1, projection='3d')
+
+    for j, etap in enumerate(trajektorie_nog[i]):
+        x, y, z = etap[:, 0], etap[:, 1], etap[:, 2]
+        etap_num = etykiety_etapow[i][j]
+        kolor = kolory_etapow.get(etap_num, 'black')
+        ax.plot(x, y, z, label=f'Etap {etap_num}', color=kolor)
+
+    # Usunięcie duplikatów z legendy
+    handles, labels = ax.get_legend_handles_labels()
+    unique = dict(zip(labels, handles))
+    ax.legend(unique.values(), unique.keys())
+
+    ax.set_title(f'Noga {i + 1}')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
-    ax.set_title('Trajektorie ruchu nóg robota sześcionożnego')
-    ax.legend(loc='upper left', bbox_to_anchor=(1.05, 1))
+
+plt.tight_layout()
+plt.show()
+
+if czy_wyswietlic:
+    #CCW
+    fig, axes = plt.subplots(2, 3, figsize=(15, 10), subplot_kw={'projection': '3d'})
+
+    for idx in range(6):
+
+        row = idx // 3
+        col = idx % 3
+        ax = axes[row, col]
+
+        P_start = punkt_start_dla_kazdej_nogi[idx]
+        P1 = punkt_P1_dla_kazdej_nogi[idx]
+        P2 = punkt_P2_dla_kazdej_nogi[idx]
+
+        etap_1 = etap_1_dla_kazdej_nogi_ccw[idx]
+        etap_2 = etap_2_dla_kazdej_nogi_ccw[idx]
+        etap_3 = etap_3_dla_kazdej_nogi_ccw[idx]
+        etap_4 = etap_4_dla_kazdej_nogi_ccw[idx]
+        etap_5 = etap_5_dla_kazdej_nogi_ccw[idx]
+
+        ax.scatter(*P_start, color='cyan', label='Start')
+        ax.scatter(*P1, color='brown', label='P1')
+        ax.scatter(*P2, color='black', label='P2')
+
+        if idx % 2 == 0:
+            ax.plot(etap_1[:, 0], etap_1[:, 1], etap_1[:, 2], color='orange', label='Etap 1')
+        ax.plot(etap_2[:, 0], etap_2[:, 1], etap_2[:, 2], color='red', label='Etap 2')
+        ax.plot(etap_3[:, 0], etap_3[:, 1], etap_3[:, 2], color='green', label='Etap 3')
+        ax.plot(etap_4[:, 0], etap_4[:, 1], etap_4[:, 2], color='violet', label='Etap 4')
+        if idx % 2 == 1:
+            ax.plot(etap_5[:, 0], etap_5[:, 1], etap_5[:, 2], color='blue', label='Etap 5')
+
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+        ax.set_title(f'Trajectory for leg {idx + 1}, counterclockwise movement')
+        ax.legend()
+
     plt.tight_layout()
     plt.show()
+    #CW
+    fig, axes = plt.subplots(2, 3, figsize=(15, 10), subplot_kw={'projection': '3d'})
 
+    for idx in range(6):
+
+        row = idx // 3
+        col = idx % 3
+        ax = axes[row, col]
+
+        P_start = punkt_start_dla_kazdej_nogi[idx]
+        P1 = punkt_P1_dla_kazdej_nogi[idx]
+        P2 = punkt_P2_dla_kazdej_nogi[idx]
+
+        etap_1 = etap_1_dla_kazdej_nogi_cw[idx]
+        etap_2 = etap_2_dla_kazdej_nogi_cw[idx]
+        etap_3 = etap_3_dla_kazdej_nogi_cw[idx]
+        etap_4 = etap_4_dla_kazdej_nogi_cw[idx]
+        etap_5 = etap_5_dla_kazdej_nogi_cw[idx]
+
+        ax.scatter(*P_start, color='cyan', label='Start')
+        ax.scatter(*P1, color='brown', label='P1')
+        ax.scatter(*P2, color='black', label='P2')
+
+        if idx % 2 == 0:
+            ax.plot(etap_1[:, 0], etap_1[:, 1], etap_1[:, 2], color='orange', label='Etap 1')
+        ax.plot(etap_2[:, 0], etap_2[:, 1], etap_2[:, 2], color='red', label='Etap 2')
+        ax.plot(etap_3[:, 0], etap_3[:, 1], etap_3[:, 2], color='green', label='Etap 3')
+        ax.plot(etap_4[:, 0], etap_4[:, 1], etap_4[:, 2], color='violet', label='Etap 4')
+        if idx % 2 == 1:
+            ax.plot(etap_5[:, 0], etap_5[:, 1], etap_5[:, 2], color='blue', label='Etap 5')
+
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+        ax.set_title(f'Trajectory for leg {idx + 1}, clockwise movement')
+        ax.legend()
+
+    plt.tight_layout()
+    plt.show()
 #todo dla kazdej nogi wyznaczyc wychylenia serw
