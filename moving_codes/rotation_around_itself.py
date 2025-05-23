@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
+from mpl_toolkits.mplot3d import Axes3D
 matplotlib.use('TkAgg')
 #dane z modelu i potrzeby obrotu o kat alfa
 def push_counterclockwise(R, alfa, fi, beta, x_start, z):
@@ -70,6 +71,7 @@ def parabola_w_przestrzeni_z_punktow(w1, w2, w3, liczba_punktow):
 
 odleglosci_przegubow_od_srodka_hexapoda = np.array([3, 2, 3, 3, 2, 3])
 alfa = np.radians(30)
+clockwise_rotation = False
 kat_fi_dla_kazdej_nogi = np.array([np.radians(60), 0, np.radians(-60), np.radians(60), 0, np.radians(-60)])
 kat_beta_dla_kazdej_nogi = np.array([np.radians(20), 0, np.radians(-20), np.radians(20), 0, np.radians(-20)])
 x_start = 4 # poczatkowe wychylenie nogi pajaka w osi x
@@ -131,7 +133,64 @@ etap_3_dla_kazdej_nogi_cw = np.array([
 etap_4_dla_kazdej_nogi_cw = np.array([parabola_w_przestrzeni_z_punktow(punkt_P2_dla_kazdej_nogi[i], punkt_szczytowy_etapu_4_dla_kazdej_nogi[i], punkt_P1_dla_kazdej_nogi[i], ilosc_punktow_na_etap * 2) for i in range(6)])
 etap_5_dla_kazdej_nogi_cw = np.array([parabola_w_przestrzeni_z_punktow(punkt_P2_dla_kazdej_nogi[i], punkt_szczytowy_etapu_1_ccw_dla_kazdej_nogi[i], punkt_start_dla_kazdej_nogi[i], ilosc_punktow_na_etap) for i in range(6)])
 
+trajektorie_nog = [[] for _ in range(6)]
+etykiety_etapow = [[] for _ in range(6)]  # nowa lista na etykiety
+
+cykle = 2
+if clockwise_rotation:
+    for i in range(6):
+        for _ in range(cykle):
+            if i % 2 == 0:
+                trajektorie_nog[i].extend([etap_1_dla_kazdej_nogi_cw[i], etap_2_dla_kazdej_nogi_cw[i]])
+                etykiety_etapow[i].extend([1, 2])
+            else:
+                trajektorie_nog[i].extend([etap_3_dla_kazdej_nogi_cw[i], etap_5_dla_kazdej_nogi_cw[i]])
+                etykiety_etapow[i].extend([3, 5])
+else:
+    for i in range(6):
+        for _ in range(cykle):
+            if i % 2 == 0:
+                trajektorie_nog[i].extend([etap_1_dla_kazdej_nogi_ccw[i], etap_2_dla_kazdej_nogi_ccw[i]])
+                etykiety_etapow[i].extend([1, 2])
+            else:
+                trajektorie_nog[i].extend([etap_3_dla_kazdej_nogi_ccw[i], etap_5_dla_kazdej_nogi_ccw[i]])
+                etykiety_etapow[i].extend([3, 5])
+
+
 czy_wyswietlic = False
+
+fig = plt.figure(figsize=(16, 10))
+
+# Stałe kolory przypisane do numerów etapów
+kolory_etapow = {
+    1: 'blue',
+    2: 'orange',
+    3: 'green',
+    4: 'purple',
+    5: 'red'
+}
+
+for i in range(6):  # Dla 6 nóg
+    ax = fig.add_subplot(2, 3, i + 1, projection='3d')
+
+    for j, etap in enumerate(trajektorie_nog[i]):
+        x, y, z = etap[:, 0], etap[:, 1], etap[:, 2]
+        etap_num = etykiety_etapow[i][j]
+        kolor = kolory_etapow.get(etap_num, 'black')
+        ax.plot(x, y, z, label=f'Etap {etap_num}', color=kolor)
+
+    # Usunięcie duplikatów z legendy
+    handles, labels = ax.get_legend_handles_labels()
+    unique = dict(zip(labels, handles))
+    ax.legend(unique.values(), unique.keys())
+
+    ax.set_title(f'Noga {i + 1}')
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+
+plt.tight_layout()
+plt.show()
 
 if czy_wyswietlic:
     #CCW

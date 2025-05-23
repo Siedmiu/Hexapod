@@ -40,7 +40,7 @@ def matrix_to_urdf(matrix):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Calculate the inertia tensor of a given STL model.'
                                      'The result is given in kg×m²')
-    parser.add_argument('-f', '--format', default='text',
+    parser.add_argument('-f', '--format', default='urdf',
                         help='The output format in which the matrix is expressed. Defaults to "%(default)s".')
     parser.add_argument('-u', '--units', default='meters', type=Quantity,
                         help='The length units of the STL model. Defaults to "%(default)s".')
