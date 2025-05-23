@@ -2,7 +2,7 @@
 
 """
 Program do odczytu danych IMU z ESP32 przez port szeregowy
-i tworzenia interaktywnych wykresów w czasie rzeczywistym.
+i tworzenia interaktywnych wykresów 3D w czasie rzeczywistym.
 """
 
 import serial
@@ -13,6 +13,7 @@ from collections import deque
 import threading
 import argparse
 import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
 
 # Parametry konfiguracyjne
 BUFFER_SIZE = 100  # Liczba punktów do wyświetlenia na wykresie
@@ -73,46 +74,34 @@ class ImuPlotter:
                 time.sleep(2)
     
     def init_plots(self):
-        """Inicjalizacja wykresów."""
-        self.fig, (self.ax1, self.ax2, self.ax3) = plt.subplots(3, 1, figsize=(10, 12))
-        plt.tight_layout(pad=3.0)
+        """Inicjalizacja wykresów 3D."""
+        self.fig = plt.figure(figsize=(15, 12))
         
-        # Wykres kwaternionów
+        # Wykres 3D dla kwaternionów
+        self.ax1 = self.fig.add_subplot(131, projection='3d')
         self.ax1.set_title('Orientacja (Kwaterniony)')
-        self.ax1.set_ylabel('Wartość')
         self.ax1.set_xlabel('Czas (s)')
-        self.ax1.grid(True)
+        self.ax1.set_ylabel('Składowa')
+        self.ax1.set_zlabel('Wartość')
         
-        # Wykres kątów Eulera
+        # Wykres 3D dla kątów Eulera
+        self.ax2 = self.fig.add_subplot(132, projection='3d')
         self.ax2.set_title('Orientacja (Kąty Eulera)')
-        self.ax2.set_ylabel('Kąt (stopnie)')
         self.ax2.set_xlabel('Czas (s)')
-        self.ax2.grid(True)
+        self.ax2.set_ylabel('Oś')
+        self.ax2.set_zlabel('Kąt (stopnie)')
         
-        # Wykres przyspieszenia
+        # Wykres 3D dla przyspieszenia
+        self.ax3 = self.fig.add_subplot(133, projection='3d')
         self.ax3.set_title('Przyspieszenie liniowe')
-        self.ax3.set_ylabel('Przyspieszenie (g)')
         self.ax3.set_xlabel('Czas (s)')
-        self.ax3.grid(True)
+        self.ax3.set_ylabel('Oś')
+        self.ax3.set_zlabel('Przyspieszenie (g)')
         
-        # Linie dla kwaternionów
-        self.line_qw, = self.ax1.plot([], [], 'r-', label='qw')
-        self.line_qx, = self.ax1.plot([], [], 'g-', label='qx')
-        self.line_qy, = self.ax1.plot([], [], 'b-', label='qy')
-        self.line_qz, = self.ax1.plot([], [], 'y-', label='qz')
-        self.ax1.legend()
-        
-        # Linie dla kątów Eulera
-        self.line_roll, = self.ax2.plot([], [], 'r-', label='Roll')
-        self.line_pitch, = self.ax2.plot([], [], 'g-', label='Pitch')
-        self.line_yaw, = self.ax2.plot([], [], 'b-', label='Yaw')
-        self.ax2.legend()
-        
-        # Linie dla przyspieszenia
-        self.line_accel_x, = self.ax3.plot([], [], 'r-', label='X')
-        self.line_accel_y, = self.ax3.plot([], [], 'g-', label='Y')
-        self.line_accel_z, = self.ax3.plot([], [], 'b-', label='Z')
-        self.ax3.legend()
+        # Tutaj będziemy przechowywać obiekty scatter dla każdego wykresu
+        self.scatter_quat = None
+        self.scatter_euler = None
+        self.scatter_accel = None
         
         plt.tight_layout()
         
@@ -121,7 +110,7 @@ class ImuPlotter:
             self.fig, 
             self.update_plot, 
             interval=UPDATE_INTERVAL,
-            blit=True
+            blit=False  # Blit=False dla wykresów 3D
         )
     
     def read_serial_data(self):
@@ -185,31 +174,69 @@ class ImuPlotter:
                 break
     
     def update_plot(self, frame):
-        """Aktualizacja wykresu z nowymi danymi."""
-        # Jeśli dane nie są jeszcze dostępne, zwróć puste linie
+        """Aktualizacja wykresów 3D z nowymi danymi."""
+        # Jeśli dane nie są jeszcze dostępne, nic nie rób
         if not self.timestamps or not self.initialized:
-            return [self.line_qw, self.line_qx, self.line_qy, self.line_qz,
-                   self.line_roll, self.line_pitch, self.line_yaw,
-                   self.line_accel_x, self.line_accel_y, self.line_accel_z]
+            return
         
         # Konwersja deque na listy dla matplotlib
         timestamps_list = list(self.timestamps)
         
-        # Aktualizacja linii dla kwaternionów
-        self.line_qw.set_data(timestamps_list, list(self.qw))
-        self.line_qx.set_data(timestamps_list, list(self.qx))
-        self.line_qy.set_data(timestamps_list, list(self.qy))
-        self.line_qz.set_data(timestamps_list, list(self.qz))
+        # Wyczyść poprzednie dane
+        self.ax1.clear()
+        self.ax2.clear()
+        self.ax3.clear()
         
-        # Aktualizacja linii dla kątów Eulera
-        self.line_roll.set_data(timestamps_list, list(self.roll))
-        self.line_pitch.set_data(timestamps_list, list(self.pitch))
-        self.line_yaw.set_data(timestamps_list, list(self.yaw))
+        # Ustaw etykiety i tytuły
+        self.ax1.set_title('Orientacja (Kwaterniony)')
+        self.ax1.set_xlabel('Czas (s)')
+        self.ax1.set_ylabel('Składowa')
+        self.ax1.set_zlabel('Wartość')
         
-        # Aktualizacja linii dla przyspieszenia
-        self.line_accel_x.set_data(timestamps_list, list(self.accel_x))
-        self.line_accel_y.set_data(timestamps_list, list(self.accel_y))
-        self.line_accel_z.set_data(timestamps_list, list(self.accel_z))
+        self.ax2.set_title('Orientacja (Kąty Eulera)')
+        self.ax2.set_xlabel('Czas (s)')
+        self.ax2.set_ylabel('Oś')
+        self.ax2.set_zlabel('Kąt (stopnie)')
+        
+        self.ax3.set_title('Przyspieszenie liniowe')
+        self.ax3.set_xlabel('Czas (s)')
+        self.ax3.set_ylabel('Oś')
+        self.ax3.set_zlabel('Przyspieszenie (g)')
+        
+        # Przygotowanie danych dla wykresu kwaternionów
+        for i, (qdata, label, color) in enumerate(zip(
+            [self.qw, self.qx, self.qy, self.qz], 
+            ['qw', 'qx', 'qy', 'qz'], 
+            ['r', 'g', 'b', 'y']
+        )):
+            # Tworzymy tablicę Y dla składowych kwaterniona (0=qw, 1=qx, 2=qy, 3=qz)
+            y_values = np.ones(len(timestamps_list)) * i
+            self.ax1.plot3D(timestamps_list, y_values, list(qdata), color, label=label)
+        
+        # Przygotowanie danych dla wykresu kątów Eulera
+        for i, (euler_data, label, color) in enumerate(zip(
+            [self.roll, self.pitch, self.yaw], 
+            ['Roll', 'Pitch', 'Yaw'], 
+            ['r', 'g', 'b']
+        )):
+            # Tworzymy tablicę Y dla składowych Eulera (0=roll, 1=pitch, 2=yaw)
+            y_values = np.ones(len(timestamps_list)) * i
+            self.ax2.plot3D(timestamps_list, y_values, list(euler_data), color, label=label)
+        
+        # Przygotowanie danych dla wykresu przyspieszenia
+        for i, (accel_data, label, color) in enumerate(zip(
+            [self.accel_x, self.accel_y, self.accel_z], 
+            ['X', 'Y', 'Z'], 
+            ['r', 'g', 'b']
+        )):
+            # Tworzymy tablicę Y dla składowych przyspieszenia (0=X, 1=Y, 2=Z)
+            y_values = np.ones(len(timestamps_list)) * i
+            self.ax3.plot3D(timestamps_list, y_values, list(accel_data), color, label=label)
+        
+        # Dodaj legendy
+        self.ax1.legend()
+        self.ax2.legend()
+        self.ax3.legend()
         
         # Automatyczne dostosowywanie zakresu osi
         if len(timestamps_list) > 1:
@@ -218,33 +245,35 @@ class ImuPlotter:
             x_max = max(timestamps_list)
             x_range = max(0.1, x_max - x_min)
             
-            # Aktualizacja ograniczeń osi X dla wszystkich wykresów
-            self.ax1.set_xlim(x_min, x_max + 0.05 * x_range)
-            self.ax2.set_xlim(x_min, x_max + 0.05 * x_range)
-            self.ax3.set_xlim(x_min, x_max + 0.05 * x_range)
+            # Zakres osi Y pozostaje stały (reprezentuje różne składowe)
             
-            # Zakres osi Y dla kwaternionów
+            # Dopasowanie zakresu dla kwaternionów
             quat_min = min(min(self.qw), min(self.qx), min(self.qy), min(self.qz))
             quat_max = max(max(self.qw), max(self.qx), max(self.qy), max(self.qz))
             quat_range = max(0.1, quat_max - quat_min)
-            self.ax1.set_ylim(quat_min - 0.05 * quat_range, quat_max + 0.05 * quat_range)
             
-            # Zakres osi Y dla kątów Eulera
+            # Dopasowanie zakresu dla kątów Eulera
             euler_min = min(min(self.roll), min(self.pitch), min(self.yaw))
             euler_max = max(max(self.roll), max(self.pitch), max(self.yaw))
             euler_range = max(10, euler_max - euler_min)
-            self.ax2.set_ylim(euler_min - 0.05 * euler_range, euler_max + 0.05 * euler_range)
             
-            # Zakres osi Y dla przyspieszenia
+            # Dopasowanie zakresu dla przyspieszenia
             accel_min = min(min(self.accel_x), min(self.accel_y), min(self.accel_z))
             accel_max = max(max(self.accel_x), max(self.accel_y), max(self.accel_z))
             accel_range = max(0.1, accel_max - accel_min)
-            self.ax3.set_ylim(accel_min - 0.05 * accel_range, accel_max + 0.05 * accel_range)
-        
-        # Zwróć zaktualizowane linie
-        return [self.line_qw, self.line_qx, self.line_qy, self.line_qz,
-               self.line_roll, self.line_pitch, self.line_yaw,
-               self.line_accel_x, self.line_accel_y, self.line_accel_z]
+            
+            # Ustawienie zakresów
+            self.ax1.set_xlim(x_min, x_max + 0.05 * x_range)
+            self.ax1.set_ylim(-0.5, 3.5)  # 4 składowe: qw, qx, qy, qz
+            self.ax1.set_zlim(quat_min - 0.05 * quat_range, quat_max + 0.05 * quat_range)
+            
+            self.ax2.set_xlim(x_min, x_max + 0.05 * x_range)
+            self.ax2.set_ylim(-0.5, 2.5)  # 3 składowe: roll, pitch, yaw
+            self.ax2.set_zlim(euler_min - 0.05 * euler_range, euler_max + 0.05 * euler_range)
+            
+            self.ax3.set_xlim(x_min, x_max + 0.05 * x_range)
+            self.ax3.set_ylim(-0.5, 2.5)  # 3 składowe: X, Y, Z
+            self.ax3.set_zlim(accel_min - 0.05 * accel_range, accel_max + 0.05 * accel_range)
     
     def run(self):
         """Uruchom plotowanie w trybie interaktywnym."""
@@ -262,7 +291,7 @@ class ImuPlotter:
 
 if __name__ == "__main__":
     # Parsowanie argumentów linii poleceń
-    parser = argparse.ArgumentParser(description="Plotowanie danych IMU z ESP32")
+    parser = argparse.ArgumentParser(description="Plotowanie danych IMU z ESP32 w 3D")
     parser.add_argument("--port", type=str, default="/dev/ttyUSB0", 
                         help="Port szeregowy (domyślnie: /dev/ttyUSB0)")
     parser.add_argument("--baudrate", type=int, default=115200, 
