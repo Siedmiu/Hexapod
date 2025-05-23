@@ -223,6 +223,14 @@
     <disable_collisions link1="base_link" link2="link4_4" reason="Never"/>
     <disable_collisions link1="base_link" link2="link4_5" reason="Never"/>
     <disable_collisions link1="base_link" link2="link4_6" reason="Never"/>
+
+    <disable_collisions link1="base_link" link2="link3_1" reason="Never"/>
+    <disable_collisions link1="base_link" link2="link3_2" reason="Never"/>
+    <disable_collisions link1="base_link" link2="link3_3" reason="Never"/>
+    <disable_collisions link1="base_link" link2="link3_4" reason="Never"/>
+    <disable_collisions link1="base_link" link2="link3_5" reason="Never"/>
+    <disable_collisions link1="base_link" link2="link3_6" reason="Never"/>
+
     <disable_collisions link1="link2_1" link2="link2_2" reason="Never"/>
     <disable_collisions link1="link2_1" link2="link2_3" reason="Never"/>
     <disable_collisions link1="link2_1" link2="link2_4" reason="Never"/>
