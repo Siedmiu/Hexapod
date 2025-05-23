@@ -2,9 +2,11 @@
 <robot name="hexapod" xmlns:xacro="http://ros.org/wiki/xacro">
     <!-- Declare the argument with a default value -->
     <xacro:arg name="use_gazebo" default="true"/>
-    
+    <xacro:arg name="version" default="2"/>
+    <xacro:property name="use_gazebo" value="$(arg use_gazebo)"/>
+    <xacro:property name="version" value="$(arg version)"/>
     <xacro:include filename="$(find hexapod_description)/urdf/hexapod_ee.urdf.xacro" />
     
     <!-- Pass the argument value to the macro -->
-    <xacro:hexapod_ee use_sim="true" prefix="" use_gazebo="$(arg use_gazebo)"/>
+    <xacro:hexapod_ee use_sim="true" prefix="" use_gazebo="$(arg use_gazebo)" version="$(arg version)"/>
 </robot>

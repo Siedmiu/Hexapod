@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<robot name="hexapod" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="hexapod_ee" params="use_sim prefix use_gazebo">
+    <xacro:arg name="use_sim" default="true" />
+    <xacro:arg name="prefix" default="" />
+    
+    <xacro:include filename="$(find hexapod_description)/gazebo/hexapod.gazebo.xacro" />
+    <xacro:include filename="$(find hexapod_description)/urdf/hexapod_leg_ee.urdf.xacro" />
+    <xacro:include filename="$(find hexapod_description)/urdf/hexapod_gazebo.urdf.xacro" />
+
+    <xacro:include filename="$(find hexapod_description)/urdf/imu.urdf.xacro"/>
+
+
+    <!-- include pozycji początkowych -->
+
+    <!-- <xacro:include filename="$(find hexapod_description)/ros2_control/hexapod.ros2_control.xacro" /> -->
+
+    <xacro:include filename="$(find hexapod_moveit_config)/config/hexapod.ros2_control.xacro" />
+
+    <xacro:hexapod prefix="$(arg prefix)" />
+    <xacro:hexapod_gazebo prefix="$(arg prefix)" />
+
+    <xacro:imu_sensor
+    prefix="$(arg prefix)"
+    parent="$(arg prefix)base_link"
+    frame_id="imu"
+    xyz_offset="0 0 0.006"
+    rpy_offset="0 0 0"
+    update_rate="15.0"
+    topic_name="imu/data"/>
+    
+    <gazebo>
+      <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+        <parameters>$(find hex_gz)/config/gazebo_controller_manager.yaml</parameters>
+      </plugin>
+    </gazebo>
+
+    <gazebo reference="imu">
+      <sensor name="imu_sensor" type="imu">
+        <update_rate>100.0</update_rate>
+        <always_on>true</always_on>
+        <visualize>true</visualize>
+        <topic>imu/data</topic>
+        <imu>
+          <topic>imu/data</topic>
+          <gaussian_noise>0.01</gaussian_noise>
+          <bias_mean>0.0</bias_mean>
+          <bias_stddev>0.0</bias_stddev>
+        </imu>
+      </sensor>
+    </gazebo>
+    
+
+    <!-- <xacro:hexapod_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/> -->
+    <!-- <xacro:hexapod_ros2_control use_sim="$(arg use_sim)" prefix="$(arg prefix)" initial_positions_file="$(find hexapod_description)/config/initial_positions.yaml"/>  -->
+    <xacro:hexapod_ros2_control name="hexapod" initial_positions_file="$(find hexapod_description)/config/initial_positions.yaml" use_gazebo="${use_gazebo}"/>
+  </xacro:macro>
+</robot>

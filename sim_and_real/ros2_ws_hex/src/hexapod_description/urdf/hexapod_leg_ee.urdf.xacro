@@ -1,381 +1,733 @@
 <?xml version="1.0"?>
  
  <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
- 
-   <xacro:property name="platform_mass" value="0.3" />
-   <xacro:property name="up_section_mass" value="0.1" />
-   <xacro:property name="mid_section_mass" value="0.1" />
-   <xacro:property name="down_section_mass" value="0.1" />
-   <xacro:property name="ixx" value="0.001"/>
-   <xacro:property name="iyy" value="0.001"/>
-   <xacro:property name="izz" value="0.001"/>
-   <xacro:property
-       name="meshes_file_direction"
-       value="package://hexapod_description/meshes"/>
-       
-   <!-- Include macro modeli kolizyjnych z prostych kształtów geometrycznych -->
-   <xacro:include filename="$(find hexapod_description)/collision/platform_hitbox.xacro"/>
-   <xacro:include filename="$(find hexapod_description)/collision/up_section_hitbox.xacro"/>
-   <xacro:include filename="$(find hexapod_description)/collision/mid_section_hitbox.xacro"/>
-   <xacro:include filename="$(find hexapod_description)/collision/down_section_hitbox.xacro"/>
+  <xacro:macro name="hexapod_leg_ee" params="prefix version">
+    <xacro:if value="${int(version) == 1}">
+      <!-- CECHY INERCJI -->
+      <xacro:property name="platform_mass" value="0.3" />
+      <xacro:property name="up_section_mass" value="0.1" />
+      <xacro:property name="mid_section_mass" value="0.1" />
+      <xacro:property name="down_section_mass" value="0.1" />
+      <xacro:property name="ixx" value="0.001"/>
+      <xacro:property name="iyy" value="0.001"/>
+      <xacro:property name="izz" value="0.001"/>
 
-   <!-- Macro platformy -->
-    <xacro:macro name="platform_base" params="prefix">
-      <link name="${prefix}base_link">
+      <!-- OGRANICZENIA KĄTOWE JOINTÓW -->
+      <xacro:property name="joint1_lower" value="-0.5236"/>
+      <xacro:property name="joint1_upper" value="0.5236"/>
+      <xacro:property name="joint2_lower" value="-0.261799388"/>
+      <xacro:property name="joint2_upper" value="1.308996939"/>
+      <xacro:property name="joint3_lower" value="0"/>
+      <xacro:property name="joint3_upper" value="1.570796327"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 1 -->
+      <xacro:property name="joint1_1_xyz" value="-0.063746 0.067285 0.003274"/>
+      <xacro:property name="joint1_1_axis" value="0 0 1"/>
+
+      <xacro:property name="joint2_1_xyz" value="-0.018864 0.024671 -0.020002"/>
+      <xacro:property name="joint2_1_axis" value="-0.7968540982 -0.6041717854 0"/>
+      
+      <xacro:property name="joint3_1_xyz" value="-0.054636 0.071451 0.00505"/>
+      <xacro:property name="joint3_1_axis" value="-0.7968540982 -0.6041717854 0"/>
+
+      <xacro:property name="joint4_1_xyz" value="-0.099587 0.130461 -0.000046"/>
+      <xacro:property name="joint4_1_axis" value="0 0 0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 1 -->
+      <xacro:property name="link2_1_xyz" value="-0.013611 0.016988 -0.000419"/>
+      <xacro:property name="link2_1_rpy" value="0 0 0.654498469"/>
+      <xacro:property name="link3_1_xyz" value="-0.024936 0.032658 0.000547"/>
+      <xacro:property name="link3_1_rpy" value="0 0 0.654498469"/>
+      <xacro:property name="link4_1_xyz" value="-0.039176 0.05167 0"/>
+      <xacro:property name="link4_1_rpy" value="0 0 0.654498469"/>
+      
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 2 -->
+      <xacro:property name="joint1_2_xyz" value="-0.005442 0.097816 0.003274"/>
+      <xacro:property name="joint1_2_axis" value="0 0 1"/>
+      
+      <xacro:property name="joint2_2_xyz" value="0.0 0.031057 -0.020002"/>
+      <xacro:property name="joint2_2_axis" value="-1 0 0"/>
+      
+      <xacro:property name="joint3_2_xyz" value="0.0 0.089946 0.00505"/>
+      <xacro:property name="joint3_2_axis" value="-1 0 0"/>
+
+      <xacro:property name="joint4_2_xyz" value="0.000147 0.164223 -0.000046"/>
+      <xacro:property name="joint4_2_axis" value="0 0 0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 2 -->
+      <xacro:property name="link2_2_xyz" value="-0.000493 0.021762 -0.000419"/>
+      <xacro:property name="link2_2_rpy" value="0 0 0"/>
+      <xacro:property name="link3_2_xyz" value="0.0 0.041 0.000546"/>
+      <xacro:property name="link3_2_rpy" value="0 0 0"/>
+      <xacro:property name="link4_2_xyz" value="0.000265 0.064842 0.0"/>
+      <xacro:property name="link4_2_rpy" value="0 0 0"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 3 -->
+      <xacro:property name="joint1_3_xyz" value="0.055103 0.073938 0.003274"/>
+      <xacro:property name="joint1_3_axis" value="0 0 1"/>
+      
+      <xacro:property name="joint2_3_xyz" value="0.018864 0.024671 -0.020002"/>
+      <xacro:property name="joint2_3_axis" value="-0.794374 0.6074290528 0"/>
+      
+      <xacro:property name="joint3_3_xyz" value="0.054636 0.071451 0.00505"/>
+      <xacro:property name="joint3_3_axis" value="-0.794374 0.6074290528 0"/>
+
+      <xacro:property name="joint4_3_xyz" value="0.099252 0.130694 -0.000046"/>
+      <xacro:property name="joint4_3_axis" value="0 0 0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 3 -->
+      <xacro:property name="link2_3_xyz" value="0.012827 0.017587 -0.000419"/>
+      <xacro:property name="link2_3_rpy" value="0 0 -0.654498469"/>
+      <xacro:property name="link3_3_xyz" value="0.024936 0.032658 0.000547"/>
+      <xacro:property name="link3_3_rpy" value="0 0 -0.654498469"/>
+      <xacro:property name="link4_3_xyz" value="0.039176 0.05167 0"/>
+      <xacro:property name="link4_3_rpy" value="0 0 -0.654498469"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 4 -->
+      <xacro:property name="joint1_4_xyz" value="0.055103 -0.073938 0.003274"/>
+      <xacro:property name="joint1_4_axis" value="0 0 1"/>
+      
+      <xacro:property name="joint2_4_xyz" value="0.018864 -0.024671 -0.020002"/>
+      <xacro:property name="joint2_4_axis" value="0.6074290528 0.794374 0"/>
+      
+      <xacro:property name="joint3_4_xyz" value="0.054636 -0.071451 0.00505"/>
+      <xacro:property name="joint3_4_axis" value="0.794374 0.6074290528 0"/>
+
+      <xacro:property name="joint4_4_xyz" value="0.099758 -0.130448 -0.000046"/>
+      <xacro:property name="joint4_4_axis" value="0 0 0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 4 -->
+      <xacro:property name="link2_4_xyz" value="0.013611 -0.016988 -0.000419"/>
+      <xacro:property name="link2_4_rpy" value="0 0 3.796091123"/>
+      <xacro:property name="link3_4_xyz" value="0.024936 -0.032658 0.000547"/>
+      <xacro:property name="link3_4_rpy" value="0 0 3.796091123"/>
+      <xacro:property name="link4_4_xyz" value="0.039176 -0.05167 0"/>
+      <xacro:property name="link4_4_rpy" value="0 0 3.796091123"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 5 -->
+      <xacro:property name="joint1_5_xyz" value="-0.005442 -0.097816 0.003274"/>
+      <xacro:property name="joint1_5_axis" value="0 0 1"/>
+
+      <xacro:property name="joint2_5_xyz" value="0.0 -0.031057 -0.020002"/>
+      <xacro:property name="joint2_5_axis" value="1 0 0"/>
+      
+      <xacro:property name="joint3_5_xyz" value="0.0 -0.089946 0.00505"/>
+      <xacro:property name="joint3_5_axis" value="1 0 0"/>
+
+      <xacro:property name="joint4_5_xyz" value="-0.000051 -0.164207 -0.000046"/>
+      <xacro:property name="joint4_5_axis" value="0 0 0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 5 -->
+      <xacro:property name="link2_5_xyz" value="0.000493 -0.021762 -0.000419"/>
+      <xacro:property name="link2_5_rpy" value="0 0 3.141592654"/>
+      <xacro:property name="link3_5_xyz" value="0.0 -0.041 0.000546"/>
+      <xacro:property name="link3_5_rpy" value="0 0 3.141592654"/>
+      <xacro:property name="link4_5_xyz" value="-0.000265 -0.064842 0.0"/>
+      <xacro:property name="link4_5_rpy" value="0 0 3.141592654"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 6 -->
+      <xacro:property name="joint1_6_xyz" value="-0.063746 -0.067285 0.003274"/>
+      <xacro:property name="joint1_6_axis" value="0 0 1"/>
+      
+      <xacro:property name="joint2_6_xyz" value="-0.018864 -0.024671 -0.020002"/>
+      <xacro:property name="joint2_6_axis" value="0.794374 -0.6074290528 0"/>
+      
+      <xacro:property name="joint3_6_xyz" value="-0.054636 -0.071451 0.00505"/>
+      <xacro:property name="joint3_6_axis" value="0.794374 -0.6074290528 0"/>
+
+      <xacro:property name="joint4_6_xyz" value="-0.099223 -0.130739 -0.000046"/>
+      <xacro:property name="joint4_6_axis" value="0 0 0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 6 -->
+      <xacro:property name="link2_6_xyz" value="-0.012827 -0.017588 -0.000419"/>
+      <xacro:property name="link2_6_rpy" value="0 0 2.487094184"/>
+      <xacro:property name="link3_6_xyz" value="-0.024936 -0.032658 0.000547"/>
+      <xacro:property name="link3_6_rpy" value="0 0 2.487094184"/>
+      <xacro:property name="link4_6_xyz" value="-0.039176 -0.05167 0"/>
+      <xacro:property name="link4_6_rpy" value="0 0 2.487094184"/>
+      
+    </xacro:if>
+
+    <!-- DLA NOWEJ WERSJI HEXAPODA ZMIENIĆ PONIŻSZE PARAMETRY -->
+    <xacro:if value="${int(version) == 2}">
+      <!-- CECHY INERCJI -->
+      <xacro:property name="platform_mass" value="0.4" />
+      <xacro:property name="up_section_mass" value="0.12" />
+      <xacro:property name="mid_section_mass" value="0.12" />
+      <xacro:property name="down_section_mass" value="0.12" />
+      <xacro:property name="ixx" value="0.002"/>
+      <xacro:property name="iyy" value="0.002"/>
+      <xacro:property name="izz" value="0.002"/>
+      
+      <!-- OGRANICZENIA KĄTOWE JOINTÓW -->
+      <xacro:property name="joint1_lower" value="-0.785398163"/>
+      <xacro:property name="joint1_upper" value="0.785398163"/>
+      <xacro:property name="joint2_lower" value="-1.047197551"/>
+      <xacro:property name="joint2_upper" value="1.047197551"/>
+      <xacro:property name="joint3_lower" value="-0.523598776"/>
+      <xacro:property name="joint3_upper" value="1.570796327"/> 
+
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 1 -->
+      <xacro:property name="joint1_1_xyz" value="0.086185	0.0860902	0.0170504"/>
+      <xacro:property name="joint1_1_axis" value="0	0	1"/>
+      
+      <xacro:property name="joint2_1_xyz" value="0.041059	0.0410588	0.0002496"/>
+      <xacro:property name="joint2_1_axis" value="-0.707106781	0.707106781	0"/>
+      
+      <xacro:property name="joint3_1_xyz" value="0.085418	0.085419	0"/>
+      <xacro:property name="joint3_1_axis" value="-0.707106781	0.707106781	0"/>
+      
+      <xacro:property name="joint4_1_xyz" value="0.147786	0.147786	0.0048551"/>
+      <xacro:property name="joint4_1_axis" value="0	0	0"/>
+
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 1 -->
+      <xacro:property name="link2_1_xyz" value="0.003017	0.0026184	-0.0000519"/>
+      <xacro:property name="link2_1_rpy" value="0	0	0.7853981634"/>
+      <xacro:property name="link3_1_xyz" value="0.039867	0.039421	0.00014"/>
+      <xacro:property name="link3_1_rpy" value="0	0	0.7853981634"/>
+      <xacro:property name="link4_1_xyz" value="0.082477	0.082555	0.0045585"/>
+      <xacro:property name="link4_1_rpy" value="0	0	0.7853981634"/>
+      <xacro:property name="link5_1_xyz" value="0	0	0"/>
+      <xacro:property name="link5_1_rpy" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 2 -->
+      <xacro:property name="joint1_2_xyz" value="0.121845	0	0.0170504"/>
+      <xacro:property name="joint1_2_axis" value="0	0	1"/>
+      
+      <xacro:property name="joint2_2_xyz" value="0.058105	-0.000094711	0.0002496"/>
+      <xacro:property name="joint2_2_axis" value="0	1	0"/>
+      
+      <xacro:property name="joint3_2_xyz" value="0.120802	0.000000002	0"/>
+      <xacro:property name="joint3_2_axis" value="0	1	0"/>
+      
+      <xacro:property name="joint4_2_xyz" value="0.209002	-0.000000003	0.0048551"/>
+      <xacro:property name="joint4_2_axis" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 2 -->
+      <xacro:property name="link2_2_xyz" value="0.003944	-0.000340488	-0.0000519"/>
+      <xacro:property name="link2_2_rpy" value="0	0	0"/>
+      <xacro:property name="link3_2_xyz" value="0.055988	-0.000035124	0.0001789"/>
+      <xacro:property name="link3_2_rpy" value="0	0	0"/>
+      <xacro:property name="link4_2_xyz" value="0.116837	0.000195559	0.0045585"/>
+      <xacro:property name="link4_2_rpy" value="0	0	0"/>
+      <xacro:property name="link5_2_xyz" value="0	0	0"/>
+      <xacro:property name="link5_2_rpy" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 3 -->
+      <xacro:property name="joint1_3_xyz" value="0.0861847	-0.0860902	0.0170504"/>
+      <xacro:property name="joint1_3_axis" value="0	0	1"/>
+      
+      <xacro:property name="joint2_3_xyz" value="0.0410583	-0.0412488	0.0002496"/>
+      <xacro:property name="joint2_3_axis" value="0.707106781	0.707106781	0"/>
+      
+      <xacro:property name="joint3_3_xyz" value="0.08542	-0.085418	0"/>
+      <xacro:property name="joint3_3_axis" value="0.707106781	0.707106781	0"/>
+      
+      <xacro:property name="joint4_3_xyz" value="0.147785	-0.147785	0.0048551"/>
+      <xacro:property name="joint4_3_axis" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 3 -->
+      <xacro:property name="link2_3_xyz" value="0.0029399	-0.002591	-0.0000519"/>
+      <xacro:property name="link2_3_rpy" value="0	0	5.497787144"/>
+      <xacro:property name="link3_3_xyz" value="0.03928	-0.039511	0.00014"/>
+      <xacro:property name="link3_3_rpy" value="0	0	5.497787144"/>
+      <xacro:property name="link4_3_xyz" value="0.082476	-0.082624	0.0045585"/>
+      <xacro:property name="link4_3_rpy" value="0	0	5.497787144"/>
+      <xacro:property name="link5_3_xyz" value="0	0	0"/>
+      <xacro:property name="link5_3_rpy" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 4 -->
+      <xacro:property name="joint1_4_xyz" value="-0.0861847	-0.0860902	0.0170504"/>
+      <xacro:property name="joint1_4_axis" value="0	0	1"/>
+      
+      <xacro:property name="joint2_4_xyz" value="-0.0410583	-0.0412488	0.0002496"/>
+      <xacro:property name="joint2_4_axis" value="0.707106781	-0.707106781	0"/>
+
+      <xacro:property name="joint3_4_xyz" value="-0.08542	-0.085418	0"/>
+      <xacro:property name="joint3_4_axis" value="0.707106781	-0.707106781	0"/>
+      
+      <xacro:property name="joint4_4_xyz" value="-0.147785	-0.147785	0.0048551"/>
+      <xacro:property name="joint4_4_axis" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 4 -->
+      <xacro:property name="link2_4_xyz" value="-0.0029399	-0.002591	-0.0000519"/>
+      <xacro:property name="link2_4_rpy" value="0	0	3.926990817"/>
+      <xacro:property name="link3_4_xyz" value="-0.03928	-0.039511	0.00014"/>
+      <xacro:property name="link3_4_rpy" value="0	0	3.926990817"/>
+      <xacro:property name="link4_4_xyz" value="-0.082476	-0.082624	0.0045585"/>
+      <xacro:property name="link4_4_rpy" value="0	0	3.926990817"/>
+      <xacro:property name="link5_4_xyz" value="0	0	0"/>
+      <xacro:property name="link5_4_rpy" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 5 -->
+      <xacro:property name="joint1_5_xyz" value="-0.121845	0	0.0170504"/>
+      <xacro:property name="joint1_5_axis" value="0	0	1"/>
+      
+      <xacro:property name="joint2_5_xyz" value="-0.058105	-0.000094711	0.0002496"/>
+      <xacro:property name="joint2_5_axis" value="0	-1	0"/>
+      
+      <xacro:property name="joint3_5_xyz" value="-0.120802	0.000000002	0"/>
+      <xacro:property name="joint3_5_axis" value="0	-1	0"/>
+
+      <xacro:property name="joint4_5_xyz" value="-0.209002	-0.000000003	0.0048551"/>
+      <xacro:property name="joint4_5_axis" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 5 -->
+      <xacro:property name="link2_5_xyz" value="-0.003953	-0.000340488	-0.0000519"/>
+      <xacro:property name="link2_5_rpy" value="0	0	3.141592654"/>
+      <xacro:property name="link3_5_xyz" value="-0.055988	-0.000035124	0.0001789"/>
+      <xacro:property name="link3_5_rpy" value="0	0	3.141592654"/>
+      <xacro:property name="link4_5_xyz" value="-0.116837	0.000195559	0.0045585"/>
+      <xacro:property name="link4_5_rpy" value="0	0	3.141592654"/>
+      <xacro:property name="link5_5_xyz" value="0	0	0"/>
+      <xacro:property name="link5_5_rpy" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA STAWÓW LEG 6 -->
+      <xacro:property name="joint1_6_xyz" value="-0.0859957	0.0860903	0.0170505"/>
+      <xacro:property name="joint1_6_axis" value="0	0	1"/>
+      
+      <xacro:property name="joint2_6_xyz" value="-0.0412483	0.0410587	0.0002494"/>
+      <xacro:property name="joint2_6_axis" value="-0.707106781	-0.707106781	0"/>
+      
+      <xacro:property name="joint3_6_xyz" value="-0.08542	0.085419	0.0000001"/>
+      <xacro:property name="joint3_6_axis" value="-0.707106781	-0.707106781	0"/>
+      
+      <xacro:property name="joint4_6_xyz" value="-0.147786	0.147785	0.0048551"/>
+      <xacro:property name="joint4_6_axis" value="0	0	0"/>
+      
+      <!-- CECHY POŁOŻENIA LINKÓW LEG 6 -->
+      <xacro:property name="link2_6_xyz" value="-0.0029399	0.002591	-0.0000519"/>
+      <xacro:property name="link2_6_rpy" value="0	0	2.35619449"/>
+      <xacro:property name="link3_6_xyz" value="-0.03928	0.039511	0.00014"/>
+      <xacro:property name="link3_6_rpy" value="0	0	2.364921136"/>
+      <xacro:property name="link4_6_xyz" value="-0.082476	0.082624	0.0045585"/>
+      <xacro:property name="link4_6_rpy" value="0	0	2.35619449"/>
+      <xacro:property name="link5_6_xyz" value="0	0	0"/>
+      <xacro:property name="link5_6_rpy" value="0	0	0"/>
+      
+    </xacro:if>
+
+    <xacro:property
+        name="meshes_file_direction"
+        value="package://hexapod_description/meshes/Version${version}"/>
+        
+    <!-- Include macro modeli kolizyjnych z prostych kształtów geometrycznych -->
+     <xacro:if value="${int(version) == 1}">
+      <xacro:include filename="$(find hexapod_description)/collision/platform_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/up_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/mid_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/down_section_hitbox.xacro"/>
+    </xacro:if>
+
+
+    <!-- NA RAZIE BRAK PROSTYCH MODELI KOLIZJI -->
+    <xacro:if value="${int(version) == 2}">
+      <!-- <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+              <mesh filename="${meshes_file_direction}/platform_hitbox.stl" scale="1 1 1"/>
+            </geometry>
+        </collision> -->
+      <!-- <xacro:include filename="$(find hexapod_description)/collision/platform_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/up_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/mid_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/down_section_hitbox.xacro"/> -->
+    </xacro:if>
+
+    <!-- Macro platformy -->
+      <xacro:macro name="platform_base" params="prefix">
+        <link name="${prefix}base_link">
+          <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+              <mesh filename="${meshes_file_direction}/platform.stl" scale="1 1 1"/>
+            </geometry>
+            <material name="gray">
+              <color rgba="0.2 0.2 0.2 1"/>
+            </material>
+          </visual>
+          
+          <!-- MODEL KOLIZYJNY -->
+          <xacro:if value="${int(version) == 1}">
+            <xacro:platform_collision prefix="${prefix}" />
+          </xacro:if>
+           <xacro:if value="${int(version) == 2}">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                  <mesh filename="${meshes_file_direction}/platform.stl" scale="1 1 1"/>
+                </geometry>
+            </collision>
+          </xacro:if>
+
+          <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${platform_mass}"/>
+            <inertia
+              ixx="${ixx}" ixy="0.0" ixz="0.0"
+              iyy="${iyy}" iyz="0.0"
+              izz="${izz}"/>
+          </inertial>
+        </link>
+      </xacro:macro>
+    
+    <!-- Macro: Joint -->
+    <xacro:macro name="leg_joint" params="prefix joint_name parent_link child_link xyz axis lower upper">
+      <joint name="${joint_name}" type="revolute">
+        <parent link="${parent_link}"/>
+        <child link="${child_link}"/>
+        <origin xyz="${xyz}" rpy="0 0 0"/>
+        <axis xyz="${axis}"/>
+        <limit effort="5.0" velocity="1.0" lower="${lower}" upper="${upper}"/>
+        <dynamics damping="0.1"/>
+      </joint>
+    </xacro:macro>
+    
+    <!-- Macro: UP_SECTION -->
+    <xacro:macro name="upper_leg" params="prefix index xyz rpy">
+      <link name="${prefix}link2_${index}">
         <visual>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <origin xyz="${xyz}" rpy="${rpy}"/>
           <geometry>
-            <mesh filename="${meshes_file_direction}/platform.stl" scale="1 1 1"/>
+            <mesh filename="${meshes_file_direction}/leg_up.stl" scale="1.0 1.0 1.0"/>
           </geometry>
-          <material name="gray">
+          <material name="grey">
             <color rgba="0.2 0.2 0.2 1"/>
           </material>
         </visual>
-        
+
         <!-- MODEL KOLIZYJNY -->
-        <xacro:platform_collision prefix="${prefix}" />
+          <xacro:if value="${int(version) == 1}">
+            <xacro:upper_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
+          </xacro:if>
+           <xacro:if value="${int(version) == 2}">
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                  <mesh filename="${meshes_file_direction}/leg_up.stl" scale="1 1 1"/>
+                </geometry>
+            </collision>
+          </xacro:if>
 
         <inertial>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
-          <mass value="${platform_mass}"/>
-          <inertia
-            ixx="${ixx}" ixy="0.0" ixz="0.0"
-            iyy="${iyy}" iyz="0.0"
-            izz="${izz}"/>
+          <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+          <mass value="${up_section_mass}"/>
+          <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
         </inertial>
       </link>
     </xacro:macro>
-  
-  <!-- Macro: Joint -->
-  <xacro:macro name="leg_joint" params="prefix joint_name parent_link child_link xyz axis lower upper">
-    <joint name="${joint_name}" type="revolute">
-      <parent link="${parent_link}"/>
-      <child link="${child_link}"/>
-      <origin xyz="${xyz}" rpy="0 0 0"/>
-      <axis xyz="${axis}"/>
-      <limit effort="5.0" velocity="1.0" lower="${lower}" upper="${upper}"/>
-      <dynamics damping="0.1"/>
+    
+    <!-- Macro: MID_SECTION -->
+    <xacro:macro name="mid_leg" params="prefix index xyz rpy">
+      <link name="${prefix}link3_${index}">
+        <visual>
+          <origin xyz="${xyz}" rpy="${rpy}"/>
+          <geometry>
+            <mesh filename="${meshes_file_direction}/leg_mid.stl" scale="1.0 1.0 1.0"/>
+          </geometry>
+          <material name="grey">
+            <color rgba="0.2 0.2 0.2 1"/>
+          </material>
+        </visual>
+          <xacro:if value="${int(version) == 1}">
+            <xacro:mid_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
+          </xacro:if>
+           <xacro:if value="${int(version) == 2}">
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                  <mesh filename="${meshes_file_direction}/leg_mid.stl" scale="1 1 1"/>
+                </geometry>
+            </collision>
+          </xacro:if>
+
+        <inertial>
+          <origin xyz="${xyz}" rpy="${rpy}"/>
+          <mass value="${mid_section_mass}"/>
+          <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
+        </inertial>
+      </link>
+    </xacro:macro>
+
+    <!-- Macro: DOWN_SECTION -->
+    <xacro:macro name="lower_leg" params="prefix index xyz rpy">
+      <link name="${prefix}link4_${index}">
+        <visual>
+          <origin xyz="${xyz}" rpy="${rpy}"/>
+          <geometry>
+            <mesh filename="${meshes_file_direction}/leg_down.stl" scale="1.0 1.0 1.0"/>
+          </geometry>
+          <material name="grey">
+            <color rgba="0.2 0.2 0.2 1"/>
+          </material>
+        </visual>
+
+          <xacro:if value="${int(version) == 1}">
+            <xacro:lower_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
+          </xacro:if>
+           <xacro:if value="${int(version) == 2}">
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                  <mesh filename="${meshes_file_direction}/leg_down.stl" scale="1 1 1"/>
+                </geometry>
+            </collision>
+          </xacro:if>
+        
+        <inertial>
+          <origin xyz="${xyz}" rpy="${rpy}"/>
+          <mass value="${down_section_mass}"/>
+          <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
+        </inertial>
+      </link>
+    </xacro:macro>
+
+  <!-- Macro: Effector Joint -->
+  <xacro:macro name="end_effector_joint" params="prefix index xyz rpy">
+    <joint name="${prefix}joint4_${index}" type="fixed">
+      <parent link="${prefix}link4_${index}"/>
+      <child link="${prefix}link5_${index}"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
     </joint>
   </xacro:macro>
-  
-  <!-- Macro: UP_SECTION -->
-  <xacro:macro name="upper_leg" params="prefix index xyz rpy">
-    <link name="${prefix}link2_${index}">
-      <visual>
-        <origin xyz="${xyz}" rpy="${rpy}"/>
-        <geometry>
-          <mesh filename="${meshes_file_direction}/leg_up.stl" scale="1.0 1.0 1.0"/>
-        </geometry>
-        <material name="grey">
-          <color rgba="0.2 0.2 0.2 1"/>
-        </material>
-      </visual>
 
-      <!-- MODEL KOLIZYJNY -->
-      <xacro:upper_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
-
-      <inertial>
-        <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
-        <mass value="${up_section_mass}"/>
-        <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
-      </inertial>
-    </link>
-  </xacro:macro>
-  
-  <!-- Macro: MID_SECTION -->
-  <xacro:macro name="mid_leg" params="prefix index xyz rpy">
-    <link name="${prefix}link3_${index}">
-      <visual>
-        <origin xyz="${xyz}" rpy="${rpy}"/>
-        <geometry>
-          <mesh filename="${meshes_file_direction}/leg_mid.stl" scale="1.0 1.0 1.0"/>
-        </geometry>
-        <material name="grey">
-          <color rgba="0.2 0.2 0.2 1"/>
-        </material>
-      </visual>
-      <!-- MODEL KOLIZYJNY -->
-      <xacro:mid_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
-
-      <inertial>
-        <origin xyz="${xyz}" rpy="${rpy}"/>
-        <mass value="${mid_section_mass}"/>
-        <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
-      </inertial>
-    </link>
+  <!-- Macro: Effector -->
+  <xacro:macro name="end_effector_link" params="prefix index">
+    <link name="${prefix}link5_${index}"/>
   </xacro:macro>
 
-  <!-- Macro: DOWN_SECTION -->
-  <xacro:macro name="lower_leg" params="prefix index xyz rpy">
-    <link name="${prefix}link4_${index}">
-      <visual>
-        <origin xyz="${xyz}" rpy="${rpy}"/>
-        <geometry>
-          <mesh filename="${meshes_file_direction}/leg_down.stl" scale="1.0 1.0 1.0"/>
-        </geometry>
-        <material name="grey">
-          <color rgba="0.2 0.2 0.2 1"/>
-        </material>
-      </visual>
+  <xacro:macro name="hexapod" params="prefix version">
+      <!-- Platform -->
+    <xacro:platform_base prefix="${prefix}" />
 
-      <!-- MODEL KOLIZYJNY -->
-      <xacro:lower_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
-      
-      <inertial>
-        <origin xxyz="${xyz}" rpy="${rpy}"/>
-        <mass value="${down_section_mass}"/>
-        <inertia ixx="${ixx}" ixy="0.0" ixz="0.0" iyy="${iyy}" iyz="0.0" izz="${izz}"/>
-      </inertial>
-    </link>
+    <!-- LEG 1 - używa zmiennych zamiast wartości na twardo -->
+    <xacro:leg_joint
+      prefix="${prefix}"
+      joint_name="${prefix}joint1_1"
+      parent_link="${prefix}base_link"
+      child_link="${prefix}link2_1"
+      xyz="${joint1_1_xyz}"
+      axis="${joint1_1_axis}"
+      lower="${joint1_lower}"
+      upper="${joint1_upper}" />
+    <xacro:upper_leg prefix="${prefix}" index="1" xyz="${link2_1_xyz}" rpy="${link2_1_rpy}" />
+
+    <xacro:leg_joint
+      prefix="${prefix}"
+      joint_name="${prefix}joint2_1"
+      parent_link="${prefix}link2_1"
+      child_link="${prefix}link3_1"
+      xyz="${joint2_1_xyz}"
+      axis="${joint2_1_axis}"
+      lower="${joint2_lower}"
+      upper="${joint2_upper}" />
+    <xacro:mid_leg prefix="${prefix}" index="1" xyz="${link3_1_xyz}" rpy="${link3_1_rpy}" />
+
+    <xacro:leg_joint
+      prefix="${prefix}"
+      joint_name="${prefix}joint3_1"
+      parent_link="${prefix}link3_1"
+      child_link="${prefix}link4_1"
+      xyz="${joint3_1_xyz}"
+      axis="${joint3_1_axis}"
+      lower="${joint3_lower}"
+      upper="${joint3_upper}" />
+    <xacro:lower_leg prefix="${prefix}" index="1" xyz="${link4_1_xyz}" rpy="${link4_1_rpy}" />
+
+    <xacro:end_effector_joint prefix="${prefix}" index="1" xyz="${joint4_1_xyz}" rpy="${joint4_1_axis}"/>
+    <xacro:end_effector_link prefix="${prefix}" index="1"/>
+
+    <!-- LEG 2 - używa zmiennych zamiast wartości na twardo -->
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint1_2" 
+      parent_link="${prefix}base_link" 
+      child_link="${prefix}link2_2" 
+      xyz="${joint1_2_xyz}" 
+      axis="${joint1_2_axis}" 
+      lower="${joint1_lower}" 
+      upper="${joint1_upper}"/>
+    <xacro:upper_leg prefix="${prefix}" index="2" xyz="${link2_2_xyz}" rpy="${link2_2_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint2_2" 
+      parent_link="${prefix}link2_2" 
+      child_link="${prefix}link3_2" 
+      xyz="${joint2_2_xyz}" 
+      axis="${joint2_2_axis}" 
+      lower="${joint2_lower}" 
+      upper="${joint2_upper}"/>
+    <xacro:mid_leg prefix="${prefix}" index="2" xyz="${link3_2_xyz}" rpy="${link3_2_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint3_2" 
+      parent_link="${prefix}link3_2" 
+      child_link="${prefix}link4_2" 
+      xyz="${joint3_2_xyz}" 
+      axis="${joint3_2_axis}" 
+      lower="${joint3_lower}" 
+      upper="${joint3_upper}"/>
+    <xacro:lower_leg prefix="${prefix}" index="2" xyz="${link4_2_xyz}" rpy="${link4_2_rpy}"/>
+
+    <xacro:end_effector_joint prefix="${prefix}" index="2" xyz="${joint4_2_xyz}" rpy="${joint4_2_axis}"/>
+    <xacro:end_effector_link prefix="${prefix}" index="2"/>
+
+    <!-- LEG 3 - używa zmiennych zamiast wartości na twardo -->
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint1_3" 
+      parent_link="${prefix}base_link" 
+      child_link="${prefix}link2_3" 
+      xyz="${joint1_3_xyz}" 
+      axis="${joint1_3_axis}" 
+      lower="${joint1_lower}" 
+      upper="${joint1_upper}"/>
+    <xacro:upper_leg prefix="${prefix}" index="3" xyz="${link2_3_xyz}" rpy="${link2_3_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint2_3" 
+      parent_link="${prefix}link2_3" 
+      child_link="${prefix}link3_3" 
+      xyz="${joint2_3_xyz}" 
+      axis="${joint2_3_axis}" 
+      lower="${joint2_lower}" 
+      upper="${joint2_upper}"/>
+    <xacro:mid_leg prefix="${prefix}" index="3" xyz="${link3_3_xyz}" rpy="${link3_3_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint3_3" 
+      parent_link="${prefix}link3_3" 
+      child_link="${prefix}link4_3" 
+      xyz="${joint3_3_xyz}" 
+      axis="${joint3_3_axis}" 
+      lower="${joint3_lower}" 
+      upper="${joint3_upper}"/>
+    <xacro:lower_leg prefix="${prefix}" index="3" xyz="${link4_3_xyz}" rpy="${link4_3_rpy}"/>
+
+    <xacro:end_effector_joint prefix="${prefix}" index="3" xyz="${joint4_3_xyz}" rpy="${joint4_3_axis}"/>
+    <xacro:end_effector_link prefix="${prefix}" index="3"/>
+
+    <!-- LEG 4 - używa zmiennych zamiast wartości na twardo -->
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint1_4" 
+      parent_link="${prefix}base_link" 
+      child_link="${prefix}link2_4" 
+      xyz="${joint1_4_xyz}" 
+      axis="${joint1_4_axis}" 
+      lower="${joint1_lower}" 
+      upper="${joint1_upper}"/>
+    <xacro:upper_leg prefix="${prefix}" index="4" xyz="${link2_4_xyz}" rpy="${link2_4_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint2_4" 
+      parent_link="${prefix}link2_4" 
+      child_link="${prefix}link3_4" 
+      xyz="${joint2_4_xyz}" 
+      axis="${joint2_4_axis}" 
+      lower="${joint2_lower}" 
+      upper="${joint2_upper}"/>
+    <xacro:mid_leg prefix="${prefix}" index="4" xyz="${link3_4_xyz}" rpy="${link3_4_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint3_4" 
+      parent_link="${prefix}link3_4" 
+      child_link="${prefix}link4_4" 
+      xyz="${joint3_4_xyz}" 
+      axis="${joint3_4_axis}" 
+      lower="${joint3_lower}" 
+      upper="${joint3_upper}"/>
+    <xacro:lower_leg prefix="${prefix}" index="4" xyz="${link4_4_xyz}" rpy="${link4_4_rpy}"/>
+
+    <xacro:end_effector_joint prefix="${prefix}" index="4" xyz="${joint4_4_xyz}" rpy="${joint4_4_axis}"/>
+    <xacro:end_effector_link prefix="${prefix}" index="4"/>
+
+    <!-- LEG 5 - używa zmiennych zamiast wartości na twardo -->
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint1_5" 
+      parent_link="${prefix}base_link" 
+      child_link="${prefix}link2_5" 
+      xyz="${joint1_5_xyz}" 
+      axis="${joint1_5_axis}" 
+      lower="${joint1_lower}" 
+      upper="${joint1_upper}"/>
+    <xacro:upper_leg prefix="${prefix}" index="5" xyz="${link2_5_xyz}" rpy="${link2_5_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint2_5" 
+      parent_link="${prefix}link2_5" 
+      child_link="${prefix}link3_5" 
+      xyz="${joint2_5_xyz}" 
+      axis="${joint2_5_axis}" 
+      lower="${joint2_lower}" 
+      upper="${joint2_upper}"/>
+    <xacro:mid_leg prefix="${prefix}" index="5" xyz="${link3_5_xyz}" rpy="${link3_5_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint3_5" 
+      parent_link="${prefix}link3_5" 
+      child_link="${prefix}link4_5" 
+      xyz="${joint3_5_xyz}" 
+      axis="${joint3_5_axis}" 
+      lower="${joint3_lower}" 
+      upper="${joint3_upper}"/>
+    <xacro:lower_leg prefix="${prefix}" index="5" xyz="${link4_5_xyz}" rpy="${link4_5_rpy}"/>
+
+    <xacro:end_effector_joint prefix="${prefix}" index="5" xyz="${joint4_5_xyz}" rpy="${joint4_5_axis}"/>
+    <xacro:end_effector_link prefix="${prefix}" index="5"/>
+
+    <!-- LEG 6 - używa zmiennych zamiast wartości na twardo -->
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint1_6" 
+      parent_link="${prefix}base_link" 
+      child_link="${prefix}link2_6" 
+      xyz="${joint1_6_xyz}" 
+      axis="${joint1_6_axis}" 
+      lower="${joint1_lower}" 
+      upper="${joint1_upper}"/>
+    <xacro:upper_leg prefix="${prefix}" index="6" xyz="${link2_6_xyz}" rpy="${link2_6_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint2_6" 
+      parent_link="${prefix}link2_6" 
+      child_link="${prefix}link3_6" 
+      xyz="${joint2_6_xyz}" 
+      axis="${joint2_6_axis}" 
+      lower="${joint2_lower}" 
+      upper="${joint2_upper}"/>
+    <xacro:mid_leg prefix="${prefix}" index="6" xyz="${link3_6_xyz}" rpy="${link3_6_rpy}"/>
+
+    <xacro:leg_joint 
+      prefix="${prefix}" 
+      joint_name="${prefix}joint3_6" 
+      parent_link="${prefix}link3_6" 
+      child_link="${prefix}link4_6" 
+      xyz="${joint3_6_xyz}" 
+      axis="${joint3_6_axis}" 
+      lower="${joint3_lower}" 
+      upper="${joint3_upper}"/>
+    <xacro:lower_leg prefix="${prefix}" index="6" xyz="${link4_6_xyz}" rpy="${link4_6_rpy}"/>
+
+    <xacro:end_effector_joint prefix="${prefix}" index="6" xyz="${joint4_6_xyz}" rpy="${joint4_6_axis}"/>
+    <xacro:end_effector_link prefix="${prefix}" index="6"/>
+
   </xacro:macro>
-
-<!-- Macro: Effector Joint -->
-<xacro:macro name="end_effector_joint" params="prefix index xyz rpy">
-  <joint name="${prefix}joint4_${index}" type="fixed">
-    <parent link="${prefix}link4_${index}"/>
-    <child link="${prefix}link5_${index}"/>
-    <origin xyz="${xyz}" rpy="${rpy}"/>
-  </joint>
-</xacro:macro>
-
-<!-- Macro: Effector -->
-<xacro:macro name="end_effector_link" params="prefix index">
-  <link name="${prefix}link5_${index}"/>
-</xacro:macro>
-
-
-<!-- Macro wywołujące hexapoda -->
-<xacro:macro name="hexapod" params="prefix=''">
-  <!-- Platform -->
-  <xacro:platform_base prefix="${prefix}" />
-
-<!-- LEG 1 -->
-<xacro:leg_joint
-  prefix="${prefix}"
-  joint_name="${prefix}joint1_1"
-  parent_link="${prefix}base_link"
-  child_link="${prefix}link2_1"
-  xyz="-0.063746 0.067285 0.003274"
-  axis="0 0 1"
-  lower="-0.5236"
-  upper="0.5236" />
-  <xacro:upper_leg prefix="${prefix}" index="1" xyz="-0.013611	0.016988 -0.000419" rpy="0 0 0.654498469" />
-
-<xacro:leg_joint
-  prefix="${prefix}"
-  joint_name="${prefix}joint2_1"
-  parent_link="${prefix}link2_1"
-  child_link="${prefix}link3_1"
-  xyz="-0.018864	0.024671	-0.020002"
-  axis="-0.7968540982 -0.6041717854 0"
-  lower="-0.261799388"
-  upper="1.308996939" />
-<xacro:mid_leg prefix="${prefix}" index="1" xyz="-0.024936	0.032658	0.000547" rpy="0 0 0.654498469" />
-
-<xacro:leg_joint
-  prefix="${prefix}"
-  joint_name="${prefix}joint3_1"
-  parent_link="${prefix}link3_1"
-  child_link="${prefix}link4_1"
-  xyz="-0.054636	0.071451	0.00505"
-  axis="-0.7968540982 -0.6041717854 0"
-  lower="0"
-  upper="1.570796327" />
-<xacro:lower_leg prefix="${prefix}" index="1" xyz="-0.039176	0.05167	0" rpy="0 0 0.654498469" />
-
-<xacro:end_effector_joint prefix="${prefix}" index="1" xyz="-0.099587 0.130461 -0.000046" rpy="0 0 0"/>
-<xacro:end_effector_link prefix="${prefix}" index="1"/>
-
-
-<!-- LEG 2 -->
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint1_2" 
-  parent_link="${prefix}base_link" 
-  child_link="${prefix}link2_2" 
-  xyz="-0.005442	0.097816	0.003274" 
-  axis="0 0 1" 
-  lower="-0.5236" 
-  upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="2" xyz="-0.000493	0.021762	-0.000419" rpy="0 0 0"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint2_2" 
-  parent_link="${prefix}link2_2" 
-  child_link="${prefix}link3_2" 
-  xyz="0.0	0.031057	-0.020002" 
-  axis="-1 0 0" 
-  lower="-0.261799388" 
-  upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="2" xyz="0.0	0.041	0.000546" rpy="0 0 0"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint3_2" 
-  parent_link="${prefix}link3_2" 
-  child_link="${prefix}link4_2" 
-  xyz="0.0	0.089946	0.00505" 
-  axis="-1 0 0" 
-  lower="0" 
-  upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="2" xyz="0.000265	0.064842	0.0" rpy="0 0 0"/>
-
-<xacro:end_effector_joint prefix="${prefix}" index="2" xyz="0.000147	0.164223	-0.000046" rpy="0 0 0"/>
-<xacro:end_effector_link prefix="${prefix}" index="2"/>
-
-
-<!-- LEG 3 -->
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint1_3" 
-  parent_link="${prefix}base_link" 
-  child_link="${prefix}link2_3" 
-  xyz="0.055103	0.073938	0.003274" 
-  axis="0 0 1" 
-  lower="-0.5236" 
-  upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="3" xyz="0.012827	0.017587 -0.000419" rpy="0 0 -0.654498469"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint2_3" 
-  parent_link="${prefix}link2_3" 
-  child_link="${prefix}link3_3" 
-  xyz="0.018864	0.024671	-0.020002" 
-  axis="-0.794374 0.6074290528 0" 
-  lower="-0.261799388" 
-  upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="3" xyz="0.024936	0.032658	0.000547" rpy="0 0 -0.654498469"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint3_3" 
-  parent_link="${prefix}link3_3" 
-  child_link="${prefix}link4_3" 
-  xyz="0.054636	0.071451	0.00505" 
-  axis="-0.794374 0.6074290528 0" 
-  lower="0" 
-  upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="3" xyz="0.039176	0.05167	0" rpy="0 0 -0.654498469"/>
-
-<xacro:end_effector_joint prefix="${prefix}" index="3" xyz="0.099252	0.130694	-0.000046" rpy="0 0 0"/>
-<xacro:end_effector_link prefix="${prefix}" index="3"/>
-
-
-<!-- LEG 4 -->
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint1_4" 
-  parent_link="${prefix}base_link" 
-  child_link="${prefix}link2_4" 
-  xyz="0.055103	-0.073938	0.003274" 
-  axis="0 0 1" 
-  lower="-0.5236" 
-  upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="4" xyz="0.013611	-0.016988 -0.000419" rpy="0 0 3.796091123"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint2_4" 
-  parent_link="${prefix}link2_4" 
-  child_link="${prefix}link3_4" 
-  xyz="0.018864	-0.024671	-0.020002" 
-  axis="0.6074290528 0.794374 0" 
-  lower="-0.261799388" 
-  upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="4" xyz="0.024936	-0.032658	0.000547" rpy="0 0 3.796091123"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint3_4" 
-  parent_link="${prefix}link3_4" 
-  child_link="${prefix}link4_4" 
-  xyz="0.054636	-0.071451	0.00505" 
-  axis="0.794374 0.6074290528 0" 
-  lower="0" 
-  upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="4" xyz="0.039176	-0.05167	0" rpy="0 0 3.796091123"/>
-
-<xacro:end_effector_joint prefix="${prefix}" index="4" xyz="0.099758	-0.130448	-0.000046" rpy="0 0 0"/>
-<xacro:end_effector_link prefix="${prefix}" index="4"/>
-
-
-<!-- LEG 5 -->
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint1_5" 
-  parent_link="${prefix}base_link" 
-  child_link="${prefix}link2_5" 
-  xyz="-0.005442	-0.097816	0.003274" 
-  axis="0 0 1" 
-  lower="-0.5236" 
-  upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="5" xyz="0.000493	-0.021762	-0.000419" rpy="0 0 3.141592654"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint2_5" 
-  parent_link="${prefix}link2_5" 
-  child_link="${prefix}link3_5" 
-  xyz="0.0	-0.031057	-0.020002" 
-  axis="1 0 0" 
-  lower="-0.261799388" 
-  upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="5" xyz="0.0	-0.041	0.000546" rpy="0 0 3.141592654"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint3_5" 
-  parent_link="${prefix}link3_5" 
-  child_link="${prefix}link4_5" 
-  xyz="0.0	-0.089946	0.00505" 
-  axis="1 0 0" 
-  lower="0" 
-  upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="5" xyz="-0.000265	-0.064842	0.0" rpy="0 0 3.141592654"/>
-
-<xacro:end_effector_joint prefix="${prefix}" index="5" xyz="-0.000051	-0.164207	-0.000046" rpy="0 0 0"/>
-<xacro:end_effector_link prefix="${prefix}" index="5"/>
-
-
-<!-- LEG 6 -->
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint1_6" 
-  parent_link="${prefix}base_link" 
-  child_link="${prefix}link2_6" 
-  xyz="-0.063746	-0.067285	0.003274" 
-  axis="0 0 1" 
-  lower="-0.5236" 
-  upper="0.5236"/>
-<xacro:upper_leg prefix="${prefix}" index="6" xyz="-0.012827	-0.017588 -0.000419" rpy="0 0 2.487094184"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint2_6" 
-  parent_link="${prefix}link2_6" 
-  child_link="${prefix}link3_6" 
-  xyz="-0.018864	-0.024671	-0.020002" 
-  axis="0.794374 -0.6074290528 0" 
-  lower="-0.261799388" 
-  upper="1.308996939"/>
-<xacro:mid_leg prefix="${prefix}" index="6" xyz="-0.024936	-0.032658	0.000547" rpy="0 0 2.487094184"/>
-
-<xacro:leg_joint 
-  prefix="${prefix}" 
-  joint_name="${prefix}joint3_6" 
-  parent_link="${prefix}link3_6" 
-  child_link="${prefix}link4_6" 
-  xyz="-0.054636	-0.071451	0.00505" 
-  axis="0.794374 -0.6074290528 0" 
-  lower="0" 
-  upper="1.570796327"/>
-<xacro:lower_leg prefix="${prefix}" index="6" xyz="-0.039176	-0.05167	0" rpy="0 0 2.487094184"/>
-
-<xacro:end_effector_joint prefix="${prefix}" index="6" xyz="-0.099223	-0.130739	-0.000046" rpy="0 0 0"/>
-<xacro:end_effector_link prefix="${prefix}" index="6"/>
-
-</xacro:macro>
   
+  <!-- Macro wywołujące hexapoda -->
+  <xacro:hexapod prefix="${prefix}" version="${version}"/>
+
+</xacro:macro>
+
 </robot>

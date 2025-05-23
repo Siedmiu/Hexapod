@@ -1,28 +1,19 @@
 <?xml version="1.0"?>
 <robot name="hexapod" xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="hexapod_ee" params="use_sim prefix use_gazebo">
-    <xacro:arg name="use_sim" default="true" />
-    <xacro:arg name="prefix" default="" />
+  <xacro:macro name="hexapod_ee" params="use_sim prefix use_gazebo version">
     
     <xacro:include filename="$(find hexapod_description)/gazebo/hexapod.gazebo.xacro" />
     <xacro:include filename="$(find hexapod_description)/urdf/hexapod_leg_ee.urdf.xacro" />
     <xacro:include filename="$(find hexapod_description)/urdf/hexapod_gazebo.urdf.xacro" />
-
     <xacro:include filename="$(find hexapod_description)/urdf/imu.urdf.xacro"/>
-
-
-    <!-- include pozycji początkowych -->
-
-    <!-- <xacro:include filename="$(find hexapod_description)/ros2_control/hexapod.ros2_control.xacro" /> -->
-
     <xacro:include filename="$(find hexapod_moveit_config)/config/hexapod.ros2_control.xacro" />
 
-    <xacro:hexapod prefix="$(arg prefix)" />
-    <xacro:hexapod_gazebo prefix="$(arg prefix)" />
+    <xacro:hexapod_leg_ee prefix="${prefix}" version="${version}"/>
+    <xacro:hexapod_gazebo prefix="${prefix}" />
 
     <xacro:imu_sensor
-    prefix="$(arg prefix)"
-    parent="$(arg prefix)base_link"
+    prefix="${prefix}"
+    parent="${prefix}base_link"
     frame_id="imu"
     xyz_offset="0 0 0.006"
     rpy_offset="0 0 0"

@@ -66,7 +66,7 @@ def generate_launch_description():
     )
 
     # Parsowanie pliku XACRO z parametrem use_sim=true
-    doc = xacro.process_file(xacro_file, mappings={'use_gazebo': 'true'})
+    doc = xacro.process_file(xacro_file, mappings={'use_gazebo': 'true', 'version': '2'})
     robot_desc = doc.toprettyxml(indent='  ')
     
     # Parametry dla robot_state_publisher
