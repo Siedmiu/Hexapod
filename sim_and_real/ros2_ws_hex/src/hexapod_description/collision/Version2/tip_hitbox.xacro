@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Macro for foot collision model composed of simple geometric shapes -->
+    <xacro:macro name="tip_collision" params="prefix rotation">
+        <!-- Fixed position at origin -->
+        <xacro:property name="center_x" value="0"/>
+        <xacro:property name="center_y" value="0"/>
+        <xacro:property name="center_z" value="0"/>
+        
+        <!-- Parse rotation into separate roll, pitch, yaw variables -->
+        <xacro:property name="rot_parts" value="${rotation.split(' ')}"/>
+        <xacro:property name="roll" value="${rot_parts[0]}"/>
+        <xacro:property name="pitch" value="${rot_parts[1]}"/>
+        <xacro:property name="yaw" value="${rot_parts[2]}"/>
+        
+        <!-- Define geometric shapes with their relative positions and sizes from CSV data -->
+        
+        <!-- Sphere 0 -->
+        <xacro:property name="sphere_0_radius" value="0.00600"/>
+        <!-- <xacro:property name="sphere_0_offset_x" value="0.00000"/> ORYGINALNA WARTOŚĆ -->
+        <xacro:property name="sphere_0_offset_x" value="-0.00500"/> <!--TUTAJ ZMNIEJSZAMY [M] ABY DODAĆ PRZESUNIĘCIE SYMULUJĄCE ODGIĘCIE SPRĘŻYNY -->
+        <xacro:property name="sphere_0_offset_y" value="0.00000"/> <!--NA RAZIE JEST 0.5CM -->
+        <xacro:property name="sphere_0_offset_z" value="0.00000"/>
+        <xacro:property name="sphere_0_roll" value="0.00000"/>
+        <xacro:property name="sphere_0_pitch" value="0.00000"/>
+        <xacro:property name="sphere_0_yaw" value="0.00000"/>
+        
+        <!-- Cylinder 0 -->
+        <xacro:property name="cylinder_0_radius" value="0.00400"/>
+        <xacro:property name="cylinder_0_length" value="0.01080"/>
+        <!-- <xacro:property name="cylinder_0_offset_x" value="-0.00918"/> ORYGINALNA WARTOŚĆ -->
+        <xacro:property name="cylinder_0_offset_x" value="-0.01418"/> <!--TUTAJ ZMNIEJSZAMY [M] ABY DODAĆ PRZESUNIĘCIE SYMULUJĄCE ODGIĘCIE SPRĘŻYNY -->
+        <xacro:property name="cylinder_0_offset_y" value="0.00000"/>
+        <xacro:property name="cylinder_0_offset_z" value="0.00031"/>
+        <xacro:property name="cylinder_0_roll" value="0.00000"/>
+        <xacro:property name="cylinder_0_pitch" value="1.57080"/>
+        <xacro:property name="cylinder_0_yaw" value="0.00000"/>
+        
+        <!-- Calculate rotation components for main rotation -->
+        <xacro:property name="cr" value="${cos(roll)}"/>
+        <xacro:property name="sr" value="${sin(roll)}"/>
+        <xacro:property name="cp" value="${cos(pitch)}"/>
+        <xacro:property name="sp" value="${sin(pitch)}"/>
+        <xacro:property name="cy" value="${cos(yaw)}"/>
+        <xacro:property name="sy" value="${sin(yaw)}"/>
+        
+        <!-- Create rotation matrix for Rx * Ry * Rz (roll, pitch, yaw) -->
+        <!-- First row of rotation matrix -->
+        <xacro:property name="r11" value="${cy * cp}"/>
+        <xacro:property name="r12" value="${cy * sp * sr - sy * cr}"/>
+        <xacro:property name="r13" value="${cy * sp * cr + sy * sr}"/>
+        
+        <!-- Second row of rotation matrix -->
+        <xacro:property name="r21" value="${sy * cp}"/>
+        <xacro:property name="r22" value="${sy * sp * sr + cy * cr}"/>
+        <xacro:property name="r23" value="${sy * sp * cr - cy * sr}"/>
+        
+        <!-- Third row of rotation matrix -->
+        <xacro:property name="r31" value="${-sp}"/>
+        <xacro:property name="r32" value="${cp * sr}"/>
+        <xacro:property name="r33" value="${cp * cr}"/>
+        
+        <!-- Apply rotation to each shape position -->
+        <!-- Sphere 0 -->
+        <xacro:property name="sphere_0_trans_x" value="${sphere_0_offset_x * r11 + sphere_0_offset_y * r12 + sphere_0_offset_z * r13}"/>
+        <xacro:property name="sphere_0_trans_y" value="${sphere_0_offset_x * r21 + sphere_0_offset_y * r22 + sphere_0_offset_z * r23}"/>
+        <xacro:property name="sphere_0_trans_z" value="${sphere_0_offset_x * r31 + sphere_0_offset_y * r32 + sphere_0_offset_z * r33}"/>
+        
+        <!-- Cylinder 0 -->
+        <xacro:property name="cylinder_0_trans_x" value="${cylinder_0_offset_x * r11 + cylinder_0_offset_y * r12 + cylinder_0_offset_z * r13}"/>
+        <xacro:property name="cylinder_0_trans_y" value="${cylinder_0_offset_x * r21 + cylinder_0_offset_y * r22 + cylinder_0_offset_z * r23}"/>
+        <xacro:property name="cylinder_0_trans_z" value="${cylinder_0_offset_x * r31 + cylinder_0_offset_y * r32 + cylinder_0_offset_z * r33}"/>
+        
+        <!-- Create collision elements for each shape with transformed positions -->
+        
+        <!-- Sphere 0 -->
+        <collision>
+            <origin xyz="${center_x + sphere_0_trans_x} ${center_y + sphere_0_trans_y} ${center_z + sphere_0_trans_z}" rpy="${roll + sphere_0_roll} ${pitch + sphere_0_pitch} ${yaw + sphere_0_yaw}"/>
+            <geometry>
+                <sphere radius="${sphere_0_radius}"/>
+            </geometry>
+        </collision>
+        
+        <!-- Cylinder 0 -->
+        <collision>
+            <origin xyz="${center_x + cylinder_0_trans_x} ${center_y + cylinder_0_trans_y} ${center_z + cylinder_0_trans_z}" rpy="${roll + cylinder_0_roll} ${pitch + cylinder_0_pitch} ${yaw + cylinder_0_yaw}"/>
+            <geometry>
+                <cylinder radius="${cylinder_0_radius}" length="${cylinder_0_length}"/>
+            </geometry>
+        </collision>
+    </xacro:macro>
+</robot>

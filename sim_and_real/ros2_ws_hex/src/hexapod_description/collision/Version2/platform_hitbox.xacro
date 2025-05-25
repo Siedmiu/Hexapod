@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Macro modelu kolizji platformy V2 złożonego z sześcianów i cylindrów -->
+<xacro:macro name="platform_collision" params="prefix">
+    <!-- Sześcian 0 -->
+    <collision>
+      <origin xyz="0 0 0.00210" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.19000 0.07820 0.00320"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 1 -->
+    <collision>
+      <origin xyz="0.04104 0.04082 0.00210" rpy="0 0 0.78540"/>
+      <geometry>
+        <box size="0.07320 0.08000 0.00320"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 2 -->
+    <collision>
+      <origin xyz="0.04104 -0.04082 0.00210" rpy="0 0 -0.78540"/>
+      <geometry>
+        <box size="0.07320 0.08000 0.00320"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 3 -->
+    <collision>
+      <origin xyz="-0.04104 0.04082 0.00210" rpy="0 0 -0.78540"/>
+      <geometry>
+        <box size="0.07320 0.08000 0.00320"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 4 -->
+    <collision>
+      <origin xyz="-0.04104 -0.04082 0.00210" rpy="0 0 0.78540"/>
+      <geometry>
+        <box size="0.07320 0.08000 0.00320"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 5 -->
+    <collision>
+      <origin xyz="0 0 0.00210" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07820 0.19000 0.00320"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 6 -->
+    <collision>
+      <origin xyz="-0.08452 0.00975 -0.00693" rpy="0 0 1.57080"/>
+      <geometry>
+        <box size="0.04060 0.02100 0.03880"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 7 -->
+    <collision>
+      <origin xyz="-0.05269 0.06718 -0.00693" rpy="0 0 0.78540"/>
+      <geometry>
+        <box size="0.04060 0.02100 0.03880"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 8 -->
+    <collision>
+      <origin xyz="0.05269 0.06718 -0.00693" rpy="0 0 -0.78540"/>
+      <geometry>
+        <box size="0.04060 0.02100 0.03880"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 9 -->
+    <collision>
+      <origin xyz="-0.06759 -0.05244 -0.00693" rpy="0 0 -0.78540"/>
+      <geometry>
+        <box size="0.04060 0.02100 0.03880"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 10 -->
+    <collision>
+      <origin xyz="0.06759 -0.05244 -0.00693" rpy="0 0 0.78540"/>
+      <geometry>
+        <box size="0.04060 0.02100 0.03880"/>
+      </geometry>
+    </collision>
+    
+    <!-- Sześcian 11 -->
+    <collision>
+      <origin xyz="0.08452 0.00975 -0.00693" rpy="0 0 1.57080"/>
+      <geometry>
+        <box size="0.04060 0.02100 0.03880"/>
+      </geometry>
+    </collision>
+    
+    <!-- Cylinder 0 -->
+    <collision>
+      <origin xyz="0.08573 0 0.01696" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.00840"/>
+      </geometry>
+    </collision>
+    
+    <!-- Cylinder 1 -->
+    <collision>
+      <origin xyz="-0.08573 0 0.01696" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.00840"/>
+      </geometry>
+    </collision>
+    
+    <!-- Cylinder 2 -->
+    <collision>
+      <origin xyz="-0.06054 -0.06009 0.01696" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.00840"/>
+      </geometry>
+    </collision>
+    
+    <!-- Cylinder 3 -->
+    <collision>
+      <origin xyz="-0.06054 0.06009 0.01696" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.00840"/>
+      </geometry>
+    </collision>
+    
+    <!-- Cylinder 4 -->
+    <collision>
+      <origin xyz="0.06054 -0.06009 0.01696" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.00840"/>
+      </geometry>
+    </collision>
+    
+    <!-- Cylinder 5 -->
+    <collision>
+      <origin xyz="0.06054 0.06009 0.01696" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.00840"/>
+      </geometry>
+    </collision>
+    
+  </xacro:macro>
+</robot>

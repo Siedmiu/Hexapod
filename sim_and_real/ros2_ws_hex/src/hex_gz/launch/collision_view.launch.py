@@ -21,7 +21,7 @@ def generate_launch_description():
     # Ścieżki do plików
     pkg_share_description = get_package_share_directory(package_description_name)
     pkg_share_gz = get_package_share_directory(package_gz_name)
-    default_model_path = os.path.join(pkg_share_description, 'urdf', 'hexapod_ee.urdf.xacro')
+    default_model_path = os.path.join(pkg_share_description, 'urdf', 'hexapod.urdf.xacro')
     default_rviz_config_path = os.path.join(pkg_share_gz, 'rviz', 'collision_view.rviz')
     
     # Deklaracje argumentów launch

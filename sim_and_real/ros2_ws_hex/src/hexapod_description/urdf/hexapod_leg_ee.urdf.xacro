@@ -189,7 +189,8 @@
       <xacro:property name="link4_1_xyz" value="0.082477	0.082555	0.0045585"/>
       <xacro:property name="link4_1_rpy" value="0	0	0.7853981634"/>
       <xacro:property name="link5_1_xyz" value="0	0	0"/>
-      <xacro:property name="link5_1_rpy" value="0	0	0"/>
+      <xacro:property name="link_tip_1_rpy" value="0 0 0.785398163"/>
+      
       
       <!-- CECHY POŁOŻENIA STAWÓW LEG 2 -->
       <xacro:property name="joint1_2_xyz" value="0.121845	0	0.0170504"/>
@@ -213,6 +214,8 @@
       <xacro:property name="link4_2_rpy" value="0	0	0"/>
       <xacro:property name="link5_2_xyz" value="0	0	0"/>
       <xacro:property name="link5_2_rpy" value="0	0	0"/>
+      <xacro:property name="link_tip_2_rpy" value="0 0 0"/>
+
       
       <!-- CECHY POŁOŻENIA STAWÓW LEG 3 -->
       <xacro:property name="joint1_3_xyz" value="0.0861847	-0.0860902	0.0170504"/>
@@ -236,6 +239,8 @@
       <xacro:property name="link4_3_rpy" value="0	0	5.497787144"/>
       <xacro:property name="link5_3_xyz" value="0	0	0"/>
       <xacro:property name="link5_3_rpy" value="0	0	0"/>
+      <xacro:property name="link_tip_3_rpy" value="0 0 5.497787144"/>
+
       
       <!-- CECHY POŁOŻENIA STAWÓW LEG 4 -->
       <xacro:property name="joint1_4_xyz" value="-0.0861847	-0.0860902	0.0170504"/>
@@ -259,7 +264,9 @@
       <xacro:property name="link4_4_rpy" value="0	0	3.926990817"/>
       <xacro:property name="link5_4_xyz" value="0	0	0"/>
       <xacro:property name="link5_4_rpy" value="0	0	0"/>
-      
+      <xacro:property name="link_tip_4_rpy" value="0 0 3.926990817"/>
+
+
       <!-- CECHY POŁOŻENIA STAWÓW LEG 5 -->
       <xacro:property name="joint1_5_xyz" value="-0.121845	0	0.0170504"/>
       <xacro:property name="joint1_5_axis" value="0	0	1"/>
@@ -282,7 +289,9 @@
       <xacro:property name="link4_5_rpy" value="0	0	3.141592654"/>
       <xacro:property name="link5_5_xyz" value="0	0	0"/>
       <xacro:property name="link5_5_rpy" value="0	0	0"/>
-      
+      <xacro:property name="link_tip_5_rpy" value="0 0 3.141592654"/>
+
+
       <!-- CECHY POŁOŻENIA STAWÓW LEG 6 -->
       <xacro:property name="joint1_6_xyz" value="-0.0859957	0.0860903	0.0170505"/>
       <xacro:property name="joint1_6_axis" value="0	0	1"/>
@@ -305,6 +314,8 @@
       <xacro:property name="link4_6_rpy" value="0	0	2.35619449"/>
       <xacro:property name="link5_6_xyz" value="0	0	0"/>
       <xacro:property name="link5_6_rpy" value="0	0	0"/>
+      <xacro:property name="link_tip_6_rpy" value="0 0 2.35619449"/>
+
       
     </xacro:if>
 
@@ -314,25 +325,20 @@
         
     <!-- Include macro modeli kolizyjnych z prostych kształtów geometrycznych -->
      <xacro:if value="${int(version) == 1}">
-      <xacro:include filename="$(find hexapod_description)/collision/platform_hitbox.xacro"/>
-      <xacro:include filename="$(find hexapod_description)/collision/up_section_hitbox.xacro"/>
-      <xacro:include filename="$(find hexapod_description)/collision/mid_section_hitbox.xacro"/>
-      <xacro:include filename="$(find hexapod_description)/collision/down_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/Version1/platform_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/Version1/up_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/Version1/mid_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/Version1/down_section_hitbox.xacro"/>
     </xacro:if>
 
 
     <!-- NA RAZIE BRAK PROSTYCH MODELI KOLIZJI -->
     <xacro:if value="${int(version) == 2}">
-      <!-- <collision>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <geometry>
-              <mesh filename="${meshes_file_direction}/platform_hitbox.stl" scale="1 1 1"/>
-            </geometry>
-        </collision> -->
-      <!-- <xacro:include filename="$(find hexapod_description)/collision/platform_hitbox.xacro"/>
-      <xacro:include filename="$(find hexapod_description)/collision/up_section_hitbox.xacro"/>
-      <xacro:include filename="$(find hexapod_description)/collision/mid_section_hitbox.xacro"/>
-      <xacro:include filename="$(find hexapod_description)/collision/down_section_hitbox.xacro"/> -->
+       <xacro:include filename="$(find hexapod_description)/collision/Version2/platform_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/Version2/up_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/Version2/mid_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/Version2/down_section_hitbox.xacro"/>
+      <xacro:include filename="$(find hexapod_description)/collision/Version2/tip_hitbox.xacro"/>
     </xacro:if>
 
     <!-- Macro platformy -->
@@ -349,18 +355,7 @@
           </visual>
           
           <!-- MODEL KOLIZYJNY -->
-          <xacro:if value="${int(version) == 1}">
-            <xacro:platform_collision prefix="${prefix}" />
-          </xacro:if>
-           <xacro:if value="${int(version) == 2}">
-            <collision>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <geometry>
-                  <mesh filename="${meshes_file_direction}/platform.stl" scale="1 1 1"/>
-                </geometry>
-            </collision>
-          </xacro:if>
-
+          <xacro:platform_collision prefix="${prefix}" />
           <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <mass value="${platform_mass}"/>
@@ -398,18 +393,7 @@
         </visual>
 
         <!-- MODEL KOLIZYJNY -->
-          <xacro:if value="${int(version) == 1}">
             <xacro:upper_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
-          </xacro:if>
-           <xacro:if value="${int(version) == 2}">
-            <collision>
-                <origin xyz="${xyz}" rpy="${rpy}"/>
-                <geometry>
-                  <mesh filename="${meshes_file_direction}/leg_up.stl" scale="1 1 1"/>
-                </geometry>
-            </collision>
-          </xacro:if>
-
         <inertial>
           <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
           <mass value="${up_section_mass}"/>
@@ -430,18 +414,7 @@
             <color rgba="0.2 0.2 0.2 1"/>
           </material>
         </visual>
-          <xacro:if value="${int(version) == 1}">
             <xacro:mid_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
-          </xacro:if>
-           <xacro:if value="${int(version) == 2}">
-            <collision>
-                <origin xyz="${xyz}" rpy="${rpy}"/>
-                <geometry>
-                  <mesh filename="${meshes_file_direction}/leg_mid.stl" scale="1 1 1"/>
-                </geometry>
-            </collision>
-          </xacro:if>
-
         <inertial>
           <origin xyz="${xyz}" rpy="${rpy}"/>
           <mass value="${mid_section_mass}"/>
@@ -462,19 +435,7 @@
             <color rgba="0.2 0.2 0.2 1"/>
           </material>
         </visual>
-
-          <xacro:if value="${int(version) == 1}">
             <xacro:lower_leg_collision prefix="${prefix}" position="${xyz}" rotation="${rpy}"/>
-          </xacro:if>
-           <xacro:if value="${int(version) == 2}">
-            <collision>
-                <origin xyz="${xyz}" rpy="${rpy}"/>
-                <geometry>
-                  <mesh filename="${meshes_file_direction}/leg_down.stl" scale="1 1 1"/>
-                </geometry>
-            </collision>
-          </xacro:if>
-        
         <inertial>
           <origin xyz="${xyz}" rpy="${rpy}"/>
           <mass value="${down_section_mass}"/>
@@ -493,9 +454,38 @@
   </xacro:macro>
 
   <!-- Macro: Effector -->
-  <xacro:macro name="end_effector_link" params="prefix index">
-    <link name="${prefix}link5_${index}"/>
-  </xacro:macro>
+   <xacro:if value="${int(version) == 1}">
+      <xacro:macro name="end_effector_link" params="prefix index">
+        <link name="${prefix}link5_${index}"/>
+      </xacro:macro>
+   </xacro:if>
+
+  <xacro:if value="${int(version) == 2}">
+    <xacro:macro name="end_effector_link" params="prefix index rpy">
+      <link name="${prefix}link5_${index}">
+        <xacro:tip_collision prefix="${prefix}" rotation="${rpy}"/>
+        <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.05"/>  <!-- Mała masa dla end effector -->
+        <inertia 
+          ixx="0.0001" ixy="0.0" ixz="0.0" 
+          iyy="0.0001" iyz="0.0" 
+          izz="0.0001"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.005"/>
+        </geometry>
+        <material name="tip_material">
+          <color rgba="0.8 0.8 0.8 1"/>
+        </material>
+      </visual>
+      </link>
+    </xacro:macro>
+  </xacro:if>
+
+  
 
   <xacro:macro name="hexapod" params="prefix version">
       <!-- Platform -->
@@ -536,7 +526,12 @@
     <xacro:lower_leg prefix="${prefix}" index="1" xyz="${link4_1_xyz}" rpy="${link4_1_rpy}" />
 
     <xacro:end_effector_joint prefix="${prefix}" index="1" xyz="${joint4_1_xyz}" rpy="${joint4_1_axis}"/>
-    <xacro:end_effector_link prefix="${prefix}" index="1"/>
+    <xacro:if value="${int(version) == 1}">
+      <xacro:end_effector_link prefix="${prefix}" index="1"/>
+    </xacro:if>
+    <xacro:if value="${int(version) == 2}">
+      <xacro:end_effector_link prefix="${prefix}" index="1" rpy="${link_tip_1_rpy}"/>
+    </xacro:if>
 
     <!-- LEG 2 - używa zmiennych zamiast wartości na twardo -->
     <xacro:leg_joint 
@@ -573,7 +568,12 @@
     <xacro:lower_leg prefix="${prefix}" index="2" xyz="${link4_2_xyz}" rpy="${link4_2_rpy}"/>
 
     <xacro:end_effector_joint prefix="${prefix}" index="2" xyz="${joint4_2_xyz}" rpy="${joint4_2_axis}"/>
-    <xacro:end_effector_link prefix="${prefix}" index="2"/>
+    <xacro:if value="${int(version) == 1}">
+      <xacro:end_effector_link prefix="${prefix}" index="2"/>
+    </xacro:if>
+    <xacro:if value="${int(version) == 2}">
+      <xacro:end_effector_link prefix="${prefix}" index="2" rpy="${link_tip_2_rpy}"/>
+    </xacro:if>
 
     <!-- LEG 3 - używa zmiennych zamiast wartości na twardo -->
     <xacro:leg_joint 
@@ -610,7 +610,12 @@
     <xacro:lower_leg prefix="${prefix}" index="3" xyz="${link4_3_xyz}" rpy="${link4_3_rpy}"/>
 
     <xacro:end_effector_joint prefix="${prefix}" index="3" xyz="${joint4_3_xyz}" rpy="${joint4_3_axis}"/>
-    <xacro:end_effector_link prefix="${prefix}" index="3"/>
+    <xacro:if value="${int(version) == 1}">
+      <xacro:end_effector_link prefix="${prefix}" index="3"/>
+    </xacro:if>
+    <xacro:if value="${int(version) == 2}">
+      <xacro:end_effector_link prefix="${prefix}" index="3" rpy="${link_tip_3_rpy}"/>
+    </xacro:if>
 
     <!-- LEG 4 - używa zmiennych zamiast wartości na twardo -->
     <xacro:leg_joint 
@@ -647,7 +652,12 @@
     <xacro:lower_leg prefix="${prefix}" index="4" xyz="${link4_4_xyz}" rpy="${link4_4_rpy}"/>
 
     <xacro:end_effector_joint prefix="${prefix}" index="4" xyz="${joint4_4_xyz}" rpy="${joint4_4_axis}"/>
-    <xacro:end_effector_link prefix="${prefix}" index="4"/>
+    <xacro:if value="${int(version) == 1}">
+      <xacro:end_effector_link prefix="${prefix}" index="4"/>
+    </xacro:if>
+    <xacro:if value="${int(version) == 2}">
+      <xacro:end_effector_link prefix="${prefix}" index="4" rpy="${link_tip_4_rpy}"/>
+    </xacro:if>
 
     <!-- LEG 5 - używa zmiennych zamiast wartości na twardo -->
     <xacro:leg_joint 
@@ -684,7 +694,12 @@
     <xacro:lower_leg prefix="${prefix}" index="5" xyz="${link4_5_xyz}" rpy="${link4_5_rpy}"/>
 
     <xacro:end_effector_joint prefix="${prefix}" index="5" xyz="${joint4_5_xyz}" rpy="${joint4_5_axis}"/>
-    <xacro:end_effector_link prefix="${prefix}" index="5"/>
+    <xacro:if value="${int(version) == 1}">
+      <xacro:end_effector_link prefix="${prefix}" index="5"/>
+    </xacro:if>
+    <xacro:if value="${int(version) == 2}">
+      <xacro:end_effector_link prefix="${prefix}" index="5" rpy="${link_tip_5_rpy}"/>
+    </xacro:if>
 
     <!-- LEG 6 - używa zmiennych zamiast wartości na twardo -->
     <xacro:leg_joint 
@@ -721,7 +736,12 @@
     <xacro:lower_leg prefix="${prefix}" index="6" xyz="${link4_6_xyz}" rpy="${link4_6_rpy}"/>
 
     <xacro:end_effector_joint prefix="${prefix}" index="6" xyz="${joint4_6_xyz}" rpy="${joint4_6_axis}"/>
-    <xacro:end_effector_link prefix="${prefix}" index="6"/>
+    <xacro:if value="${int(version) == 1}">
+      <xacro:end_effector_link prefix="${prefix}" index="6"/>
+    </xacro:if>
+    <xacro:if value="${int(version) == 2}">
+      <xacro:end_effector_link prefix="${prefix}" index="6" rpy="${link_tip_6_rpy}"/>
+    </xacro:if>
 
   </xacro:macro>
   
