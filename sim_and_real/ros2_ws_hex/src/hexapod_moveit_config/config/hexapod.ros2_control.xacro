@@ -1,22 +1,36 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:macro name="hexapod_ros2_control" params="name initial_positions_file use_gazebo">
+    <xacro:macro name="hexapod_ros2_control" params="name initial_positions_file use_gazebo use_fake_hardware:=false fake_sensor_commands port_name baud_rate">
         <xacro:property name="initial_positions" value="${xacro.load_yaml(initial_positions_file)['initial_positions']}"/>
         <ros2_control name="${name}" type="system">
+        
+        <!-- Gazebo simulation (priorytet 1) -->
         <xacro:if value="${use_gazebo}">
             <hardware>
-                <!-- By default, set up controllers for simulation. This won't work on real hardware -->
                 <plugin>gz_ros2_control/GazeboSimSystem</plugin>
-                <!-- <plugin>mock_components/GenericSystem</plugin> -->
             </hardware>
         </xacro:if>
 
+        <!-- Fake hardware for testing (priorytet 2) -->
         <xacro:unless value="${use_gazebo}">
-            <hardware>
-                <!-- By default, set up controllers for simulation. This won't work on real hardware -->
-                <!-- <plugin>gz_ros2_control/GazeboSimSystem</plugin> -->
-                <plugin>mock_components/GenericSystem</plugin>
-            </hardware>
+            <xacro:if value="${use_fake_hardware}">
+                <hardware>
+                    <plugin>mock_components/GenericSystem</plugin>
+                    <param name="fake_sensor_commands">${fake_sensor_commands}</param>
+                    <param name="state_following_offset">0.0</param>
+                </hardware>
+            </xacro:if>
+        </xacro:unless>
+
+        <!-- Real hardware with ESP32 (priorytet 3) -->
+        <xacro:unless value="${use_gazebo}">
+            <xacro:unless value="${use_fake_hardware}">
+                <hardware>
+                    <plugin>hexapod_hardware/HexapodHardwareInterface</plugin>
+                    <param name="port_name">${port_name}</param>
+                    <param name="baud_rate">${baud_rate}</param>
+                </hardware>
+            </xacro:unless>
         </xacro:unless>
 
             <!-- Leg 1 joints -->

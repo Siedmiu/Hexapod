@@ -1,6 +1,21 @@
 <?xml version="1.0"?>
 <robot name="hexapod" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:arg name="prefix" default="" />
     <xacro:arg name="use_gazebo" default="false" />
+    <xacro:arg name="use_fake_hardware" default="false" />
+    <xacro:arg name="fake_sensor_commands" default="false" />
+    <xacro:arg name="port_name" default="/dev/ttyUSB0" />
+    <xacro:arg name="baud_rate" default="115200" />
+    <xacro:arg name="version" default="2" />
+    
     <xacro:include filename="$(find hexapod_description)/urdf/hexapod_ee.urdf.xacro" />
-    <xacro:hexapod_ee use_sim="true" prefix="" use_gazebo="$(arg use_gazebo)" version="2"/>
+    <xacro:hexapod_ee 
+        use_sim="true" 
+        prefix="$(arg prefix)" 
+        use_gazebo="$(arg use_gazebo)" 
+        use_fake_hardware="$(arg use_fake_hardware)"
+        fake_sensor_commands="$(arg fake_sensor_commands)"
+        port_name="$(arg port_name)"
+        baud_rate="$(arg baud_rate)"
+        version="$(arg version)" />
 </robot>

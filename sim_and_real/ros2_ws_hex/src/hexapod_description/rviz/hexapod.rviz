@@ -9,7 +9,7 @@ Panels:
         - /RobotModel1
         - /TF1
       Splitter Ratio: 0.5
-    Tree Height: 555
+    Tree Height: 720
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -67,30 +67,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        world:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        link1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link4:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Mass Properties:
         Inertia: false
         Mass: false
@@ -106,34 +82,19 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        world:
-          Value: true
-        link1:
-          Value: true
-        link2:
-          Value: true
-        link3:
-          Value: true
-        link4:
-          Value: true
-      Marker Scale: 0.3499999940395355
+      Marker Scale: 0.3
       Name: TF
-      Show Arrows: true
-      Show Axes: true
+      Show Arrows: false
+      Show Axes: false
       Show Names: false
       Tree:
-        world:
-          link1:
-            link2:
-              link3:
-                link4:
-                  {}
+        {}
       Update Interval: 0
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: world
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -176,25 +137,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.9934372901916504
+      Distance: 2.0
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.09866781532764435
-        Y: -0.062461238354444504
-        Z: -0.023534774780273438
+        X: 0.0
+        Y: 0.0
+        Z: 0.0
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5353975296020508
+      Pitch: 0.5
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.435400485992432
+      Yaw: 0.0
     Saved: ~
 Window Geometry:
   Displays:
