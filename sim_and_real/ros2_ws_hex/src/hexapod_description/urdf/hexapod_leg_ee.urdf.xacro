@@ -477,8 +477,8 @@
         <geometry>
           <sphere radius="0.005"/>
         </geometry>
-        <material name="tip_material">
-          <color rgba="0.8 0.8 0.8 1"/>
+        <material name="grey">
+          <color rgba="0.2 0.2 0.2 1"/>
         </material>
       </visual>
       </link>
