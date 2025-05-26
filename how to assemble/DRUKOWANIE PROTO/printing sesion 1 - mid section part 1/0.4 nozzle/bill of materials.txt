@@ -1,0 +1,14 @@
+KOPIA PLIKU DLA WYGODY
+
+0.4 or 0.6 nozzle:
+Mid Section Truss Back.stl x6
+Mid Section Truss Front.stl x6
+mid section truss rod long (identyczne modele) -> 24 sztuki
+mid section truss rod short (identyczne modele) -> 24 sztuki
+servo clamp.stl x24
+
+0.4 nozzle:
+servo mount back.stl x12
+servo mount front.stl x12
+pinion 16.stl x12
+Gearbox 3 Mount.stl x12
