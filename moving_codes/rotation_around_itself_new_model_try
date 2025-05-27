@@ -1,0 +1,144 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.use('TkAgg')
+
+def turn_hexapod(R, alfa, x_start, z):
+    x_new = (x_start + R) * np.cos(alfa) - R
+    y_new = (x_start + R) * np.sin(alfa)
+
+    return np.array([x_new, y_new, z])
+
+def parabola_w_przestrzeni_z_punktow(w1, w2, w3, liczba_punktow):
+    # rozwiązanie układu parametrycznego równania kwadratowego dla 1 punktu w t = 0, drugiego w t = 1 i trzeciego dla t = 2
+    a = []
+    b = []
+    c = []
+    dokladnosc = 1000
+    for i in range(3):
+        a.append(w1[i] / 2 - w2[i] + w3[i] / 2)
+        b.append(-w1[i] * 3 / 2 + 2 * w2[i] - w3[i] / 2)
+        c.append(w1[i])
+
+    t = np.linspace(0, 2, dokladnosc)
+    p = np.array([a[0] * t ** 2 + b[0] * t + c[0],
+                  a[1] * t ** 2 + b[1] * t + c[1],
+                  a[2] * t ** 2 + b[2] * t + c[2]]).T
+
+    dlugosci_segmentow = np.sqrt(np.sum(np.diff(p, axis=0) ** 2, axis=1))
+    dlugosci_luku = np.concatenate(([0], np.cumsum(dlugosci_segmentow)))
+
+    # Równomierne rozmieszczenie punktów
+    dlugosc_calkowita = dlugosci_luku[-1]
+    dlugosci_celowe = np.linspace(0, dlugosc_calkowita, liczba_punktow + 1)
+
+    # Interpolacja punktów dla równych odstępów
+    punkty_rowne = np.array([
+        np.interp(dlugosci_celowe, dlugosci_luku, p[:, i]) for i in range(3)
+    ]).T
+
+    punkty_rowne = punkty_rowne[1:]
+
+    return punkty_rowne
+
+def katy_serw(P3, l1, l2, l3):
+    # wyznaczenie katow potrzebnych do osiagniecia przez stope punktu docelowego
+    alfa_1 = np.arctan2(P3[1], P3[0])
+
+    P1 = np.array([l1 * np.cos(alfa_1), l1 * np.sin(alfa_1), 0])
+
+    d = np.sqrt((P3[0] - P1[0]) ** 2 + (P3[1] - P1[1]) ** 2 + (P3[2] - P1[2]) ** 2)
+
+    cos_fi = (l2 ** 2 + l3 ** 2 - d ** 2) / (2 * l2 * l3)
+    fi = np.arccos(cos_fi)
+    alfa_3 = np.deg2rad(180) - fi
+
+    epsilon = np.arcsin(np.sin(fi) * l3 / d)
+    tau = np.arctan2(P3[2] - P1[2], np.sqrt((P3[0] - P1[0]) ** 2 + (P3[1] - P1[1]) ** 2))
+
+    alfa_2 = -(epsilon + tau)
+    return [alfa_1, alfa_2, alfa_3]
+
+h1 = 0
+l1 = 0.17995 - 0.12184
+l2 = 0.30075 - 0.17995
+h2 = 0
+l3 = 0.50975 - 0.30075
+
+print(l1, l2, l3)
+
+odleglosc_przegubow_od_srodka_hexapoda = 0.1218
+kat_obrotu = np.radians(10)
+x_start = 0.28341  # poczatkowe wychylenie nogi pajaka w osi x
+z_start = -0.181  # poczatkowy z
+h = 0.1  # wysokosc paraboli
+ilosc_punktow_na_etap = 10
+
+punkt_start_dla_kazdej_nogi = [x_start, 0, z_start]
+punkt_P1 = turn_hexapod(odleglosc_przegubow_od_srodka_hexapoda, kat_obrotu, x_start, z_start)
+punkt_P2 = turn_hexapod(odleglosc_przegubow_od_srodka_hexapoda, -kat_obrotu, x_start, z_start)
+punkt_szczytowy_etapu_1 = (punkt_start_dla_kazdej_nogi + punkt_P1) / 2 + np.array([0, 0, h])
+punkt_szczytowy_etapu_5 = (punkt_start_dla_kazdej_nogi + punkt_P2) / 2 + np.array([0, 0, h])
+
+#etap 1 z początkowej parabolą do P1
+#etap 2 z P1 do początkowej po ziemi
+#etap 3 z początkowej do P2 po ziemi
+#etap4 ewentualna parabola z P2 do P1
+#etap 5 z P2 do początkowej parabolą
+
+etap_1 = np.array(parabola_w_przestrzeni_z_punktow(punkt_start_dla_kazdej_nogi, punkt_szczytowy_etapu_1, punkt_P1, ilosc_punktow_na_etap))
+etap_2 = np.linspace(punkt_P1, punkt_start_dla_kazdej_nogi, ilosc_punktow_na_etap)[1:]
+etap_3 = np.linspace(punkt_start_dla_kazdej_nogi, punkt_P2, ilosc_punktow_na_etap)[1:]
+etap_5 = np.array(parabola_w_przestrzeni_z_punktow(punkt_P2, punkt_szczytowy_etapu_5, punkt_start_dla_kazdej_nogi, ilosc_punktow_na_etap))
+
+ilosc_cykli = 2
+
+cykl_nog_1_3_5 = np.concatenate([etap_1, etap_2])
+cykl_nog_2_4_6 = np.concatenate([etap_3, etap_5])
+
+for _ in range(ilosc_cykli - 1):
+    cykl_nog_1_3_5 = np.concatenate([cykl_nog_1_3_5, etap_1, etap_2])
+    cykl_nog_2_4_6 = np.concatenate([cykl_nog_2_4_6, etap_3, etap_5])
+
+wychyly_serw_1_3_5 = []
+wychyly_serw_2_4_6 = []
+
+# Dla każdej nogi
+for punkt in cykl_nog_1_3_5:
+    kat_obrotu = katy_serw(punkt, l1, l2, l3)
+    wychyly_serw_1_3_5.append(kat_obrotu)
+
+for punkt in cykl_nog_2_4_6:
+    kat_obrotu = katy_serw(punkt, l1, l2, l3)
+    wychyly_serw_2_4_6.append(kat_obrotu)
+
+wychyly_serw_1_3_5 = np.array(wychyly_serw_1_3_5)
+wychyly_serw_2_4_6 = np.array(wychyly_serw_2_4_6)
+
+plt.figure(figsize=(14, 6))
+
+# Wykresy dla nóg 1, 3, 5
+plt.subplot(1, 2, 1)
+plt.plot(wychyly_serw_1_3_5[:, 0], label='alfa_1 (obrót w poziomie)')
+plt.plot(wychyly_serw_1_3_5[:, 1], label='alfa_2 (podnoszenie)')
+plt.plot(wychyly_serw_1_3_5[:, 2], label='alfa_3 (zgięcie stawu)')
+plt.title('Wychylenia serwomechanizmów nóg 1, 3, 5')
+plt.xlabel('Krok')
+plt.ylabel('Kąt (radiany)')
+plt.legend()
+plt.grid(True)
+
+# Wykresy dla nóg 2, 4, 6
+plt.subplot(1, 2, 2)
+plt.plot(wychyly_serw_2_4_6[:, 0], label='alfa_1 (obrót w poziomie)')
+plt.plot(wychyly_serw_2_4_6[:, 1], label='alfa_2 (podnoszenie)')
+plt.plot(wychyly_serw_2_4_6[:, 2], label='alfa_3 (zgięcie stawu)')
+plt.title('Wychylenia serwomechanizmów nóg 2, 4, 6')
+plt.xlabel('Krok')
+plt.ylabel('Kąt (radiany)')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
