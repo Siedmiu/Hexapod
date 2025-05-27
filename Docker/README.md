@@ -28,6 +28,7 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 1. Aby zbudować i uruchomić kontener produkcyjny, wykonaj (w razie problemów użyj sudo):
    - `sudo ./setup-prod.sh` – budowanie obrazu i uruchomienie Gazebo.
    - `sudo ./setup-prod.sh moveit` – budowanie obrazu i uruchomienie MoveIt.
+   - `sudo ./setup-prod.sh pull` – aktualizacja repozytorium w kontenerze i przebudowa workspace.
    - `sudo ./setup-import-prod.sh` – import obrazu produkcyjnego z pliku .tar (dostępny wkrótce).
 
 2. Aby zbudować środowisko deweloperskie, wykonaj (w razie problemów użyj sudo):
@@ -91,14 +92,15 @@ Aby ręcznie sprawdzić czy akceleracja graficzna działa poprawnie, możesz uż
 ./setup-dev.sh diagnose
 ```
 
-### Rozwiązywanie problemów z GPU
+### Aktualizacja kodu projektu
 
-Jeśli masz problemy z akceleracją GPU:
+Aby zaktualizować kod projektu w środowisku produkcyjnym bez pełnego przebudowania obrazu:
+```bash
+./setup-prod.sh pull
+```
 
-1. Upewnij się, że sterowniki graficzne są prawidłowo zainstalowane
-2. Dodaj użytkownika do grup `video` i `render`: 
-   ```bash
-   sudo usermod -aG video,render $USER
-   ```
-3. Uruchom `xhost +` przed uruchomieniem kontenera
-4. Dla kart NVIDIA sprawdź, czy `nvidia-smi` działa poprawnie na hoście
+Ta opcja:
+- Pobiera najnowsze zmiany z repozytorium GitHub
+- Przebudowuje workspace ROS2 z nowymi zmianami
+- Kopiuje zaktualizowany kod z kontenera do katalogu hosta
+- Pozwala na szybkie testowanie nowych wersji bez długiego procesu budowania obrazu

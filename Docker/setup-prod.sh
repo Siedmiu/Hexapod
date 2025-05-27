@@ -167,6 +167,34 @@ if [ "$1" == "diagnose" ]; then
   exit 0
 fi
 
+# Sprawdzanie czy użytkownik chce zaktualizować repozytorium
+if [ "$1" == "pull" ]; then
+  echo "Aktualizowanie repozytorium w kontenerze produkcyjnym..."
+  
+  # Sprawdzenie czy katalog Hexapod istnieje
+  if [ ! -d "$PWD/Hexapod" ]; then
+    echo "Katalog Hexapod nie znaleziony. Klonowanie repozytorium..."
+    git clone https://github.com/Siedmiu/Hexapod.git
+    sudo chown -R $USER:$USER Hexapod
+    sudo chmod -R u+rw Hexapod
+  fi
+  
+  # Budowanie obrazu produkcyjnego
+  sudo docker build -t hexapod-prod -f Dockerfile.prod .
+  
+  # Uruchomienie kontenera z aktualizacją repozytorium
+  sudo docker run -it --rm \
+    --name hexapod-prod-pull \
+    --network host \
+    $DOCKER_RUN_ARGS_GUI \
+    $DOCKER_GPU_ARGS \
+    -v "$PWD/Hexapod:/host/Hexapod" \
+    hexapod-prod \
+    bash -c "cd /root/Hexapod && git pull && cd sim_and_real/ros2_ws_hex && source /opt/ros/jazzy/setup.bash && colcon build && echo 'Repozytorium zaktualizowane i workspace przebudowany.' && cp -r /root/Hexapod/* /host/Hexapod/ && echo 'Zmiany skopiowane do hosta.'"
+  
+  exit 0
+fi
+
 # Dodajemy wybór trybu: domyślnie Gazebo, jeśli podamy "moveit" to tryb MoveIt
 if [ "$1" == "moveit" ]; then
     LAUNCH_CMD="ros2 launch hexapod_moveit_config demo.launch.py"  # zmieniono nazwę pakietu
