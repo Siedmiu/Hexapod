@@ -160,7 +160,7 @@ if [ "$1" == "diagnose" ]; then
     $DOCKER_GPU_ARGS \
     -v /tmp/hexapod-diag:/tmp/hexapod-diag \
     hexapod-prod \
-    bash -c "if [ -f /tmp/hexapod-diag/check-gpu.sh ]; then /tmp/hexapod-diag/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && source /root/Hexapod/simulation/ros2_ws_hex/install/setup.bash && bash"
+    bash -c "if [ -f /tmp/hexapod-diag/check-gpu.sh ]; then /tmp/hexapod-diag/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && bash"
   
   # Czyszczenie plików diagnostycznych
   rm -rf /tmp/hexapod-diag
@@ -184,6 +184,6 @@ sudo docker run -it --rm \
   $DOCKER_RUN_ARGS_GUI \
   $DOCKER_GPU_ARGS \
   hexapod-prod \
-  bash -c "source /opt/ros/jazzy/setup.bash && source /root/Hexapod/simulation/ros2_ws_hex/install/setup.bash && $LAUNCH_CMD"
+  bash -c "source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && $LAUNCH_CMD"
 
 # Plik Xauthority jest usuwany przez pułapkę 'trap'

@@ -72,7 +72,7 @@ RUN apt update && apt install -y \
 # Automatyczne source ROS2 przy wejściu do terminala
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc
 # Dodany sourcing workspace, jeśli istnieje (np. zmontowany katalog)
-RUN echo "if [ -f /ros_ws/Hexapod/simulation/ros2_ws_hex/install/setup.bash ]; then source /ros_ws/Hexapod/simulation/ros2_ws_hex/install/setup.bash; fi" >> /root/.bashrc
+RUN echo "if [ -f /ros_ws/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash ]; then source /ros_ws/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash; fi" >> /root/.bashrc
 
 WORKDIR /ros_ws
 

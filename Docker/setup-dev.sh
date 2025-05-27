@@ -150,7 +150,7 @@ if [ ! -d "$PWD/Hexapod" ]; then
   # Ustawienie właściciela repozytorium i nadanie pełnych uprawnień
   sudo chown -R $USER:$USER Hexapod
   sudo chmod -R u+rw Hexapod
-  cd Hexapod/simulation/ros2_ws_hex
+  cd Hexapod/sim_and_real/ros2_ws_hex
   bash -c "source /opt/ros/jazzy/setup.bash && colcon build"
   cd ../..
 fi

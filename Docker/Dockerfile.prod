@@ -75,12 +75,12 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc
 # Pobranie kodu i build
 WORKDIR /root
 RUN git clone https://github.com/Siedmiu/Hexapod.git && \
-    cd Hexapod/simulation/ros2_ws_hex && \
+    cd Hexapod/sim_and_real/ros2_ws_hex && \
     bash -c "source /opt/ros/jazzy/setup.bash && colcon build"
 
 # Source workspace
-RUN echo "source /root/Hexapod/simulation/ros2_ws_hex/install/setup.bash" >> /root/.bashrc
+RUN echo "source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash" >> /root/.bashrc
 
 # Domyślnie uruchamiana symulacja
-CMD ["/bin/bash", "-c", "source /opt/ros/jazzy/setup.bash && source /root/Hexapod/simulation/ros2_ws_hex/install/setup.bash && ros2 launch hex_gz gazebo.launch.py"]
+CMD ["/bin/bash", "-c", "source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && ros2 launch hex_gz gazebo.launch.py"]
 
