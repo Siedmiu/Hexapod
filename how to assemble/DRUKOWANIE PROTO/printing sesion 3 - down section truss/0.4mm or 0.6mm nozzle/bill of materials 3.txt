@@ -1,0 +1,8 @@
+Części symeryczne oznaczone "/"
+
+Down Section Truss Front.stl 		x6
+Down Section Truss Back.stl 		x6
+Down Section Truss Back/Front 1.stl	x12
+Down Section Truss Back/Front 2.stl	x12
+ds bt.stl				x12
+ds ut/dt.stl				x24

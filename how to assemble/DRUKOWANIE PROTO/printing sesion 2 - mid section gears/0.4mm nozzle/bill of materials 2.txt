@@ -1,0 +1,6 @@
+bevel 24 guide.stl 	x12
+bevel 24.stl 		x12
+Bevel_gear_shaft.stl 	x12
+Bevel_gear_shaft_cap.stlx12
+shaft cap in.stl 	x12
+shaft cap out.stl 	x12
