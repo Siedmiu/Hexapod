@@ -48,8 +48,25 @@ private:
   std::vector<double> hw_velocities_;
   std::vector<double> hw_commands_;
   
-  // Komunikacja z ESP32 (do zaimplementowania później)
-  // std::unique_ptr<SerialCommunication> serial_;
+  // Komunikacja szeregowa
+  int serial_fd_;           // File descriptor portu szeregowego
+  bool serial_connected_;   // Status połączenia
+  
+  // DODANE: Mapowanie i optymalizacja
+  std::unordered_map<std::string, int> joint_to_servo_map_;  // joint_name → servo_number
+  std::vector<double> last_sent_commands_;                   // Cache ostatnich komend
+  double command_tolerance_;                                 // Próg zmiany komendy
+  
+  // Metody komunikacji UART
+  bool openSerialPort();
+  void closeSerialPort();
+  bool sendSerialData(const std::string& data);
+  
+  // DODANE: Metody mapowania i konwersji
+  void initializeJointMapping();
+  int convertRadiansToServoDegrees(const std::string& joint_name, double angle_rad);
+  bool shouldSendCommand(size_t joint_index, double new_command);
+  bool sendServoCommand(int servo_number, int angle_degrees);
 };
 
 }  // namespace hexapod_hardware
