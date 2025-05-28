@@ -102,7 +102,7 @@ przyczepy_nog_do_tulowia = np.array([
 ])
 
 nachylenia_nog_do_bokow_platformy_pajaka = np.array([
-    np.atan2(tulow[i + 1][1] - tulow[i][1], tulow[i + 1][0] - tulow[i][0]) + np.pi / 2
+    np.arctan2(tulow[i + 1][1] - tulow[i][1], tulow[i + 1][0] - tulow[i][0]) + np.pi / 2
     for i in [0, 1, 2, 4, 5, 6]
 ])
 
