@@ -77,7 +77,12 @@ l2 = 0.30075 - 0.17995
 l3 = 0.50975 - 0.30075
 
 odleglosc_przegubow_od_srodka_hexapoda = 0.1218
-kat_obrotu = np.radians(20)
+
+#todo naprawic te katy obrotu
+kat_obrotu_cyklu = np.radians(20)
+kat_obrotu = kat_obrotu_cyklu / 2
+kat_calkowity = np.radians(360)
+
 x_start = 0.28341  # poczatkowe wychylenie nogi pajaka w osi x
 z_start = -0.181  # poczatkowy z
 h = 0.1  # wysokosc paraboli
@@ -100,12 +105,28 @@ etap_2 = np.linspace(punkt_P1, punkt_start_dla_kazdej_nogi, ilosc_punktow_na_eta
 etap_3 = np.linspace(punkt_start_dla_kazdej_nogi, punkt_P2, ilosc_punktow_na_etap)[1:]
 etap_5 = np.array(parabola_w_przestrzeni_z_punktow(punkt_P2, punkt_szczytowy_etapu_5, punkt_start_dla_kazdej_nogi, ilosc_punktow_na_etap))
 
-ilosc_cykli = 10
+ilosc_cykli = int(kat_calkowity // kat_obrotu_cyklu)
+print(ilosc_cykli)
+pozostaly_kat = kat_calkowity % kat_obrotu_cyklu
 
 cykl_nog_1_3_5 = np.concatenate([etap_1, etap_2])
 cykl_nog_2_4_6 = np.concatenate([etap_3, etap_5])
 
 for _ in range(ilosc_cykli - 1):
+    cykl_nog_1_3_5 = np.concatenate([cykl_nog_1_3_5, etap_1, etap_2])
+    cykl_nog_2_4_6 = np.concatenate([cykl_nog_2_4_6, etap_3, etap_5])
+
+if pozostaly_kat > np.radians(1):
+    punkt_P1 = turn_hexapod(odleglosc_przegubow_od_srodka_hexapoda, pozostaly_kat, x_start, z_start)
+    punkt_P2 = turn_hexapod(odleglosc_przegubow_od_srodka_hexapoda, -pozostaly_kat, x_start, z_start)
+    punkt_szczytowy_etapu_1 = (punkt_start_dla_kazdej_nogi + punkt_P1) / 2 + np.array([0, 0, h])
+    punkt_szczytowy_etapu_5 = (punkt_start_dla_kazdej_nogi + punkt_P2) / 2 + np.array([0, 0, h])
+
+    etap_1 = np.array(parabola_w_przestrzeni_z_punktow(punkt_start_dla_kazdej_nogi, punkt_szczytowy_etapu_1, punkt_P1, ilosc_punktow_na_etap))
+    etap_2 = np.linspace(punkt_P1, punkt_start_dla_kazdej_nogi, ilosc_punktow_na_etap)[1:]
+    etap_3 = np.linspace(punkt_start_dla_kazdej_nogi, punkt_P2, ilosc_punktow_na_etap)[1:]
+    etap_5 = np.array(parabola_w_przestrzeni_z_punktow(punkt_P2, punkt_szczytowy_etapu_5, punkt_start_dla_kazdej_nogi, ilosc_punktow_na_etap))
+
     cykl_nog_1_3_5 = np.concatenate([cykl_nog_1_3_5, etap_1, etap_2])
     cykl_nog_2_4_6 = np.concatenate([cykl_nog_2_4_6, etap_3, etap_5])
 
