@@ -45,7 +45,14 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o 
         ros-jazzy-backward-ros \
         ros-jazzy-controller-interface \
         ros-jazzy-control-toolbox \
-        ros-jazzy-xacro
+        ros-jazzy-xacro \
+        ros-jazzy-ros2-control \
+        ros-jazzy-ros2-controllers \
+        ros-jazzy-controller-manager \
+        ros-jazzy-joint-state-publisher \
+        ros-jazzy-robot-state-publisher \
+        ros-jazzy-hardware-interface \
+        ros-jazzy-gz-ros2-control
 
 # Instalacja Gazebo Harmonic
 RUN curl -sSL https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
@@ -54,10 +61,10 @@ RUN curl -sSL https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/
     apt install -y gz-harmonic
 
 # Dodanie pakietów MoveIt
-RUN apt update && apt install -y ros-jazzy-moveit-* --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt install -y ros-jazzy-moveit-* --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # Instalacja narzędzi diagnostycznych do sprawdzania wsparcia GPU - bez wykrywania sprzętu
-RUN apt update && apt install -y \
+RUN apt install -y \
     mesa-utils \
     glmark2 \
     vulkan-tools \

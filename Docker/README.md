@@ -28,7 +28,6 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 1. Aby zbudować i uruchomić kontener produkcyjny, wykonaj (w razie problemów użyj sudo):
    - `sudo ./setup-prod.sh` – budowanie obrazu i uruchomienie Gazebo.
    - `sudo ./setup-prod.sh moveit` – budowanie obrazu i uruchomienie MoveIt.
-   - `sudo ./setup-prod.sh pull` – aktualizacja repozytorium w kontenerze i przebudowa workspace.
    - `sudo ./setup-import-prod.sh` – import obrazu produkcyjnego z pliku .tar (dostępny wkrótce).
 
 2. Aby zbudować środowisko deweloperskie, wykonaj (w razie problemów użyj sudo):
