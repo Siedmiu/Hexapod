@@ -60,7 +60,7 @@ def znajdz_punkty_rowno_odlegle_na_paraboli(r, h, ilosc_punktow_na_krzywej, ilos
 # Hill/terrain function
 def hill_height(x, y):
     """Define the hill terrain - simple inclined plane with some variation"""
-    base_height = y * 0.1  # 10% grade incline
+    base_height = y * 0.3  # 10% grade incline
     variation = 0.02 * np.sin(5 * x) + 0.01 * np.sin(3 * y)
     return base_height + variation
 
@@ -456,7 +456,7 @@ print("PLANOWANIE RUCHU: Obliczanie trajektorii pod górkę...")
 for frame in range(num_frames):
     # Ruch pod górkę (kierunek Y+) z kontrolowaną prędkością
     progress = frame / num_frames
-    current_y = robot_start_center[1] + progress * MOVEMENT_SPEED * num_frames
+    current_y = robot_start_center[1] #+ progress * MOVEMENT_SPEED * num_frames
     target_positions[frame] = np.array([robot_start_center[0], current_y])
     
 print(f"Trajektoria: od Y={robot_start_center[1]:.3f} do Y={target_positions[-1][1]:.3f}")
@@ -812,7 +812,7 @@ def update(frame, lines, positions, hill_surface):
     # Transform body corners to world coordinates
     body_world = robot_body_positions[frame] + np.array([np.dot(robot_rotations[frame], corner) for corner in body_corners])
     ax.plot(body_world[:, 0], body_world[:, 1], body_world[:, 2], 'k-', linewidth=3, alpha=0.8)
-    
+    """
     # <----------- NOWE: Dodatkowe informacje o kontroli ruchu
     ax.text2D(0.02, 0.98, f"KONTROLOWANY RUCH POD GÓRKĘ + FIZYKA", 
               transform=ax.transAxes, fontsize=12, weight='bold', verticalalignment='top',
@@ -907,7 +907,7 @@ def update(frame, lines, positions, hill_surface):
             path_positions = robot_body_positions[path_frames]
             ax.plot(path_positions[:, 0], path_positions[:, 1], path_positions[:, 2], 
                    'g--', alpha=0.6, linewidth=2, label='Trajektoria robota')
-
+    """
     return []
 
 # Ustawienia wykresu i animacji
