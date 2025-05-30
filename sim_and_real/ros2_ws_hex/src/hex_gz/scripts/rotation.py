@@ -76,12 +76,15 @@ l1 = 0.17995 - 0.12184
 l2 = 0.30075 - 0.17995
 l3 = 0.50975 - 0.30075
 
-odleglosc_przegubow_od_srodka_hexapoda = 0.1218
+stala_naprawcza = 1.2025
 
-#todo naprawic te katy obrotu
+odleglosc_przegubow_od_srodka_hexapoda = 0.1218
 kat_obrotu_cyklu = np.radians(20)
-kat_obrotu = kat_obrotu_cyklu / 2
-kat_calkowity = np.radians(360)
+kat_obrotu = kat_obrotu_cyklu / 2 * stala_naprawcza
+kat_calkowity = np.radians(90)
+# Wyznaczenie kierunku obrotu
+kierunek = np.sign(kat_calkowity)
+kat_obrotu *= kierunek
 
 x_start = 0.28341  # poczatkowe wychylenie nogi pajaka w osi x
 z_start = -0.181  # poczatkowy z
@@ -105,9 +108,9 @@ etap_2 = np.linspace(punkt_P1, punkt_start_dla_kazdej_nogi, ilosc_punktow_na_eta
 etap_3 = np.linspace(punkt_start_dla_kazdej_nogi, punkt_P2, ilosc_punktow_na_etap)[1:]
 etap_5 = np.array(parabola_w_przestrzeni_z_punktow(punkt_P2, punkt_szczytowy_etapu_5, punkt_start_dla_kazdej_nogi, ilosc_punktow_na_etap))
 
-ilosc_cykli = int(kat_calkowity // kat_obrotu_cyklu)
+ilosc_cykli = int(np.abs(kat_calkowity) // kat_obrotu_cyklu)
 print(ilosc_cykli)
-pozostaly_kat = kat_calkowity % kat_obrotu_cyklu
+pozostaly_kat = (np.abs(kat_calkowity) % kat_obrotu_cyklu) / 2 * stala_naprawcza * kierunek
 
 cykl_nog_1_3_5 = np.concatenate([etap_1, etap_2])
 cykl_nog_2_4_6 = np.concatenate([etap_3, etap_5])
@@ -116,7 +119,7 @@ for _ in range(ilosc_cykli - 1):
     cykl_nog_1_3_5 = np.concatenate([cykl_nog_1_3_5, etap_1, etap_2])
     cykl_nog_2_4_6 = np.concatenate([cykl_nog_2_4_6, etap_3, etap_5])
 
-if pozostaly_kat > np.radians(1):
+if np.abs(pozostaly_kat) > np.radians(1):
     punkt_P1 = turn_hexapod(odleglosc_przegubow_od_srodka_hexapoda, pozostaly_kat, x_start, z_start)
     punkt_P2 = turn_hexapod(odleglosc_przegubow_od_srodka_hexapoda, -pozostaly_kat, x_start, z_start)
     punkt_szczytowy_etapu_1 = (punkt_start_dla_kazdej_nogi + punkt_P1) / 2 + np.array([0, 0, h])
@@ -144,9 +147,6 @@ for punkt in cykl_nog_2_4_6:
 
 wychyly_serw_1_3_5 = np.array(wychyly_serw_1_3_5)
 wychyly_serw_2_4_6 = np.array(wychyly_serw_2_4_6)
-
-#todo dorobić taki kod który obliczy ile cykli ma wykonac aby sie obrócić o dany kąt i pokona resztę która ma kąt mnijeszy od cyklu 
-#todo np. obróc o 45 stopni to będą 2 cykle po 20 stopni i jeden mały 5 stopni
 
 czy_wyswietlic = False
 if czy_wyswietlic:
@@ -258,9 +258,10 @@ class LegSequencePlayer(Node):
             end_step = max_steps
 
         # Przejście do pozycji początkowej (pierwszy punkt)
-        self.send_trajectory_to_all_legs_at_step(start_step, duration_sec=3.0)
+        self.send_trajectory_to_all_legs_at_step(start_step, duration_sec=0.1)
+
         self.get_logger().info('Oczekiwanie na wykonanie początkowego ruchu...')
-        time.sleep(3.0)
+        time.sleep(0.1)
 
         for step in range(start_step + 1, end_step):
             self.send_trajectory_to_all_legs_at_step(step, duration_sec=step_duration)
