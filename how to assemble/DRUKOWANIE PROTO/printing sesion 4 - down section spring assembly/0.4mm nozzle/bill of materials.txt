@@ -1,0 +1,6 @@
+Części symeryczne oznaczone "/"
+
+rod holder back/front.stl 	x12
+Spring Rod.stl			x6
+switch holder back/front.stl	x12
+Spring				x6 already printed
