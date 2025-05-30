@@ -61,10 +61,10 @@ RUN curl -sSL https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/
     apt install -y gz-harmonic
 
 # Dodanie pakietów MoveIt
-RUN apt install -y ros-jazzy-moveit-* --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y ros-jazzy-moveit-* --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # Dodanie narzędzi diagnostycznych dla GPU
-RUN apt install -y \
+RUN apt update && apt install -y \
     mesa-utils \
     glmark2 \
     vulkan-tools \

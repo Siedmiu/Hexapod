@@ -143,23 +143,13 @@ else
     fi
 fi
 
-# OPCJONALNE: Pobranie kodu i budowa workspace, jeśli katalog Hexapod nie istnieje
+# OPCJONALNE: Pobranie kodu, jeśli katalog Hexapod nie istnieje
 if [ ! -d "$PWD/Hexapod" ]; then
-  echo "Katalog Hexapod nie znaleziony. Klonowanie repozytorium i budowa workspace..."
+  echo "Katalog Hexapod nie znaleziony. Klonowanie repozytorium..."
   git clone https://github.com/Siedmiu/Hexapod.git
   # Ustawienie właściciela repozytorium i nadanie pełnych uprawnień
   sudo chown -R $USER:$USER Hexapod
   sudo chmod -R u+rw Hexapod
-  cd Hexapod/sim_and_real/ros2_ws_hex
-  bash -c "source /opt/ros/jazzy/setup.bash && colcon build"
-  cd ../..
-fi
-
-# Kopiowanie skryptu diagnostycznego do katalogu Hexapod, jeśli istnieje
-if [ -f "$(dirname "$0")/check-gpu.sh" ] && [ -d "$PWD/Hexapod" ]; then
-  cp "$(dirname "$0")/check-gpu.sh" "$PWD/Hexapod/"
-  chmod +x "$PWD/Hexapod/check-gpu.sh"
-  echo "Skopiowano skrypt diagnostyczny do $PWD/Hexapod/check-gpu.sh"
 fi
 
 # Sprawdzanie czy użytkownik chce tryb diagnostyczny
@@ -172,18 +162,27 @@ if [ "$1" == "diagnose" ]; then
     $DOCKER_GPU_ARGS \
     -v "$PWD/Hexapod:/ros_ws/Hexapod" \
     hexapod-dev \
-    bash -c "cd /ros_ws/Hexapod && if [ -f check-gpu.sh ]; then ./check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && bash"
+    bash -c "cd /ros_ws/Hexapod && if [ -f Docker/check-gpu.sh ]; then Docker/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && bash"
   exit 0
 fi
 
-# Ustawienie xhost, aby Docker mógł używać X11 - już wywołane wcześniej
-
 # Budowanie obrazu DEV (Dockerfile.dev znajduje się w tym samym katalogu)
-# Używamy sudo dla spójności z setup-prod.sh i poprzednimi wersjami skryptu
+echo "Budowanie obrazu deweloperskiego..."
 sudo docker build -t hexapod-dev -f "$(dirname "$0")/Dockerfile.dev" .
 
-# Uruchomienie kontenera DEV z zamontowanym katalogiem Hexapod bez automatycznego launch’u
-# Używamy sudo dla spójności
+# Budowa workspace w kontenerze, jeśli nie istnieje plik install/setup.bash
+if [ ! -f "$PWD/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash" ]; then
+  echo "Budowanie workspace w kontenerze..."
+  sudo docker run --rm \
+    -v "$PWD/Hexapod:/ros_ws/Hexapod" \
+    hexapod-dev \
+    bash -c "cd /ros_ws/Hexapod/sim_and_real/ros2_ws_hex && source /opt/ros/jazzy/setup.bash && colcon build"
+  
+  # Naprawienie uprawnień po budowie w kontenerze
+  sudo chown -R $USER:$USER "$PWD/Hexapod"
+fi
+
+# Uruchomienie kontenera DEV z zamontowanym katalogiem Hexapod
 sudo docker run -it --rm \
   --name hexapod-dev \
   --network host \

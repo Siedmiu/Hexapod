@@ -146,24 +146,15 @@ fi
 # Sprawdzanie czy użytkownik chce tryb diagnostyczny
 if [ "$1" == "diagnose" ]; then
   echo "Uruchamianie kontenera produkcyjnego w trybie diagnostycznym..."
-  # Kopiowanie skryptu diagnostycznego, jeśli istnieje
-  if [ -f "$(dirname "$0")/check-gpu.sh" ]; then
-    mkdir -p /tmp/hexapod-diag
-    cp "$(dirname "$0")/check-gpu.sh" /tmp/hexapod-diag/
-    chmod +x /tmp/hexapod-diag/check-gpu.sh
-  fi
   
   sudo docker run -it --rm \
     --name hexapod-prod-diag \
     --network host \
     $DOCKER_RUN_ARGS_GUI \
     $DOCKER_GPU_ARGS \
-    -v /tmp/hexapod-diag:/tmp/hexapod-diag \
     hexapod-prod \
-    bash -c "if [ -f /tmp/hexapod-diag/check-gpu.sh ]; then /tmp/hexapod-diag/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && bash"
+    bash -c "if [ -f /root/Hexapod/Docker/check-gpu.sh ]; then /root/Hexapod/Docker/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && bash"
   
-  # Czyszczenie plików diagnostycznych
-  rm -rf /tmp/hexapod-diag
   exit 0
 fi
 

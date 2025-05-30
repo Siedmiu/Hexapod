@@ -32,9 +32,6 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 
 2. Aby zbudować środowisko deweloperskie, wykonaj (w razie problemów użyj sudo):
    - `sudo ./setup-dev.sh` – pobranie repozytorium, budowa workspace i uruchomienie kontenera deweloperskiego.
-     - Uwaga: Jeśli przy pierwszym uruchomieniu pojawi się komunikat:
-       "bash: line 1: /opt/ros/jazzy/setup.bash: No such file or directory"
-       uruchom skrypt ponownie.
    - `sudo ./setup-import-dev.sh` – import obrazu deweloperskiego z pliku .tar (dostępny wkrótce).
 
 3. Wewnątrz środowiska deweloperskiego możesz uruchomić:
@@ -90,16 +87,3 @@ Aby ręcznie sprawdzić czy akceleracja graficzna działa poprawnie, możesz uż
 ./setup-prod.sh diagnose
 ./setup-dev.sh diagnose
 ```
-
-### Aktualizacja kodu projektu
-
-Aby zaktualizować kod projektu w środowisku produkcyjnym bez pełnego przebudowania obrazu:
-```bash
-./setup-prod.sh pull
-```
-
-Ta opcja:
-- Pobiera najnowsze zmiany z repozytorium GitHub
-- Przebudowuje workspace ROS2 z nowymi zmianami
-- Kopiuje zaktualizowany kod z kontenera do katalogu hosta
-- Pozwala na szybkie testowanie nowych wersji bez długiego procesu budowania obrazu
