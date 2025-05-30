@@ -1,0 +1,7 @@
+==========0.4==============
+support rod small.stl		x12
+support rod.stl			x12
+==========0.4 or 0.6========
+Platform Top.stl		x1 (drukuje Miłosz)
+Platform Down.stl		x1 (drukuje Miłosz)
+bearing mount L0-5 down/top.stl x6 (każdy plik raz, drukuje Grzegorz)

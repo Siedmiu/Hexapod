@@ -1,0 +1,16 @@
+==========0.4==============
+//bez kulek łożyskowych nie powinno być tarcia między elementami
+// bearing outside(cage bottom(bearing inside))
+bearing inside.stl		x12
+bearing outside.stl		x12
+cage bottom.stl			x12
+
+Spur 16.stl			x6
+Spur 32.stl			x6
+Vertical Shaft.stl		x6
+
+==========0.4 or 0.6========
+Bearing Cap Up.stl		x6
+Top Section Holder.stl		x6 //"kropelka" ustawiona ogonkiem do góry
+Top Section Truss Back.stl	x6
+Top Section Truss Front.stl	x6
