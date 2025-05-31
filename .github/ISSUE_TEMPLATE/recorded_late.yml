@@ -1,0 +1,48 @@
+name: 🕘 Task Recorded Late
+description: Document work that was already completed without a prior issue.
+title: "[Task Recorded Late] "
+labels: ["recorded_late"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Retrospective Task Summary
+        Briefly describe the feature, fix, or work that was completed.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: What was done?
+      placeholder: E.g. Implemented gait controller module to allow smooth tripod walking.
+    validations:
+      required: true
+
+  - type: textarea
+    id: commits
+    attributes:
+      label: Related Commits
+      description: List commit hashes with summaries or links if possible.
+      placeholder: |
+        - a1b2c3d: Initial controller logic
+        - d4e5f6g: Added PID tuning
+    validations:
+      required: false
+
+  - type: input
+    id: when
+    attributes:
+      label: When was it done?
+      placeholder: E.g. Mid-April 2025 or during the simulation sprint
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Optional thoughts on challenges, future improvements, or follow-ups
+      placeholder: Control loop timing may need refinement; consider modularizing gait logic
+    validations:
+      required: false
