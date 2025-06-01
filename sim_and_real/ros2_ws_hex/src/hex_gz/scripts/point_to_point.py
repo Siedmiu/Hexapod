@@ -177,8 +177,47 @@ def znajdz_punkty_rowno_odlegle_na_paraboli(r, h, ilosc_punktow_na_krzywej, ilos
     punkty.append([0, bufor_y + r, 0])
     return punkty
 
+def calculate_optimal_r_and_cycles(target_distance, l3):
+    """
+    Oblicza optymalne r i liczbę cykli dla danej odległości
+    target_distance = r (startup+shutdown) + cycles * 2r (main_loop)
+    target_distance = r * (1 + 2*cycles)
+    """
+    r_max = l3 / 4  # maksymalne r (obecna wartość)
+    r_min = l3 / 100  # minimalne r
+    
+    best_r = None
+    best_cycles = None
+    
+    # Sprawdzaj od największych wartości r w dół
+    for cycles in range(1, 1000):
+        required_r = target_distance / (1 + 2 * cycles)
+        
+        if r_min <= required_r <= r_max:
+            if best_r is None or required_r > best_r:
+                best_r = required_r
+                best_cycles = cycles
+                
+        # Jeśli r stało się za małe, przerwij
+        if required_r < r_min:
+            break
+    
+    return best_r, best_cycles
+
 def generate_walking_sequence(zadana_odleglosc):
-    """Generowanie sekwencji marszu"""
+    """Generowanie sekwencji marszu z precyzyjnym obliczaniem odległości"""
+    # Oblicz optymalne r i liczbę cykli
+    optimal_r, optimal_cycles = calculate_optimal_r_and_cycles(zadana_odleglosc, l3)
+    
+    if optimal_r is None:
+        raise ValueError(f"Nie można wygenerować trajektorii dla odległości {zadana_odleglosc}m")
+    
+    print(f"Obliczone parametry:")
+    print(f"  Docelowa odległość: {zadana_odleglosc}m")
+    print(f"  Optymalne r: {optimal_r:.4f}m")
+    print(f"  Liczba cykli main_loop: {optimal_cycles}")
+    print(f"  Rzeczywista odległość: {optimal_r * (1 + 2 * optimal_cycles):.4f}m")
+    
     # Parametry nogi - obliczenie pozycji spoczynkowej
     alfa_1 = 0
     alfa_2 = np.radians(0)
@@ -191,41 +230,15 @@ def generate_walking_sequence(zadana_odleglosc):
 
     stopa_spoczynkowa = P3
 
-    przyczepy_nog_do_tulowia = np.array([
-        [0.073922, 0.055095, 0.003148],
-        [0.0978, -0.00545, 0.003148],
-        [0.067301, -0.063754, 0.003148],
-        [-0.067301, -0.063754, 0.003148],
-        [-0.0978, -0.00545, 0.003148],
-        [-0.073922, 0.055095, 0.003148],
-    ])
-
     nachylenia_nog_do_bokow_platformy_pajaka = np.array([
         np.deg2rad(37.169), 0, np.deg2rad(-37.169), 
         np.deg2rad(180 + 37.169), np.deg2rad(180), np.deg2rad(180 - 37.169)
     ])
 
-    # Parametry chodu
-    h = l3 / 4
-    r = h
-    ilosc_punktow_na_krzywych = 20
-    dlugosc_pelnego_kroku = 2 * r
-
-    print(f"Zadana odległość: {zadana_odleglosc}m")
-    print(f"Długość pełnego kroku: {dlugosc_pelnego_kroku:.3f}m")
-
-    # Oblicz liczbę pełnych cykli i pozostałą odległość
-    pelne_cykle = int(zadana_odleglosc // dlugosc_pelnego_kroku)
-    pozostala_odleglosc = zadana_odleglosc % dlugosc_pelnego_kroku
-
-    print(f"Liczba pełnych cykli: {pelne_cykle}")
-    print(f"Pozostała odległość: {pozostala_odleglosc:.3f}m")
-
-    # Jeśli jest pozostała odległość, oblicz skrócony krok
-    ostatni_krok_potrzebny = pozostala_odleglosc > 0.01
-    if ostatni_krok_potrzebny:
-        r_ostatni = pozostala_odleglosc / 2
-        print(f"Ostatni krok: r = {r_ostatni:.3f}m")
+    # Używaj optimal_r zamiast stałego r
+    r = optimal_r
+    h = l3 / 4  # wysokość pozostaje stała
+    ilosc_punktow_na_krzywych = 10
 
     punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
     punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
@@ -234,32 +247,19 @@ def generate_walking_sequence(zadana_odleglosc):
     punkty_etap3_ruchu = [[0, punkty_etap3_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
     punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r, h, 2 * ilosc_punktow_na_krzywych, 20000, -r)
     punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, -r)
-    
+
+    # Startup
     cykl_ogolny_nog_1_3_5 = punkty_etap1_ruchu.copy()
     cykl_ogolny_nog_2_4_6 = punkty_etap3_ruchu.copy()
 
-    for _ in range(pelne_cykle):
+    # Main loop z obliczoną liczbą cykli
+    for _ in range(optimal_cycles):
         cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap4_ruchu
         cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu + punkty_etap3_ruchu
 
-    # Jeśli potrzebny jest ostatni skrócony krok
-    if ostatni_krok_potrzebny:
-        punkty_etap1_ostatni = znajdz_punkty_rowno_odlegle_na_paraboli(r_ostatni, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
-        punkty_etap2_ostatni_y = np.linspace(r_ostatni * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
-        punkty_etap2_ostatni = [[0, punkty_etap2_ostatni_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
-        punkty_etap3_ostatni_y = np.linspace(-r_ostatni / ilosc_punktow_na_krzywych, -r_ostatni, ilosc_punktow_na_krzywych)
-        punkty_etap3_ostatni = [[0, punkty_etap3_ostatni_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
-        punkty_etap4_ostatni = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r_ostatni, h, 2 * ilosc_punktow_na_krzywych, 20000, -r_ostatni)
-        punkty_etap5_ostatni = znajdz_punkty_rowno_odlegle_na_paraboli(r_ostatni, h / 2, ilosc_punktow_na_krzywych, 10000, -r_ostatni)
-        
-        cykl_ogolny_nog_1_3_5 += punkty_etap2_ostatni + punkty_etap3_ostatni + punkty_etap4_ostatni
-        cykl_ogolny_nog_2_4_6 += punkty_etap4_ostatni + punkty_etap2_ostatni + punkty_etap3_ostatni
-        
-        cykl_ogolny_nog_1_3_5 += punkty_etap2_ostatni + punkty_etap3_ostatni + punkty_etap5_ostatni
-        cykl_ogolny_nog_2_4_6 += punkty_etap4_ostatni + punkty_etap2_ostatni
-    else:
-        cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap5_ruchu
-        cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu
+    # Shutdown
+    cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap5_ruchu
+    cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu
 
     cykl_ogolny_nog_1_3_5 = np.array(cykl_ogolny_nog_1_3_5)
     cykl_ogolny_nog_2_4_6 = np.array(cykl_ogolny_nog_2_4_6)

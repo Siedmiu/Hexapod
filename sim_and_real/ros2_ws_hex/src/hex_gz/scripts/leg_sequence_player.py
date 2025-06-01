@@ -69,6 +69,81 @@ def znajdz_punkty_rowno_odlegle_na_paraboli(r, h, ilosc_punktow_na_krzywej, ilos
     punkty.append([0, bufor_y + r, 0])
     return punkty
 
+def calculate_optimal_r_and_cycles(target_distance, l3):
+    """
+    Oblicza optymalne r i liczbę cykli dla danej odległości
+    target_distance = r (startup+shutdown) + cycles * 2r (main_loop)
+    target_distance = r * (1 + 2*cycles)
+    """
+    r_max = l3 / 3  # maksymalne r (obecna wartość)
+    r_min = l3 / 100  # minimalne r
+    
+    best_r = None
+    best_cycles = None
+    
+    # Sprawdzaj od największych wartości r w dół
+    for cycles in range(1, 1000):
+        required_r = target_distance / (1 + 2 * cycles)
+        
+        if r_min <= required_r <= r_max:
+            if best_r is None or required_r > best_r:
+                best_r = required_r
+                best_cycles = cycles
+                
+        # Jeśli r stało się za małe, przerwij
+        if required_r < r_min:
+            break
+    
+    return best_r, best_cycles
+
+def generate_walking_trajectory(target_distance, l1, l2, l3):
+    """
+    Generuje trajektorię chodu dla zadanej odległości
+    """
+    # Oblicz optymalne r i liczbę cykli
+    optimal_r, optimal_cycles = calculate_optimal_r_and_cycles(target_distance, l3)
+    
+    if optimal_r is None:
+        raise ValueError(f"Nie można wygenerować trajektorii dla odległości {target_distance}m")
+    
+    print(f"Obliczone parametry:")
+    print(f"  Docelowa odległość: {target_distance}m")
+    print(f"  Optymalne r: {optimal_r:.4f}m")
+    print(f"  Liczba cykli main_loop: {optimal_cycles}")
+    print(f"  Rzeczywista odległość: {optimal_r * (1 + 2 * optimal_cycles):.4f}m")
+    
+    # Używaj optimal_r zamiast stałego r
+    r = optimal_r
+    h = l3 / 4  # wysokość pozostaje stała
+    ilosc_punktow_na_krzywych = 10
+
+    punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
+    punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
+    punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
+    punkty_etap3_ruchu_y = np.linspace(-r / ilosc_punktow_na_krzywych, -r, ilosc_punktow_na_krzywych)
+    punkty_etap3_ruchu = [[0, punkty_etap3_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
+    punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r, h, 2 * ilosc_punktow_na_krzywych, 20000, -r)
+    punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, -r)
+
+    # Startup
+    cykl_ogolny_nog_1_3_5 = punkty_etap1_ruchu.copy()
+    cykl_ogolny_nog_2_4_6 = punkty_etap3_ruchu.copy()
+
+    # Main loop z obliczoną liczbą cykli
+    for _ in range(optimal_cycles):
+        cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap4_ruchu
+        cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu + punkty_etap3_ruchu
+
+    # Shutdown
+    cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap5_ruchu
+    cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu
+
+    cykl_ogolny_nog_1_3_5 = np.array(cykl_ogolny_nog_1_3_5)
+    cykl_ogolny_nog_2_4_6 = np.array(cykl_ogolny_nog_2_4_6)
+
+    
+    return np.array(cykl_ogolny_nog_1_3_5), np.array(cykl_ogolny_nog_2_4_6)
+
 # Długosci segmentow nog - ZAKTUALIZOWANE z rotation.py
 l1 = 0.17995 - 0.12184
 l2 = 0.30075 - 0.17995
@@ -85,14 +160,12 @@ alfa_1 = 0
 alfa_2 = np.radians(0)
 alfa_3 = np.radians(60)
 
-
 P0 = np.array([0, 0, 0])
 P1 = P0 + np.array([l1 * np.cos(alfa_1), l1 *np.sin(alfa_1), 0])
 P2 = P1 + np.array([np.cos(alfa_1)*np.cos(alfa_2)*l2,np.sin(alfa_1)*np.cos(alfa_2)*l2, np.sin(alfa_2) * l2])
 P3 = P2 + np.array([np.cos(alfa_1)*np.cos(alfa_2 - alfa_3)*l3, np.sin(alfa_1)*np.cos(alfa_2 - alfa_3)*l3, np.sin(alfa_2 - alfa_3) * l3])
 
 stopa_spoczynkowa = P3
-
 wysokosc_start = -stopa_spoczynkowa[2]
 
 przyczepy_nog_do_tulowia = np.array([
@@ -121,74 +194,16 @@ polozenie_spoczynkowe_stop = np.array([
     ]) for i in range(6)
 ])
 
-# tor pokonywany przez nogi w ukladzie wspolrzednych srodka robota
-h = l3 / 4
-r = h
-ilosc_punktow_na_krzywych = 20
-
-# === PARAMETRY CHODU ===
-zadana_odleglosc = 0.25 
-dlugosc_pelnego_kroku = 2 * r   # długość jednego pełnego kroku w metrach (gdy noga idzie od -r do +r)
-
-# Oblicz liczbę pełnych cykli i pozostałą odległość
-pelne_cykle = int(zadana_odleglosc // dlugosc_pelnego_kroku)
-pozostala_odleglosc = zadana_odleglosc % dlugosc_pelnego_kroku
-
-print(f"Zadana odległość: {zadana_odleglosc}m")
-print(f"Długość pełnego kroku: {dlugosc_pelnego_kroku:.3f}m")
-print(f"Liczba pełnych cykli: {pelne_cykle}")
-print(f"Pozostała odległość: {pozostala_odleglosc:.3f}m")
-
-# Jeśli jest pozostała odległość, oblicz skrócony krok
-ostatni_krok_potrzebny = pozostala_odleglosc > 0.01  # próg minimalny 1cm
-if ostatni_krok_potrzebny:
-    # Oblicz nowe r dla ostatniego kroku
-    r_ostatni = pozostala_odleglosc / 2
-    print(f"Ostatni krok: r = {r_ostatni:.3f}m")
-
-punkty_etap1_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
-punkty_etap2_ruchu_y = np.linspace(r * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
-punkty_etap2_ruchu = [[0, punkty_etap2_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
-punkty_etap3_ruchu_y = np.linspace(-r / ilosc_punktow_na_krzywych, -r, ilosc_punktow_na_krzywych)
-punkty_etap3_ruchu = [[0, punkty_etap3_ruchu_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
-punkty_etap4_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r, h, 2 * ilosc_punktow_na_krzywych, 20000, -r)
-punkty_etap5_ruchu = znajdz_punkty_rowno_odlegle_na_paraboli(r, h / 2, ilosc_punktow_na_krzywych, 10000, -r)
-cykl_ogolny_nog_1_3_5 = punkty_etap1_ruchu.copy()
-cykl_ogolny_nog_2_4_6 = punkty_etap3_ruchu.copy()
-
-# Generuj pełne cykle
-for _ in range(pelne_cykle):
-    cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap4_ruchu
-    cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu + punkty_etap3_ruchu
-
-# Jeśli potrzebny jest ostatni skrócony krok
-if ostatni_krok_potrzebny:
-    print(f"Generuję ostatni skrócony krok...")
-    # Generuj punkty dla ostatniego skróconego kroku
-    punkty_etap1_ostatni = znajdz_punkty_rowno_odlegle_na_paraboli(r_ostatni, h / 2, ilosc_punktow_na_krzywych, 10000, 0)
-    punkty_etap2_ostatni_y = np.linspace(r_ostatni * (ilosc_punktow_na_krzywych - 1) / ilosc_punktow_na_krzywych, 0, ilosc_punktow_na_krzywych)
-    punkty_etap2_ostatni = [[0, punkty_etap2_ostatni_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
-    punkty_etap3_ostatni_y = np.linspace(-r_ostatni / ilosc_punktow_na_krzywych, -r_ostatni, ilosc_punktow_na_krzywych)
-    punkty_etap3_ostatni = [[0, punkty_etap3_ostatni_y[i], 0] for i in range(ilosc_punktow_na_krzywych)]
-    punkty_etap4_ostatni = znajdz_punkty_rowno_odlegle_na_paraboli(2 * r_ostatni, h, 2 * ilosc_punktow_na_krzywych, 20000, -r_ostatni)
-    punkty_etap5_ostatni = znajdz_punkty_rowno_odlegle_na_paraboli(r_ostatni, h / 2, ilosc_punktow_na_krzywych, 10000, -r_ostatni)
-    
-    # Dodaj ostatni cykl
-    cykl_ogolny_nog_1_3_5 += punkty_etap2_ostatni + punkty_etap3_ostatni + punkty_etap4_ostatni
-    cykl_ogolny_nog_2_4_6 += punkty_etap4_ostatni + punkty_etap2_ostatni + punkty_etap3_ostatni
-    
-    # Zakończenie z ostatnim skróconym krokiem
-    cykl_ogolny_nog_1_3_5 += punkty_etap2_ostatni + punkty_etap3_ostatni + punkty_etap5_ostatni
-    cykl_ogolny_nog_2_4_6 += punkty_etap4_ostatni + punkty_etap2_ostatni
-else:
-    # Standardowe zakończenie dla pełnych kroków
-    cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap5_ruchu
-    cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu
-cykl_ogolny_nog_1_3_5 = np.array(cykl_ogolny_nog_1_3_5)
-cykl_ogolny_nog_2_4_6 = np.array(cykl_ogolny_nog_2_4_6)
+# Generuj trajektorię dla zadanej odległości
+TARGET_DISTANCE = 2.07  # 25 cm
+cykl_ogolny_nog_1_3_5, cykl_ogolny_nog_2_4_6 = generate_walking_trajectory(TARGET_DISTANCE, l1, l2, l3)
 
 # tablica cykli, gdzie jest zapisana kazda z nog, kazdy punkt w cylku i jego wspolrzedne, kazda z nog musi miec swoj wlasny
 # cykl poruszania ze wzgledu na katy pod jakimi sa ustawione wzgledem srodka robota
+
+#RUCH DO TYŁU:
+#cykl_ogolny_nog_1_3_5 = cykl_ogolny_nog_1_3_5[::-1]
+#cykl_ogolny_nog_2_4_6 = cykl_ogolny_nog_2_4_6[::-1]
 
 cykle_nog = np.array([
     [
@@ -215,8 +230,6 @@ polozenia_stop_podczas_cyklu = np.array([ # polozenie_stop jest wzgledem ukladu 
     for i in range(len(cykl_ogolny_nog_1_3_5))]
     for j in range(6)
 ])
-np.set_printoptions(threshold=np.inf)
-print(polozenia_stop_podczas_cyklu[2])
 
 #wychyly podawane odpowiednio dla 1 2 i 3 przegubu w radianach
 wychyly_serw_podczas_ruchu = np.array([
@@ -336,7 +349,7 @@ class LegSequencePlayer(Node):
         Wykonanie sekwencji ruchów dla wszystkich nóg równocześnie
         używając wartości z tablicy wychyly_serw_podczas_ruchu
         """
-        self.get_logger().info('Rozpoczynam sekwencję ruchów dla wszystkich nóg')
+        self.get_logger().info(f'Rozpoczynam sekwencję ruchów dla odległości {TARGET_DISTANCE}m')
         
         # Jeśli nie podano end_step, użyj całej tablicy
         if end_step is None:
@@ -358,7 +371,7 @@ class LegSequencePlayer(Node):
             self.get_logger().info(f'Wykonano krok {step}, oczekiwanie {step_duration}s...')
             self.wait_sim_time(step_duration)
         
-        self.get_logger().info('Sekwencja zakończona')
+        self.get_logger().info(f'Sekwencja zakończona - robot przeszedł {TARGET_DISTANCE}m do przodu')
 
 
 def main(args=None):
@@ -373,7 +386,7 @@ def main(args=None):
         node.wait_sim_time(0.1)
         
         # Wykonanie sekwencji
-        print("Rozpoczynam sekwencję")
+        print(f"Rozpoczynam sekwencję chodu na odległość {TARGET_DISTANCE}m")
         node.execute_sequence()
         
         # Utrzymanie węzła aktywnego przez chwilę

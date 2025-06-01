@@ -35,6 +35,7 @@ install(PROGRAMS scripts/x_create_udev_rules
   scripts/wave_gate.py
   scripts/ripple_gate.py
   scripts/rotation.py
+  scripts/point_to_point.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
