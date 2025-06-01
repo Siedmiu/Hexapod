@@ -153,14 +153,14 @@ if [ "$1" == "diagnose" ]; then
     $DOCKER_RUN_ARGS_GUI \
     $DOCKER_GPU_ARGS \
     hexapod-prod \
-    bash -c "if [ -f /root/Hexapod/Docker/check-gpu.sh ]; then /root/Hexapod/Docker/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && bash"
+    bash -c "cd /root/Hexapod && git pull && cd sim_and_real/ros2_ws_hex && source /opt/ros/jazzy/setup.bash && colcon build && if [ -f /root/Hexapod/Docker/check-gpu.sh ]; then /root/Hexapod/Docker/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && bash"
   
   exit 0
 fi
 
 # Dodajemy wybór trybu: domyślnie Gazebo, jeśli podamy "moveit" to tryb MoveIt
 if [ "$1" == "moveit" ]; then
-    LAUNCH_CMD="ros2 launch hexapod_moveit_config demo.launch.py"  # zmieniono nazwę pakietu
+    LAUNCH_CMD="ros2 launch hexapod_moveit_config demo.launch.py"
 else
     LAUNCH_CMD="ros2 launch hex_gz gazebo.launch.py"
 fi
@@ -168,13 +168,13 @@ fi
 # Budowanie obrazu produkcyjnego
 sudo docker build -t hexapod-prod -f Dockerfile.prod .
 
-# Uruchomienie kontenera produkcyjnego z konfiguracją GUI / MoveIt
+# Uruchomienie kontenera produkcyjnego z automatyczną aktualizacją repozytorium
 sudo docker run -it --rm \
   --name hexapod-prod \
   --network host \
   $DOCKER_RUN_ARGS_GUI \
   $DOCKER_GPU_ARGS \
   hexapod-prod \
-  bash -c "source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && $LAUNCH_CMD"
+  bash -c "cd /root/Hexapod && echo 'Aktualizowanie repozytorium...' && git pull && cd sim_and_real/ros2_ws_hex && echo 'Budowanie workspace...' && source /opt/ros/jazzy/setup.bash && colcon build && echo 'Uruchamianie symulacji...' && source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && $LAUNCH_CMD"
 
 # Plik Xauthority jest usuwany przez pułapkę 'trap'

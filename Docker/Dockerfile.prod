@@ -95,6 +95,6 @@ RUN if [ -d "Hexapod" ]; then \
 # Source workspace
 RUN echo "source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash" >> /root/.bashrc
 
-# Domyślnie uruchamiana symulacja
-CMD ["/bin/bash", "-c", "source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && ros2 launch hex_gz gazebo.launch.py"]
+# Domyślnie uruchamiana symulacja z automatyczną aktualizacją repozytorium
+CMD ["/bin/bash", "-c", "cd /root/Hexapod && echo 'Aktualizowanie repozytorium...' && git pull && cd sim_and_real/ros2_ws_hex && echo 'Budowanie workspace...' && source /opt/ros/jazzy/setup.bash && colcon build && echo 'Uruchamianie symulacji...' && source /opt/ros/jazzy/setup.bash && source /root/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash && ros2 launch hex_gz gazebo.launch.py"]
 

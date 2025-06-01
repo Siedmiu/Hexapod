@@ -14,6 +14,7 @@ Docker to narzędzie do wirtualizacji kontenerów, które umożliwia uruchamiani
 
 Kontener produkcyjny (oparty na Dockerfile.prod):
 - Uruchamia aplikację lub symulację automatycznie po starcie. Domyślnie startuje symulacja w Gazebo, tryb MoveIt/RViz aktywowany argumentem "moveit"
+- Automatycznie aktualizuje repozytorium do najnowszej wersji przy każdym uruchomieniu
 - Zawiera kompletną konfigurację systemu, ROS2 oraz zależności potrzebne do symulacji.
 - Przeznaczony jest do wdrożeń i prezentacji stabilnej wersji aplikacji.
 - Uruchamiany zwykle z interfejsem graficznym (GUI) wspomaganym przez X11.
@@ -28,11 +29,13 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 1. Aby zbudować i uruchomić kontener produkcyjny, wykonaj (w razie problemów użyj sudo):
    - `sudo ./setup-prod.sh` – budowanie obrazu i uruchomienie Gazebo.
    - `sudo ./setup-prod.sh moveit` – budowanie obrazu i uruchomienie MoveIt.
-   - `sudo ./setup-import-prod.sh` – import obrazu produkcyjnego z pliku .tar (dostępny wkrótce).
+   - `sudo ./setup-import-prod.sh` – import obrazu produkcyjnego z pliku .tar dostępnego w zakładce [Release](https://github.com/Siedmiu/Hexapod/releases).
 
 2. Aby zbudować środowisko deweloperskie, wykonaj (w razie problemów użyj sudo):
    - `sudo ./setup-dev.sh` – pobranie repozytorium, budowa workspace i uruchomienie kontenera deweloperskiego.
-   - `sudo ./setup-import-dev.sh` – import obrazu deweloperskiego z pliku .tar (dostępny wkrótce).
+   - `sudo ./setup-import-dev.sh` – import obrazu deweloperskiego z pliku .tar dostępnego w zakładce [Release](https://github.com/Siedmiu/Hexapod/releases).
+
+**Uwaga:** Kontener produkcyjny automatycznie pobiera najnowsze zmiany z repozytorium przy każdym uruchomieniu. Kontener deweloperski używa lokalnego kodu z zamontowanego katalogu.
 
 3. Wewnątrz środowiska deweloperskiego możesz uruchomić:
    - Uruchomienie Gazebo:
@@ -52,6 +55,10 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 
 ## Dodatkowe informacje i wskazówki
 
+- **Uprawnienia skryptów**: Jeśli wystąpi błąd "Permission denied", nadaj uprawnienia wykonywania:
+  ```bash
+  chmod +x *.sh
+  ```
 - Aby korzystać z kontenerów graficznych, upewnij się, że polecenie `xhost +local:docker` jest wykonywane, co umożliwia dostęp do X11.
 - W niektórych przypadkach po instalacji Dockera konieczne może być ponowne logowanie lub restart systemu, aby zmiany w grupach użytkowników zostały zastosowane.
 - Skrypty wykorzystują sudo, co wymaga uprzedniego ustawienia odpowiednich uprawnień.
