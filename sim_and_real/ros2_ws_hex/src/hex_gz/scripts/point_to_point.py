@@ -11,9 +11,9 @@ from builtin_interfaces.msg import Duration
 from rosgraph_msgs.msg import Clock
 import time
 
+
 matplotlib.use('TkAgg')
 
-# ============ FUNKCJE WSPÓLNE ============
 def katy_serw(P3, l1, l2, l3):
     """Wyznaczenie kątów potrzebnych do osiągnięcia przez stopę punktu docelowego"""
     alfa_1 = np.arctan2(P3[1], P3[0])
@@ -32,12 +32,12 @@ def katy_serw(P3, l1, l2, l3):
     alfa_2 = -(epsilon + tau)
     return [alfa_1, alfa_2, alfa_3]
 
-# Długości segmentów nóg
+
 l1 = 0.17995 - 0.12184
 l2 = 0.30075 - 0.17995
 l3 = 0.50975 - 0.30075
 
-# ============ FUNKCJE DLA OBROTU (ORYGINALNE) ============
+
 def turn_hexapod(R, alfa, x_start, z):
     x_new = (x_start + R) * np.cos(alfa) - R
     y_new = (x_start + R) * np.sin(alfa)
@@ -238,7 +238,6 @@ def generate_walking_sequence(zadana_odleglosc):
     cykl_ogolny_nog_1_3_5 = punkty_etap1_ruchu.copy()
     cykl_ogolny_nog_2_4_6 = punkty_etap3_ruchu.copy()
 
-    # Generuj pełne cykle
     for _ in range(pelne_cykle):
         cykl_ogolny_nog_1_3_5 += punkty_etap2_ruchu + punkty_etap3_ruchu + punkty_etap4_ruchu
         cykl_ogolny_nog_2_4_6 += punkty_etap4_ruchu + punkty_etap2_ruchu + punkty_etap3_ruchu
@@ -338,6 +337,12 @@ class CombinedHexapodController(Node):
             6: ['joint1_6', 'joint2_6', 'joint3_6']
         }
 
+        self.estimated_position = {'x': 0.0, 'y': 0.0, 'z': 0.0}
+        self.estimated_orientation = {'yaw': 0.0}  # Na razie tylko yaw
+        self.position_history = []
+
+
+
     def clock_callback(self, msg):
         """Callback do odbioru czasu symulacji"""
         self.last_sim_time = self.sim_time
@@ -431,15 +436,12 @@ class CombinedHexapodController(Node):
         """Wykonanie sekwencji obrotu - ORYGINALNA LOGIKA"""
         self.get_logger().info('Rozpoczynam sekwencję obrotu')
         
-        # Zakładamy, że tablice mają tę samą długość
         max_steps = min(len(wychyly_1_3_5), len(wychyly_2_4_6))
 
-        # Przejście do pozycji początkowej (pierwszy punkt)
         self.send_rotation_trajectory(wychyly_1_3_5, wychyly_2_4_6, 0, duration_sec=step_duration)
         self.get_logger().info('Oczekiwanie na wykonanie początkowego ruchu...')
         self.wait_sim_time(step_duration + 0.05)
 
-        # Wykonanie sekwencji
         for step in range(1, max_steps):
             self.send_rotation_trajectory(wychyly_1_3_5, wychyly_2_4_6, step, duration_sec=step_duration)
             self.get_logger().info(f'Wykonano krok obrotu {step}, oczekiwanie {step_duration}s...')
@@ -451,11 +453,9 @@ class CombinedHexapodController(Node):
         """Wykonanie sekwencji marszu"""
         self.get_logger().info('Rozpoczynam sekwencję marszu')
         
-        # Przejście do pozycji początkowej
         self.send_walking_trajectory(wychyly_serw_podczas_ruchu, 0, duration_sec=0.15)
         self.wait_sim_time(0.15)
         
-        # Wykonanie sekwencji ruchów
         for step in range(1, len(wychyly_serw_podczas_ruchu[0])):
             self.send_walking_trajectory(wychyly_serw_podczas_ruchu, step, duration_sec=step_duration)
             self.get_logger().info(f'Wykonano krok marszu {step}, oczekiwanie {step_duration}s...')
@@ -463,45 +463,117 @@ class CombinedHexapodController(Node):
         
         self.get_logger().info('Sekwencja marszu zakończona')
 
-    def execute_complete_sequence(self):
-        """Wykonanie pełnej sekwencji: obrót 90° → marsz 0.25m → obrót 90°"""
-        self.get_logger().info('=== ROZPOCZYNAM PEŁNĄ SEKWENCJĘ ===')
+
+    def get_current_pose(self):
+        """Zwraca aktualną pozycję i orientację robota"""
+        return {
+            'position': self.estimated_position.copy(),
+            'orientation': self.estimated_orientation.copy(),
+            'timestamp': self.sim_time
+        }
+
+    def print_current_pose(self, phase_name=""):
+        """Wypisuje aktualną pozycję i orientację"""
+        pose = self.get_current_pose()
+        pos = pose['position']
+        ori = pose['orientation']
+        self.get_logger().info(
+            f'[{phase_name}] Pozycja: x={pos["x"]:.3f}, y={pos["y"]:.3f}, z={pos["z"]:.3f}, '
+            f'orientacja: {np.degrees(ori["yaw"]):.1f}°'
+        )
+
+    def update_position_after_rotation(self, rotation_angle_deg):
+        """Aktualizuje orientację po obrocie"""
+        self.estimated_orientation['yaw'] += np.radians(rotation_angle_deg)
+        self.get_logger().info(f'Orientacja zaktualizowana o {rotation_angle_deg}°')
+
+    def update_position_after_walking(self, distance):
+        """Aktualizuje pozycję po marszu"""
+        current_yaw = self.estimated_orientation['yaw']
+        dx = distance * np.cos(current_yaw)
+        dy = distance * np.sin(current_yaw) 
         
-        # Czekanie na inicjalizację czasu symulacji
-        self.get_logger().info('Czekam na czas symulacji...')
+        self.estimated_position['x'] += dx
+        self.estimated_position['y'] += dy
+        self.get_logger().info(f'Pozycja zaktualizowana o {distance}m w kierunku {np.degrees(current_yaw):.1f}°')
+
+    def calculate_movement_to_point(self, target_x, target_y):
+        """Oblicza potrzebny obrót i odległość do punktu docelowego"""
+        current_x = self.estimated_position['x']
+        current_y = self.estimated_position['y']
+        current_yaw = self.estimated_orientation['yaw']
+        
+        # Odległość do celu
+        dx = target_x - current_x
+        dy = target_y - current_y
+        distance = np.sqrt(dx**2 + dy**2)
+        
+        # Kąt do celu (względem osi X)
+        target_angle = np.arctan2(dy, dx)
+        
+        # Potrzebny obrót
+        rotation_needed = target_angle - current_yaw
+        
+        # Normalizuj kąt do zakresu [-π, π]
+        while rotation_needed > np.pi:
+            rotation_needed -= 2 * np.pi
+        while rotation_needed < -np.pi:
+            rotation_needed += 2 * np.pi
+        
+        self.get_logger().info(f'Cel: ({target_x:.3f}, {target_y:.3f})')
+        self.get_logger().info(f'Odległość do celu: {distance:.3f}m')
+        self.get_logger().info(f'Potrzebny obrót: {np.degrees(rotation_needed):.1f}°')
+        
+        return np.degrees(rotation_needed), distance
+
+    def move_to_point(self, target_x, target_y):
+        """Porusza robota do punktu docelowego"""
+        self.get_logger().info(f'=== RUCH DO PUNKTU ({target_x}, {target_y}) ===')
+        
+        # Oblicz potrzebny ruch
+        rotation_deg, distance = self.calculate_movement_to_point(target_x, target_y)
+        
+        # 1. Obrót (jeśli potrzebny)
+        if abs(rotation_deg) > 1.0:  # Tylko jeśli obrót > 1 stopień
+            self.get_logger().info(f'Obracam o {rotation_deg:.1f}°')
+            wychyly_rot_1_3_5, wychyly_rot_2_4_6 = generate_rotation_sequence(rotation_deg)
+            self.execute_rotation_sequence(wychyly_rot_1_3_5, wychyly_rot_2_4_6)
+            self.update_position_after_rotation(rotation_deg)
+            self.print_current_pose("PO OBROCIE")
+            self.wait_sim_time(1.0)
+        
+        # 2. Marsz do przodu (jeśli potrzebny)
+        if distance > 0.01:  # Tylko jeśli odległość > 1cm
+            self.get_logger().info(f'Idę do przodu o {distance:.3f}m')
+            wychyly_marsz = generate_walking_sequence(distance)
+            self.execute_walking_sequence(wychyly_marsz)
+            self.update_position_after_walking(distance)
+            self.print_current_pose("PO MARSZU")
+            self.wait_sim_time(1.0)
+        
+        self.get_logger().info('=== DOTARCIE DO PUNKTU ZAKOŃCZONE ===')
+
+
+    def execute_complete_sequence(self):
+        """Wykonanie sekwencji point-to-point"""
+        self.get_logger().info('=== ROZPOCZYNAM SEKWENCJĘ POINT-TO-POINT ===')
+        
+        # Czekanie na inicjalizację
         while self.sim_time is None:
             rclpy.spin_once(self, timeout_sec=0.1)
         
-        # Krótka pauza na inicjalizację
-        self.get_logger().info('Inicjalizacja...')
         self.wait_sim_time(2.0)
+        self.print_current_pose("START")
         
-        # ETAP 1: Pierwszy obrót o 90 stopni
-        self.get_logger().info('=== ETAP 1: OBRÓT O 90 STOPNI ===')
-        wychyly_rot1_1_3_5, wychyly_rot1_2_4_6 = generate_rotation_sequence(90)
-        self.execute_rotation_sequence(wychyly_rot1_1_3_5, wychyly_rot1_2_4_6)
+        # Ruch do pierwszego punktu
+        self.move_to_point(0.25, 0.25)
         
-        # Pauza między etapami
-        self.get_logger().info('Pauza między etapami...')
-        self.wait_sim_time(1.0)
+        # Ruch do drugiego punktu
+        self.move_to_point(0.0, 0.25)
         
-        # ETAP 2: Marsz do przodu o 0.25m
-        self.get_logger().info('=== ETAP 2: MARSZ DO PRZODU O 0.25m ===')
-        wychyly_marsz = generate_walking_sequence(0.25)
-        self.execute_walking_sequence(wychyly_marsz)
-        
-        # Pauza między etapami
-        self.get_logger().info('Pauza między etapami...')
-        self.wait_sim_time(1.0)
-        
-        # ETAP 3: Drugi obrót o 90 stopni
-        self.get_logger().info('=== ETAP 3: OBRÓT O 90 STOPNI ===')
-        wychyly_rot2_1_3_5, wychyly_rot2_2_4_6 = generate_rotation_sequence(90)
-        self.execute_rotation_sequence(wychyly_rot2_1_3_5, wychyly_rot2_2_4_6)
-        
-        # Zakończenie
-        self.get_logger().info('=== PEŁNA SEKWENCJA ZAKOŃCZONA ===')
-        self.wait_sim_time(2.0)
+        self.get_logger().info('=== SEKWENCJA ZAKOŃCZONA ===')
+        self.print_current_pose("KONIEC")
+
 
 
 def main(args=None):
@@ -512,8 +584,6 @@ def main(args=None):
     
     try:
         print("=== HEXAPOD COMBINED SEQUENCE ===")
-        print("Sekwencja: OBRÓT 90° → MARSZ 0.25m → OBRÓT 90°")
-        print("Rozpoczynam wykonanie...")
         
         # Wykonanie pełnej sekwencji
         node.execute_complete_sequence()
