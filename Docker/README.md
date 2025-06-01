@@ -29,11 +29,11 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 1. Aby zbudować i uruchomić kontener produkcyjny, wykonaj (w razie problemów użyj sudo):
    - `sudo ./setup-prod.sh` – budowanie obrazu i uruchomienie Gazebo.
    - `sudo ./setup-prod.sh moveit` – budowanie obrazu i uruchomienie MoveIt.
-   - `sudo ./setup-import-prod.sh` – import obrazu produkcyjnego z pliku .tar dostępnego w zakładce [Release](https://github.com/Siedmiu/Hexapod/releases).
+   - `sudo ./setup-import-prod.sh` – pobieranie obrazu produkcyjnego z Docker Hub.
 
 2. Aby zbudować środowisko deweloperskie, wykonaj (w razie problemów użyj sudo):
    - `sudo ./setup-dev.sh` – pobranie repozytorium, budowa workspace i uruchomienie kontenera deweloperskiego.
-   - `sudo ./setup-import-dev.sh` – import obrazu deweloperskiego z pliku .tar dostępnego w zakładce [Release](https://github.com/Siedmiu/Hexapod/releases).
+   - `sudo ./setup-import-dev.sh` – pobieranie obrazu deweloperskiego z Docker Hub.
 
 **Uwaga:** Kontener produkcyjny automatycznie pobiera najnowsze zmiany z repozytorium przy każdym uruchomieniu. Kontener deweloperski używa lokalnego kodu z zamontowanego katalogu.
 
@@ -43,14 +43,12 @@ Kontener deweloperski (oparty na Dockerfile.dev):
    - Uruchomienie RViz/MoveIt:
      - `ros2 launch hexapod_moveit_config demo.launch.py`
 
-3. Eksport i import obrazu Dockera (opcjonalnie):
-   - Aby wyeksportować obraz produkcyjny do pliku .tar, wykonaj:
+3. Docker Hub vs lokalne budowanie:
+   - **Skrypty setup-prod.sh i setup-dev.sh**: Budują obrazy lokalnie z najnowszym kodem
+   - **Skrypty setup-import-prod.sh i setup-import-dev.sh**: Pobierają gotowe obrazy z Docker Hub (`natantulo/hexapod:prod` i `natantulo/hexapod:dev`)
+   - **Eksport lokalny** (opcjonalnie):
      - `sudo docker save -o hexapod-prod.tar hexapod-prod`
-     - lub analogicznie dla obrazu deweloperskiego:
      - `sudo docker save -o hexapod-dev.tar hexapod-dev`
-   - Aby zaimportować obraz na innej maszynie, wykonaj:
-     - `sudo docker load -i hexapod-prod.tar` 
-     - lub analogicznie 
      - `sudo docker load -i hexapod-prod.tar`
 
 ## Dodatkowe informacje i wskazówki
@@ -76,9 +74,9 @@ Kontener deweloperski (oparty na Dockerfile.dev):
 ## Skrypty
 
 - setup-prod.sh: Buduje obraz produkcyjny przy użyciu Dockerfile.prod i uruchamia kontener z GUI.
-- setup-import-prod.sh: Importuje obraz produkcyjny z pliku hexapod-prod.tar i uruchamia kontener.
+- setup-import-prod.sh: Pobiera obraz produkcyjny z Docker Hub (natantulo/hexapod:prod) i uruchamia kontener.
 - setup-dev.sh: Buduje obraz deweloperski przy użyciu Dockerfile.dev z zamontowanym katalogiem projektu i uruchamia kontener.
-- setup-import-dev.sh: Importuje obraz deweloperski z pliku hexapod-dev.tar i uruchamia kontener.
+- setup-import-dev.sh: Pobiera obraz deweloperski z Docker Hub (natantulo/hexapod:dev) i uruchamia kontener.
 
 ## Dockerfile
 

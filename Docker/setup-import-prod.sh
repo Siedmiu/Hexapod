@@ -129,18 +129,12 @@ else
     fi
 fi
 
-# Ścieżka do pliku z obrazem
-IMAGE_TAR="hexapod-prod.tar"
+# Pobieranie obrazu produkcyjnego z Docker Hub
+echo "Pobieranie obrazu produkcyjnego z Docker Hub..."
+sudo docker pull natantulo/hexapod:prod
 
-if [ ! -f "$IMAGE_TAR" ]; then
-  echo "Plik $IMAGE_TAR nie został znaleziony. Upewnij się, że znajduje się w tym katalogu."
-  exit 1
-fi
-
-# Import obrazu Docker
-echo "Importowanie obrazu Docker z $IMAGE_TAR..."
-sudo docker load -i "$IMAGE_TAR"
-sudo chown $USER:$USER "$IMAGE_TAR"
+# Tagowanie obrazu lokalnie dla spójności z innymi skryptami
+sudo docker tag natantulo/hexapod:prod hexapod-prod
 
 # Sprawdzanie czy użytkownik chce tryb diagnostyczny
 if [ "$1" == "diagnose" ]; then

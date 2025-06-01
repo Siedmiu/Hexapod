@@ -137,18 +137,12 @@ if [ ! -d "$PWD/Hexapod" ]; then
   sudo chmod -R u+rw Hexapod
 fi
 
-# Ścieżka do pliku z obrazem DEV
-IMAGE_TAR="hexapod-dev.tar"
+# Pobieranie obrazu deweloperskiego z Docker Hub
+echo "Pobieranie obrazu deweloperskiego z Docker Hub..."
+sudo docker pull natantulo/hexapod:dev
 
-if [ ! -f "$IMAGE_TAR" ]; then
-  echo "Plik $IMAGE_TAR nie został znaleziony. Upewnij się, że znajduje się w tym katalogu."
-  exit 1
-fi
-
-# Import obrazu Docker
-echo "Importowanie obrazu Docker z $IMAGE_TAR..."
-sudo docker load -i "$IMAGE_TAR"
-sudo chown $USER:$USER "$IMAGE_TAR"
+# Tagowanie obrazu lokalnie dla spójności z innymi skryptami
+sudo docker tag natantulo/hexapod:dev hexapod-dev
 
 # Budowa workspace w kontenerze, jeśli nie istnieje plik install/setup.bash
 if [ ! -f "$PWD/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash" ]; then
