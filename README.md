@@ -3,7 +3,9 @@
 We are a group of students from Gdańsk University of Technology. Our goal is to create a 6 legged spider robot or a "Hexapod" in short.
 Our current goals include the ability to **traverse difficult terrain**, **remote control** via an **android app**. Multiple walking algorithms are going to be implemented and tested.
 Hexapod capabilities planned for the future include autonomous walking with the ability to follow objects and people using neural networks and computer vision algorithms.
+
 Our simulation stack uses **ROS** and **Gazebo**, with **Python** for gait planning. The physical Hexapod is controlled by an **ESP32**, and all structural components are designed for **3D printing**.
+For more information please visit our simulation repository: https://github.com/Siedmiu/Hexapod-Gazebo-Simulation
 
 ![af067df6-a745-4674-9efd-3d1703f9f18c](https://github.com/user-attachments/assets/d5c3d64f-f8aa-4e9f-88c1-b1370196a54e)
 
@@ -45,4 +47,4 @@ This is a university-led project, and external contributions are not accepted un
 ## Related Repositories:
 Android application repository: https://github.com/Siedmiu/Hexapod-Android-Application
 
-Gazebo, Ros and simulation repository (currently migrated to the main repository): https://github.com/Siedmiu/Hexapod-Gazebo-Simulation
+Gazebo, Ros and simulation repository: https://github.com/Siedmiu/Hexapod-Gazebo-Simulation
