@@ -36,7 +36,7 @@ For more information please visit our simulation repository: https://github.com/
 ![Screenshots_2025-05-16-08-47-24](https://github.com/user-attachments/assets/42edf093-3a26-4483-8d72-93a5a7b64733)
 
 ## Requirements:
-Ubuntu 24.04 LTS, ROS Jazzy Jalisco, aplicable Gazebo version
+Ubuntu 24.04 LTS, ROS Jazzy Jalisco, applicable Gazebo version
 
 ## Documentation and Setup:
 Complete documentation, setup instructions, and Docker files will be available upon full release.
@@ -47,4 +47,4 @@ This is a university-led project, and external contributions are not accepted un
 ## Related Repositories:
 Android application repository: https://github.com/Siedmiu/Hexapod-Android-Application
 
-Gazebo, Ros and simulation repository: https://github.com/Siedmiu/Hexapod-Gazebo-Simulation
+Gazebo, Ros and simulation repository: https://github.com/Siedmiu/Hexapod-ROS2-System
