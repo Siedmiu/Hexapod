@@ -1,0 +1,56 @@
+1d
+
+mid section truss front: 11g
+mid section truss back: 11g
+section truss rod short: 0.25g
+pinion16: 2g
+servo clamp: 0.875g
+servo mount front: 3g
+mid section truss rod long: 0.375g
+gearbox 3 mount: 3.25g
+servo mount back: 2.9g
+
+2d
+
+bevel 24 guide: 3.66g
+bevel gear shaft cap: 0.5g
+bevel gaer shaft: 2.42g
+shaft cap in: 1.75g
+shaft cap out: 2.33g
+bevel 24: 4.16g
+
+3d
+
+down section truss back/front1: 8.33g
+down section truss back: 5g
+down section truss back 2: 4g
+ds bt: 3.75g
+truss front: 5g
+ds ut/dt: 0.54g
+
+4d
+rod holder back/front: 0.83g
+spring rod: 2.16g
+switch holder back/front: 0.5g
+key: 0.66g
+sprężyna: 6.5g
+
+5d
+cage bottom: 0.58g
+vertical shaft: 2.16g
+top section truss back: 5.16g
+top section truss front: 5.83g
+bearing outside: 1.83g
+bearing cap up: 0.5g
+spur 32: 10g
+spur 16: 2.83g
+bearing inside: 1.33g
+top section holders: 11g
+
+
+6d
+
+supprot rod: 0.83g
+supprod rod small: 0.33g
+bearing mount L0-L5: 9.83g
+
