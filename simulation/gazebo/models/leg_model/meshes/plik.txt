@@ -1,1 +1,0 @@
-Nie usuwać podczas usuwania plików .sdl, żeby nie trzeba było znowu tworzyć folderu "meshes" na GitHub.
