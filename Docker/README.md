@@ -21,7 +21,7 @@ Kontener produkcyjny (oparty na Dockerfile.prod):
 
 Kontener deweloperski (oparty na Dockerfile.dev):
 - Uruchamia interaktywną powłokę (bash) dla łatwego debugowania i testowania.
-- Montuje lokalny katalog roboczy, umożliwiając modyfikację kodu bez przebudowy obrazu.
+- Montuje lokalny katalog roboczy (`Hexapod-ROS2-System`), umożliwiając modyfikację kodu bez przebudowy obrazu.
 - Skonfigurowany głównie do pracy developerskiej z szybkimi iteracjami zmian w kodzie.
 
 ## Sposób użycia
@@ -44,7 +44,7 @@ Kontener deweloperski (oparty na Dockerfile.dev):
      - `ros2 launch hexapod_moveit_config demo.launch.py`
 
 3. Docker Hub vs lokalne budowanie:
-   - **Skrypty setup-prod.sh i setup-dev.sh**: Budują obrazy lokalnie z najnowszym kodem
+   - **Skrypty setup-prod.sh i setup-dev.sh**: Budują obrazy lokalnie z najnowszym kodem repozytorium [Hexapod-ROS2-System](https://github.com/Siedmiu/Hexapod-ROS2-System)
    - **Skrypty setup-import-prod.sh i setup-import-dev.sh**: Pobierają gotowe obrazy z Docker Hub (`natantulo/hexapod:prod` i `natantulo/hexapod:dev`)
    - **Eksport lokalny** (opcjonalnie):
      - `sudo docker save -o hexapod-prod.tar hexapod-prod`

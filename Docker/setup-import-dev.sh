@@ -130,11 +130,11 @@ else
 fi
 
 # Dodanie sprawdzania, czy katalog Hexapod istnieje
-if [ ! -d "$PWD/Hexapod" ]; then
-  echo "Katalog Hexapod nie znaleziony. Klonowanie repozytorium..."
-  git clone https://github.com/Siedmiu/Hexapod.git
-  sudo chown -R $USER:$USER Hexapod
-  sudo chmod -R u+rw Hexapod
+if [ ! -d "$PWD/Hexapod-ROS2-System" ]; then
+  echo "Katalog Hexapod-ROS2-System nie znaleziony. Klonowanie repozytorium..."
+  git clone https://github.com/Siedmiu/Hexapod-ROS2-System.git
+  sudo chown -R $USER:$USER Hexapod-ROS2-System
+  sudo chmod -R u+rw Hexapod-ROS2-System
 fi
 
 # Pobieranie obrazu deweloperskiego z Docker Hub
@@ -145,15 +145,15 @@ sudo docker pull natantulo/hexapod:dev
 sudo docker tag natantulo/hexapod:dev hexapod-dev
 
 # Budowa workspace w kontenerze, jeśli nie istnieje plik install/setup.bash
-if [ ! -f "$PWD/Hexapod/sim_and_real/ros2_ws_hex/install/setup.bash" ]; then
+if [ ! -f "$PWD/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash" ]; then
   echo "Budowanie workspace w kontenerze..."
   sudo docker run --rm \
-    -v "$PWD/Hexapod:/ros_ws/Hexapod" \
+    -v "$PWD/Hexapod-ROS2-System:/ros_ws/Hexapod-ROS2-System" \
     hexapod-dev \
-    bash -c "cd /ros_ws/Hexapod/sim_and_real/ros2_ws_hex && source /opt/ros/jazzy/setup.bash && colcon build"
+    bash -c "cd /ros_ws/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex && source /opt/ros/jazzy/setup.bash && colcon build"
   
   # Naprawienie uprawnień po budowie w kontenerze
-  sudo chown -R $USER:$USER "$PWD/Hexapod"
+  sudo chown -R $USER:$USER "$PWD/Hexapod-ROS2-System"
 fi
 
 # Sprawdzanie czy użytkownik chce tryb diagnostyczny
@@ -164,9 +164,9 @@ if [ "$1" == "diagnose" ]; then
     --network host \
     $DOCKER_RUN_ARGS_GUI \
     $DOCKER_GPU_ARGS \
-    -v "$PWD/Hexapod:/ros_ws/Hexapod" \
+    -v "$PWD/Hexapod-ROS2-System:/ros_ws/Hexapod-ROS2-System" \
     hexapod-dev \
-    bash -c "cd /ros_ws/Hexapod && if [ -f Docker/check-gpu.sh ]; then Docker/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && bash"
+    bash -c "cd /ros_ws/Hexapod-ROS2-System && if [ -f Docker/check-gpu.sh ]; then Docker/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && bash"
   exit 0
 fi
 
@@ -176,6 +176,6 @@ sudo docker run -it --rm \
   --network host \
   $DOCKER_RUN_ARGS_GUI \
   $DOCKER_GPU_ARGS \
-  -v "$PWD/Hexapod:/ros_ws/Hexapod" \
+  -v "$PWD/Hexapod-ROS2-System:/ros_ws/Hexapod-ROS2-System" \
   hexapod-dev \
   bash -c "source /opt/ros/jazzy/setup.bash && bash"
