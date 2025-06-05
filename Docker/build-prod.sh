@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 
-# Sprawdzenie, czy zmienna DISPLAY jest ustawiona
+# Check if DISPLAY variable is set
 if [ -z "$DISPLAY" ]; then
     echo "DISPLAY variable is not set. Exiting."
     exit 1
 fi
 
-# Funkcja do instalacji pakietów, jeśli nie są zainstalowane
+# Function to install packages if missing
 install_if_missing() {
     for pkg in "$@"; do
         if ! dpkg -s "$pkg" &> /dev/null; then
@@ -19,25 +19,25 @@ install_if_missing() {
     done
 }
 
-# Sprawdzenie i usunięcie nieprawidłowych repozytoriów ROS
+# Check and remove incompatible ROS repos
 if [ -f /etc/apt/sources.list.d/ros-latest.list ]; then
     echo "Wykryto niekompatybilne repozytorium ROS. Usuwanie..."
     sudo rm /etc/apt/sources.list.d/ros-latest.list
 fi
 
-# Aktualizacja systemu i instalacja podstawowych narzędzi
+# Update system and install core tools
 sudo apt update || true  # Użycie || true zapobiegnie zatrzymaniu skryptu, jeśli apt update zwróci błąd
-# Sprawdzenie i instalacja pciutils (dla lspci) i x11-xserver-utils (dla xhost)
-install_if_missing pciutils x11-xserver-utils curl ca-certificates gnupg git
+# Check and install pciutils (for lspci) and x11-xserver-utils (for xhost)
+install_if_missing pciutils x11-xserver-utils curl ca-certificates gnupg
 
-# Sprawdzenie, czy xhost jest dostępny (powinien być po install_if_missing x11-xserver-utils)
+# Check if xhost is available (should be after install_if_missing x11-xserver-utils)
 if ! command -v xhost &> /dev/null; then
     echo "xhost command not found. This should not happen after installing x11-xserver-utils."
     echo "Please ensure x11-xserver-utils is installed correctly."
     exit 1
 fi
 
-# Instalacja Dockera (jeśli nie jest zainstalowany)
+# Install Docker if not found
 if ! command -v docker &> /dev/null; then
   echo "Docker not found. Installing..."
   sudo apt install -y ca-certificates curl gnupg
@@ -57,16 +57,16 @@ if ! command -v docker &> /dev/null; then
   echo "If you don't want to reboot/re-login now, you can try 'newgrp docker' in this terminal session."
 fi
 
-# Konfiguracja X11 i akceleracji sprzętowej
+# Configure X11 and hardware acceleration
 DOCKER_RUN_ARGS_GUI=""
 DOCKER_GPU_ARGS=""
 
-# Ustawienie xhost, aby Docker mógł używać X11
+# Set xhost to allow Docker to use X11 
 xhost +local:docker
 
-# Konfiguracja Xauthority dla bezpieczniejszego przekierowania X11
-XAUTH_FILE=$(mktemp /tmp/.docker.xauth.dev.XXXXXX)
-# Upewnij się, że plik jest usuwany przy wyjściu, nawet w przypadku błędu
+# Configure Xauthority for safer X11 forwarding
+XAUTH_FILE=$(mktemp /tmp/.docker.xauth.prod.XXXXXX)
+# Ensure the file is removed on exit, even on error
 trap 'rm -f "$XAUTH_FILE"' EXIT
 
 touch "$XAUTH_FILE"
@@ -79,18 +79,18 @@ fi
 chmod a+r "$XAUTH_FILE"
 
 DOCKER_RUN_ARGS_GUI+=" --env=DISPLAY=$DISPLAY"
-DOCKER_RUN_ARGS_GUI+=" --env=QT_X11_NO_MITSHM=1"
+DOCKER_RUN_ARGS_GUI+=" --env=QT_X11_NO_MITSHM=1" # Zapobiega problemom z renderowaniem Qt przez MIT-SHM
 DOCKER_RUN_ARGS_GUI+=" --volume=/tmp/.X11-unix:/tmp/.X11-unix:rw"
 DOCKER_RUN_ARGS_GUI+=" --env=XAUTHORITY=$XAUTH_FILE"
 DOCKER_RUN_ARGS_GUI+=" --volume=$XAUTH_FILE:$XAUTH_FILE:rw"
 
-echo "Wykrywanie GPU..."
+echo "Detecting GPU..."
 if lspci | grep -iq nvidia; then
-    echo "Wykryto kartę GPU Nvidia."
-    # Sprawdzenie i instalacja nvidia-container-toolkit
+    echo "Nvidia GPU detected."
+    # Check and install nvidia-container-toolkit
     if ! dpkg -s nvidia-container-toolkit &> /dev/null; then
         echo "nvidia-container-toolkit is not installed. Installing..."
-        # Dodanie repozytorium Nvidia
+        # Add Nvidia repository
         curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
           && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
             sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
@@ -104,90 +104,77 @@ if lspci | grep -iq nvidia; then
     else
         echo "nvidia-container-toolkit is already installed."
     fi
-    # Lepsze wsparcie dla NVIDIA - dodajemy wszystkie urządzenia i zmienne środowiskowe
+    # Better NVIDIA support - add all devices and environment variables
     DOCKER_GPU_ARGS="--runtime=nvidia --gpus all"
     DOCKER_RUN_ARGS_GUI+=" --env=__NV_PRIME_RENDER_OFFLOAD=1"
     DOCKER_RUN_ARGS_GUI+=" --env=__GLX_VENDOR_LIBRARY_NAME=nvidia"
     DOCKER_RUN_ARGS_GUI+=" --env=NVIDIA_VISIBLE_DEVICES=all"
     DOCKER_RUN_ARGS_GUI+=" --env=NVIDIA_DRIVER_CAPABILITIES=all"
-    # Dodatkowo montujemy katalog sterowników NVIDIA (jeśli istnieje)
+    # Additionally mount NVIDIA driver directory (if it exists)
     if [ -d "/usr/lib/nvidia" ]; then
         DOCKER_GPU_ARGS+=" --volume=/usr/lib/nvidia:/usr/lib/nvidia:ro"
     fi
 elif lspci | grep -iqE 'vga.*amd|vga.*ati|radeon|vga.*intel|graphics.*intel'; then
     if lspci | grep -iqE 'vga.*amd|vga.*ati|radeon'; then
-        echo "Wykryto kartę GPU AMD/ATI."
+        echo "AMD/ATI GPU detected."
     elif lspci | grep -iqE 'vga.*intel|graphics.*intel'; then
-        echo "Wykryto zintegrowaną kartę graficzną Intel."
+        echo "Integrated Intel GPU detected."
     fi
-    echo "Montowanie /dev/dri i dodawanie do grupy 'video'."
-    # Upewnij się, że sterowniki Mesa są na hoście (zazwyczaj są)
+    echo "Mounting /dev/dri and adding to 'video' group."
+    # Ensure Mesa drivers are on the host (they usually are)
     install_if_missing mesa-utils libgl1-mesa-dri
     DOCKER_GPU_ARGS="--device=/dev/dri --group-add video"
-    # Upewnij się, że użytkownik ma dostęp do /dev/dri
+    # Ensure user has access to /dev/dri
     if [ -e /dev/dri/card0 ]; then
         if [ ! -r /dev/dri/card0 ] || [ ! -w /dev/dri/card0 ]; then
-            echo "Ostrzeżenie: Brak uprawnień do odczytu/zapisu dla /dev/dri/card0."
+            echo "Warning: No read/write permissions for /dev/dri/card0."
             echo "Może być konieczne dodanie użytkownika do grupy 'render' lub 'video' na hoście: sudo usermod -aG render \$USER && sudo usermod -aG video \$USER"
             echo "Po dodaniu do grupy, wyloguj się i zaloguj ponownie, lub uruchom 'newgrp render' i 'newgrp video' w nowej sesji terminala."
         fi
     else
-        echo "Ostrzeżenie: Nie znaleziono /dev/dri/card0. Akceleracja sprzętowa dla AMD/Intel może nie działać."
+        echo "Warning: /dev/dri/card0 not found. Hardware acceleration may not work."
     fi
 else
-    echo "Nie wykryto wspieranej karty GPU (Nvidia, AMD, Intel) lub lspci nie jest dostępne."
-    echo "Akceleracja sprzętowa może nie działać poprawnie."
+    echo "No supported GPU detected (Nvidia, AMD, Intel) or lspci is not available."
+    echo "Hardware acceleration may not work correctly."
     if [ -d "/dev/dri" ]; then
         echo "Znaleziono /dev/dri. Próba montowania. Może to zadziałać dla niektórych sterowników open-source."
         DOCKER_GPU_ARGS="--device=/dev/dri --group-add video"
     fi
 fi
 
-# OPCJONALNE: Pobranie kodu, jeśli katalog Hexapod nie istnieje
-if [ ! -d "$PWD/Hexapod-ROS2-System" ]; then
-  echo "Katalog Hexapod-ROS2-System nie znaleziony. Klonowanie repozytorium..."
-  git clone https://github.com/Siedmiu/Hexapod-ROS2-System.git
-  # Ustawienie właściciela repozytorium i nadanie pełnych uprawnień
-  sudo chown -R $USER:$USER Hexapod-ROS2-System
-  sudo chmod -R u+rw Hexapod-ROS2-System
-fi
-
-# Sprawdzanie czy użytkownik chce tryb diagnostyczny
+# Check if user wants diagnostic mode
 if [ "$1" == "diagnose" ]; then
-  echo "Uruchamianie kontenera w trybie diagnostycznym..."
+  echo "Starting production container in diagnostic mode..."
+  
   sudo docker run -it --rm \
-    --name hexapod-dev-diag \
+    --name hexapod-prod-diag \
     --network host \
     $DOCKER_RUN_ARGS_GUI \
     $DOCKER_GPU_ARGS \
-    -v "$PWD/Hexapod-ROS2-System:/ros_ws/Hexapod-ROS2-System" \
-    hexapod-dev \
-    bash -c "cd /ros_ws/Hexapod-ROS2-System && if [ -f Docker/check-gpu.sh ]; then Docker/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && bash"
+    hexapod-prod \
+    bash -c "cd /root/Hexapod-ROS2-System && git pull && cd sim_and_real/ros2_ws_hex && source /opt/ros/jazzy/setup.bash && colcon build && if [ -f /root/Hexapod-ROS2-System/Docker/check-gpu.sh ]; then /root/Hexapod-ROS2-System/Docker/check-gpu.sh; else echo 'Skrypt diagnostyczny nie istnieje'; fi && source /opt/ros/jazzy/setup.bash && source /root/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash && bash"
+  
   exit 0
 fi
 
-# Budowanie obrazu DEV (Dockerfile.dev znajduje się w tym samym katalogu)
-echo "Budowanie obrazu deweloperskiego..."
-sudo docker build -t hexapod-dev -f "$(dirname "$0")/Dockerfile.dev" .
-
-# Budowa workspace w kontenerze, jeśli nie istnieje plik install/setup.bash
-if [ ! -f "$PWD/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash" ]; then
-  echo "Budowanie workspace w kontenerze..."
-  sudo docker run --rm \
-    -v "$PWD/Hexapod-ROS2-System:/ros_ws/Hexapod-ROS2-System" \
-    hexapod-dev \
-    bash -c "cd /ros_ws/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex && source /opt/ros/jazzy/setup.bash && colcon build"
-  
-  # Naprawienie uprawnień po budowie w kontenerze
-  sudo chown -R $USER:$USER "$PWD/Hexapod-ROS2-System"
+# Add mode selection: default Gazebo, 'moveit' triggers MoveIt mode
+if [ "$1" == "moveit" ]; then
+    LAUNCH_CMD="ros2 launch hexapod_moveit_config demo.launch.py"
+else
+    LAUNCH_CMD="ros2 launch hex_gz gazebo.launch.py"
 fi
 
-# Uruchomienie kontenera DEV z zamontowanym katalogiem Hexapod-ROS2-System
+# Build production image
+sudo docker build -t hexapod-prod -f Dockerfile.prod .
+
+# Run production container with automatic repo update
 sudo docker run -it --rm \
-  --name hexapod-dev \
+  --name hexapod-prod \
   --network host \
   $DOCKER_RUN_ARGS_GUI \
   $DOCKER_GPU_ARGS \
-  -v "$PWD/Hexapod-ROS2-System:/ros_ws/Hexapod-ROS2-System" \
-  hexapod-dev \
-  bash -c "source /opt/ros/jazzy/setup.bash && bash"
+  hexapod-prod \
+  bash -c "cd /root/Hexapod-ROS2-System && echo 'Aktualizowanie repozytorium...' && git pull && cd sim_and_real/ros2_ws_hex && echo 'Budowanie workspace...' && source /opt/ros/jazzy/setup.bash && colcon build && echo 'Uruchamianie symulacji...' && source /opt/ros/jazzy/setup.bash && source /root/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash && $LAUNCH_CMD"
+
+# Plik Xauthority jest usuwany przez pułapkę 'trap'

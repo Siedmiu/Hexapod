@@ -1,7 +1,7 @@
 ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION}
 
-# Instalacja zależności systemowych
+# Install system dependencies
 RUN apt update && apt install -y \
     curl gnupg2 lsb-release \
     git python3-pip \
@@ -12,28 +12,26 @@ RUN apt update && apt install -y \
     && locale-gen en_US en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalacja colcon-common-extensions
+# Install colcon-common-extensions
 RUN pip3 install --break-system-packages -U colcon-common-extensions
 
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
-# Usunięto LIBGL_ALWAYS_SOFTWARE=1 aby umożliwić akcelerację sprzętową
-# ENV LIBGL_ALWAYS_SOFTWARE=1
 ENV GZ_SIM_SYSTEM_PLUGIN_PATH=/opt/ros/jazzy/lib/
 
-# Zmienne środowiskowe dla akceleracji Nvidia
+# Environment variables for Nvidia acceleration
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES \
     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
-# Konfiguracja XDG_RUNTIME_DIR
+# Configure XDG_RUNTIME_DIR
 ENV XDG_RUNTIME_DIR=/tmp/runtime-root
 RUN mkdir -p /tmp/runtime-root && chmod 0700 /tmp/runtime-root
 
-# Instalacja ROS2 Jazzy i wymaganych pakietów
+# Install ROS2 Jazzy and required packages
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list && \
     apt update && \
@@ -54,16 +52,16 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o 
         ros-jazzy-hardware-interface \
         ros-jazzy-gz-ros2-control
 
-# Instalacja Gazebo Harmonic
+# Install Gazebo Harmonic
 RUN curl -sSL https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" > /etc/apt/sources.list.d/gazebo-stable.list && \
     apt update && \
     apt install -y gz-harmonic
 
-# Dodanie pakietów MoveIt
+# Add MoveIt packages
 RUN apt update && apt install -y ros-jazzy-moveit-* --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-# Instalacja narzędzi diagnostycznych do sprawdzania wsparcia GPU - bez wykrywania sprzętu
+# Install diagnostic tools for GPU support - without hardware detection
 RUN apt update && apt install -y \
     mesa-utils \
     glmark2 \
@@ -76,13 +74,13 @@ RUN apt update && apt install -y \
     fi \
     && rm -rf /var/lib/apt/lists/*
 
-# Automatyczne source ROS2 przy wejściu do terminala
+# Automatically source ROS2 on shell entry
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc
-# Dodany sourcing workspace, jeśli istnieje (np. zmontowany katalog)
+# Added workspace sourcing if present (e.g., mounted directory)
 RUN echo "if [ -f /ros_ws/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash ]; then source /ros_ws/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash; fi" >> /root/.bashrc
 
 WORKDIR /ros_ws
 
-# Kontener DEV - uruchamiany bash dla łatwego rozwoju
+# DEV container - run bash for easy development
 CMD ["/bin/bash"]
 

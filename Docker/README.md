@@ -1,94 +1,98 @@
 # README - Hexapod
 
-## Wprowadzenie
+## Introduction
 
-Docker to narzędzie do wirtualizacji kontenerów, które umożliwia uruchamianie aplikacji w izolowanym środowisku, podobnie do maszyny wirtualnej, lecz z mniejszym narzutem i lepszą integracją z systemem operacyjnym. Dzięki Dockerowi ten projekt:
-- Umożliwia łatwe budowanie spójnych środowisk produkcyjnych i deweloperskich,
-- Izoluje zależności oprogramowania,
-- Ułatwia przełączanie się między różnymi konfiguracjami bez wpływu na system hosta.
-- Wspiera środowiska MoveIt/RViz obok symulacji w Gazebo.
+Docker is a container virtualization tool that allows running applications in an isolated environment, similar to a virtual machine but with lower overhead and better integration with the host OS. Thanks to Docker, this project:
+- Enables easy building of consistent production and development environments
+- Isolates software dependencies
+- Facilitates switching between different configurations without affecting the host system
+- Supports MoveIt/RViz environments alongside Gazebo simulation.
 
-# Dockeryzacja projektu
+# Project Containerization
 
-## Różnice między kontenerem produkcyjnym a deweloperskim
+## Differences between Production and Development Containers
 
-Kontener produkcyjny (oparty na Dockerfile.prod):
-- Uruchamia aplikację lub symulację automatycznie po starcie. Domyślnie startuje symulacja w Gazebo, tryb MoveIt/RViz aktywowany argumentem "moveit"
-- Automatycznie aktualizuje repozytorium do najnowszej wersji przy każdym uruchomieniu
-- Zawiera kompletną konfigurację systemu, ROS2 oraz zależności potrzebne do symulacji.
-- Przeznaczony jest do wdrożeń i prezentacji stabilnej wersji aplikacji.
-- Uruchamiany zwykle z interfejsem graficznym (GUI) wspomaganym przez X11.
+Production container (based on Dockerfile.prod):
+- Automatically starts the application or simulation on launch. By default, it starts the Gazebo simulation; passing "moveit" activates the MoveIt/RViz mode.
+- Automatically updates the repository to the latest version on each run
+- Contains full system configuration, ROS2, and dependencies required for simulation.
+- Intended for deployment and demonstration of the stable application.
+- Typically run with GUI support via X11.
 
-Kontener deweloperski (oparty na Dockerfile.dev):
-- Uruchamia interaktywną powłokę (bash) dla łatwego debugowania i testowania.
-- Montuje lokalny katalog roboczy (`Hexapod-ROS2-System`), umożliwiając modyfikację kodu bez przebudowy obrazu.
-- Skonfigurowany głównie do pracy developerskiej z szybkimi iteracjami zmian w kodzie.
+Development container (based on Dockerfile.dev):
+- Launches an interactive shell (bash) for easy debugging and testing.
+- Mounts the local working directory (`Hexapod-ROS2-System`), allowing code modifications without rebuilding the image.
+- Configured mainly for development work with quick code iteration.
 
-## Sposób użycia
+## Usage
 
-1. Aby zbudować i uruchomić kontener produkcyjny, wykonaj (w razie problemów użyj sudo):
-   - `sudo ./setup-prod.sh` – budowanie obrazu i uruchomienie Gazebo.
-   - `sudo ./setup-prod.sh moveit` – budowanie obrazu i uruchomienie MoveIt.
-   - `sudo ./setup-import-prod.sh` – pobieranie obrazu produkcyjnego z Docker Hub.
+1. To build and run the production container (use  if needed):
+   - `./build-prod.sh` – build the image and start Gazebo.
+   - `./build-prod.sh moveit` – build the image and start MoveIt.
+   - `./run-prod.sh` – pull the production image from Docker Hub.
 
-2. Aby zbudować środowisko deweloperskie, wykonaj (w razie problemów użyj sudo):
-   - `sudo ./setup-dev.sh` – pobranie repozytorium, budowa workspace i uruchomienie kontenera deweloperskiego.
-   - `sudo ./setup-import-dev.sh` – pobieranie obrazu deweloperskiego z Docker Hub.
+2. To set up the development environment (use  if needed):
+   - `./build-dev.sh` – pull the repository, build the workspace, and start the development container.
+   - `./run-dev.sh` – pull the development image from Docker Hub.
 
-**Uwaga:** Kontener produkcyjny automatycznie pobiera najnowsze zmiany z repozytorium przy każdym uruchomieniu. Kontener deweloperski używa lokalnego kodu z zamontowanego katalogu.
+3. To push images to Docker Hub:
+   - `./push-to-dockerhub.sh` – interactively select prod, dev, or both and push images.
 
-3. Wewnątrz środowiska deweloperskiego możesz uruchomić:
-   - Uruchomienie Gazebo:
+**Note:** The production container automatically pulls the latest changes from the repository on each run. The development container uses local code from the mounted directory.
+
+3. Inside the development environment, you can launch:
+   - Gazebo:
      - `ros2 launch hex_gz gazebo.launch.py`
-   - Uruchomienie RViz/MoveIt:
+   - RViz/MoveIt:
      - `ros2 launch hexapod_moveit_config demo.launch.py`
 
-3. Docker Hub vs lokalne budowanie:
-   - **Skrypty setup-prod.sh i setup-dev.sh**: Budują obrazy lokalnie z najnowszym kodem repozytorium [Hexapod-ROS2-System](https://github.com/Siedmiu/Hexapod-ROS2-System)
-   - **Skrypty setup-import-prod.sh i setup-import-dev.sh**: Pobierają gotowe obrazy z Docker Hub (`natantulo/hexapod:prod` i `natantulo/hexapod:dev`)
-   - **Eksport lokalny** (opcjonalnie):
-     - `sudo docker save -o hexapod-prod.tar hexapod-prod`
-     - `sudo docker save -o hexapod-dev.tar hexapod-dev`
-     - `sudo docker load -i hexapod-prod.tar`
+3. Docker Hub vs. Local Build:
+   - **build-prod.sh and build-dev.sh scripts**: Build images locally from the latest [Hexapod-ROS2-System](https://github.com/Siedmiu/Hexapod-ROS2-System) repository
+   - **run-prod.sh and run-dev.sh scripts**: Pull pre-built images from Docker Hub (`natantulo/hexapod:prod` and `natantulo/hexapod:dev`)
+   - **Local export** (optional):
+     - `docker save -o hexapod-prod.tar hexapod-prod`
+     - `docker save -o hexapod-dev.tar hexapod-dev`
+     - `docker load -i hexapod-prod.tar`
 
-## Dodatkowe informacje i wskazówki
+## Additional Information and Tips
 
-- **Uprawnienia skryptów**: Jeśli wystąpi błąd "Permission denied", nadaj uprawnienia wykonywania:
+- **Script Permissions**: If you encounter "Permission denied", make the scripts executable:
   ```bash
   chmod +x *.sh
   ```
-- Aby korzystać z kontenerów graficznych, upewnij się, że polecenie `xhost +local:docker` jest wykonywane, co umożliwia dostęp do X11.
-- W niektórych przypadkach po instalacji Dockera konieczne może być ponowne logowanie lub restart systemu, aby zmiany w grupach użytkowników zostały zastosowane.
-- Skrypty wykorzystują sudo, co wymaga uprzedniego ustawienia odpowiednich uprawnień.
-- Jeśli w eksploratorze plików widzisz ikonę kłódki przy pliku lub folderze, użyj polecenia:
-  `sudo chown -R $USER:$USER <nazwa pliku/folderu>`
-- Aby wyczyścić nieużywane dane budowy i systemu Dockera, można użyć:
-  - `docker builder prune --all` – usuwa nieużywane dane builda.
-  - `docker system prune --all --volumes` – usuwa nieużywane kontenery, obrazy, sieci i woluminy.
-- Aby otworzyć dodatkowy terminal do uruchomionego kontenera:
-  - Uruchom obraz jako kontener w tle: `docker run -d -it <image_id>`
-  - Sprawdź identyfikator kontenera: `docker ps`
-  - Otwórz pierwszy terminal i wykonaj: `docker exec -it <container_id> bash`
-  - Następnie otwórz kolejny terminal i powtórz `docker exec ...`, aby uzyskać kolejny interaktywny dostęp.
+- To run GUI containers, ensure you execute `xhost +local:docker` to allow X11 access.
+- In some cases, after installing Docker, you may need to log out and back in or restart the system for group changes to take effect.
+- Scripts use sudo, so you must have the appropriate privileges.
+- If you see a lock icon on a file or folder, change its ownership:
+  `chown -R $USER:$USER <file_or_folder>`
+- To clean up unused Docker build data and system resources:
+  - `docker builder prune --all` – remove unused build data.
+  - `docker system prune --all --volumes` – remove unused containers, images, networks, and volumes.
+- To open an additional terminal for a running container:
+  - Run the container detached: `docker run -d -it <image_id>`
+  - Check the container ID: `docker ps`
+  - Open the first terminal with: `docker exec -it <container_id> bash`
+  - Then open another terminal and repeat `docker exec ...` to get another interactive session.
 
-## Skrypty
+## Scripts
 
-- setup-prod.sh: Buduje obraz produkcyjny przy użyciu Dockerfile.prod i uruchamia kontener z GUI.
-- setup-import-prod.sh: Pobiera obraz produkcyjny z Docker Hub (natantulo/hexapod:prod) i uruchamia kontener.
-- setup-dev.sh: Buduje obraz deweloperski przy użyciu Dockerfile.dev z zamontowanym katalogiem projektu i uruchamia kontener.
-- setup-import-dev.sh: Pobiera obraz deweloperski z Docker Hub (natantulo/hexapod:dev) i uruchamia kontener.
+- build-prod.sh: Builds the production image using Dockerfile.prod and runs the container with GUI.
+- run-prod.sh: Pulls the production image from Docker Hub (`natantulo/hexapod:prod`) and runs the container.
+- build-dev.sh: Builds the development image using Dockerfile.dev with the project directory mounted and runs the container.
+- run-dev.sh: Pulls the development image from Docker Hub (`natantulo/hexapod:dev`) and runs the container.
+- push-to-dockerhub.sh: Tags local images (hexapod-prod, hexapod-dev) and pushes them to Docker Hub.
 
-## Dockerfile
+## Dockerfiles
 
-- Dockerfile.prod: Definiuje środowisko produkcyjne z ROS2, Gazebo, MoveIt oraz dodatkowymi narzędziami.
-- Dockerfile.dev: Definiuje środowisko deweloperskie, które automatycznie sourcuje potrzebne skrypty przy wejściu do terminala.
+- Dockerfile.prod: Defines the production environment with ROS2, Gazebo, MoveIt, and additional tools.
+- Dockerfile.dev: Defines the development environment, which automatically sources necessary scripts upon shell launch.
 
-## Obsługa GPU
+## GPU Support
 
-Skrypty automatycznie wykrywają dostępne karty graficzne (NVIDIA, AMD, Intel) i konfigurują kontener do wykorzystania akceleracji sprzętowej.
+Scripts automatically detect available GPUs (NVIDIA, AMD, Intel) and configure the container for hardware acceleration.
 
-Aby ręcznie sprawdzić czy akceleracja graficzna działa poprawnie, możesz użyć argumentu `diagnose`:
+To manually verify GPU acceleration, use the `diagnose` argument:
 ```bash
-./setup-prod.sh diagnose
-./setup-dev.sh diagnose
+./build-prod.sh diagnose
+./build-dev.sh diagnose
 ```

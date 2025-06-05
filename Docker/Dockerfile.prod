@@ -1,7 +1,7 @@
 ARG UBUNTU_VERSION=24.04
 FROM ubuntu:${UBUNTU_VERSION}
 
-# Zależności systemowe
+# System dependencies
 RUN apt update && apt install -y \
     curl gnupg2 lsb-release \
     git python3-pip \
@@ -19,21 +19,20 @@ RUN pip3 install --break-system-packages -U colcon-common-extensions
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
-# Usunięto LIBGL_ALWAYS_SOFTWARE=1 aby umożliwić akcelerację sprzętową
-# ENV LIBGL_ALWAYS_SOFTWARE=1  
+
 ENV GZ_SIM_SYSTEM_PLUGIN_PATH=/opt/ros/jazzy/lib/
 
-# Zmienne środowiskowe dla akceleracji Nvidia
+# Environment variables for Nvidia acceleration
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES \
     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
-# Dodanie zmiennej XDG_RUNTIME_DIR oraz utworzenie katalogu z odpowiednimi uprawnieniami
+# Add XDG_RUNTIME_DIR variable and create directory with appropriate permissions
 ENV XDG_RUNTIME_DIR=/tmp/runtime-root
 RUN mkdir -p /tmp/runtime-root && chmod 0700 /tmp/runtime-root
 
-# ROS2 Jazzy oraz pakiety ros-jazzy: desktop, ros-gz-sim, ros-gz-bridge, control-msgs, backward-ros, controller-interface, control-toolbox, xacro
+# ROS2 Jazzy and ros-jazzy packages: desktop, ros-gz-sim, ros-gz-bridge, control-msgs, backward-ros, controller-interface, control-toolbox, xacro
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list && \
     apt update && \
@@ -60,10 +59,10 @@ RUN curl -sSL https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/
     apt update && \
     apt install -y gz-harmonic
 
-# Dodanie pakietów MoveIt
+# Add MoveIt packages
 RUN apt update && apt install -y ros-jazzy-moveit-* --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-# Dodanie narzędzi diagnostycznych dla GPU
+# Add diagnostic tools for GPU
 RUN apt update && apt install -y \
     mesa-utils \
     glmark2 \
@@ -79,7 +78,7 @@ RUN apt update && apt install -y \
 # Source ROS2
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc
 
-# Pobranie/aktualizacja kodu i build
+# Clone/update code and build
 WORKDIR /root
 RUN if [ -d "Hexapod-ROS2-System" ]; then \
         echo "Repozytorium istnieje, aktualizowanie..." && \
@@ -95,6 +94,6 @@ RUN if [ -d "Hexapod-ROS2-System" ]; then \
 # Source workspace
 RUN echo "source /root/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash" >> /root/.bashrc
 
-# Domyślnie uruchamiana symulacja z automatyczną aktualizacją repozytorium
+# Default command to run simulation with automatic repo update
 CMD ["/bin/bash", "-c", "cd /root/Hexapod-ROS2-System && echo 'Aktualizowanie repozytorium...' && git pull && cd sim_and_real/ros2_ws_hex && echo 'Budowanie workspace...' && source /opt/ros/jazzy/setup.bash && colcon build && echo 'Uruchamianie symulacji...' && source /opt/ros/jazzy/setup.bash && source /root/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash && ros2 launch hex_gz gazebo.launch.py"]
 

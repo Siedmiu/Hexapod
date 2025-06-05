@@ -1,15 +1,15 @@
 #!/bin/bash
 
-echo "===== Diagnostyka GPU dla kontenerów Docker Hexapod ====="
+echo "===== GPU Diagnostics for Hexapod Docker Containers ====="
 echo ""
 
-echo "=== Informacje o systemie ==="
-echo "Nazwa hosta: $(hostname)"
-echo "Jądro: $(uname -r)"
-echo "Dystrybucja: $(cat /etc/os-release | grep PRETTY_NAME | cut -d= -f2 | tr -d '"')"
+echo "=== System Information ==="
+echo "Hostname: $(hostname)"
+echo "Kernel: $(uname -r)"
+echo "Distribution: $(grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d '\"')"
 echo ""
 
-echo "=== Zmienne środowiskowe związane z grafiką ==="
+echo "=== Graphics Environment Variables ==="
 echo "DISPLAY: $DISPLAY"
 echo "XDG_RUNTIME_DIR: $XDG_RUNTIME_DIR"
 echo "LIBGL_ALWAYS_SOFTWARE: $LIBGL_ALWAYS_SOFTWARE"
@@ -19,104 +19,114 @@ echo "__NV_PRIME_RENDER_OFFLOAD: $__NV_PRIME_RENDER_OFFLOAD"
 echo "__GLX_VENDOR_LIBRARY_NAME: $__GLX_VENDOR_LIBRARY_NAME"
 echo ""
 
-echo "=== Urządzenia PCI ==="
+echo "=== PCI Devices ==="
 if command -v lspci > /dev/null; then
-  lspci | grep -E "VGA|3D|Display" || echo "Nie znaleziono urządzeń graficznych PCI"
+  lspci | grep -E "VGA|3D|Display" || echo "No PCI graphics devices found"
 else
-  echo "Brak narzędzia lspci"
+  echo "lspci tool is not available"
 fi
 echo ""
 
-echo "=== Urządzenia w /dev/dri ==="
-ls -la /dev/dri/ 2>/dev/null || echo "Brak katalogu /dev/dri/"
+echo "=== /dev/dri Devices ==="
+ls -la /dev/dri/ 2>/dev/null || echo "No /dev/dri/ directory"
 echo ""
 
-echo "=== Montowanie urządzeń NVIDIA ==="
-ls -la /dev/nvidia* 2>/dev/null || echo "Brak urządzeń NVIDIA"
+echo "=== NVIDIA device mounts ==="
+ls -la /dev/nvidia* 2>/dev/null || echo "No NVIDIA devices"
 echo ""
 
-echo "=== Biblioteki NVIDIA ==="
-echo "Sprawdzanie bibliotek NVIDIA w systemie..."
-ldconfig -p | grep -i nvidia || echo "Nie znaleziono bibliotek NVIDIA w systemie"
+echo "=== NVIDIA Libraries ==="
+echo "Checking NVIDIA libraries on system..."
+ldconfig -p | grep -i nvidia || echo "No NVIDIA libraries found"
 echo ""
  
-echo "=== Test OpenGL ==="
+echo "=== OpenGL Test ==="
+echo "Renderer OpenGL:"
 if command -v glxinfo > /dev/null; then
-  echo "Renderer OpenGL:"
-  glxinfo | grep -E "OpenGL renderer|direct rendering" || echo "Nie znaleziono informacji o rendererze OpenGL"
-  echo ""
-  echo "Wersja OpenGL:"
-  glxinfo | grep "OpenGL version" || echo "Nie znaleziono informacji o wersji OpenGL"
-  echo ""
-  echo "Informacje o dostawcy OpenGL:"
-  glxinfo | grep -E "OpenGL vendor|OpenGL implementation" || echo "Nie znaleziono informacji o dostawcy OpenGL"
+  glxinfo | grep -E "OpenGL renderer|direct rendering" || echo "No OpenGL renderer information found"
 else
-  echo "Brak narzędzia glxinfo"
+  echo "glxinfo tool is not available"
 fi
 echo ""
 
-echo "=== Sprawdzanie akceleracji sprzętowej ==="
+echo "=== OpenGL Version ==="
+if command -v glxinfo > /dev/null; then
+  glxinfo | grep "OpenGL version" || echo "No OpenGL version information found"
+else
+  echo "glxinfo tool is not available"
+fi
+echo ""
+
+echo "=== OpenGL Vendor Information ==="
+if command -v glxinfo > /dev/null; then
+  glxinfo | grep -E "OpenGL vendor|OpenGL implementation" || echo "No OpenGL vendor information found"
+else
+  echo "glxinfo tool is not available"
+fi
+echo ""
+
+echo "=== Hardware Acceleration Check ==="
+echo "Running glxgears for 3 seconds..."
 if command -v glxgears > /dev/null; then
-  echo "Uruchamianie glxgears na 3 sekundy..."
-  timeout 3s glxgears 2>&1 | grep -i "fps" || echo "Brak informacji o FPS"
+  timeout 3s glxgears 2>&1 | grep -i "fps" || echo "No FPS information"
 else
-  echo "Brak narzędzia glxgears"
+  echo "glxgears tool is not available"
 fi
 echo ""
 
+echo "=== glmark2 Test ==="
 if command -v glmark2 > /dev/null; then
-  echo "Uruchamianie krótkiego testu glmark2..."
-  glmark2 --size 800,600 --benchmark builtin:duration=2.0 || echo "Test glmark2 nie powiódł się"
+  echo "Running short glmark2 test..."
+  glmark2 --size 800,600 --benchmark builtin:duration=2.0 || echo "glmark2 test failed"
 else
-  echo "Brak narzędzia glmark2"
+  echo "glmark2 tool is not available"
 fi
 echo ""
 
+echo "=== NVIDIA GPU Information ==="
 if command -v nvidia-smi > /dev/null; then
-  echo "=== Informacje o GPU NVIDIA ==="
-  nvidia-smi || echo "nvidia-smi zakończył się błędem"
+  nvidia-smi || echo "nvidia-smi exited with an error"
   echo ""
 elif [ -f /proc/driver/nvidia/version ]; then
-  echo "Sterownik NVIDIA jest zainstalowany, ale brak narzędzia nvidia-smi"
+  echo "NVIDIA driver is installed, but nvidia-smi is not available"
   cat /proc/driver/nvidia/version
   echo ""
 fi
 
+echo "=== AMD GPU Information ==="
 if command -v radeontop > /dev/null && (lspci | grep -iq amd || lspci | grep -iq radeon); then
-  echo "=== Informacje o GPU AMD ==="
-  echo "Wykryto kartę AMD. Możesz ręcznie uruchomić: radeontop -d"
+  echo "Detected AMD card. You can manually run: radeontop -d"
   echo ""
 elif command -v radeontop > /dev/null; then
-  echo "Narzędzie radeontop jest dostępne, ale nie wykryto karty AMD"
+  echo "radeontop tool is available, but no AMD card detected"
   echo ""
 fi
 
-# Test wydajności Gazebo (jeśli dostępne)
+echo "=== Gazebo Performance Test ==="
 if command -v gz > /dev/null; then
-  echo "=== Test wydajności Gazebo ==="
-  echo "Uruchamianie testu wydajności Gazebo..."
-  timeout 5s gz sim -v 4 -r -s || echo "Test Gazebo nie powiódł się"
+  echo "Running Gazebo performance test..."
+  timeout 5s gz sim -v 4 -r -s || echo "Gazebo test failed"
   echo ""
 fi
 
-echo "===== Diagnostyka zakończona ====="
+echo "===== Diagnostics Completed ====="
 echo ""
-echo "Wskazówki:"
-echo "1. Jeśli 'OpenGL renderer' pokazuje 'llvmpipe', to oznacza renderowanie programowe, a nie sprzętowe."
-echo "2. Dla kart NVIDIA sprawdź, czy nvidia-smi pokazuje procesy wykorzystujące GPU."
-echo "3. Dla kart AMD/Intel, sprawdź czy OpenGL renderer pokazuje nazwę twojej karty graficznej."
-echo "4. Jeśli nie widzisz poprawy wydajności, spróbuj:"
-echo "   - Uruchomić 'xhost +' na hoście przed uruchomieniem kontenera"
-echo "   - Sprawdzić czy użytkownik należy do grupy 'video' i 'render'"
-echo "   - Uruchomić 'sudo nvidia-smi' na hoście, aby sprawdzić czy karta działa"
-echo "   - Sprawdzić czy sterowniki NVIDIA są zainstalowane poprawnie: 'nvidia-settings'"
+echo "Tips:"
+echo "1. If 'OpenGL renderer' shows 'llvmpipe', it means software rendering, not hardware."
+echo "2. For NVIDIA cards, check if nvidia-smi shows GPU-using processes."
+echo "3. For AMD/Intel, verify OpenGL renderer shows your GPU name."
+echo "4. If performance does not improve, try:"
+echo "   - Run 'xhost +' on the host before starting the container"
+echo "   - Ensure user belongs to 'video' and 'render' groups"
+echo "   - Run 'sudo nvidia-smi' on the host to verify GPU functionality"
+echo "   - Check NVIDIA driver installation: 'nvidia-settings'"
 echo ""
-echo "Aby naprawić problem z renderowaniem programowym, spróbuj:"
-echo "1. Dodać użytkownika do grup 'video' i 'render': sudo usermod -aG video,render \$USER"
-echo "2. Uruchomić 'xhost +' na hoście przed startem kontenera"
-echo "3. Sprawdzić konfigurację X11: 'xrandr --listproviders'"
-echo "4. Uruchomić 'sudo prime-select nvidia' na hoście (jeśli masz grafikę hybrydową)"
+echo "To fix software rendering issues, try:"
+echo "1. Add user to 'video' and 'render' groups: sudo usermod -aG video,render \$USER"
+echo "2. Run 'xhost +' on host before container startup"
+echo "3. Check X11 configuration: 'xrandr --listproviders'"
+echo "4. Run 'sudo prime-select nvidia' on the host (if using hybrid graphics)"
 echo ""
-echo "Aby sprawdzić wykorzystanie GPU podczas działania symulacji, uruchom w osobnym terminalu:"
-echo "- Dla NVIDIA: sudo nvidia-smi --query-gpu=utilization.gpu --format=csv -l 1"
+echo "To monitor GPU usage during simulation, run in another terminal:"
+echo "- For NVIDIA: sudo nvidia-smi --query-gpu=utilization.gpu --format=csv -l 1"
 echo ""
