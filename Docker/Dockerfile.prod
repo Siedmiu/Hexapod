@@ -5,6 +5,7 @@ FROM ubuntu:${UBUNTU_VERSION}
 RUN apt update && apt install -y \
     curl gnupg2 lsb-release \
     git python3-pip \
+    python3-websockets \
     locales sudo \
     build-essential \
     x11-apps \
@@ -93,6 +94,9 @@ RUN if [ -d "Hexapod-ROS2-System" ]; then \
 
 # Source workspace
 RUN echo "source /root/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash" >> /root/.bashrc
+
+# Expose port for websockets
+EXPOSE 8765
 
 # Default command to run simulation with automatic repo update
 CMD ["/bin/bash", "-c", "cd /root/Hexapod-ROS2-System && echo 'Aktualizowanie repozytorium...' && git pull && cd sim_and_real/ros2_ws_hex && echo 'Budowanie workspace...' && source /opt/ros/jazzy/setup.bash && colcon build && echo 'Uruchamianie symulacji...' && source /opt/ros/jazzy/setup.bash && source /root/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash && ros2 launch hex_gz gazebo.launch.py"]
