@@ -1,4 +1,4 @@
-/*
+
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
@@ -13,8 +13,8 @@
 Adafruit_PWMServoDriver pwm1 = Adafruit_PWMServoDriver(0x40);
 Adafruit_PWMServoDriver pwm2 = Adafruit_PWMServoDriver(0x41);
 
-const int SERVO_MIN = 205;
-const int SERVO_MAX = 410;
+const int SERVO_MIN = 102;
+const int SERVO_MAX = 512;
 
 void setServoAngle(uint8_t servoIndex, float angle) {
   angle = constrain(angle, 0, 180);
@@ -26,6 +26,56 @@ void setServoAngle(uint8_t servoIndex, float angle) {
     pwm2.setPWM(servoIndex - 9, 0, pulse);
   } else {
     Serial.println("Invalid servo index.");
+  }
+}
+
+const int STEP_DELAY = 300; // Time between steps (ms)
+
+void moveLeg(int baseIndex, float coxaAngle, float femurAngle, float tibiaAngle) {
+  setServoAngle(baseIndex, coxaAngle);       // Coxa
+  setServoAngle(baseIndex + 1, femurAngle);  // Femur
+  setServoAngle(baseIndex + 2, tibiaAngle);  // Tibia
+}
+
+void walkStepTripod(int groupA[], int groupB[], int stepAngle) {
+  // Krok grupy A (0, 3, 4)
+  for (int i = 0; i < 3; i++) {
+    moveLeg(groupA[i], 90, 60, 160); // Unoszenie nogi
+  }
+  delay(STEP_DELAY);
+
+  for (int i = 0; i < 3; i++) {
+    moveLeg(groupA[i], 90 + stepAngle, 90, 135); // Przód i opuść
+  }
+  delay(STEP_DELAY);
+
+  // Reset
+  for (int i = 0; i < 3; i++) {
+    moveLeg(groupA[i], 90, 90, 135); // Powrót do neutralnej
+  }
+
+  // Krok grupy B (1, 2, 5)
+  for (int i = 0; i < 3; i++) {
+    moveLeg(groupB[i], 90, 60, 160);
+  }
+  delay(STEP_DELAY);
+
+  for (int i = 0; i < 3; i++) {
+    moveLeg(groupB[i], 90 + stepAngle, 90, 135);
+  }
+  delay(STEP_DELAY);
+
+  for (int i = 0; i < 3; i++) {
+    moveLeg(groupB[i], 90, 90, 135);
+  }
+}
+
+void walk(int steps = 4, int stepAngle = 50) {
+  int groupA[] = {0, 9, 12}; // nogi: 0, 3, 4
+  int groupB[] = {3, 6, 15}; // nogi: 1, 2, 5
+
+  for (int i = 0; i < steps; i++) {
+    walkStepTripod(groupA, groupB, stepAngle);
   }
 }
 
@@ -96,4 +146,3 @@ void loop() {
     }
   }
 }
-*/
