@@ -163,14 +163,21 @@ sudo docker run -it --rm \
   $DOCKER_RUN_ARGS_GUI \
   $DOCKER_GPU_ARGS \
   hexapod-prod \
-  bash -c "cd /root/Hexapod-ROS2-System && echo 'Updating repository...' && git pull && \
-    cd sim_and_real/ros2_ws_hex && echo 'Building workspace...' && \
-    source /opt/ros/jazzy/setup.bash && colcon build && \
-    echo 'Starting simulation...' && source /opt/ros/jazzy/setup.bash && \
-    source /root/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash && \
-    nohup ros2 run hex_gz ws_run.py & \
-    sleep 5 && \
-    echo 'Launching main command...' && \
-    source /opt/ros/jazzy/setup.bash && \
-    source /root/Hexapod-ROS2-System/sim_and_real/ros2_ws_hex/install/setup.bash && \
-    $LAUNCH_CMD"
+  bash -lc "
+    cd /root/Hexapod-ROS2-System
+    echo 'Updating repository...'
+    git pull
+    cd sim_and_real/ros2_ws_hex
+    echo 'Building workspace...'
+    source /opt/ros/jazzy/setup.bash
+    colcon build
+    echo 'Starting Websocket server...'
+    source /opt/ros/jazzy/setup.bash
+    source install/setup.bash
+    nohup ros2 run hex_gz ws_run.py &
+    echo 'Your IP:' \$(hostname -I)
+    echo 'Starting simulation...'
+    source /opt/ros/jazzy/setup.bash
+    source install/setup.bash
+    exec $LAUNCH_CMD
+"
